@@ -11,6 +11,7 @@
   "dependencies": {
     "boom": "^7.3.0",
     "exceljs": "^3.5.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.1",
     "needle": "^2.4.0"
   }
