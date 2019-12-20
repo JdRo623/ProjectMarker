@@ -6,7 +6,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>PIC FRONTEND</h1>
+        <h1>LANZAMIENTO PIC DIAN FRONTEND</h1>
+        <h4>Versión 0.0.1</h4>
       </div>
     );
   }
