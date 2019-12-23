@@ -11,7 +11,9 @@ const usuario = Schema({
     apellidos: String,
     cargo: String,
     dependencia: String,
-    numero_contacto: String
+    numero_contacto: String,
+    fecha_registro: String,
+    estado: String
     }
 )
 
