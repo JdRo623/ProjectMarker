@@ -9,6 +9,8 @@ const usuario = Schema({
     fecha_registro: String,
     nombres: String,
     apellidos: String,
+    cargo: String,
+    dependencia: String,
     numero_contacto: String
     }
 )

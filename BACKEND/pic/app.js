@@ -11,13 +11,10 @@ module.exports = app; // for testing
 var config = {
   appRoot: __dirname // required config
 };
-
+var interceptor = require('express-interceptor');
+module.exports = app; // for testing
+var keyczar = require('keyczarjs');
 var bodyParser = require('body-parser');
-
-mongoose.connect('mongodb://localhost:27017/Autenticacion')
-
-  .then(() => console.log('MongoDB conectado...'))
-  .catch(err => console.log(err))
 
 app.use(interceptor(function(req,res){
   return {
@@ -37,13 +34,20 @@ app.use(interceptor(function(req,res){
   };
 }));
 
+
+app.use(bodyParser.json({limit: "50mb"}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit: 50000}));
+//mongoose.connect('mongodb://CNE_Registro:CarvajalRegistro_2019*@cne-db-mongo-02.eastus.cloudapp.azure.com:27017/Registro')
+mongoose.connect('mongodb://localhost:27017/Registro')
+  .then(() => console.log('MongoDB conectado...'))
+  .catch(err => console.log(err))
+
 SwaggerExpress.create(config, function(err, swaggerExpress) {
 
   if (err) { throw err; }
-  app.use(cors());
+app.use(cors());
   // install middleware
   swaggerExpress.register(app);
-
   var port = process.env.PORT || 10010;
   app.listen(port);
 

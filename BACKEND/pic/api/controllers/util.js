@@ -14,14 +14,13 @@ module.exports = {
   function encriptar(req,res){
     try{
       var creacion = async(req,res)=>{
-          console.log(req)
-          var reqDecrypt = (decrypt(req.body.data))
-          var resultado = encrypt(reqDecrypt);
+          var reqDecrypt = (encrypt(req.body.data))
+          console.log(reqDecrypt)
 
           return res.status(200).send({
             estado: 'Encriptado',
             message: util.format("Encriptación completa"),
-            data: Object.assign(resultado)
+            data: Object.assign(reqDecrypt)
         });  
     }
       creacion(req,res)
@@ -34,17 +33,21 @@ function desencriptar(req,res){
     try{
       var creacion = async(req,res)=>{
           var reqDecrypt = (decrypt(req.body.data))
-          var resultado = decrypt(reqDecrypt);
+          console.log(reqDecrypt)
 
           return res.status(200).send({
             estado: 'Desencriptado',
             message: util.format("Desencriptación completa"),
-            data: Object.assign(resultado)
+            data: Object.assign(reqDecrypt)
         });  
     }
       creacion(req,res)
     } catch (err){
-        throw boom.boomify(err)
+      return res.status(200).send({
+        estado: 'Error',
+        message: util.format("Error"),
+        data: Object.assign(err)
+    });  
     }
 }
 

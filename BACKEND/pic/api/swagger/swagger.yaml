@@ -28,7 +28,7 @@ paths:
           description: Success
           schema:
             # a pointer to a definition
-            $ref: "#/definitions/HelloWorldResponse"
+            $ref: "#/definitions/GenericResponse"
         # responses may fall through to errors
         default:
           description: Error
@@ -46,7 +46,43 @@ paths:
           description: Success
           schema:
             # a pointer to a definition
-            $ref: "#/definitions/HelloWorldResponse"
+            $ref: "#/definitions/GenericResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /identificacionUsuario:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: manejo_usuarios_controller
+    post:
+      description: Controla el inicio de sesión y verificación de roles
+      # used as the method name of the controller
+      operationId: identificacionUsuario
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/GenericResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /crearUsuario:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: manejo_usuarios_controller
+    post:
+      description: Controla la creación de usuarios del sistema
+      # used as the method name of the controller
+      operationId: crearUsuario
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/GenericResponse"
         # responses may fall through to errors
         default:
           description: Error
@@ -56,7 +92,7 @@ paths:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
-  HelloWorldResponse:
+  GenericResponse:
     required:
       - message
     properties:
