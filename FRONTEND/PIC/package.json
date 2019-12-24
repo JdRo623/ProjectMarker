@@ -1,7 +1,7 @@
 {
   "name": "material-kit-react",
   "version": "1.8.0",
-  "description": "Material Kit React. Coded by Creative Tim",
+  "description": "PIC - DIAN. Coded by Creative Tim",
   "private": true,
   "main": "dist/index.js",
   "dependencies": {
