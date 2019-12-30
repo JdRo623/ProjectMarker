@@ -173,9 +173,9 @@ export default function SectionNavbars() {
                     className: classes.formControl
                   }}
                   inputProps={{
-                    placeholder: "Search",
+                    placeholder: "Buscar",
                     inputProps: {
-                      "aria-label": "Search",
+                      "aria-label": "Buscar",
                       className: classes.searchInput
                     }
                   }}

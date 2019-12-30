@@ -63,7 +63,7 @@ This new design has elements that have been the result of research regarding ink
 
 - `npm i material-kit-react`
 - [Download from Github](https://github.com/creativetimofficial/material-kit-react/archive/master.zip).
-- [Download from Creative Tim](https://www.creative-tim.com/product/material-kit-react).
+- [Download from PIC - DIAN](https://www.creative-tim.com/product/material-kit-react).
 - Install with [Bower](https://bower.io/): ```bower install material-kit-react```.
 - Clone the repo: `git clone https://github.com/creativetimofficial/material-kit-react.git`.
 
@@ -230,7 +230,7 @@ We use GitHub Issues as the official bug tracker for the Material Kit. Here are 
 
 ## Licensing
 
-- Copyright 2019 Creative Tim (https://www.creative-tim.com/)
+- Copyright 2019 PIC - DIAN (https://www.creative-tim.com/)
 
 - Licensed under MIT (https://github.com/creativetimofficial/material-kit/blob/master/LICENSE.md)
 
@@ -238,13 +238,13 @@ We use GitHub Issues as the official bug tracker for the Material Kit. Here are 
 
 - [Tutorials](https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w)
 - [Affiliate Program](https://www.creative-tim.com/affiliates/new) (earn money)
-- [Blog Creative Tim](http://blog.creative-tim.com/)
-- [Free Products](https://www.creative-tim.com/bootstrap-themes/free) from Creative Tim
-- [Premium Products](https://www.creative-tim.com/bootstrap-themes/premium) from Creative Tim
-- [React Products](https://www.creative-tim.com/bootstrap-themes/react-themes) from Creative Tim
-- [Angular Products](https://www.creative-tim.com/bootstrap-themes/angular-themes) from Creative Tim
-- [VueJS Products](https://www.creative-tim.com/bootstrap-themes/vuejs-themes) from Creative Tim
-- [More products](https://www.creative-tim.com/bootstrap-themes) from Creative Tim
+- [Blog PIC - DIAN](http://blog.creative-tim.com/)
+- [Free Products](https://www.creative-tim.com/bootstrap-themes/free) from PIC - DIAN
+- [Premium Products](https://www.creative-tim.com/bootstrap-themes/premium) from PIC - DIAN
+- [React Products](https://www.creative-tim.com/bootstrap-themes/react-themes) from PIC - DIAN
+- [Angular Products](https://www.creative-tim.com/bootstrap-themes/angular-themes) from PIC - DIAN
+- [VueJS Products](https://www.creative-tim.com/bootstrap-themes/vuejs-themes) from PIC - DIAN
+- [More products](https://www.creative-tim.com/bootstrap-themes) from PIC - DIAN
 - Check our Bundles [here](https://www.creative-tim.com/bundles?ref="mk-github-readme")
 
 ### Social Media

@@ -25,7 +25,7 @@ app.use(interceptor(function(req,res){
       res.set('Content-Type', 'application/json');
       var keys = {
         meta: '{\"name\":\"\",\"purpose\":\"DECRYPT_AND_ENCRYPT\",\"type\":\"AES\",\"versions\":[{\"exportable\":false,\"status\":\"PRIMARY\",\"versionNumber\":1}],\"encrypted\":false}',
-        1: '{\"aesKeyString\":\"bk6yaO25sNMpE5EugUt3YA\",\"hmacKey\":{\"hmacKeyString\":\"1BqpH90Bw631dJTcVwNGiAs4YiKExtkpsBbDbg8x2pA\",\"size\":256},\"mode\":\"CBC\",\"size\":128}'
+        1: '{\"aesKeyString\":\"JfEMByS4DjhzoPGJRtiF1A\",\"hmacKey\":{\"hmacKeyString\":\"cijFnmB6azfcR7wKOjbQHAU2ihPjenQI2hwM9kO4f78\",\"size\":256},\"mode\":\"CBC\",\"size\":128}'
     };
     var keyset = keyczar.fromJson(JSON.stringify(keys));
     body = keyset.encrypt(body);
@@ -38,7 +38,9 @@ app.use(interceptor(function(req,res){
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit: 50000}));
 //mongoose.connect('mongodb://CNE_Registro:CarvajalRegistro_2019*@cne-db-mongo-02.eastus.cloudapp.azure.com:27017/Registro')
-mongoose.connect('mongodb://localhost:27017/Registro')
+
+
+mongoose.connect('mongodb+srv://admin_unal_pic:handler.2020*@cluster0-d5whi.mongodb.net/unal_pic?retryWrites=true&w=majority')
   .then(() => console.log('MongoDB conectado...'))
   .catch(err => console.log(err))
 

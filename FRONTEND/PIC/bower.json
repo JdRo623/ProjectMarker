@@ -13,7 +13,7 @@
     "google",
     "twitter"
   ],
-  "license": "Creative TIM License",
+  "license": "PIC - DIAN License",
   "ignore": [
     "**/.*",
     "node_modules",
