@@ -21,7 +21,7 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
-import image from "assets/img/fondo-gris.jpg";
+import image from "assets/img/fondo.png";
 
 const useStyles = makeStyles(styles);
 
