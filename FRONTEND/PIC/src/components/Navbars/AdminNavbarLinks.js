@@ -74,7 +74,7 @@ export default function AdminNavbarLinks() {
       >
         <Dashboard className={classes.icons} />
         <Hidden mdUp implementation="css">
-          <p className={classes.linkText}>Dashboard</p>
+          <p className={classes.linkText}>Panel principal</p>
         </Hidden>
       </Button>
       <div className={classes.manager}>
@@ -88,10 +88,10 @@ export default function AdminNavbarLinks() {
           className={classes.buttonLink}
         >
           <Notifications className={classes.icons} />
-          <span className={classes.notifications}>5</span>
+          <span className={classes.notifications}>3</span>
           <Hidden mdUp implementation="css">
             <p onClick={handleCloseNotification} className={classes.linkText}>
-              Notificacion
+              Notificaciones
             </p>
           </Hidden>
         </Button>
@@ -134,7 +134,7 @@ export default function AdminNavbarLinks() {
                       onClick={handleCloseNotification}
                       className={classes.dropdownItem}
                     >
-                      Ejemplo de Notification
+                      Ejemplo de Notificacion
                     </MenuItem>
                   
                   </MenuList>
@@ -156,7 +156,7 @@ export default function AdminNavbarLinks() {
         >
           <Person className={classes.icons} />
           <Hidden mdUp implementation="css">
-            <p className={classes.linkText}>Profile</p>
+            <p className={classes.linkText}>Perfil</p>
           </Hidden>
         </Button>
         <Poppers
