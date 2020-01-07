@@ -55,9 +55,9 @@ export default function AdminNavbarLinks() {
             className: classes.margin + " " + classes.search
           }}
           inputProps={{
-            placeholder: "Search",
+            placeholder: "Buscar",
             inputProps: {
-              "aria-label": "Search"
+              "aria-label": "Buscar"
             }
           }}
         />
@@ -91,7 +91,7 @@ export default function AdminNavbarLinks() {
           <span className={classes.notifications}>5</span>
           <Hidden mdUp implementation="css">
             <p onClick={handleCloseNotification} className={classes.linkText}>
-              Notification
+              Notificacion
             </p>
           </Hidden>
         </Button>
@@ -122,32 +122,21 @@ export default function AdminNavbarLinks() {
                       onClick={handleCloseNotification}
                       className={classes.dropdownItem}
                     >
-                      Mike John responded to your email
+                     ¡Felicidades, Pasaste al nivel 4 de competencias!
                     </MenuItem>
                     <MenuItem
                       onClick={handleCloseNotification}
                       className={classes.dropdownItem}
                     >
-                      You have 5 new tasks
+                      Completaste tu curso de ofinatica nivel 3
                     </MenuItem>
                     <MenuItem
                       onClick={handleCloseNotification}
                       className={classes.dropdownItem}
                     >
-                      You{"'"}re now friend with Andrew
+                      Ejemplo de Notification
                     </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={classes.dropdownItem}
-                    >
-                      Another Notification
-                    </MenuItem>
-                    <MenuItem
-                      onClick={handleCloseNotification}
-                      className={classes.dropdownItem}
-                    >
-                      Another One
-                    </MenuItem>
+                  
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -197,20 +186,20 @@ export default function AdminNavbarLinks() {
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
                     >
-                      Profile
+                      Perfil
                     </MenuItem>
                     <MenuItem
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
                     >
-                      Settings
+                      Configuración
                     </MenuItem>
                     <Divider light />
                     <MenuItem
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
                     >
-                      Logout
+                      Cerrar Sesión
                     </MenuItem>
                   </MenuList>
                 </ClickAwayListener>

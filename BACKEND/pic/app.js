@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit: 50
 //mongoose.connect('mongodb://CNE_Registro:CarvajalRegistro_2019*@cne-db-mongo-02.eastus.cloudapp.azure.com:27017/Registro')
 
 
-mongoose.connect('mongodb+srv://admin_unal_pic:handler.2020*@cluster0-d5whi.mongodb.net/unal_pic?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://admin_unal_pic:handler.2020*@clusterpic-7hysd.mongodb.net/unal_pic?retryWrites=true&w=majority')
   .then(() => console.log('MongoDB conectado...'))
   .catch(err => console.log(err))
 

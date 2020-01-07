@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 const pregunta = Schema({
     consecutivo: String,
     competencia: String,
+    cargo: String,
+    proceso: String,
+    subproceso: String,
     tipo: String,
     enunciado: String,
     respuestas: [{
@@ -12,6 +15,7 @@ const pregunta = Schema({
     }],  
     cod_respuesta_correcta: String,
     valor_pregunta: String,
+    aleatorio: String
     }
 )
 

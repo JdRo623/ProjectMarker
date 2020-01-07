@@ -27,6 +27,8 @@ import Language from "@material-ui/icons/Language";
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
+import Cuestionario from "views/Cuestionarios/Cuestionario.js";
+import RegistroPreguntas from "views/RegistroCuestionarios/RegistroPreguntas.js";
 import TableList from "views/TableList/TableList.js";
 import Typography from "views/Typography/Typography.js";
 import Icons from "views/Icons/Icons.js";
@@ -35,6 +37,7 @@ import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
+import Cuestionarios from "views/Cuestionarios/Cuestionario";
 
 const dashboardRoutes = [
   {
@@ -46,19 +49,19 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/user",
-    name: "Perfil",
-    rtlName: "ملف تعريفي للمستخدم",
-    icon: Person,
-    component: UserProfile,
-    layout: "/admin"
-  },
-  {
-    path: "/table",
+    path: "/cuestionarios",
     name: "Cuestionarios",
     rtlName: "قائمة الجدول",
     icon: "content_paste",
-    component: TableList,
+    component: Cuestionario,
+    layout: "/admin"
+  },
+  {
+    path: "/carga_cuestionario",
+    name: "Carga de Cuestionarios",
+    rtlName: "قائمة الجدول",
+    icon: "content_paste",
+    component: RegistroPreguntas,
     layout: "/admin"
   }
 ];

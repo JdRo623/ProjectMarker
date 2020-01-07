@@ -18,7 +18,7 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
-
+import { Link } from "react-router-dom";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
 import image from "assets/img/fondo.png";
@@ -86,9 +86,11 @@ export default function LoginPage(props) {
                     />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Button simple color="primary" size="lg">
+                  <Link to={"/admin"} className={classes.link}>
+                  <Button simple color="primary" size="lg">
                       Iniciar Sesión
                     </Button>
+                  </Link>
                   </CardFooter>
                 </form>
               </Card>

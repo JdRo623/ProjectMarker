@@ -66,7 +66,6 @@ export default function SectionNavbars() {
                       dropdownHeader="Dropdown Header"
                       buttonProps={{
                         className: classes.navLink,
-                        color: "transparent"
                       }}
                       dropdownList={[
                         "Action",
