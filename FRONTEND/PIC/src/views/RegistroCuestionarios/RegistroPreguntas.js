@@ -16,6 +16,7 @@ import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import FormControl from "@material-ui/core/FormControl";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
+import SubmitComponent from "components/PIC/Utils/SubmitComponent";
 
 const styles = {
   cardCategoryWhite: {
@@ -63,10 +64,11 @@ export default function Cuestionarios() {
             </p>
           </CardHeader>
           <CardBody>
-            <h4> Explicación por definir.</h4>
+          <SubmitComponent></SubmitComponent>
           </CardBody>
           <CardFooter className={classes.cardFooter}>
-          <Button color="primary">Cargar</Button>
+        
+          <Button color="primary" >Cargar</Button>
         </CardFooter>
         </Card>
         </GridItem>
