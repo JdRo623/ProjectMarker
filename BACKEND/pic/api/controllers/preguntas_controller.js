@@ -120,11 +120,19 @@ module.exports = {
                                         }
                                         
                                     }catch (err) {
-                                        throw boom.boomify(err)
+                                        return res.status(200).send({
+                                            estado: 'Preguntas NO registradas',
+                                            message: util.format("Formato del documento no es valido"),
+                                            data: Object.assign({})
+                                            }); 
                                     }
                             });
                     }catch (err) {
-                        throw boom.boomify(err)
+                        return res.status(200).send({
+                            estado: 'Preguntas NO registradas',
+                            message: util.format("Formato del documento no es valido"),
+                            data: Object.assign({})
+                            }); 
                     }
                 }
                 cargar(req,res);

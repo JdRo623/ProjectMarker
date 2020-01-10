@@ -137,6 +137,7 @@ export default function Cuestionarios() {
                       }}
                       inputProps={{
                         type: "file",
+                        disabled: true,
                         files: archivo,
                         onChange: handleArchivoChange,
                         autoComplete: "off"
