@@ -179,7 +179,6 @@ export default function LoginPage(props) {
         </div>
       </div>
 
-      //Dialog espera
       <Dialog
         classes={{
           root: classes.center,

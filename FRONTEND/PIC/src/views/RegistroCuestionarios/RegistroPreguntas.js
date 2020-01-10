@@ -80,13 +80,14 @@ export default function Cuestionarios() {
             reader.readAsDataURL(files[0])
             reader.onload=(e)=>{
               setModal(true);
-
-                console.warn("file data",e.target.result)
                 const url = constantes.urlServer + constantes.servicios.registrarPreguntas;
+            let archivoB64 =  e.target.result;
+            archivoB64 = archivoB64.replace("data:application/octet-stream;base64,","");
+            archivoB64 = archivoB64.replace(/^ data:application\/octet-stream;base64,/, "")  ;
             const infoPreguntas ={
-              archivo: e.target.result
+              archivo: archivoB64
             }
-
+            console.warn("data aaaa mostrar ",archivoB64);
             HttpUtil.requestPost(url, infoPreguntas, 
               (response) => { 
                 setModal(false);
@@ -283,7 +284,6 @@ export default function Cuestionarios() {
           </form>
         </Card>
       </GridItem>
-      //Dialog espera
       <Dialog
         classes={{
           root: classes.center,
