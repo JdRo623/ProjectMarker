@@ -15,7 +15,6 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
-import { Link } from "react-router-dom";
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 import constantes from "util/Constantes.js"
 import HttpUtil from 'util/HttpService.js';
@@ -26,9 +25,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
-import IconButton from "@material-ui/core/IconButton";
 // @material-ui/icons
-import Close from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 
 import LoginCustomComponent from "components/PIC/Login/LoginCustomComponent";
@@ -47,7 +44,7 @@ export default function LoginPage(props) {
     setCardAnimation("");
   }, 700);
   const classes = useStyles();
-
+  //const history = useHistory();
 
   const [email, setEmail] = useState("");
   const handleEmailChange = e => setEmail(e.target.value);
@@ -61,8 +58,6 @@ export default function LoginPage(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.error("error", `Email `+email)
-    console.error("error", `Secret ${secret}`)
     const infoLogin = {
       correo : email,
       secret : secret
@@ -79,14 +74,14 @@ export default function LoginPage(props) {
           HttpUtil.requestPost(url, infoLogin, 
               (response) => { 
                   setModal(false);
-
-                  console.log(response);
                   if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
                       localStorage.setItem('userInfo', JSON.stringify(response.data));
+                      props.history.push("/admin");
+                 //     history.push("/admin");
                    //   this.setState({redirect : true, showLoader : false, user : response.data});
                   }else{
                     setModal(false);
-                    console.log("response");
+                    alert("Error al autenticar: "+ response.message);
 
                      /* this.setState({
                           alertTitle : 'Error al autenticar',
@@ -99,7 +94,7 @@ export default function LoginPage(props) {
                 () => {
                   setModal(false);
 
-                  console.log("Error");
+                  alert("Error al autenticar: Ocurrio un error al autenticarce, por favor intenta de nuevo");
 
                  /* this.setState({
                       alertTitle : 'Error!',

@@ -123,7 +123,25 @@ paths:
         default:
           description: Error
           schema:
-            $ref: "#/definitions/ErrorResponse"          
+            $ref: "#/definitions/ErrorResponse" 
+  /obtenerProcesos:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: cuestionario_controller
+    post:
+      description: Controla la creación de usuarios del sistema
+      # used as the method name of the controller
+      operationId: obtenerProcesos
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/GenericResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions

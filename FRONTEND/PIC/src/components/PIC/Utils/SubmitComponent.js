@@ -31,7 +31,7 @@ class SubmitComponent extends React.Component {
 
     render(){
         return(
-        <input type="file" name ="file" onChange={(e)=>this.onChange(e)}/>
+        <input type="file" name ="file" onChange={(e)=>this.onChange(e)}/>   
         )
     }
 

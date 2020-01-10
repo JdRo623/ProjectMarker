@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState }  from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -17,7 +17,16 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import FormControl from "@material-ui/core/FormControl";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
 import SubmitComponent from "components/PIC/Utils/SubmitComponent";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Icon from "@material-ui/core/Icon";
+import constantes from "util/Constantes.js"
+import HttpUtil from 'util/HttpService.js';
+import Slide from "@material-ui/core/Slide";
 
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
 const styles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
@@ -50,12 +59,67 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
+
+
 
 export default function Cuestionarios() {
+
+  const [archivo, setArchivo] = useState("");
+  const handleArchivoChange = e => setArchivo(e.target.files);
+
+  const [modal, setModal] = React.useState(false);
+
+  const handleSubmit = (evt) => {
+          try{
+
+            let files = archivo;
+            let reader = new FileReader();
+            reader.readAsDataURL(files[0])
+            reader.onload=(e)=>{
+              setModal(true);
+
+                console.warn("file data",e.target.result)
+                const url = constantes.urlServer + constantes.servicios.registrarPreguntas;
+            const infoPreguntas ={
+              archivo: e.target.result
+            }
+            HttpUtil.requestPost(url, infoPreguntas, 
+              (response) => { 
+                setModal(false);
+
+                  alert("autenticar: "+ response.message);
+                /*  if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
+                      localStorage.setItem('userInfo', JSON.stringify(response.data));
+                      props.history.push("/admin");*/
+                 //     history.push("/admin");
+                   //   this.setState({redirect : true, showLoader : false, user : response.data});
+                 
+              }, 
+                () => {
+                  setModal(false);
+
+                  alert("Error al autenticar: Ocurrio un error al autenticarce, por favor intenta de nuevo");
+
+                 /* this.setState({
+                      alertTitle : 'Error!',
+                      alertMessage : 'Ocurrio un error al autenticarce, por favor intenta de nuevo',
+                      alertType : 'error', 
+                      showLoader : false
+                  });*/
+              });
+            }
+        }catch(error){
+            console.error("Error",error)
+        }
+  }
     const classes = useStyles();
     return(
         <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
+        <form className={classes.form}  onSubmit= {handleSubmit}>
         <Card>
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Registro preguntas Macro</h4>
@@ -64,13 +128,25 @@ export default function Cuestionarios() {
             </p>
           </CardHeader>
           <CardBody>
-          <SubmitComponent></SubmitComponent>
+          <CustomInput
+                      labelText="Archivo"
+                      id="archivo"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        type: "file",
+                        files: archivo,
+                        onChange: handleArchivoChange,
+                        autoComplete: "off"
+                      }}
+                    />
           </CardBody>
           <CardFooter className={classes.cardFooter}>
-        
-          <Button color="primary" >Cargar</Button>
+          <Button color="primary" type="submit">Cargar</Button>
         </CardFooter>
         </Card>
+        </form>
         </GridItem>
       
         <GridItem xs={12} sm={12} md={12}>
@@ -203,12 +279,55 @@ export default function Cuestionarios() {
               
             </CardBody>
           <CardFooter className={classes.cardFooter}>
-          <Button color="primary">Enviar datos</Button>
+          <Button color="primary" >Enviar datos</Button>
                   </CardFooter>
           </form>
         </Card>
       </GridItem>
-
+      //Dialog espera
+      <Dialog
+        classes={{
+          root: classes.center,
+          paper: classes.modal
+        }}
+        open={modal}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={() => setModal(false)}
+        aria-labelledby="modal-slide-title"
+        aria-describedby="modal-slide-description"
+      >
+        <DialogTitle
+          id="classic-modal-slide-title"
+          disableTypography
+          className={classes.modalHeader}
+        >
+         {/*} <IconButton
+            className={classes.modalCloseButton}
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={() => setModal(false)}
+             >
+            <Close className={classes.modalClose} />
+          </IconButton>*/}
+          <h4 className={classes.modalTitle}>Consultando Servidor</h4>
+        </DialogTitle>
+        <DialogContent
+          id="modal-slide-description"
+          className={classes.modalBody}
+        >
+          <h5>Espere por favor, Estamos validando sus datos</h5>
+        </DialogContent>
+        <DialogActions
+          className={classes.modalFooter + " " + classes.modalFooterCenter}
+        >
+          {/*<Button onClick={() => setModal(false)}>Never Mind</Button>
+          <Button onClick={() => setModal(false)} color="success">
+            Yes
+        </Button>*/}
+        </DialogActions>
+      </Dialog>
     </GridContainer>  
     );
 

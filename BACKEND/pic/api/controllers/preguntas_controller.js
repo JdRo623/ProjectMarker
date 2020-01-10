@@ -40,12 +40,13 @@ module.exports = {
         try{
             var cargar = async(req,res)=>{
                 try{
-                    var reqDecrypt = (decrypt(req.body.data))
+                    var reqDecrypt = (tools.decrypt(req.body.data))
                     var fecha = tools.getFechaActual()/*.replace(':','');
                     fecha = fecha.replace(' ','');*/
                     var documentName = 'C:/archivos_preguntas/preguntas'+fecha+".xlsx";
                     var data = reqDecrypt.archivo;
-                    data = data.replace(/^data:image\/png;base64,/, "");
+                    console.log(data);
+                    //data = data.replace(/^data:image\/png;base64,/, "");
                     let buff = new Buffer(data, 'base64');
                     
                     var workbook = new Excel.Workbook();

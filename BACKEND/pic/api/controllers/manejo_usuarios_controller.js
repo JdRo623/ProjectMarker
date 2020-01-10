@@ -63,7 +63,7 @@ function crearUsuario(req,res){
               nombres: reqDecrypt.nombre,
               fecha_registro: tools.getFechaActual(),
               apellidos: reqDecrypt.apellido,
-              contrasena: reqDecrypt.contrasena,
+              contrasena: tools.encrypt(reqDecrypt.contrasena),
               estado_cuenta: pendienteValor,
               sesion: pendienteValor, 
               correo: reqDecrypt.correo.toLowerCase(),
