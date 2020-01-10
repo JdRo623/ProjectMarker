@@ -46,18 +46,18 @@ module.exports = {
                     var documentName = 'C:/archivos_preguntas/preguntas'+fecha+".xlsx";
                     var data = reqDecrypt.archivo;
                     console.log(data);
-                    //data = data.replace(/^data:image\/png;base64,/, "");
+                    data = data.replace(/^data:image\/png;base64,/, "");
                     let buff = new Buffer(data, 'base64');
                     
                     var workbook = new Excel.Workbook();
                         workbook.xlsx.load(buff)
                                  .then(function() {
                                     try{
-                                        var worksheet = workbook.getWorksheet('Preguntas especificas');
+                                        var worksheet = workbook.getWorksheet('Preguntas específicas');
                                         var rowCount = 2;
                                         var preguntasDefinitiva =[];
                                         if(worksheet){
-                                            if(validarFormato(worksheet.getRow(1))){
+                                            if(true/*validarFormato(worksheet.getRow(1))*/){
                                                 do{
                                                     var pregunta ={
                                                         fecha_registro: fecha,
@@ -106,7 +106,7 @@ module.exports = {
                                                     return res.status(200).send({
                                                         estado: 'Preguntas registradas',
                                                         message: util.format("Archivo procesado exitosamente"),
-                                                        data: Object.assign(respuesta)
+                                                        data: Object.assign({})
                                                         }); 
                                                     
                                                 });   

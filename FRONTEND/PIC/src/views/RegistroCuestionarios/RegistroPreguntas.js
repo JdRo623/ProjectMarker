@@ -72,7 +72,7 @@ export default function Cuestionarios() {
 
   const [modal, setModal] = React.useState(false);
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = () => {
           try{
 
             let files = archivo;
@@ -86,7 +86,6 @@ export default function Cuestionarios() {
             const infoPreguntas ={
               archivo: e.target.result
             }
-            alert(url+infoPreguntas)
 
             HttpUtil.requestPost(url, infoPreguntas, 
               (response) => { 
@@ -121,7 +120,6 @@ export default function Cuestionarios() {
     return(
         <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-        <form className={classes.form}  onSubmit= {handleSubmit}>
         <Card>
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Registro preguntas Macro</h4>
@@ -145,10 +143,9 @@ export default function Cuestionarios() {
                     />
           </CardBody>
           <CardFooter className={classes.cardFooter}>
-          <Button color="primary" type="submit">Cargar</Button>
+          <Button color="primary" onClick={handleSubmit}>Cargar</Button>
         </CardFooter>
         </Card>
-        </form>
         </GridItem>
       
         <GridItem xs={12} sm={12} md={12}>
