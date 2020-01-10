@@ -86,6 +86,8 @@ export default function Cuestionarios() {
             const infoPreguntas ={
               archivo: e.target.result
             }
+            alert(url+infoPreguntas)
+
             HttpUtil.requestPost(url, infoPreguntas, 
               (response) => { 
                 setModal(false);
@@ -93,9 +95,9 @@ export default function Cuestionarios() {
                   alert("autenticar: "+ response.message);
                 /*  if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
                       localStorage.setItem('userInfo', JSON.stringify(response.data));
-                      props.history.push("/admin");*/
+                      props.history.push("/admin");
                  //     history.push("/admin");
-                   //   this.setState({redirect : true, showLoader : false, user : response.data});
+                   //   this.setState({redirect : true, showLoader : false, user : response.data});*/
                  
               }, 
                 () => {
