@@ -8,8 +8,8 @@ var tools = require('../utils/tools.js');
 
 module.exports = {
     obtenerProcesos: obtenerProcesos,
-    obtenerSubProcesos: obtenerSubProcesos,
-    obtenerCompetencias: obtenerCompetencias,
+   /* obtenerSubProcesos: obtenerSubProcesos,
+    obtenerCompetencias: obtenerCompetencias,*/
   };
 
 

@@ -16,7 +16,9 @@ const constantes = {
          autenticarAgente : '/identificacionUsuario',
          registrarPreguntas : '/registrarPreguntas',
          registrarPregunta : '/registrarPregunta',
-         obtenerPreguntas : '/obtenerPreguntas'
+         obtenerPreguntas : '/obtenerPreguntas',
+         obtenerProcesos : '/obtenerProcesos'
+
 
 
    },

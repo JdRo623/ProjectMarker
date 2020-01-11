@@ -55,13 +55,15 @@ const useStyles = makeStyles(styles);
 
 export default function Cuestionarios() {
     const classes = useStyles();
+    let preguntas =[];
     useEffect(() => {
       console.error("PRUEBAAAAAAAAAAAAAAAAAAAA AHHHH FUNCIONOOOOO");
       const filtos={}
-      const url = constantes.urlServer + constantes.servicios.obtenerPreguntas;
+      const url = constantes.urlServer + constantes.servicios.obtenerProcesos;
           HttpUtil.requestPost(url, filtos, 
               (response) => { 
-                  console.warn(response);
+                  preguntas = response.data; 
+                  console.warn(preguntas);
               }, 
                 () => {
 
@@ -76,6 +78,7 @@ export default function Cuestionarios() {
               });
     }, []);
 
+    
     return(
         <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
@@ -197,10 +200,7 @@ export default function Cuestionarios() {
                         className: classes.navLink,
                         color: "transparent"
                       }}
-                      dropdownList={[
-                        "Proceso 1",
-                        "Proceso 2",   
-                      ]}
+                      dropdownList= {preguntas}
                     />
                 </GridItem>
               </GridContainer>
