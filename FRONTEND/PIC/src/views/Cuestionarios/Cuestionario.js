@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -16,6 +16,9 @@ import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import FormControl from "@material-ui/core/FormControl";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
+import PreguntaItem from "components/PIC/Preguntas/PreguntaItem";
+import constantes from "util/Constantes.js"
+import HttpUtil from 'util/HttpService.js';
 
 const styles = {
   cardCategoryWhite: {
@@ -52,6 +55,27 @@ const useStyles = makeStyles(styles);
 
 export default function Cuestionarios() {
     const classes = useStyles();
+    useEffect(() => {
+      console.error("PRUEBAAAAAAAAAAAAAAAAAAAA AHHHH FUNCIONOOOOO");
+      const filtos={}
+      const url = constantes.urlServer + constantes.servicios.obtenerPreguntas;
+          HttpUtil.requestPost(url, filtos, 
+              (response) => { 
+                  console.warn(response);
+              }, 
+                () => {
+
+                  alert("Error al autenticar: Ocurrio un error al autenticarce, por favor intenta de nuevo");
+
+                 /* this.setState({
+                      alertTitle : 'Error!',
+                      alertMessage : 'Ocurrio un error al autenticarce, por favor intenta de nuevo',
+                      alertType : 'error', 
+                      showLoader : false
+                  });*/
+              });
+    }, []);
+
     return(
         <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
@@ -291,7 +315,7 @@ export default function Cuestionarios() {
             </p>
           </CardHeader>
           <CardBody>
-           
+           <PreguntaItem numeroPregunta ={"623"} ></PreguntaItem>
           </CardBody>
         </Card>
         </GridItem>

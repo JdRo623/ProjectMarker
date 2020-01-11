@@ -10,7 +10,7 @@ var Excel = require('exceljs');
 module.exports = {
     registrarPregunta: registrarPregunta,
     registrarPreguntas: registrarPreguntas,
-
+    obtenerPreguntas: obtenerPreguntas,
   };
 
   function registrarPregunta (req, res) {  
@@ -22,7 +22,6 @@ module.exports = {
             pregunta.save((err, preguntaG) => {
               if(err)return res.status(500).send({ estado: 'Error',message: 'Error en la petición', data: Object.assign ({})});
               if(!preguntaG) return res.status(200).send({ estado: 'Error',message: 'No fue posible registrar la Pregunta', data: Object.assign ({})});
-              preguntaG.contrasena = '';
               return res.status(200).send({
                           estado: 'Registrada',
                           message: util.format("Pregunta registrada exitosamente"),
@@ -34,7 +33,30 @@ module.exports = {
     } catch (err){
         throw boom.boomify(err)
     }
-}
+}   
+
+    function obtenerPreguntas(req, res){
+        try{
+            var obtener = async(req,res)=>{
+                var reqDecrypt = (tools.decrypt(req.body.data))
+                reqDecrypt.consecutivo = "";
+                var pregunta = new Pregunta(reqDecrypt);
+                await Pregunta.find((err, preguntaG) =>{
+                    if(err)return res.status(500).send({ estado: 'Error',message: 'Error en la petición', data: Object.assign ({})});
+                    if(!preguntaG) return res.status(200).send({ estado: 'Error',message: 'No hay ninguna pregunta registrada en el momento', data: Object.assign ({})});
+                    return res.status(200).send({
+                        estado: 'Registrada',
+                        message: util.format("Pregunta registrada exitosamente"),
+                        data: Object.assign(preguntaG)
+                    });          
+                });
+              
+            }
+            obtener(req,res)
+        } catch (err){
+            throw boom.boomify(err)
+        }
+    }
 
     function registrarPreguntas (req, res) {  
         try{

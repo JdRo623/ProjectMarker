@@ -15,7 +15,9 @@ const constantes = {
    servicios : {
          autenticarAgente : '/identificacionUsuario',
          registrarPreguntas : '/registrarPreguntas',
-         registrarPregunta : '/registrarPregunta'
+         registrarPregunta : '/registrarPregunta',
+         obtenerPreguntas : '/obtenerPreguntas'
+
 
    },
    mensajes : {
