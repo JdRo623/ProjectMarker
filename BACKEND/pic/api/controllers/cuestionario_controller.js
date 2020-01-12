@@ -87,7 +87,7 @@ function obtenerSubprocesos(req, res) {
             var reqDecrypt = (tools.decrypt(req.body.data))
             let filtros = {
                 proceso: reqDecrypt.proceso,
-                cargo: reqDecrypt.proceso
+                cargo: reqDecrypt.cargo
             }
             var procesos = {
             }

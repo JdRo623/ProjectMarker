@@ -85,7 +85,7 @@ export default function IdentificacionPerfil(props) {
 
                 setSubprocesos(response.data);
 
-                console.warn(procesos);
+                console.warn(response.data);
             },
             () => {
                 setModal(false)
@@ -100,6 +100,20 @@ export default function IdentificacionPerfil(props) {
             e
         )
 
+    };
+
+    const handlePersonalCargo = e => {
+        setSubprocesoSeleccionado(
+            e
+        )
+            
+    };
+
+    const handleCoordinacion = e => {
+        setSubprocesoSeleccionado(
+            e
+        )
+            
     };
 
     useEffect(() => {
@@ -232,16 +246,14 @@ export default function IdentificacionPerfil(props) {
                                 Subproceso, área o coordinación
                   </InputLabel>
                             <CustomDropdown
-                                buttonText="Subproceso"
-                                dropdownHeader="Subproceso"
+                                buttonText={subprocesoSeleccionado}
+                                dropdownHeader="Subprocesos"
                                 buttonProps={{
                                     className: classes.navLink,
                                     color: "transparent"
                                 }}
-                                dropdownList={[
-                                    "Subproceso 1",
-                                    "Subproceso 2",
-                                ]}
+                                onClick={handleSubprocesoChange}
+                                dropdownList={subprocesos}
                             />
                         </GridItem>
                         <GridItem xs={12} sm={12} md={4}>
