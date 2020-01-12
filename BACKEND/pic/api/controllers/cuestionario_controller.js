@@ -9,7 +9,7 @@ var tools = require('../utils/tools.js');
 module.exports = {
     obtenerProcesos: obtenerProcesos,
     obtenerCargos: obtenerCargos,
-     obtenerSubProcesos: obtenerSubProcesos,
+    obtenerSubprocesos: obtenerSubprocesos,
      obtenerCompetencias: obtenerCompetencias,
 };
 
@@ -81,12 +81,13 @@ function obtenerCargos(req, res) {
     }
 }
 
-function obtenerSubProcesos(req, res) {
+function obtenerSubprocesos(req, res) {
     try {
         var obtener = async (req, res) => {
             var reqDecrypt = (tools.decrypt(req.body.data))
             let filtros = {
-                proceso: reqDecrypt.proceso
+                proceso: reqDecrypt.proceso,
+                cargo: reqDecrypt.proceso
             }
             var procesos = {
             }

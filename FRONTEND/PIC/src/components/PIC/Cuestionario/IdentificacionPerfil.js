@@ -21,60 +21,106 @@ import Datetime from "react-datetime";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
 import constantes from "util/Constantes.js"
 import HttpUtil from 'util/HttpService.js';
-import FiberManualRecord from "@material-ui/icons/FiberManualRecord";
-const useStyles = makeStyles(styles);
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";const useStyles = makeStyles(styles);
+import Slide from "@material-ui/core/Slide";
+
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="down" ref={ref} {...props} />;
+  });
+
 
 export default function IdentificacionPerfil(props) {
     const classes = useStyles();
     const [procesoSeleccionado, setProcesoSeleccionado] = useState("Proceso");
-    const [procesos, setProcesos] = useState();
-    const handleCargoChange = e =>{ setProcesoSeleccionado(
-        e
+    const [procesos, setProcesos] = useState([]);
+
+    const [subprocesoSeleccionado, setSubprocesoSeleccionado] = useState("Subroceso");
+    const [subprocesos, setSubprocesos] = useState([]);
+
+    const [cargoSeleccionado, setCargoSeleccionado] = useState("Cargo");
+    const [cargos, setCargos] = useState([]);
+    const [modal, setModal] = React.useState(false);
+
+    const handleCargoChange = e => {
+        setModal(true)
+
+        setCargoSeleccionado(
+            e
         )
-        const filtos={}
+        const filtos = {
+            cargo: e
+        }
         const url = constantes.urlServer + constantes.servicios.obtenerProcesos;
-            HttpUtil.requestPost(url, filtos, 
-                (response) => { 
-                    setProcesos(response.data); 
-                    console.warn(procesos);
-                }, 
-                  () => {
-  
-                    alert("Error al obtener:");
-  
-                });
+        HttpUtil.requestPost(url, filtos,
+            (response) => {
+                setProcesos(response.data);
+                console.warn(response);
+                setModal(false)
+
+            },
+            () => {
+
+                alert("Error al obtener:");
+
+            });
     };
-    const handleProcesoChange = e =>{ setProcesoSeleccionado(
-        e
+    const handleProcesoChange = e => {
+        setModal(true)
+
+        setProcesoSeleccionado(
+            e
         )
-        const filtos={}
-        const url = constantes.urlServer + constantes.servicios.obtenersubprocesos;
-            HttpUtil.requestPost(url, filtos, 
-                (response) => { 
-                    setProcesos(response.data); 
-                    console.warn(procesos);
-                }, 
-                  () => {
-  
-                    alert("Error al obtener:");
-  
-                });
+        const filtos = {
+            cargo: cargoSeleccionado,
+            proceso: e
+        }
+        const url = constantes.urlServer + constantes.servicios.obtenerSubprocesos;
+        HttpUtil.requestPost(url, filtos,
+            (response) => {
+                setModal(false)
+
+                setSubprocesos(response.data);
+
+                console.warn(procesos);
+            },
+            () => {
+                setModal(false)
+
+                alert("Error al obtener:");
+
+            });
     };
-       
+
+    const handleSubprocesoChange = e => {
+        setSubprocesoSeleccionado(
+            e
+        )
+
+    };
+
     useEffect(() => {
-        const filtos={}
+        setModal(true)
+
+        const filtos = {}
         const url = constantes.urlServer + constantes.servicios.obtenerCargos;
-            HttpUtil.requestPost(url, filtos, 
-                (response) => { 
-                    setProcesos(response.data); 
-                    console.warn(procesos);
-                }, 
-                  () => {
-  
-                    alert("Error al obtener:");
-  
-                });
-      }, []);
+        HttpUtil.requestPost(url, filtos,
+            (response) => {
+                setModal(false)
+
+                setCargos(response.data);
+                console.warn(cargos);
+            },
+            () => {
+                setModal(false)
+
+                alert("Error al obtener:");
+
+            });
+    }, []);
 
     return (
         <Card>
@@ -152,16 +198,14 @@ export default function IdentificacionPerfil(props) {
                                 El cargo actual es por encargo
                   </InputLabel>
                             <CustomDropdown
-                                buttonText="Cargo"
-                                dropdownHeader="carCargogo"
+                                buttonText={cargoSeleccionado}
+                                dropdownHeader="Cargo"
                                 buttonProps={{
                                     className: classes.navLink,
                                     color: "transparent"
                                 }}
-                                dropdownList={[
-                                    "Cargo 1",
-                                    "Cargo 2",
-                                ]}
+                                onClick={handleCargoChange}
+                                dropdownList={cargos}
                             />
                         </GridItem>
                         <GridItem xs={12} sm={12} md={4}>
@@ -176,7 +220,7 @@ export default function IdentificacionPerfil(props) {
                                     className: classes.navLink,
                                     color: "transparent"
                                 }}
-                                onClick = {handleProcesoChange}
+                                onClick={handleProcesoChange}
                                 dropdownList={procesos}
                             />
                         </GridItem>
@@ -282,6 +326,51 @@ export default function IdentificacionPerfil(props) {
                     <Button color="primary">Enviar datos</Button>
                 </CardFooter>
             </form>
+            <Dialog
+            classes={{
+                root: classes.center,
+                paper: classes.modal
+            }}
+            open={modal}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={() => setModal(false)}
+            aria-labelledby="modal-slide-title"
+            aria-describedby="modal-slide-description"
+        >
+            <DialogTitle
+                id="classic-modal-slide-title"
+                disableTypography
+                className={classes.modalHeader}
+            >
+                {/*} <IconButton
+    className={classes.modalCloseButton}
+    key="close"
+    aria-label="Close"
+    color="inherit"
+    onClick={() => setModal(false)}
+     >
+    <Close className={classes.modalClose} />
+  </IconButton>*/}
+                <h4 className={classes.modalTitle}>Consultando Servidor</h4>
+            </DialogTitle>
+            <DialogContent
+                id="modal-slide-description"
+                className={classes.modalBody}
+            >
+                <h5>Espere por favor, Estamos validando sus datos</h5>
+            </DialogContent>
+            <DialogActions
+                className={classes.modalFooter + " " + classes.modalFooterCenter}
+            >
+                {/*<Button onClick={() => setModal(false)}>Never Mind</Button>
+  <Button onClick={() => setModal(false)} color="success">
+    Yes
+</Button>*/}
+            </DialogActions>
+        </Dialog>
         </Card>
+
+        
         );
-                            }
+}
