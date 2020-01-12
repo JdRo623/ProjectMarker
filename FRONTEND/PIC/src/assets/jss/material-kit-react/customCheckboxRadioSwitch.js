@@ -24,14 +24,14 @@ const customCheckboxRadioSwitch = {
   checkboxAndRadio: {
     position: "relative",
     display: "block",
-    marginTop: "10px",
-    marginBottom: "10px"
+    marginTop: "12px",
+    marginBottom: "12px"
   },
   checkboxAndRadioHorizontal: {
     position: "relative",
     display: "block",
     "&:first-child": {
-      marginTop: "10px"
+      marginTop: "12px"
     },
     "&:not(:first-child)": {
       marginTop: "-14px"

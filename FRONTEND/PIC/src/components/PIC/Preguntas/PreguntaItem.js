@@ -41,7 +41,7 @@ export default function PreguntaItem(props) {
           <h3 >{numero}</h3>
   </CardHeader>*/}
         <CardBody>
-        <GridItem xs={12} sm={6} md={4} lg={12}>
+        <GridItem xs={12} sm={12} md={12} lg={12}>
               <div className={classes.title}>
                 <h3>{props.enunciado}</h3>
               </div>
