@@ -17,6 +17,8 @@ const constantes = {
          registrarPreguntas : '/registrarPreguntas',
          registrarPregunta : '/registrarPregunta',
          obtenerPreguntas : '/obtenerPreguntas',
+         obtenerPreguntas : '/obtenerCargos',
+         obtenerPreguntas : '/obtenerSubprocesos',
          obtenerProcesos : '/obtenerProcesos'
 
 
