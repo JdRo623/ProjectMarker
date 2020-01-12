@@ -1,28 +1,23 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import ListItem from "@material-ui/core/ListItem";
-import List from "@material-ui/core/List";
+
 // core components
-import styles from "assets/jss/material-dashboard-react/components/footerStyle.js";
+import styles from "assets/jss/material-kit-react/views/componentsSections/basicsStyle.js";
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardFooter from "components/Card/CardFooter.js";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import GridItem from "components/Grid/GridItem.js";
-import Checkbox from "@material-ui/core/Checkbox";
 import Radio from "@material-ui/core/Radio";
-import Button from "components/CustomButtons/Button.js";
 import FiberManualRecord from "@material-ui/icons/FiberManualRecord";
+import PreguntaList from "./PreguntaList";
+
 const useStyles = makeStyles(styles);
 
 export default function PreguntaItem(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
-  const numero = props.numeroPregunta;
-  const pregunta = props.pregunta;
   setTimeout(function() {
     setCardAnimation("");
   }, 700);
@@ -35,8 +30,9 @@ export default function PreguntaItem(props) {
     console.warn("Veamos",numero)
   }
 
-
-
+  useEffect(() => {
+    console.error("Pregunta Item", props.enunciado);
+}, []);
   return (
 
     <Card className={classes[cardAnimaton]}>
@@ -45,9 +41,9 @@ export default function PreguntaItem(props) {
           <h3 >{numero}</h3>
   </CardHeader>*/}
         <CardBody>
-        <GridItem xs={12} sm={6} md={4} lg={3}>
+        <GridItem xs={12} sm={6} md={4} lg={12}>
               <div className={classes.title}>
-                <h3>{numero}</h3>
+                <h3>{props.enunciado}</h3>
               </div>
               <div
                 className={
@@ -56,12 +52,13 @@ export default function PreguntaItem(props) {
                   classes.checkboxAndRadioHorizontal
                 }
               >
-                <FormControlLabel
+              <FormControlLabel
                   control={
                     <Radio
-                      checked={selectedEnabled === "a"}
-                      onChange={() => setSelectedEnabled("a")}
-                      value="a"
+                      checked={selectedEnabled === props.respuestas[0].cod_respuesta}
+                      onChange={() => setSelectedEnabled(props.respuestas[0].cod_respuesta)}
+                      value={props.respuestas[0].descriptor}
+                      id = {props.respuestas[0].cod_respuesta}
                       name="radio button enabled"
                       aria-label="A"
                       icon={
@@ -80,7 +77,7 @@ export default function PreguntaItem(props) {
                     label: classes.label,
                     root: classes.labelRoot
                   }}
-                  label="First Radio"
+                  label={props.respuestas[0].descriptor}
                 />
               </div>
               <div
@@ -93,9 +90,10 @@ export default function PreguntaItem(props) {
                 <FormControlLabel
                   control={
                     <Radio
-                      checked={selectedEnabled === "b"}
-                      onChange={() => setSelectedEnabled("b")}
-                      value="b"
+                      checked={selectedEnabled === props.respuestas[1].cod_respuesta}
+                      onChange={() => setSelectedEnabled(props.respuestas[1].cod_respuesta)}
+                      value={props.respuestas[1].descriptor}
+                      id = {props.respuestas[1].cod_respuesta}
                       name="radio button enabled"
                       aria-label="B"
                       icon={
@@ -114,7 +112,7 @@ export default function PreguntaItem(props) {
                     label: classes.label,
                     root: classes.labelRoot
                   }}
-                  label="Second Radio"
+                  label={props.respuestas[1].descriptor}
                 />
               </div>
               <div
@@ -125,13 +123,14 @@ export default function PreguntaItem(props) {
                 }
               >
                 <FormControlLabel
-                  disabled
                   control={
                     <Radio
-                      checked={false}
-                      value="a"
-                      name="radio button disabled"
-                      aria-label="B"
+                      checked={selectedEnabled === props.respuestas[2].cod_respuesta}
+                      onChange={() => setSelectedEnabled(props.respuestas[2].cod_respuesta)}
+                      value={props.respuestas[2].descriptor}
+                      id = {props.respuestas[2].cod_respuesta}
+                      name="radio button enabled"
+                      aria-label="A"
                       icon={
                         <FiberManualRecord className={classes.radioUnchecked} />
                       }
@@ -140,7 +139,6 @@ export default function PreguntaItem(props) {
                       }
                       classes={{
                         checked: classes.radio,
-                        disabled: classes.disabledCheckboxAndRadio,
                         root: classes.radioRoot
                       }}
                     />
@@ -149,7 +147,7 @@ export default function PreguntaItem(props) {
                     label: classes.label,
                     root: classes.labelRoot
                   }}
-                  label="Disabled Unchecked Radio"
+                  label={props.respuestas[2].descriptor}
                 />
               </div>
               <div
@@ -160,12 +158,13 @@ export default function PreguntaItem(props) {
                 }
               >
                 <FormControlLabel
-                  disabled
                   control={
                     <Radio
-                      checked={true}
-                      value="b"
-                      name="radio button disabled"
+                      checked={selectedEnabled === props.respuestas[3].cod_respuesta}
+                      onChange={() => setSelectedEnabled(props.respuestas[3].cod_respuesta)}
+                      value={props.respuestas[3].descriptor}
+                      id = {props.respuestas[3].cod_respuesta}
+                      name="radio button enabled"
                       aria-label="B"
                       icon={
                         <FiberManualRecord className={classes.radioUnchecked} />
@@ -175,23 +174,37 @@ export default function PreguntaItem(props) {
                       }
                       classes={{
                         checked: classes.radio,
-                        disabled: classes.disabledCheckboxAndRadio,
                         root: classes.radioRoot
                       }}
                     />
                   }
-                  classes={{ label: classes.label, root: classes.labelRoot }}
-                  label="Disabled Checked Radio"
+                  classes={{
+                    label: classes.label,
+                    root: classes.labelRoot
+                  }}
+                  label={props.respuestas[3].descriptor}
                 />
               </div>
-            </GridItem>  
+              <div
+                className={
+                  classes.checkboxAndRadio +
+                  " " +
+                  classes.checkboxAndRadioHorizontal
+                }
+              >
+              </div> 
+              </GridItem>  
         </CardBody>
-        <CardFooter className={classes.cardFooter}>
+      {/*}  <CardFooter className={classes.cardFooter}>
           <Button simple color="primary" size="lg" type="submit">
             Siguiente
                     </Button>
-        </CardFooter>
+              </CardFooter>*/}
       </form>
     </Card>
   );
 }
+
+PreguntaList.propTypes = {
+  enunciado: PropTypes.string.isRequired
+};

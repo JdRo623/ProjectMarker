@@ -76,22 +76,8 @@ export default function Cuestionarios() {
         </Card>
         </GridItem>
 
-        <GridItem xs={12} sm={12} md={12}>
         <IdentificacionPerfil></IdentificacionPerfil>
-      </GridItem>
-      <GridItem xs={12} sm={12} md={12}>
-        <Card>
-          <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Formulario</h4>
-            <p className={classes.cardCategoryWhite}>
-            </p>
-          </CardHeader>
-          <CardBody>
-           <PreguntaItem numeroPregunta ={"623"} ></PreguntaItem>
-          </CardBody>
-        </Card>
-        </GridItem>
-
+     
     </GridContainer>  
     );
 

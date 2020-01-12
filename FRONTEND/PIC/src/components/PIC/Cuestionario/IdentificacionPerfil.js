@@ -24,13 +24,14 @@ import HttpUtil from 'util/HttpService.js';
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";const useStyles = makeStyles(styles);
+import DialogActions from "@material-ui/core/DialogActions"; const useStyles = makeStyles(styles);
 import Slide from "@material-ui/core/Slide";
+import PreguntaList from "../Preguntas/PreguntaList";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
-  });
+});
 
 
 export default function IdentificacionPerfil(props) {
@@ -43,10 +44,46 @@ export default function IdentificacionPerfil(props) {
 
     const [cargoSeleccionado, setCargoSeleccionado] = useState("Cargo");
     const [cargos, setCargos] = useState([]);
+
+    const [personalCargo, setPersonalCargo] = useState("No");
+
+    const [coordinacion, setCoordinacion] = useState("No");
+
+    const [ciudad, setCiudad] = useState("Ciudad");
+
+    const [seccional, setSeccional] = useState("Seccional");
+
+    const [preguntas, setPreguntas] = useState([]);
+
+
     const [modal, setModal] = React.useState(false);
 
+
+    const handleEnvioDatos = e => {
+        setModal(true)
+        const filtos = {
+            cargo: cargoSeleccionado,
+            procesos: procesoSeleccionado,
+            subproceso: subprocesoSeleccionado
+        }
+        const url = constantes.urlServer + constantes.servicios.obtenerPreguntas;
+        HttpUtil.requestPost(url, filtos,
+            (response) => {
+                setPreguntas(response.data);
+                console.warn(response);
+                setModal(false)
+
+            },
+            () => {
+
+                alert("Error al obtener:");
+
+            });
+    }
     const handleCargoChange = e => {
         setModal(true)
+        setProcesoSeleccionado("Proceso")
+        setSubprocesoSeleccionado("Subroceso")
 
         setCargoSeleccionado(
             e
@@ -103,18 +140,33 @@ export default function IdentificacionPerfil(props) {
     };
 
     const handlePersonalCargo = e => {
-        setSubprocesoSeleccionado(
+        setPersonalCargo(
             e
         )
-            
+
     };
 
     const handleCoordinacion = e => {
-        setSubprocesoSeleccionado(
+        setCoordinacion(
             e
         )
-            
+
     };
+
+    const handleCiudad = e => {
+        setCiudad(
+            e
+        )
+
+    };
+
+    const handleSeccional = e => {
+        setSeccional(
+            e
+        )
+
+    };
+
 
     useEffect(() => {
         setModal(true)
@@ -137,225 +189,231 @@ export default function IdentificacionPerfil(props) {
     }, []);
 
     return (
-        <Card>
-            <form className={classes.form}>
-                <CardHeader color="primary">
-                    <h4 className={classes.cardTitleWhite}>Preguntas de identificación y perfil</h4>
-                    <p className={classes.cardCategoryWhite}>
-                    </p>
-                </CardHeader>
-                <CardBody>
-                    <GridContainer>
-                        <GridItem xs={12} sm={12} md={6}>
-                            <CustomInput
-                                labelText="Nombres"
-                                id="nombre"
-                                formControlProps={{
-                                    fullWidth: true
-                                }}
-                            />
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={6}>
-                            <CustomInput
-                                labelText="Apellidos"
-                                id="apellido"
-                                formControlProps={{
-                                    fullWidth: true
-                                }}
-                            />
-                        </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                        <GridItem xs={12} sm={12} md={2}>
-                            <CustomInput
-                                labelText="C.C"
-                                id="cedula"
-                                formControlProps={{
-                                    fullWidth: true
-                                }}
-                            />
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={5}>
-                            <CustomInput
-                                labelText="Tiempo de años en la DIAN"
-                                id="anios"
-                                formControlProps={{
-                                    fullWidth: true
-                                }}
-                            />
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={5}>
-                            <CustomInput
-                                labelText="Tiempo en meses en el cargo actual"
-                                id="meses"
-                                formControlProps={{
-                                    fullWidth: true
-                                }}
-                            />
-                        </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                        <GridItem xs={12} sm={12} md={4}>
-                            <br />
-                            <InputLabel className={classes.label}>
-                                Fecha de Nacimiento
+            <GridItem xs={12} sm={12} md={12}>
+                <Card>
+                    <form className={classes.form}  onSubmit= {handleEnvioDatos}> 
+                        <CardHeader color="primary">
+                            <h4 className={classes.cardTitleWhite}>Preguntas de identificación y perfil</h4>
+                            <p className={classes.cardCategoryWhite}>
+                            </p>
+                        </CardHeader>
+                        <CardBody>
+                            <GridContainer>
+                                <GridItem xs={12} sm={12} md={6}>
+                                    <CustomInput
+                                        labelText="Nombres"
+                                        id="nombre"
+                                        formControlProps={{
+                                            fullWidth: true
+                                        }}
+                                    />
+                                </GridItem>
+                                <GridItem xs={12} sm={12} md={6}>
+                                    <CustomInput
+                                        labelText="Apellidos"
+                                        id="apellido"
+                                        formControlProps={{
+                                            fullWidth: true
+                                        }}
+                                    />
+                                </GridItem>
+                            </GridContainer>
+                            <GridContainer>
+                                <GridItem xs={12} sm={12} md={2}>
+                                    <CustomInput
+                                        labelText="C.C"
+                                        id="cedula"
+                                        formControlProps={{
+                                            fullWidth: true
+                                        }}
+                                    />
+                                </GridItem>
+                                <GridItem xs={12} sm={12} md={5}>
+                                    <CustomInput
+                                        labelText="Tiempo de años en la DIAN"
+                                        id="anios"
+                                        formControlProps={{
+                                            fullWidth: true
+                                        }}
+                                    />
+                                </GridItem>
+                                <GridItem xs={12} sm={12} md={5}>
+                                    <CustomInput
+                                        labelText="Tiempo en meses en el cargo actual"
+                                        id="meses"
+                                        formControlProps={{
+                                            fullWidth: true
+                                        }}
+                                    />
+                                </GridItem>
+                            </GridContainer>
+                            <GridContainer>
+                                <GridItem xs={12} sm={12} md={4}>
+                                    <br />
+                                    <InputLabel className={classes.label}>
+                                        Fecha de Nacimiento
                   </InputLabel>
-                            <FormControl fullWidth>
-                                <Datetime
-                                    inputProps={{ placeholder: "--/--/----" }}
-                                />
-                            </FormControl>
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={4}>
-                            <br />
-                            <InputLabel className={classes.label}>
-                                El cargo actual es por encargo
+                                    <FormControl fullWidth>
+                                        <Datetime
+                                            inputProps={{ placeholder: "--/--/----" }}
+                                        />
+                                    </FormControl>
+                                </GridItem>
+                                <GridItem xs={12} sm={12} md={4}>
+                                    <br />
+                                    <InputLabel className={classes.label}>
+                                        Tiene personal a cargo actualmente
                   </InputLabel>
-                            <CustomDropdown
-                                buttonText={cargoSeleccionado}
-                                dropdownHeader="Cargo"
-                                buttonProps={{
-                                    className: classes.navLink,
-                                    color: "transparent"
-                                }}
-                                onClick={handleCargoChange}
-                                dropdownList={cargos}
-                            />
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={4}>
-                            <br />
-                            <InputLabel className={classes.label}>
-                                Proceso en el que trabaja Actualmente
+                                    <CustomDropdown
+                                        buttonText={personalCargo}
+                                        dropdownHeader="Selección"
+                                        buttonProps={{
+                                            className: classes.navLink,
+                                            color: "transparent"
+                                        }}
+                                        onClick={handlePersonalCargo}
+                                        dropdownList={[
+                                            "Si",
+                                            "No",
+                                        ]}
+                                    />
+                                </GridItem>
+                                <GridItem xs={12} sm={12} md={4}>
+                                    <br />
+                                    <InputLabel className={classes.label}>
+                                        Coordina algún equipo de trabajo
                   </InputLabel>
-                            <CustomDropdown
-                                buttonText={procesoSeleccionado}
-                                dropdownHeader="Procesos"
-                                buttonProps={{
-                                    className: classes.navLink,
-                                    color: "transparent"
-                                }}
-                                onClick={handleProcesoChange}
-                                dropdownList={procesos}
-                            />
-                        </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                        <GridItem xs={12} sm={12} md={4}>
-                            <br />
-                            <InputLabel className={classes.label}>
-                                Subproceso, área o coordinación
+                                    <CustomDropdown
+                                        buttonText={coordinacion}
+                                        dropdownHeader="Selección"
+                                        buttonProps={{
+                                            className: classes.navLink,
+                                            color: "transparent"
+                                        }}
+                                        onClick={handleCoordinacion}
+                                        dropdownList={[
+                                            "Si",
+                                            "No",
+                                        ]}
+                                    />
+                                </GridItem>
+                            </GridContainer>
+                            <GridContainer>
+                                <GridItem xs={12} sm={12} md={4}>
+                                    <br />
+                                    <InputLabel className={classes.label}>
+                                        El cargo actual es por encargo
                   </InputLabel>
-                            <CustomDropdown
-                                buttonText={subprocesoSeleccionado}
-                                dropdownHeader="Subprocesos"
-                                buttonProps={{
-                                    className: classes.navLink,
-                                    color: "transparent"
-                                }}
-                                onClick={handleSubprocesoChange}
-                                dropdownList={subprocesos}
-                            />
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={4}>
-                            <br />
-                            <InputLabel className={classes.label}>
-                                Tiene personal a cargo actualmente
+                                    <CustomDropdown
+                                        buttonText={cargoSeleccionado}
+                                        dropdownHeader="Cargo"
+                                        buttonProps={{
+                                            className: classes.navLink,
+                                            color: "transparent"
+                                        }}
+                                        onClick={handleCargoChange}
+                                        dropdownList={cargos}
+                                    />
+                                </GridItem>
+                                <GridItem xs={12} sm={12} md={4}>
+                                    <br />
+                                    <InputLabel className={classes.label}>
+                                        Proceso en el que trabaja Actualmente
                   </InputLabel>
-                            <CustomDropdown
-                                buttonText="Selección"
-                                dropdownHeader="Selección"
-                                buttonProps={{
-                                    className: classes.navLink,
-                                    color: "transparent"
-                                }}
-                                dropdownList={[
-                                    "Si",
-                                    "No",
-                                ]}
-                            />
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={4}>
-                            <br />
-                            <InputLabel className={classes.label}>
-                                Coordina algún equipo de trabajo
+                                    <CustomDropdown
+                                        buttonText={procesoSeleccionado}
+                                        dropdownHeader="Procesos"
+                                        buttonProps={{
+                                            className: classes.navLink,
+                                            color: "transparent"
+                                        }}
+                                        onClick={handleProcesoChange}
+                                        dropdownList={procesos}
+                                    />
+                                </GridItem>
+                                <GridItem xs={12} sm={12} md={4}>
+                                    <br />
+                                    <InputLabel className={classes.label}>
+                                        Subproceso, área o coordinación
                   </InputLabel>
-                            <CustomDropdown
-                                buttonText="Selección"
-                                dropdownHeader="Selección"
-                                buttonProps={{
-                                    className: classes.navLink,
-                                    color: "transparent"
-                                }}
-                                dropdownList={[
-                                    "Si",
-                                    "No",
-                                ]}
-                            />
-                        </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                        <GridItem xs={12} sm={12} md={4}>
-                            <br />
-                            <InputLabel className={classes.label}>
-                                Ciudad en donde ejerce el cargo
-                  </InputLabel>
-                            <CustomDropdown
-                                buttonText="Ciudad"
-                                dropdownHeader="Ciudad"
-                                buttonProps={{
-                                    className: classes.navLink,
-                                    color: "transparent"
-                                }}
-                                dropdownList={[
-                                    "Ciudad 1",
-                                    "Ciudad 2",
-                                ]}
-                            />
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={4}>
-                            <br />
-                            <InputLabel className={classes.label}>
-                                Seccional
-                  </InputLabel>
-                            <CustomDropdown
-                                buttonText="Seccional"
-                                dropdownHeader="Seccional"
-                                buttonProps={{
-                                    className: classes.navLink,
-                                    color: "transparent"
-                                }}
-                                dropdownList={[
-                                    "Seccional 1",
-                                    "Seccional 2",
-                                ]}
-                            />
-                        </GridItem>
+                                    <CustomDropdown
+                                        buttonText={subprocesoSeleccionado}
+                                        dropdownHeader="Subprocesos"
+                                        buttonProps={{
+                                            className: classes.navLink,
+                                            color: "transparent"
+                                        }}
+                                        onClick={handleSubprocesoChange}
+                                        dropdownList={subprocesos}
+                                    />
+                                </GridItem>
 
-                    </GridContainer>
+                            </GridContainer>
+                            <GridContainer>
+                                <GridItem xs={12} sm={12} md={4}>
+                                    <br />
+                                    <InputLabel className={classes.label}>
+                                        Ciudad en donde ejerce el cargo
+                  </InputLabel>
+                                    <CustomDropdown
+                                        buttonText={ciudad}
+                                        dropdownHeader="Ciudad"
+                                        buttonProps={{
+                                            className: classes.navLink,
+                                            color: "transparent"
+                                        }}
+                                        onClick={handleCiudad}
 
-                </CardBody>
-                <CardFooter className={classes.cardFooter}>
-                    <Button color="primary">Enviar datos</Button>
-                </CardFooter>
-            </form>
-            <Dialog
-            classes={{
-                root: classes.center,
-                paper: classes.modal
-            }}
-            open={modal}
-            TransitionComponent={Transition}
-            keepMounted
-            onClose={() => setModal(false)}
-            aria-labelledby="modal-slide-title"
-            aria-describedby="modal-slide-description"
-        >
-            <DialogTitle
-                id="classic-modal-slide-title"
-                disableTypography
-                className={classes.modalHeader}
-            >
-                {/*} <IconButton
+                                        dropdownList={[
+                                            "Bogotá D.C",
+                                        ]}
+                                    />
+                                </GridItem>
+                                <GridItem xs={12} sm={12} md={4}>
+                                    <br />
+                                    <InputLabel className={classes.label}>
+                                        Seccional
+                  </InputLabel>
+                                    <CustomDropdown
+                                        buttonText={seccional}
+                                        dropdownHeader="Seccional"
+                                        buttonProps={{
+                                            className: classes.navLink,
+                                            color: "transparent"
+                                        }}
+                                        onClick={handleSeccional}
+
+                                        dropdownList={[
+                                            "Bogotá D.C",
+                                        ]}
+                                    />
+                                </GridItem>
+
+                            </GridContainer>
+
+                        </CardBody>
+                        <CardFooter className={classes.cardFooter}>
+                            <Button color="primary" onClick={handleEnvioDatos}>Enviar datos</Button>
+                        </CardFooter>
+                    </form>
+                    <Dialog
+                        classes={{
+                            root: classes.center,
+                            paper: classes.modal
+                        }}
+                        open={modal}
+                        TransitionComponent={Transition}
+                        keepMounted
+                        onClose={() => setModal(false)}
+                        aria-labelledby="modal-slide-title"
+                        aria-describedby="modal-slide-description"
+                    >
+                        <DialogTitle
+                            id="classic-modal-slide-title"
+                            disableTypography
+                            className={classes.modalHeader}
+                        >
+                            {/*} <IconButton
     className={classes.modalCloseButton}
     key="close"
     aria-label="Close"
@@ -364,25 +422,35 @@ export default function IdentificacionPerfil(props) {
      >
     <Close className={classes.modalClose} />
   </IconButton>*/}
-                <h4 className={classes.modalTitle}>Consultando Servidor</h4>
-            </DialogTitle>
-            <DialogContent
-                id="modal-slide-description"
-                className={classes.modalBody}
-            >
-                <h5>Espere por favor, Estamos validando sus datos</h5>
-            </DialogContent>
-            <DialogActions
-                className={classes.modalFooter + " " + classes.modalFooterCenter}
-            >
-                {/*<Button onClick={() => setModal(false)}>Never Mind</Button>
+                            <h4 className={classes.modalTitle}>Consultando Servidor</h4>
+                        </DialogTitle>
+                        <DialogContent
+                            id="modal-slide-description"
+                            className={classes.modalBody}
+                        >
+                            <h5>Espere por favor, Estamos validando sus datos</h5>
+                        </DialogContent>
+                        <DialogActions
+                            className={classes.modalFooter + " " + classes.modalFooterCenter}
+                        >
+                            {/*<Button onClick={() => setModal(false)}>Never Mind</Button>
   <Button onClick={() => setModal(false)} color="success">
     Yes
 </Button>*/}
-            </DialogActions>
-        </Dialog>
-        </Card>
+                        </DialogActions>
+                    </Dialog>
+                </Card>
+                <Card>
+                    <CardHeader color="primary">
+                        <h4 className={classes.cardTitleWhite}>Formulario</h4>
+                        <p className={classes.cardCategoryWhite}>
+                        </p>
+                    </CardHeader>
+                    <CardBody>
+                        <PreguntaList preguntas={preguntas} ></PreguntaList>
+                    </CardBody>
+                </Card>
+            </GridItem>
 
-        
-        );
+    );
 }

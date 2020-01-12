@@ -39,9 +39,14 @@ module.exports = {
         try{
             var obtener = async(req,res)=>{
                 var reqDecrypt = (tools.decrypt(req.body.data))
+                const filtros= {
+                    cargo: reqDecrypt.cargo,
+                    procesado: reqDecrypt.proceso,
+                    subproceso:reqDecrypt.subproceso
+                }
                 reqDecrypt.consecutivo = "";
                 var pregunta = new Pregunta(reqDecrypt);
-                await Pregunta.find((err, preguntaG) =>{
+                await Pregunta.find(filtros, (err, preguntaG) =>{
                     if(err)return res.status(500).send({ estado: 'Error',message: 'Error en la petición', data: Object.assign ({})});
                     if(!preguntaG) return res.status(200).send({ estado: 'Error',message: 'No hay ninguna pregunta registrada en el momento', data: Object.assign ({})});
                     return res.status(200).send({
