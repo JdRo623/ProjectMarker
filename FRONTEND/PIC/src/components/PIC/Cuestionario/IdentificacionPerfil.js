@@ -27,6 +27,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions"; const useStyles = makeStyles(styles);
 import Slide from "@material-ui/core/Slide";
 import PreguntaList from "../Preguntas/PreguntaList";
+import IdentificacionConductas from "../Preguntas/IdentificacionConductas";
+import CapacitacionComponente from "../Preguntas/CapacitacionComponente";
+import PreferenciaCapacitacion from "../Preguntas/PreferenciaCapacitacion";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -302,7 +305,7 @@ export default function IdentificacionPerfil(props) {
                                 <GridItem xs={12} sm={12} md={4}>
                                     <br />
                                     <InputLabel className={classes.label}>
-                                        El cargo actual es por encargo
+                                        Cargo
                   </InputLabel>
                                     <CustomDropdown
                                         buttonText={cargoSeleccionado}
@@ -365,7 +368,50 @@ export default function IdentificacionPerfil(props) {
                                         onClick={handleCiudad}
 
                                         dropdownList={[
+                                            "Arauca",
+                                            "Armenia",
+                                            "Barrancabermeja",
+                                            "Barranquilla",
                                             "Bogotá D.C",
+                                            "Bucaramanga",
+                                            "Buenaventura",
+                                            "Cali",
+                                            "Cartagena",
+                                            "Cartago",
+                                            "Cúcuta",
+                                            "Florencia",
+                                            "Girardot",
+                                            "Ibagué",
+                                            "Inírida",
+                                            "Ipiales",
+                                            "Maicao",
+                                            "Manizales",
+                                            "Medellin",
+                                            "Mitú",
+                                            "Monteria",
+                                            "Neiva",
+                                            "Leticia",
+                                            "Pasto",
+                                            "Pamplona",
+                                            "Palmira",
+                                            "Pereira",
+                                            "Popayán",
+                                            "Puerto Asís",
+                                            "Puerto Carreño",
+                                            "Quibdó",
+                                            "Santa Marta",
+                                            "Tumaco",
+                                            "Tunja",
+                                            "Tuluá",
+                                            "Villavicencio",
+                                            "Sincelejo",
+                                            "Valledupar",
+                                            "Riohacha",
+                                            "San José de Guaviare",
+                                            "Sogamoso",
+                                            "San Andrés",
+                                            "Urabá",
+                                            "Yopal",
                                         ]}
                                     />
                                 </GridItem>
@@ -384,7 +430,58 @@ export default function IdentificacionPerfil(props) {
                                         onClick={handleSeccional}
 
                                         dropdownList={[
-                                            "Bogotá D.C",
+                                            "0 	Nivel Central",
+                                            "1	Dirección Seccional de Impuestos y Aduanas de Armenia",
+                                            "2	Dirección Seccional de Impuestos de Barranquilla",
+                                            "3	Dirección Seccional de Aduanas de Bogotá",
+                                            "4	Dirección Seccional de Impuestos y Aduanas de Bucaramanga",
+                                            "5	Dirección Seccional de Impuestos de Cali",
+                                            "6	Dirección Seccional de Impuestos de Cartagena",
+                                            "7	Dirección Seccional de Impuestos de Cúcuta",
+                                            "8	Dirección Seccional de Impuestos y Aduanas de Girardot",
+                                            "9	Dirección Seccional de Impuestos y Aduanas de Ibagué",
+                                            "10	Dirección Seccional de Impuestos y Aduanas de Manizales",
+                                            "11	Dirección Seccional de Impuestos de Medellín",
+                                            "12	Dirección Seccional de Impuestos y Aduanas de Montería",
+                                            "13	Dirección Seccional de Impuestos y Aduanas de Neiva",
+                                            "14	Dirección Seccional de Impuestos y Aduanas de Pasto",
+                                            "15	Dirección Seccional de Impuestos y Aduanas de Palmira",
+                                            "16	Dirección Seccional de Impuestos y Aduanas de Pereira",
+                                            "17	Dirección Seccional de Impuestos y Aduanas de Popayán",
+                                            "18	Dirección Seccional de Impuestos y Aduanas de Quibdó",
+                                            "19	Dirección Seccional de Impuestos y Aduanas de Santa Marta",
+                                            "20	Dirección Seccional de Impuestos y Aduanas de Tunja",
+                                            "21	Dirección Seccional de Impuestos y Aduanas de Tuluá",
+                                            "22	Dirección Seccional de Impuestos y Aduanas de Villavicencio",
+                                            "23	Dirección Seccional de Impuestos y Aduanas de Sincelejo",
+                                            "24	Dirección Seccional de Impuestos y Aduanas de Valledupar",
+                                            "25	Dirección Seccional de Impuestos y Aduanas de Riohacha",
+                                            "26	Dirección Seccional de Impuestos y Aduanas de Sogamoso",
+                                            "27	Dirección Seccional de Impuestos y Aduanas de San Andrés",
+                                            "28	Dirección Seccional de Impuestos y Aduanas de Florencia",
+                                            "29	Dirección Seccional de Impuestos y Aduanas de Barrancabermeja",
+                                            "31	Dirección Seccional de Impuestos de Grandes Contribuyentes",
+                                            "32	Dirección Seccional de Impuestos de Bogotá",
+                                            "34	Dirección Seccional de Impuestos y Aduanas de Arauca",
+                                            "35	Dirección Seccional de Impuestos y Aduanas de Buenaventura",
+                                            "36	Dirección Seccional Delegada de Impuestos y Aduanas de Cartago",
+                                            "37	Dirección Seccional de Impuestos y Aduanas de Ipiales",
+                                            "38	Dirección Seccional de Impuestos y Aduanas de Leticia",
+                                            "39	Dirección Seccional de Impuestos y Aduanas de Maicao",
+                                            "40	Dirección Seccional Delegada de Impuestos y Aduanas de Tumaco",
+                                            "41	Dirección Seccional de Impuestos y Aduanas de Urabá",
+                                            "42	Dirección Seccional Delegada de Impuestos y Aduanas de Puerto Carreño",
+                                            "43	Dirección Seccional Delegada de Impuestos y Aduanas de Inírida",
+                                            "44	Dirección Seccional de Impuestos y Aduanas de Yopal",
+                                            "45	Dirección Seccional Delegada de Impuestos y Aduanas Mitú",
+                                            "46	Dirección Seccional Delegada de Impuestos y Aduanas de Puerto Asís",
+                                            "48	Dirección Seccional de Aduanas de Cartagena",
+                                            "78	Dirección Seccional Delegada de Impuestos y Aduanas de San José de Guaviare",
+                                            "86	Dirección Seccional Delegada de Impuestos y Aduanas de Pamplona",
+                                            "87	Dirección Seccional de Aduanas de Barranquilla",
+                                            "88	Dirección Seccional de Aduanas de Cali",
+                                            "89	Dirección Seccional de Aduanas de Cúcuta",
+                                            "90	Dirección Seccional de Aduanas de Medellín",
                                         ]}
                                     />
                                 </GridItem>
@@ -442,12 +539,33 @@ export default function IdentificacionPerfil(props) {
                 </Card>
                 <Card>
                     <CardHeader color="primary">
-                        <h4 className={classes.cardTitleWhite}>Formulario</h4>
+                        <h4 className={classes.cardTitleWhite}>Sección I</h4>
+                        <p className={classes.cardCategoryWhite}>
+                        </p>
+                    </CardHeader>
+                    <CardBody>
+                     <IdentificacionConductas/>
+                     <CapacitacionComponente/>
+                    </CardBody>
+                </Card>
+                <Card>
+                    <CardHeader color="primary">
+                        <h4 className={classes.cardTitleWhite}>Sección II</h4>
                         <p className={classes.cardCategoryWhite}>
                         </p>
                     </CardHeader>
                     <CardBody>
                         <PreguntaList preguntas={preguntas} ></PreguntaList>
+                    </CardBody>
+                </Card>
+                <Card>
+                    <CardHeader color="primary">
+                        <h4 className={classes.cardTitleWhite}>Sección III</h4>
+                        <p className={classes.cardCategoryWhite}>
+                        </p>
+                    </CardHeader>
+                    <CardBody>
+                     <PreferenciaCapacitacion/>
                     </CardBody>
                 </Card>
             </GridItem>

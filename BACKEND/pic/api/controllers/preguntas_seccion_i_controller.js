@@ -1,41 +1,21 @@
+
 'use strict';
 const jwt = require('jsonwebtoken');
 var util = require('util');
 const boom = require('boom')
 const config = require('../../config.json');
-const Pregunta = require('../../models/preguntas.model');
+const Pregunta = require('../../models/preguntas_seccion_i.model');
 var tools = require('../utils/tools.js');
 var Excel = require('exceljs');
 
 module.exports = {
-    registrarPregunta: registrarPregunta,
-    registrarPreguntas: registrarPreguntas,
-    obtenerPreguntas: obtenerPreguntas,
+    registrarPreguntas_i: registrarPreguntas_i,
+    obtenerPreguntas_i: obtenerPreguntas_i,
   };
 
-  function registrarPregunta (req, res) {  
-    try{
-        var registro = async(req,res)=>{
-            var reqDecrypt = (tools.decrypt(req.body.data))
-            reqDecrypt.consecutivo = "";
-            var pregunta = new Pregunta(reqDecrypt);
-            pregunta.save((err, preguntaG) => {
-              if(err)return res.status(500).send({ estado: 'Error',message: 'Error en la petición', data: Object.assign ({})});
-              if(!preguntaG) return res.status(200).send({ estado: 'Error',message: 'No fue posible registrar la Pregunta', data: Object.assign ({})});
-              return res.status(200).send({
-                          estado: 'Registrada',
-                          message: util.format("Pregunta registrada exitosamente"),
-                          data: Object.assign(preguntaG)
-                      });  
-              });       
-        }
-        registro(req,res)
-    } catch (err){
-        throw boom.boomify(err)
-    }
-}   
+  
 
-    function obtenerPreguntas(req, res){
+    function obtenerPreguntas_i(req, res){
         try{
             var obtener = async(req,res)=>{
                 var reqDecrypt = (tools.decrypt(req.body.data))
@@ -63,7 +43,8 @@ module.exports = {
         }
     }
 
-    function registrarPreguntas (req, res) {  
+
+    function registrarPreguntas_i (req, res) {  
         try{
             var cargar = async(req,res)=>{
                 try{
@@ -100,32 +81,27 @@ module.exports = {
                                                     pregunta.proceso= row.getCell(2).value+""
                                                     pregunta.subproceso= row.getCell(3).value+""
                                                     pregunta.subcompetencia= row.getCell(5).value+""
-                                                    pregunta.enunciado= row.getCell(6).value+""
                                                     pregunta.respuestas = [{
-                                                        cod_respuesta: "a",
+                                                        cod_respuesta: "Nivel 1",
+                                                        descriptor : row.getCell(6).value+""
+                                                    },
+                                                    {
+                                                        cod_respuesta: "Nivel 2",
                                                         descriptor : row.getCell(7).value+""
                                                     },
                                                     {
-                                                        cod_respuesta: "b",
+                                                        cod_respuesta: "Nivel 3",
                                                         descriptor : row.getCell(8).value+""
                                                     },
                                                     {
-                                                        cod_respuesta: "c",
+                                                        cod_respuesta: "Nivel 4",
                                                         descriptor : row.getCell(9).value+""
-                                                    },
-                                                    {
-                                                        cod_respuesta: "d",
-                                                        descriptor : row.getCell(10).value+""
-                                                    },
-                                                    {
-                                                        cod_respuesta: "e",
-                                                        descriptor : row.getCell(11).value+""
                                                     }],  
                                                     pregunta.cod_respuesta_correcta = "N/A"
                                                     pregunta.valor_pregunta= "N/A"
                                                     pregunta.aleatorio= "1"   
-                                                    pregunta.eje_tematico= row.getCell(12).value+""    
-                                                    pregunta.tematica= row.getCell(13).value+""
+                                                    pregunta.eje_tematico= row.getCell(10).value+""    
+                                                    pregunta.tematica= row.getCell(11).value+""
   
                                                     preguntasDefinitiva.push(pregunta);  
                                   
@@ -176,5 +152,3 @@ module.exports = {
             } 
         
     }
-
-

@@ -106,13 +106,13 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-  /registrarPregunta:
+  /registrarPreguntasSeccionI:
     # binds a127 app logic to a route
-    x-swagger-router-controller: preguntas_controller
+    x-swagger-router-controller: preguntas_seccion_i_controller
     post:
       description: Controla la creación de usuarios del sistema
       # used as the method name of the controller
-      operationId: registrarPregunta
+      operationId: registrarPreguntas_i
       responses:
         "200":
           description: Success
@@ -123,7 +123,25 @@ paths:
         default:
           description: Error
           schema:
-            $ref: "#/definitions/ErrorResponse" 
+            $ref: "#/definitions/ErrorResponse"
+  /obtenerPreguntasSeccionI:
+      # binds a127 app logic to a route
+      x-swagger-router-controller: preguntas_seccion_i_controller
+      post:
+        description: Controla la creación de usuarios del sistema
+        # used as the method name of the controller
+        operationId: obtenerPreguntas_i
+        responses:
+          "200":
+            description: Success
+            schema:
+              # a pointer to a definition
+              $ref: "#/definitions/GenericResponse"
+          # responses may fall through to errors
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /obtenerProcesos:
     # binds a127 app logic to a route
     x-swagger-router-controller: cuestionario_controller

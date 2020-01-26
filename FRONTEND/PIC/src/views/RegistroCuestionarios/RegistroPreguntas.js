@@ -70,17 +70,21 @@ export default function Cuestionarios() {
   const [archivo, setArchivo] = useState("");
   const handleArchivoChange = e => setArchivo(e.target.files);
 
+  const [archivoPreguntasI, setArchivoPreguntasI] = useState("");
+  const handleArchivoPreguntasIChange = e => setArchivoPreguntasI(e.target.files);
+
+
   const [modal, setModal] = React.useState(false);
 
-  const handleSubmit = () => {
+  const enviarSeccionI = () => {
           try{
 
-            let files = archivo;
+            let files = archivoPreguntasI;
             let reader = new FileReader();
             reader.readAsDataURL(files[0])
             reader.onload=(e)=>{
               setModal(true);
-                const url = constantes.urlServer + constantes.servicios.registrarPreguntas;
+                const url = constantes.urlServer + constantes.servicios.registrarPreguntasSeccionI;
             let archivoB64 =  e.target.result;
             archivoB64 = archivoB64.replace("data:application/octet-stream;base64,","");
             archivoB64 = archivoB64.replace(/^ data:application\/octet-stream;base64,/, "")  ;
@@ -117,13 +121,88 @@ export default function Cuestionarios() {
             console.error("Error",error)
         }
   }
+
+  const enviarSeccionII = () => {
+    try{
+
+      let files = archivo;
+      let reader = new FileReader();
+      reader.readAsDataURL(files[0])
+      reader.onload=(e)=>{
+        setModal(true);
+          const url = constantes.urlServer + constantes.servicios.registrarPreguntas;
+      let archivoB64 =  e.target.result;
+      archivoB64 = archivoB64.replace("data:application/octet-stream;base64,","");
+      archivoB64 = archivoB64.replace(/^ data:application\/octet-stream;base64,/, "")  ;
+      const infoPreguntas ={
+        archivo: archivoB64
+      }
+      console.warn("data aaaa mostrar ",archivoB64);
+      HttpUtil.requestPost(url, infoPreguntas, 
+        (response) => { 
+          setModal(false);
+
+            alert("autenticar: "+ response.message);
+          /*  if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
+                localStorage.setItem('userInfo', JSON.stringify(response.data));
+                props.history.push("/admin");
+           //     history.push("/admin");
+             //   this.setState({redirect : true, showLoader : false, user : response.data});*/
+           
+        }, 
+          () => {
+            setModal(false);
+
+            alert("Error al autenticar: Ocurrio un error al autenticarce, por favor intenta de nuevo");
+
+           /* this.setState({
+                alertTitle : 'Error!',
+                alertMessage : 'Ocurrio un error al autenticarce, por favor intenta de nuevo',
+                alertType : 'error', 
+                showLoader : false
+            });*/
+        });
+      }
+  }catch(error){
+      console.error("Error",error)
+  }
+}
     const classes = useStyles();
     return(
         <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Registro preguntas Macro</h4>
+            <h4 className={classes.cardTitleWhite}>Registro preguntas Sección I</h4>
+            <p className={classes.cardCategoryWhite}> 
+                Ingreso de preguntas via archivo de Excel
+            </p>
+          </CardHeader>
+          <CardBody>
+          <CustomInput
+                      labelText="Archivo"
+                      id="archivo"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        type: "file",
+                        files: archivoPreguntasI,
+                        onChange: handleArchivoPreguntasIChange,
+                        autoComplete: "off"
+                      }}
+                    />
+          </CardBody>
+          <CardFooter className={classes.cardFooter}>
+          <Button color="primary" onClick={enviarSeccionI}>Cargar</Button>
+        </CardFooter>
+        </Card>
+        </GridItem>
+      
+        <GridItem xs={12} sm={12} md={12}>
+        <Card>
+          <CardHeader color="primary">
+            <h4 className={classes.cardTitleWhite}>Registro preguntas Seccion II</h4>
             <p className={classes.cardCategoryWhite}>
                 Ingreso de preguntas via archivo de Excel
             </p>
@@ -144,11 +223,21 @@ export default function Cuestionarios() {
                     />
           </CardBody>
           <CardFooter className={classes.cardFooter}>
-          <Button color="primary" onClick={handleSubmit}>Cargar</Button>
+          <Button color="primary" onClick={enviarSeccionII}>Cargar</Button>
         </CardFooter>
         </Card>
         </GridItem>
-      
+
+
+
+
+
+
+
+
+
+
+
         <GridItem xs={12} sm={12} md={12}>
         <Card>
         <form className={classes.form}>

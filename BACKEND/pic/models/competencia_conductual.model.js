@@ -7,8 +7,7 @@ const competencia_conductual = Schema({
     cargo: String,
     dependencia: String,
     proceso: String,
-    nivel_formación: String,
-    cargos_afectados: String
+    sub_proceso: String,
     }
 )
 
