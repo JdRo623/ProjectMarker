@@ -137,10 +137,7 @@ module.exports = {
                                                 Pregunta.insertMany(newArray,(err, miembros) => {
                                                     if(err)return res.status(500).send({ estado: 'Error',message: 'Error en la petición', data: Object.assign ({"error": err})});
                                                     if(!miembros) return res.status(200).send({ estado: 'Error',message: 'No fue posible registrar los miembros', data: Object.assign ({})});
-                                                    await Pregunta.find(filtros, (err, preguntaG) =>{
-                                                        
-                                                    });
-                                                    competenciaController
+                                                   
                                                     return res.status(200).send({
                                                         estado: 'Preguntas registradas',
                                                         message: util.format("Archivo procesado exitosamente"),
