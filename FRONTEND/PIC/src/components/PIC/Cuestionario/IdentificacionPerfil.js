@@ -90,8 +90,8 @@ export default function IdentificacionPerfil(props) {
        const urlS2 = constantes.urlServer + constantes.servicios.obtenerPreguntasSeccionI;
         HttpUtil.requestPost(urlS2, filtos,
             (response) => {
-                setPreguntasSeccionI(response.data);
-                console.warn(response);
+                setPreguntasSeccionI(response.data[0].respuestas);
+                console.warn(response.data[0].respuestas);
                 setModal(false)
 
             },

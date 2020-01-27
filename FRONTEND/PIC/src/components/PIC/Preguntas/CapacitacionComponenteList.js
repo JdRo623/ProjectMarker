@@ -24,12 +24,12 @@ const useStyles = makeStyles(styles);
 export default function CapacitacionComponenteList(props) {
 
     useEffect(() => {
-        console.error("pREGUNTA lIST", props.preguntas);
+        console.error("Preguntas Cpacitaciones", props.preguntas);
     }, []);
 
     return (
         <div>
-             {props.preguntas.map(c => <PreguntaItem respuestas={c.respuestas} />)}
+             {props.preguntas.map(c => <PreguntaItem descriptor={c.descriptor} />)}
         </div>
     );
 }

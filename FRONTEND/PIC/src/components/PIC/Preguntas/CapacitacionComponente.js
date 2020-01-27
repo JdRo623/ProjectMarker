@@ -33,7 +33,6 @@ export default function CapacitacionComponente(props) {
   }
 
   useEffect(() => {
-    console.error("Pregunta Item", props.enunciado);
 }, []);
   return (
 
@@ -45,8 +44,7 @@ export default function CapacitacionComponente(props) {
         <CardBody>
         <GridItem xs={12} sm={12} md={12} lg={12}>
               <div className={classes.title}>
-                <h3>Reconocimiento del funcionamiento y operaciones internas relacionadas con el proceso de fiscalización
-al interior de la Entidad</h3>
+                <h3>{props.descriptor}</h3>
               </div>
               <div
                 className={
