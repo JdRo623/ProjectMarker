@@ -137,15 +137,15 @@ function obtenerCompetencias(req, res) {
                 } else {
                     var respuesta = []
                     preguntas.forEach(element => {
-                       // if (!respuesta.includes(element.competencia)) {
+                        if (!respuesta.includes(element.competencia)) {
                             respuesta.push(element.competencia);
-                      //  }
+                        }
                     });
 
                     return res.status(200).send({
-                        estado: 'Obtenidas',
+                        estado: 'Competencias Obtenidas',
                         message: util.format('Información Obtenida'),
-                        data: Object.assign(respuesta)
+                        data: Object.assign(preguntas)
                     });
                 }
             });

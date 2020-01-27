@@ -27,7 +27,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions"; const useStyles = makeStyles(styles);
 import Slide from "@material-ui/core/Slide";
 import PreguntaList from "../Preguntas/PreguntaList";
-import CapacitacionComponente from "../Preguntas/CapacitacionComponente";
+import CapacitacionComponenteList from "../Preguntas/CapacitacionComponenteList";
 import PreferenciaCapacitacion from "../Preguntas/PreferenciaCapacitacion";
 import IdentificacionConductasList from "../Preguntas/IdentificacionConductasList"
 
@@ -576,8 +576,8 @@ export default function IdentificacionPerfil(props) {
                     </CardHeader>
                     <CardBody>
                     <IdentificacionConductasList competencias={competencias} />
-                    {// <CapacitacionComponente/> 
-}
+                     <CapacitacionComponenteList preguntas={preguntasSeccionI}/> 
+
                     </CardBody>
                 </Card>
                 <Card>

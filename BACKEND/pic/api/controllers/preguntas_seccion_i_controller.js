@@ -30,8 +30,8 @@ module.exports = {
                     if(err)return res.status(500).send({ estado: 'Error',message: 'Error en la petición', data: Object.assign ({})});
                     if(!preguntaG) return res.status(200).send({ estado: 'Error',message: 'No hay ninguna pregunta registrada en el momento', data: Object.assign ({})});
                     return res.status(200).send({
-                        estado: 'Registrada',
-                        message: util.format("Pregunta registrada exitosamente"),
+                        estado: 'Obtenidas',
+                        message: util.format("Preguntas de la sección I obtenidas exitosamente"),
                         data: Object.assign(preguntaG)
                     });          
                 });
