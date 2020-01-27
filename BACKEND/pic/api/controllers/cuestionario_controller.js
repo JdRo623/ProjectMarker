@@ -137,8 +137,8 @@ function obtenerCompetencias(req, res) {
                 } else {
                     var respuesta = []
                     preguntas.forEach(element => {
-                        if (!respuesta.includes(element.competencias)) {
-                            respuesta.push(element.competencias);
+                        if (!respuesta.includes(element.competencia)) {
+                            respuesta.push(element.competencia);
                         }
                     });
 
