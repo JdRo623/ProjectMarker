@@ -40,7 +40,7 @@ export default function IdentificacionConductas(props) {
     <Card className={classes[cardAnimaton]}>
       <form className={classes.form} onSubmit={handleSubmit}>
         <CardHeader color="primary" className={classes.cardHeader}>
-          <h3 >Identificación de conductas objeto de sanción fiscal</h3>
+          <h3 >{props.competencia}</h3>
   </CardHeader>
         <CardBody>
         <GridItem xs={12} sm={12} md={12} lg={12}>

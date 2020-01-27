@@ -27,10 +27,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions"; const useStyles = makeStyles(styles);
 import Slide from "@material-ui/core/Slide";
 import PreguntaList from "../Preguntas/PreguntaList";
-import IdentificacionConductas from "../Preguntas/IdentificacionConductas";
 import CapacitacionComponente from "../Preguntas/CapacitacionComponente";
 import PreferenciaCapacitacion from "../Preguntas/PreferenciaCapacitacion";
-
+import IdentificacionConductasList from "../Preguntas/IdentificacionConductasList"
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
@@ -58,6 +57,10 @@ export default function IdentificacionPerfil(props) {
 
     const [preguntas, setPreguntas] = useState([]);
 
+    const [preguntasSeccionI, setPreguntasSeccionI] = useState([]);
+
+    const [competencias, setCompetencias] = useState([]);
+
 
     const [modal, setModal] = React.useState(false);
 
@@ -69,6 +72,34 @@ export default function IdentificacionPerfil(props) {
             procesos: procesoSeleccionado,
             subproceso: subprocesoSeleccionado
         }
+
+        const urlS1 = constantes.urlServer + constantes.servicios.obtenerCompetencias;
+        HttpUtil.requestPost(urlS1, filtos,
+            (response) => {
+                setCompetencias(response.data);
+                console.warn(response);
+                setModal(false)
+
+            },
+            () => {
+
+                alert("Error al obtener:");
+
+            });
+
+        const urlS2 = constantes.urlServer + constantes.servicios.obtenerPreguntasSeccionI;
+        HttpUtil.requestPost(urlS2, filtos,
+            (response) => {
+                setPreguntasSeccionI(response.data);
+                console.warn(response);
+                setModal(false)
+
+            },
+            () => {
+
+                alert("Error al obtener:");
+
+            });
         const url = constantes.urlServer + constantes.servicios.obtenerPreguntas;
         HttpUtil.requestPost(url, filtos,
             (response) => {
@@ -306,7 +337,7 @@ export default function IdentificacionPerfil(props) {
                                     <br />
                                     <InputLabel className={classes.label}>
                                         Cargo
-                  </InputLabel>
+                                    </InputLabel>
                                     <CustomDropdown
                                         buttonText={cargoSeleccionado}
                                         dropdownHeader="Cargo"
@@ -544,8 +575,9 @@ export default function IdentificacionPerfil(props) {
                         </p>
                     </CardHeader>
                     <CardBody>
-                     <IdentificacionConductas/>
-                     <CapacitacionComponente/>
+                    <IdentificacionConductasList competencias={competencias} />
+                    {// <CapacitacionComponente/> 
+}
                     </CardBody>
                 </Card>
                 <Card>
