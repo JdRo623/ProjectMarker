@@ -128,8 +128,6 @@ function obtenerCompetencias(req, res) {
                 procesado: reqDecrypt.proceso,
                 subproceso:reqDecrypt.subproceso
             }
-            console.log("IMPRESION COMPETENCIAS 1" + filtros)
-
             /* if(reqDecrypt.proceso)filtros.proceso = reqDecrypt.proceso
              if(reqDecrypt.subproceso)filtros.subproceso = reqDecrypt.subproceso*/
             await Pregunta.find(filtros, (err, preguntas) => {
@@ -143,9 +141,7 @@ function obtenerCompetencias(req, res) {
                             respuesta.push(element.competencia);
                         }
                     });
-                    console.log("IMPRESION COMPETENCIAS 2" + respuesta)
 
-                    console.log("IMPRESION COMPETENCIAS 3" + preguntas)
                     return res.status(200).send({
                         estado: 'Competencias Obtenidas',
                         message: util.format('Información Obtenida'),

@@ -29,7 +29,7 @@ export default function IdentificacionConductasList(props) {
 
     return (
         <div>
-             {props.competencias.map(c => <PreguntaItem competencia={c.competencia}/>)}
+             {props.competencias.map(c => <PreguntaItem competencia={c}/>)}
         </div>
     );
 }

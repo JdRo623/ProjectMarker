@@ -38,9 +38,9 @@ export default function CapacitacionComponente(props) {
 
     <Card className={classes[cardAnimaton]}>
       <form className={classes.form} onSubmit={handleSubmit}>
-        <CardHeader color="primary" className={classes.cardHeader}>
+       {/*} <CardHeader color="primary" className={classes.cardHeader}>
           <h3 >Considero que necesito capacitación en este componente:</h3>
-  </CardHeader>
+  </CardHeader>*/}
         <CardBody>
         <GridItem xs={12} sm={12} md={12} lg={12}>
               <div className={classes.title}>
