@@ -214,7 +214,7 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
- /obtenerCompetencias:
+  /obtenerCompetencias:
       # binds a127 app logic to a route
       x-swagger-router-controller: cuestionario_controller
       post:
