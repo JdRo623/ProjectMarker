@@ -87,7 +87,7 @@ export default function IdentificacionPerfil(props) {
 
             });
 
-       /* const urlS2 = constantes.urlServer + constantes.servicios.obtenerPreguntasSeccionI;
+       const urlS2 = constantes.urlServer + constantes.servicios.obtenerPreguntasSeccionI;
         HttpUtil.requestPost(urlS2, filtos,
             (response) => {
                 setPreguntasSeccionI(response.data);
@@ -99,7 +99,7 @@ export default function IdentificacionPerfil(props) {
 
                 alert("Error al obtener:");
 
-            });*/
+            });
         const url = constantes.urlServer + constantes.servicios.obtenerPreguntas;
         HttpUtil.requestPost(url, filtos,
             (response) => {
