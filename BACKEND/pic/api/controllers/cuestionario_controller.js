@@ -123,8 +123,10 @@ function obtenerCompetencias(req, res) {
     try {
         var obtener = async (req, res) => {
             var reqDecrypt = (tools.decrypt(req.body.data))
-            let filtros = {
-                proceso: reqDecrypt.proceso
+            const filtros= {
+                cargo: reqDecrypt.cargo,
+                procesado: reqDecrypt.proceso,
+                subproceso:reqDecrypt.subproceso
             }
             console.log("IMPRESION COMPETENCIAS 1" + filtros)
 

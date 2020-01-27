@@ -45,7 +45,6 @@ module.exports = {
                     subproceso:reqDecrypt.subproceso
                 }
                 reqDecrypt.consecutivo = "";
-                var pregunta = new Pregunta(reqDecrypt);
                 await Pregunta.find(filtros, (err, preguntaG) =>{
                     if(err)return res.status(500).send({ estado: 'Error',message: 'Error en la petición', data: Object.assign ({})});
                     if(!preguntaG) return res.status(200).send({ estado: 'Error',message: 'No hay ninguna pregunta registrada en el momento', data: Object.assign ({})});
