@@ -31,7 +31,6 @@ function registrarEmpleados(req, res) {
                                     var rowCount = 2;
                                     var empleadosDefinitivos =[];
                                     if(worksheet){
-                                        if(true/*validarFormato(worksheet.getRow(1))*/){
                                             do{
                                                 var empleado ={
                                                     fecha_registro: fecha                                                };
@@ -45,8 +44,8 @@ function registrarEmpleados(req, res) {
                                                 empleado.apellidos= tools.encrypt(row.getCell(3).value+"")
                                                 empleado.cargo= tools.encrypt(row.getCell(4).value+"")
                                                 empleado.direccion_seccional= tools.encrypt(row.getCell(5).value+"")
-                                                pregunta.subdireccion =  tools.encrypt(row.getCell(6).value+"")
-                                                pregunta.coordinacion=  tools.encrypt(row.getCell(7).value+"")
+                                                empleado.subdireccion =  tools.encrypt(row.getCell(6).value+"")
+                                                empleado.coordinacion=  tools.encrypt(row.getCell(7).value+"")
                                                 empleadosDefinitivos.push(empleado);  
                               
                                                 rowCount++;
@@ -64,10 +63,6 @@ function registrarEmpleados(req, res) {
                                                     }); 
                                                 
                                             });   
-                                        }else{
-                                            console.log('Formato del documento no es valido');
-                                            return res.status(200).send({ estado: 'Error',message: 'Formato del documento no es valido', data: Object.assign ({})});                                   // listaMiembrosInvalidos.push(a);
-                                        }
                                     }else{
                                         console.log('Formato del documento no es valido');
                                         return res.status(200).send({ estado: 'Error',message: 'Formato del documento no es valido', data: Object.assign ({})});                                   // listaMiembrosInvalidos.push(a);
@@ -76,7 +71,7 @@ function registrarEmpleados(req, res) {
                                 }catch (err) {
                                     return res.status(200).send({
                                         estado: 'Empleados NO registrados',
-                                        message: util.format("Formato del documento no es valido"),
+                                        message: util.format("Error procesando el archivo"),
                                         data: Object.assign({})
                                         }); 
                                 }
