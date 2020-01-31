@@ -65,7 +65,7 @@ function registrarEmpleados(req, res) {
                                             });   
                                     }else{
                                         console.log('Formato del documento no es valido');
-                                        return res.status(200).send({ estado: 'Error',message: 'Formato del documento no es valido', data: Object.assign ({})});                                   // listaMiembrosInvalidos.push(a);
+                                        return res.status(200).send({ estado: 'Error',message: 'Formato del documento no es valido POR LA HOJA', data: Object.assign ({})});                                   // listaMiembrosInvalidos.push(a);
                                     }
                                     
                                 }catch (err) {
