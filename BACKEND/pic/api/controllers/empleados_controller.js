@@ -5,6 +5,7 @@ const boom = require('boom')
 const config = require('../../config.json');
 const EmpleadosModel = require('../../models/empleado.model');
 var tools = require('../utils/tools.js');
+var Excel = require('exceljs');
 
 module.exports = {
     registrarEmpleados: registrarEmpleados,
