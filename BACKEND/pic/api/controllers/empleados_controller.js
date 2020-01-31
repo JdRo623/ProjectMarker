@@ -79,7 +79,7 @@ function registrarEmpleados(req, res) {
                 }catch (err) {
                     return res.status(200).send({
                         estado: 'Empleados NO registrado',
-                        message: util.format("Formato del documento no es valido"),
+                        message: util.format("Formato del documento no es valido por general "+err),
                         data: Object.assign({})
                         }); 
                 }
