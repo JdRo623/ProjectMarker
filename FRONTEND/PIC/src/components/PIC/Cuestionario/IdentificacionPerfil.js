@@ -233,6 +233,20 @@ export default function IdentificacionPerfil(props) {
                     </CardHeader>
                     <CardBody>
                         <GridContainer>
+                        <GridItem xs={6} sm={6} md={3}>
+                        <CustomInput
+                                    labelText="C.C"
+                                    id="cedula"
+                                    formControlProps={{
+                                        fullWidth: true
+                                    }}
+                                />
+                        </GridItem>
+                        <GridItem xs={6} sm={6} md={3}>
+                            
+                        </GridItem>
+                        </GridContainer>
+                        <GridContainer>
                             <GridItem xs={12} sm={12} md={6}>
                                 <CustomInput
                                     labelText="Nombres"

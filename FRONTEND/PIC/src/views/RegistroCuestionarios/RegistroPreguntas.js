@@ -74,6 +74,11 @@ export default function Cuestionarios() {
   const handleArchivoPreguntasIChange = e => setArchivoPreguntasI(e.target.files);
 
 
+  const [archivoEmpleados, setArchivoEmpleados] = useState("");
+  const handleArchivoEmpleadosChange = e => setArchivoEmpleados(e.target.files);
+
+
+
   const [modal, setModal] = React.useState(false);
 
   const enviarSeccionI = () => {
@@ -167,6 +172,51 @@ export default function Cuestionarios() {
       console.error("Error",error)
   }
 }
+
+const enviarArchivoEmpleados = () => {
+  try{
+
+    let files = archivoEmpleados;
+    let reader = new FileReader();
+    reader.readAsDataURL(files[0])
+    reader.onload=(e)=>{
+      setModal(true);
+        const url = constantes.urlServer + constantes.servicios.registrarEmpleados;
+    let archivoB64 =  e.target.result;
+    archivoB64 = archivoB64.replace("data:application/octet-stream;base64,","");
+    archivoB64 = archivoB64.replace(/^ data:application\/octet-stream;base64,/, "")  ;
+    const infoPreguntas ={
+      archivo: archivoB64
+    }
+    HttpUtil.requestPost(url, infoPreguntas, 
+      (response) => { 
+        setModal(false);
+
+          alert("autenticar: "+ response.message);
+        /*  if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
+              localStorage.setItem('userInfo', JSON.stringify(response.data));
+              props.history.push("/admin");
+         //     history.push("/admin");
+           //   this.setState({redirect : true, showLoader : false, user : response.data});*/
+         
+      }, 
+        () => {
+          setModal(false);
+
+          alert("Error al autenticar: Ocurrio un error al autenticarce, por favor intenta de nuevo");
+
+         /* this.setState({
+              alertTitle : 'Error!',
+              alertMessage : 'Ocurrio un error al autenticarce, por favor intenta de nuevo',
+              alertType : 'error', 
+              showLoader : false
+          });*/
+      });
+    }
+}catch(error){
+    console.error("Error",error)
+}
+}
     const classes = useStyles();
     return(
         <GridContainer>
@@ -210,7 +260,7 @@ export default function Cuestionarios() {
           <CardBody>
           <CustomInput
                       labelText="Archivo"
-                      id="archivo"
+                      id="archivoII"
                       formControlProps={{
                         fullWidth: true
                       }}
@@ -227,6 +277,42 @@ export default function Cuestionarios() {
         </CardFooter>
         </Card>
         </GridItem>
+
+        <GridItem xs={12} sm={12} md={12}>
+        <Card>
+          <CardHeader color="primary">
+            <h4 className={classes.cardTitleWhite}>Registro empleados</h4>
+            <p className={classes.cardCategoryWhite}>
+                Ingreso de empleados
+            </p>
+          </CardHeader>
+          <CardBody>
+          <CustomInput
+                      labelText="Archivo"
+                      id="archivoEmpleados"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        type: "file",
+                        files: archivoEmpleados,
+                        onChange: handleArchivoEmpleadosChange,
+                        autoComplete: "off"
+                      }}
+                    />
+          </CardBody>
+          <CardFooter className={classes.cardFooter}>
+          <Button color="primary" onClick={enviarArchivoEmpleados}>Cargar</Button>
+        </CardFooter>
+        </Card>
+        </GridItem>
+
+
+
+
+
+
+
 
 
 

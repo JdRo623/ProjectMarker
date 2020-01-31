@@ -22,6 +22,7 @@ const constantes = {
          obtenerCargos : '/obtenerCargos',
          obtenerSubprocesos : '/obtenerSubprocesos',
          obtenerCompetencias : '/obtenerCompetencias',
+         registrarEmpleados : '/registrarEmpleados',
          obtenerProcesos : '/obtenerProcesos'
    },
    mensajes : {
