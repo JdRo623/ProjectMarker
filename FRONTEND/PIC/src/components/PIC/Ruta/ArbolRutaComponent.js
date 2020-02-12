@@ -25,10 +25,6 @@ const tree = {
           "name": "Actividad 1", "acronimo": "Tendencias tecnológicas recientes aplicadas al negocio"
         },{
           "name": "Actividad 2", "acronimo": "Gobierno Digital y Transformación Digital"
-        },{
-          "name": "Actividad 1", "acronimo": "Tendencias tecnológicas recientes aplicadas al negocio"
-        },{
-          "name": "Actividad 1", "acronimo": "Tendencias tecnológicas recientes aplicadas al negocio"
         }
         ]
       },
