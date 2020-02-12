@@ -1,4 +1,4 @@
-import React, { useState }  from "react";
+import React, { useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -77,263 +77,341 @@ export default function Cuestionarios() {
   const [archivoEmpleados, setArchivoEmpleados] = useState("");
   const handleArchivoEmpleadosChange = e => setArchivoEmpleados(e.target.files);
 
+  const [archivoActividades, setArchivoActividades] = useState("");
+  const handleArchivoActividadesChange = e => setArchivoActividades(e.target.files);
+
 
 
   const [modal, setModal] = React.useState(false);
 
   const enviarSeccionI = () => {
-          try{
+    try {
 
-            let files = archivoPreguntasI;
-            let reader = new FileReader();
-            reader.readAsDataURL(files[0])
-            reader.onload=(e)=>{
-              setModal(true);
-                const url = constantes.urlServer + constantes.servicios.registrarPreguntasSeccionI;
-            let archivoB64 =  e.target.result;
-            archivoB64 = archivoB64.replace("data:application/octet-stream;base64,","");
-            archivoB64 = archivoB64.replace(/^ data:application\/octet-stream;base64,/, "")  ;
-            const infoPreguntas ={
-              archivo: archivoB64
-            }
-            console.warn("data aaaa mostrar ",archivoB64);
-            HttpUtil.requestPost(url, infoPreguntas, 
-              (response) => { 
-                setModal(false);
-
-                  alert("autenticar: "+ response.message);
-                /*  if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
-                      localStorage.setItem('userInfo', JSON.stringify(response.data));
-                      props.history.push("/admin");
-                 //     history.push("/admin");
-                   //   this.setState({redirect : true, showLoader : false, user : response.data});*/
-                 
-              }, 
-                () => {
-                  setModal(false);
-
-                  alert("Error al autenticar: Ocurrio un error al autenticarce, por favor intenta de nuevo");
-
-                 /* this.setState({
-                      alertTitle : 'Error!',
-                      alertMessage : 'Ocurrio un error al autenticarce, por favor intenta de nuevo',
-                      alertType : 'error', 
-                      showLoader : false
-                  });*/
-              });
-            }
-        }catch(error){
-            console.error("Error",error)
-        }
-  }
-
-  const enviarSeccionII = () => {
-    try{
-
-      let files = archivo;
+      let files = archivoPreguntasI;
       let reader = new FileReader();
       reader.readAsDataURL(files[0])
-      reader.onload=(e)=>{
+      reader.onload = (e) => {
         setModal(true);
-          const url = constantes.urlServer + constantes.servicios.registrarPreguntas;
-      let archivoB64 =  e.target.result;
-      archivoB64 = archivoB64.replace("data:application/octet-stream;base64,","");
-      archivoB64 = archivoB64.replace(/^ data:application\/octet-stream;base64,/, "")  ;
-      const infoPreguntas ={
-        archivo: archivoB64
-      }
-      console.warn("data aaaa mostrar ",archivoB64);
-      HttpUtil.requestPost(url, infoPreguntas, 
-        (response) => { 
-          setModal(false);
+        const url = constantes.urlServer + constantes.servicios.registrarPreguntasSeccionI;
+        let archivoB64 = e.target.result;
+        archivoB64 = archivoB64.replace("data:application/octet-stream;base64,", "");
+        archivoB64 = archivoB64.replace(/^ data:application\/octet-stream;base64,/, "");
+        const infoPreguntas = {
+          archivo: archivoB64
+        }
+        console.warn("data aaaa mostrar ", archivoB64);
+        HttpUtil.requestPost(url, infoPreguntas,
+          (response) => {
+            setModal(false);
 
-            alert("autenticar: "+ response.message);
-          /*  if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
-                localStorage.setItem('userInfo', JSON.stringify(response.data));
-                props.history.push("/admin");
-           //     history.push("/admin");
-             //   this.setState({redirect : true, showLoader : false, user : response.data});*/
-           
-        }, 
+            alert("autenticar: " + response.message);
+            /*  if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
+                  localStorage.setItem('userInfo', JSON.stringify(response.data));
+                  props.history.push("/admin");
+             //     history.push("/admin");
+               //   this.setState({redirect : true, showLoader : false, user : response.data});*/
+
+          },
           () => {
             setModal(false);
 
             alert("Error al autenticar: Ocurrio un error al autenticarce, por favor intenta de nuevo");
 
-           /* this.setState({
-                alertTitle : 'Error!',
-                alertMessage : 'Ocurrio un error al autenticarce, por favor intenta de nuevo',
-                alertType : 'error', 
-                showLoader : false
-            });*/
-        });
+            /* this.setState({
+                 alertTitle : 'Error!',
+                 alertMessage : 'Ocurrio un error al autenticarce, por favor intenta de nuevo',
+                 alertType : 'error', 
+                 showLoader : false
+             });*/
+          });
       }
-  }catch(error){
-      console.error("Error",error)
+    } catch (error) {
+      console.error("Error", error)
+    }
   }
-}
 
-const enviarArchivoEmpleados = () => {
-  try{
+  const enviarSeccionII = () => {
+    try {
 
-    let files = archivoEmpleados;
-    let reader = new FileReader();
-    reader.readAsDataURL(files[0])
-    reader.onload=(e)=>{
-      setModal(true);
+      let files = archivo;
+      let reader = new FileReader();
+      reader.readAsDataURL(files[0])
+      reader.onload = (e) => {
+        setModal(true);
+        const url = constantes.urlServer + constantes.servicios.registrarPreguntas;
+        let archivoB64 = e.target.result;
+        archivoB64 = archivoB64.replace("data:application/octet-stream;base64,", "");
+        archivoB64 = archivoB64.replace(/^ data:application\/octet-stream;base64,/, "");
+        const infoPreguntas = {
+          archivo: archivoB64
+        }
+        console.warn("data aaaa mostrar ", archivoB64);
+        HttpUtil.requestPost(url, infoPreguntas,
+          (response) => {
+            setModal(false);
+
+            alert("autenticar: " + response.message);
+            /*  if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
+                  localStorage.setItem('userInfo', JSON.stringify(response.data));
+                  props.history.push("/admin");
+             //     history.push("/admin");
+               //   this.setState({redirect : true, showLoader : false, user : response.data});*/
+
+          },
+          () => {
+            setModal(false);
+
+            alert("Error al autenticar: Ocurrio un error al autenticarce, por favor intenta de nuevo");
+
+            /* this.setState({
+                 alertTitle : 'Error!',
+                 alertMessage : 'Ocurrio un error al autenticarce, por favor intenta de nuevo',
+                 alertType : 'error', 
+                 showLoader : false
+             });*/
+          });
+      }
+    } catch (error) {
+      console.error("Error", error)
+    }
+  }
+
+  const enviarArchivoEmpleados = () => {
+    try {
+
+      let files = archivoEmpleados;
+      let reader = new FileReader();
+      reader.readAsDataURL(files[0])
+      reader.onload = (e) => {
+        setModal(true);
         const url = constantes.urlServer + constantes.servicios.registrarEmpleados;
-    let archivoB64 =  e.target.result;
-    archivoB64 = archivoB64.replace("data:application/octet-stream;base64,","");
-    archivoB64 = archivoB64.replace(/^ data:application\/octet-stream;base64,/, "")  ;
-    const infoPreguntas ={
-      archivo: archivoB64
+        let archivoB64 = e.target.result;
+        archivoB64 = archivoB64.replace("data:application/octet-stream;base64,", "");
+        archivoB64 = archivoB64.replace(/^ data:application\/octet-stream;base64,/, "");
+        const infoPreguntas = {
+          archivo: archivoB64
+        }
+        HttpUtil.requestPost(url, infoPreguntas,
+          (response) => {
+            setModal(false);
+
+            alert("autenticar: " + response.message);
+            /*  if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
+                  localStorage.setItem('userInfo', JSON.stringify(response.data));
+                  props.history.push("/admin");
+             //     history.push("/admin");
+               //   this.setState({redirect : true, showLoader : false, user : response.data});*/
+
+          },
+          () => {
+            setModal(false);
+
+            alert("Error al autenticar: Ocurrio un error al autenticarce, por favor intenta de nuevo");
+
+            /* this.setState({
+                 alertTitle : 'Error!',
+                 alertMessage : 'Ocurrio un error al autenticarce, por favor intenta de nuevo',
+                 alertType : 'error', 
+                 showLoader : false
+             });*/
+          });
+      }
+    } catch (error) {
+      console.error("Error", error)
     }
-    HttpUtil.requestPost(url, infoPreguntas, 
-      (response) => { 
-        setModal(false);
+  }
 
-          alert("autenticar: "+ response.message);
-        /*  if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
-              localStorage.setItem('userInfo', JSON.stringify(response.data));
-              props.history.push("/admin");
-         //     history.push("/admin");
-           //   this.setState({redirect : true, showLoader : false, user : response.data});*/
-         
-      }, 
-        () => {
-          setModal(false);
+  const enviarArchivoActividades = () => {
+    try {
 
-          alert("Error al autenticar: Ocurrio un error al autenticarce, por favor intenta de nuevo");
+      let files = archivoActividades;
+      let reader = new FileReader();
+      reader.readAsDataURL(files[0])
+      reader.onload = (e) => {
+        setModal(true);
+        const url = constantes.urlServer + constantes.servicios.registrarActividades;
+        let archivoB64 = e.target.result;
+        archivoB64 = archivoB64.replace("data:application/octet-stream;base64,", "");
+        archivoB64 = archivoB64.replace(/^ data:application\/octet-stream;base64,/, "");
+        const infoPreguntas = {
+          archivo: archivoB64
+        }
+        HttpUtil.requestPost(url, infoPreguntas,
+          (response) => {
+            setModal(false);
 
-         /* this.setState({
-              alertTitle : 'Error!',
-              alertMessage : 'Ocurrio un error al autenticarce, por favor intenta de nuevo',
-              alertType : 'error', 
-              showLoader : false
-          });*/
-      });
+            alert("actividades: " + response.message);
+            /*  if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
+                  localStorage.setItem('userInfo', JSON.stringify(response.data));
+                  props.history.push("/admin");
+             //     history.push("/admin");
+               //   this.setState({redirect : true, showLoader : false, user : response.data});*/
+
+          },
+          () => {
+            setModal(false);
+
+            alert("Error al registar archivo de actividades");
+
+            /* this.setState({
+                 alertTitle : 'Error!',
+                 alertMessage : 'Ocurrio un error al autenticarce, por favor intenta de nuevo',
+                 alertType : 'error', 
+                 showLoader : false
+             });*/
+          });
+      }
+    } catch (error) {
+      console.error("Error actividades ", error)
     }
-}catch(error){
-    console.error("Error",error)
-}
-}
-    const classes = useStyles();
-    return(
-        <GridContainer>
-        <GridItem xs={12} sm={12} md={12}>
+  }
+  const classes = useStyles();
+  return (
+    <GridContainer>
+      <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Registro preguntas Sección I</h4>
-            <p className={classes.cardCategoryWhite}> 
-                Ingreso de preguntas via archivo de Excel
+            <p className={classes.cardCategoryWhite}>
+              Ingreso de preguntas via archivo de Excel
             </p>
           </CardHeader>
           <CardBody>
-          <CustomInput
-                      labelText="Archivo"
-                      id="archivo"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        type: "file",
-                        files: archivoPreguntasI,
-                        onChange: handleArchivoPreguntasIChange,
-                        autoComplete: "off"
-                      }}
-                    />
+            <CustomInput
+              labelText="Archivo"
+              id="archivo"
+              formControlProps={{
+                fullWidth: true
+              }}
+              inputProps={{
+                type: "file",
+                files: archivoPreguntasI,
+                onChange: handleArchivoPreguntasIChange,
+                autoComplete: "off"
+              }}
+            />
           </CardBody>
           <CardFooter className={classes.cardFooter}>
-          <Button color="primary" onClick={enviarSeccionI}>Cargar</Button>
-        </CardFooter>
+            <Button color="primary" onClick={enviarSeccionI}>Cargar</Button>
+          </CardFooter>
         </Card>
-        </GridItem>
-      
-        <GridItem xs={12} sm={12} md={12}>
+      </GridItem>
+
+      <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Registro preguntas Seccion II</h4>
             <p className={classes.cardCategoryWhite}>
-                Ingreso de preguntas via archivo de Excel
+              Ingreso de preguntas via archivo de Excel
             </p>
           </CardHeader>
           <CardBody>
-          <CustomInput
-                      labelText="Archivo"
-                      id="archivoII"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        type: "file",
-                        files: archivo,
-                        onChange: handleArchivoChange,
-                        autoComplete: "off"
-                      }}
-                    />
+            <CustomInput
+              labelText="Archivo"
+              id="archivoII"
+              formControlProps={{
+                fullWidth: true
+              }}
+              inputProps={{
+                type: "file",
+                files: archivo,
+                onChange: handleArchivoChange,
+                autoComplete: "off"
+              }}
+            />
           </CardBody>
           <CardFooter className={classes.cardFooter}>
-          <Button color="primary" onClick={enviarSeccionII}>Cargar</Button>
-        </CardFooter>
+            <Button color="primary" onClick={enviarSeccionII}>Cargar</Button>
+          </CardFooter>
         </Card>
-        </GridItem>
+      </GridItem>
 
-        <GridItem xs={12} sm={12} md={12}>
+      <GridItem xs={12} sm={12} md={12}>
         <Card>
           <CardHeader color="primary">
             <h4 className={classes.cardTitleWhite}>Registro empleados</h4>
             <p className={classes.cardCategoryWhite}>
-                Ingreso de empleados
+              Ingreso de empleados
             </p>
           </CardHeader>
           <CardBody>
-          <CustomInput
-                      labelText="Archivo"
-                      id="archivoEmpleados"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        type: "file",
-                        files: archivoEmpleados,
-                        onChange: handleArchivoEmpleadosChange,
-                        autoComplete: "off"
-                      }}
-                    />
+            <CustomInput
+              labelText="Archivo"
+              id="archivoEmpleados"
+              formControlProps={{
+                fullWidth: true
+              }}
+              inputProps={{
+                type: "file",
+                files: archivoEmpleados,
+                onChange: handleArchivoEmpleadosChange,
+                autoComplete: "off"
+              }}
+            />
           </CardBody>
           <CardFooter className={classes.cardFooter}>
-          <Button color="primary" onClick={enviarArchivoEmpleados}>Cargar</Button>
-        </CardFooter>
+            <Button color="primary" onClick={enviarArchivoEmpleados}>Cargar</Button>
+          </CardFooter>
         </Card>
-        </GridItem>
+      </GridItem>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <GridItem xs={12} sm={12} md={12}>
+      <GridItem xs={12} sm={12} md={12}>
         <Card>
-        <form className={classes.form}>
           <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>Registro manual de preguntas</h4>
+            <h4 className={classes.cardTitleWhite}>Registro empleados</h4>
             <p className={classes.cardCategoryWhite}>
-            Ingreso de preguntas individuales
+              Archivo Actividades
             </p>
           </CardHeader>
           <CardBody>
+            <CustomInput
+              labelText="Archivo"
+              id="archivoActividades"
+              formControlProps={{
+                fullWidth: true
+              }}
+              inputProps={{
+                type: "file",
+                files: archivoActividades,
+                onChange: handleArchivoActividadesChange,
+                autoComplete: "off"
+              }}
+            />
+          </CardBody>
+          <CardFooter className={classes.cardFooter}>
+            <Button color="primary" onClick={enviarArchivoEmpleados}>Cargar</Button>
+          </CardFooter>
+        </Card>
+      </GridItem>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <GridItem xs={12} sm={12} md={12}>
+        <Card>
+          <form className={classes.form}>
+            <CardHeader color="primary">
+              <h4 className={classes.cardTitleWhite}>Registro manual de preguntas</h4>
+              <p className={classes.cardCategoryWhite}>
+                Ingreso de preguntas individuales
+            </p>
+            </CardHeader>
+            <CardBody>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
@@ -432,30 +510,30 @@ const enviarArchivoEmpleados = () => {
               </GridContainer>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={3}>
-                <br />
-                <InputLabel className={classes.label}>
-                Aleatorio
+                  <br />
+                  <InputLabel className={classes.label}>
+                    Aleatorio
                   </InputLabel>
-                <CustomDropdown
-                      buttonText="Aleatorio"
-                      dropdownHeader="Aleatorio"
-                      buttonProps={{
-                        className: classes.navLink,
-                        color: "transparent"
-                      }}
-                      dropdownList={[
-                        "Si",
-                        "No",   
-                      ]}
-                    />
+                  <CustomDropdown
+                    buttonText="Aleatorio"
+                    dropdownHeader="Aleatorio"
+                    buttonProps={{
+                      className: classes.navLink,
+                      color: "transparent"
+                    }}
+                    dropdownList={[
+                      "Si",
+                      "No",
+                    ]}
+                  />
                 </GridItem>
-                
+
               </GridContainer>
-              
+
             </CardBody>
-          <CardFooter className={classes.cardFooter}>
-          <Button color="primary" >Enviar datos</Button>
-                  </CardFooter>
+            <CardFooter className={classes.cardFooter}>
+              <Button color="primary" >Enviar datos</Button>
+            </CardFooter>
           </form>
         </Card>
       </GridItem>
@@ -476,7 +554,7 @@ const enviarArchivoEmpleados = () => {
           disableTypography
           className={classes.modalHeader}
         >
-         {/*} <IconButton
+          {/*} <IconButton
             className={classes.modalCloseButton}
             key="close"
             aria-label="Close"
@@ -502,7 +580,7 @@ const enviarArchivoEmpleados = () => {
         </Button>*/}
         </DialogActions>
       </Dialog>
-    </GridContainer>  
-    );
+    </GridContainer>
+  );
 
 }

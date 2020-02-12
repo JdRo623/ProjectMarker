@@ -23,7 +23,9 @@ const constantes = {
          obtenerSubprocesos : '/obtenerSubprocesos',
          obtenerCompetencias : '/obtenerCompetencias',
          registrarEmpleados : '/registrarEmpleados',
-         obtenerProcesos : '/obtenerProcesos'
+         obtenerProcesos : '/obtenerProcesos',
+         registrarActividades : '/registrarActividades',
+         obtenerEmpleado : '/obtenerEmpleado'
    },
    mensajes : {
        errorNumCiudadanos : 'Deben existir minimo tres (3) y máximo seis (6) integrantes para que la veeduría sea valida.',
