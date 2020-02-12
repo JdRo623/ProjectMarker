@@ -3,66 +3,16 @@ const jwt = require('jsonwebtoken');
 var util = require('util');
 const boom = require('boom')
 const config = require('../../config.json');
-const Pregunta = require('../../models/preguntas.model');
+const Pregunta = require('../../models/preguntas_seccion_iii_i.model');
 var tools = require('../utils/tools.js');
 var Excel = require('exceljs');
 
 module.exports = {
-    registrarPregunta: registrarPregunta,
-    registrarPreguntas: registrarPreguntas,
-    obtenerPreguntas: obtenerPreguntas,
+    registrarPreguntas_iii_i: registrarPreguntas_iii_i,
+    obtenerPreguntas_iii_i: obtenerPreguntas_iii_i,
 };
 
-function registrarPregunta(req, res) {
-    try {
-        var registro = async (req, res) => {
-            var reqDecrypt = (tools.decrypt(req.body.data))
-            reqDecrypt.consecutivo = "";
-            var pregunta = new Pregunta(reqDecrypt);
-            pregunta.save((err, preguntaG) => {
-                if (err) return res.status(500).send({ estado: 'Error', message: 'Error en la petición', data: Object.assign({}) });
-                if (!preguntaG) return res.status(200).send({ estado: 'Error', message: 'No fue posible registrar la Pregunta', data: Object.assign({}) });
-                return res.status(200).send({
-                    estado: 'Registrada',
-                    message: util.format("Pregunta registrada exitosamente"),
-                    data: Object.assign(preguntaG)
-                });
-            });
-        }
-        registro(req, res)
-    } catch (err) {
-        throw boom.boomify(err)
-    }
-}
-
-function obtenerPreguntas(req, res) {
-    try {
-        var obtener = async (req, res) => {
-            var reqDecrypt = (tools.decrypt(req.body.data))
-            const filtros = {
-                cargo: reqDecrypt.cargo,
-                procesado: reqDecrypt.proceso,
-                subproceso: reqDecrypt.subproceso
-            }
-            reqDecrypt.consecutivo = "";
-            await Pregunta.find(filtros, (err, preguntaG) => {
-                if (err) return res.status(500).send({ estado: 'Error', message: 'Error en la petición', data: Object.assign({}) });
-                if (!preguntaG) return res.status(200).send({ estado: 'Error', message: 'No hay ninguna pregunta registrada en el momento', data: Object.assign({}) });
-                return res.status(200).send({
-                    estado: 'Registrada',
-                    message: util.format("Pregunta registrada exitosamente"),
-                    data: Object.assign(preguntaG)
-                });
-            });
-
-        }
-        obtener(req, res)
-    } catch (err) {
-        throw boom.boomify(err)
-    }
-}
-
-function registrarPreguntas(req, res) {
+function registrarPreguntas_iii_i(req, res) {
     try {
         var cargar = async (req, res) => {
             try {
@@ -88,7 +38,7 @@ function registrarPreguntas(req, res) {
                                         var row = worksheet.getRow(rowCount);
                                         var pregunta = {
                                             fecha_registro: fecha,
-                                            consecutivo: row.getCell(4).value+ tools.generadorConsecutivo(),
+                                            consecutivo: row.getCell(4).value + tools.generadorConsecutivo(),
                                         };
 
                                         var numValues = row.actualCellCount;
@@ -175,5 +125,30 @@ function registrarPreguntas(req, res) {
     }
 }
 
+function obtenerPreguntas_iii_i(req, res) {
+    try {
+        var obtener = async (req, res) => {
+            var reqDecrypt = (tools.decrypt(req.body.data))
+            const filtros = {
+                cargo: reqDecrypt.cargo,
+                procesado: reqDecrypt.proceso,
+                subproceso: reqDecrypt.subproceso
+            }
+            reqDecrypt.consecutivo = "";
+            var pregunta = new Pregunta(reqDecrypt);
+            await Pregunta.find(filtros, (err, preguntaG) => {
+                if (err) return res.status(500).send({ estado: 'Error', message: 'Error en la petición', data: Object.assign({}) });
+                if (!preguntaG) return res.status(200).send({ estado: 'Error', message: 'No hay ninguna pregunta registrada en el momento', data: Object.assign({}) });
+                return res.status(200).send({
+                    estado: 'Obtenidas',
+                    message: util.format("Preguntas de la sección I obtenidas exitosamente"),
+                    data: Object.assign(preguntaG)
+                });
+            });
 
-
+        }
+        obtener(req, res)
+    } catch (err) {
+        throw boom.boomify(err)
+    }
+}

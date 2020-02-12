@@ -30,7 +30,10 @@ import PreguntaList from "../Preguntas/PreguntaList";
 import CapacitacionComponenteList from "../Preguntas/CapacitacionComponenteList";
 import PreferenciaCapacitacion from "../Preguntas/PreferenciaCapacitacion";
 import IdentificacionConductasList from "../Preguntas/IdentificacionConductasList"
-
+import NavPills from "components/NavPills/NavPills.js";
+// @material-ui/icons
+import Dashboard from "@material-ui/icons/Dashboard";
+import Schedule from "@material-ui/icons/Schedule";
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
 });
@@ -227,12 +230,12 @@ export default function IdentificacionPerfil(props) {
             <Card>
                 <form className={classes.form} onSubmit={handleEnvioDatos}>
                     <CardHeader color="primary">
-                        <h4 className={classes.cardTitleWhite}>Preguntas de identificación y perfil</h4>
+                        <h4 className={classes.cardTitleWhite}>Buscar Perfil</h4>
                         <p className={classes.cardCategoryWhite}>
                         </p>
                     </CardHeader>
                     <CardBody>
-                        <GridContainer>
+                    <GridContainer>
                         <GridItem xs={6} sm={6} md={3}>
                         <CustomInput
                                     labelText="C.C"
@@ -243,9 +246,23 @@ export default function IdentificacionPerfil(props) {
                                 />
                         </GridItem>
                         <GridItem xs={6} sm={6} md={3}>
-                            
+
                         </GridItem>
                         </GridContainer>
+                    </CardBody>
+                    <CardFooter className={classes.cardFooter}>
+                        <Button color="primary" onClick={handleEnvioDatos}>Buscar</Button>
+                    </CardFooter>
+                    </form>
+            </Card>
+            <Card>
+                <form className={classes.form} onSubmit={handleEnvioDatos}>
+                    <CardHeader color="primary">
+                        <h4 className={classes.cardTitleWhite}>Preguntas de identificación y perfil</h4>
+                        <p className={classes.cardCategoryWhite}>
+                        </p>
+                    </CardHeader>
+                    <CardBody>
                         <GridContainer>
                             <GridItem xs={12} sm={12} md={6}>
                                 <CustomInput
@@ -582,41 +599,71 @@ export default function IdentificacionPerfil(props) {
                     </DialogActions>
                 </Dialog>
             </Card>
-            <Card>
-                <CardHeader color="primary">
-                    <h4 className={classes.cardTitleWhite}>Sección I</h4>
-                    <p className={classes.cardCategoryWhite}>
-                    </p>
-                </CardHeader>
-                <CardBody>
-                    <IdentificacionConductasList competencias={competencias} />
-                    <CardHeader color="primary" className={classes.cardHeader}>
-                        <h3 >Considero que necesito capacitación en este componente:</h3>
-                    </CardHeader>
-                    <CapacitacionComponenteList preguntas={preguntasSeccionI} />
-
-                </CardBody>
-            </Card>
-            <Card>
-                <CardHeader color="primary">
-                    <h4 className={classes.cardTitleWhite}>Sección II</h4>
-                    <p className={classes.cardCategoryWhite}>
-                    </p>
-                </CardHeader>
-                <CardBody>
-                    <PreguntaList preguntas={preguntas} ></PreguntaList>
-                </CardBody>
-            </Card>
-            <Card>
-                <CardHeader color="primary">
-                    <h4 className={classes.cardTitleWhite}>Sección III</h4>
-                    <p className={classes.cardCategoryWhite}>
-                    </p>
-                </CardHeader>
-                <CardBody>
-                    <PreferenciaCapacitacion />
-                </CardBody>
-            </Card>
+           
+            <GridContainer>
+            <GridItem xs={12} sm={12} md={8} lg={12}>
+              <NavPills
+                color="primary"
+                tabs={[
+                  {
+                    tabButton: "Seccion I",
+                    tabIcon: Dashboard,
+                    tabContent: (
+                        <Card>
+                        <CardHeader color="primary">
+                            <h4 className={classes.cardTitleWhite}>Sección I</h4>
+                            <p className={classes.cardCategoryWhite}>
+                            </p>
+                        </CardHeader>
+                        <CardBody>
+                            <IdentificacionConductasList competencias={competencias} />
+                            <CardHeader color="primary" className={classes.cardHeader}>
+                                <h3 >Considero que necesito capacitación en este componente:</h3>
+                            </CardHeader>
+                            <CapacitacionComponenteList preguntas={preguntasSeccionI} />
+        
+                        </CardBody>
+                    </Card>
+                    )
+                  },
+                  {
+                    tabButton: "Seccion II",
+                    tabIcon: Schedule,
+                    tabContent: (
+                        <Card>
+                        <CardHeader color="primary">
+                            <h4 className={classes.cardTitleWhite}>Sección II</h4>
+                            <p className={classes.cardCategoryWhite}>
+                            </p>
+                        </CardHeader>
+                        <CardBody>
+                            <PreguntaList preguntas={preguntas} ></PreguntaList>
+                        </CardBody>
+                    </Card>
+                    )
+                  },
+                  {
+                    tabButton: "Seccion III",
+                    tabIcon: List,
+                    tabContent: (
+                        <Card>
+                        <CardHeader color="primary">
+                            <h4 className={classes.cardTitleWhite}>Sección III</h4>
+                            <p className={classes.cardCategoryWhite}>
+                            </p>
+                        </CardHeader>
+                        <CardBody>
+                            <PreferenciaCapacitacion />
+                        </CardBody>
+                    </Card>
+                    )
+                  }
+                ]}
+              />
+            </GridItem>
+            
+          </GridContainer>
+           
         </GridItem>
 
     );

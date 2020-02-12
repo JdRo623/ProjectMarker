@@ -250,6 +250,42 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /obtenerEmpleado:
+      # binds a127 app logic to a route
+      x-swagger-router-controller: empleados_controller
+      post:
+        description: Controla la creación de usuarios del sistema
+        # used as the method name of the controller
+        operationId: obtenerEmpleado
+        responses:
+          "200":
+            description: Success
+            schema:
+              # a pointer to a definition
+              $ref: "#/definitions/GenericResponse"
+          # responses may fall through to errors
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /registrarActividades:
+      # binds a127 app logic to a route
+      x-swagger-router-controller: cursos_controller
+      post:
+        description: Controla la creación de usuarios del sistema
+        # used as the method name of the controller
+        operationId: registrarActividades
+        responses:
+          "200":
+            description: Success
+            schema:
+              # a pointer to a definition
+              $ref: "#/definitions/GenericResponse"
+          # responses may fall through to errors
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions

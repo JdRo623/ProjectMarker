@@ -10,7 +10,7 @@ module.exports = {
     obtenerProcesos: obtenerProcesos,
     obtenerCargos: obtenerCargos,
     obtenerSubprocesos: obtenerSubprocesos,
-     obtenerCompetencias: obtenerCompetencias,
+    obtenerCompetencias: obtenerCompetencias,
 };
 
 

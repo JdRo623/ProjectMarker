@@ -5,7 +5,8 @@ var keyczar = require('keyczarjs');
 module.exports = {
     getFechaActual: getFechaActual,
     decrypt: decrypt,
-    encrypt: encrypt
+    encrypt: encrypt,
+    generadorConsecutivo: generadorConsecutivo
   };
 
 function getFechaActual(){
@@ -44,4 +45,16 @@ function encrypt(text){
     var keyset = keyczar.fromJson(JSON.stringify(keys));
     var textDecrypt = (keyset.encrypt(text));
     return textDecrypt;
+}
+
+
+function generadorConsecutivo() {
+  var today = new Date();
+  var dd = today.getDate();
+  var ss = today.getSeconds() + 1;
+  var random1 = Math.floor((Math.random() * 99) + 1);
+  var random3 = Math.floor((Math.random() * 99) + 1);
+  var random2 = Math.floor((Math.random() * 9) + 1);
+  if (dd < 10) dd = '0' + dd;
+  return random3 + '' + dd + '' + random1 + '-' + (ss * random2);
 }
