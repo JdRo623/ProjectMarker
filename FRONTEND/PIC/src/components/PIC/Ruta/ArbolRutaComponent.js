@@ -16,48 +16,95 @@ const bg = '#272b4d';
 
 const tree = {
   "name": "",
-  "children": [{ 
+  "children": [{
     "name": "Transformación Digital",
     "children": [
-      { "name": "Tendencias tecnológicas recientes aplicadas al negocio" },
-      { "name": "Administración y Soporte de la Infraestructura: Herramientas y estándares especializados - CLOUD", "acronimo": "Actividad 2" },
-      { "name": "A3" },
-      { "name": "C",
-        "children": [{
-          "name": "C1",
-        }, {
-          "name": "D",
-          "children": [{
-            "name": "D1"
-          },{
-            "name": "D2"
-          },{
-            "name": "D3"
-          }]
-        }]
+      {
+        "name": "Basico",
+        "children": [ {
+          "name": "Actividad 1", "acronimo": "Tendencias tecnológicas recientes aplicadas al negocio"
+        },{
+          "name": "Actividad 2", "acronimo": "Gobierno Digital y Transformación Digital"
+        },{
+          "name": "Actividad 1", "acronimo": "Tendencias tecnológicas recientes aplicadas al negocio"
+        },{
+          "name": "Actividad 1", "acronimo": "Tendencias tecnológicas recientes aplicadas al negocio"
+        }
+        ]
       },
-    ]},
-    {
+      {
+        "name": "Medio",
+        "children": [{
+          "name": "Actividad 1", "acronimo":"Analisis, diseño, implementación y pruebas: Metodologías y Estrategias "
+        }, {
+          "name": "Actividad 2", "acronimo": "Tendencias tecnológicas recientes aplicadas al negocio"
+        }, {
+          "name": "Actividad 3", "acronimo": "Vigilancia tecnológica y Planeación estratégica en TI "
+        }
+        ]
+      },
+      {
+        "name": "Alto",
+        "children": [{
+          "name": "Actividad 1","acronimo": "Tendencias tecnológicas recientes aplicadas al negocio"
+        }, {
+          "name": "Actividad 2", "acronimo": "Estándares y metodologías de Gestión de Servicios informáticos"
+        }, {
+          "name": "Actividad 3", "acronimo": "Arquitectura Empresarial y Transformación Digital "
+        }, {
+          "name": "Actividad 4", "acronimo": "Vigilancia tecnológica y Planeación estratégica en TI "
+        }, {
+          "name": "Actividad 5", "acronimo": "Gestión de proyectos TI"
+        }, {
+          "name": "Actividad 6", "acronimo": "Arquitectura Empresarial y Transformación Digital "
+        }, {
+          "name": "Actividad 7", "acronimo": "Diseño de servicios digitales (Design thinking y experiencia de usuario)"
+        }, {
+          "name": "Actividad 8", "acronimo": "Arquitectura Empresarial y Transformación Digital"
+        }, {
+          "name": "Actividad 9", "acronimo": "Administración y Soporte de la Infraestructura: Herramientas y estándares especializados - CLOUD"
+        }, {
+          "name": "Actividad 10", "acronimo": "Herramientas especializadas para el análisis, diseño, implementación y pruebas de desarrollo de software - Análsis y levantamiento de requerimientos"
+        }
+        ]
+      },
+      {
+        "name": "Superior",
+        "children": [{
+          "name": "Actividad 1","acronimo": "Gestión de proyectos TI"
+        }, {
+          "name": "Actividad 2", "acronimo": "Vigilancia tecnológica y Planeación estratégica en TI "
+        }, {
+          "name": "Actividad 3", "acronimo": "Transformación Digital: casos de éxito e implementación"
+        }
+        ]
+      }
+    ]
+  },
+  {
     "name": "Análisis de requerimientos, \n necesidades y problemas TI",
     "children": [
-      { "name": "B1"},
-      { "name": "B2"},
-      { "name": "B3"},
-    ]},
-    {
-        "name": "Análisis de requerimientos, \n necesidades y problemas TI",
-        "children": [
-          { "name": "B1"},
-          { "name": "B2"},
-          { "name": "B3"},
-        ]},
-        {
-            "name": "Análisis de requerimientos, \n necesidades y problemas TI",
-            "children": [
-              { "name": "B1"},
-              { "name": "B2"},
-              { "name": "B3"},
-            ]},
+      { "name": "B1" },
+      { "name": "B2" },
+      { "name": "B3" },
+    ]
+  },
+  {
+    "name": "Análisis de requerimientos, \n necesidades y problemas TI",
+    "children": [
+      { "name": "B1" },
+      { "name": "B2" },
+      { "name": "B3" },
+    ]
+  },
+  {
+    "name": "Análisis de requerimientos, \n necesidades y problemas TI",
+    "children": [
+      { "name": "B1" },
+      { "name": "B2" },
+      { "name": "B3" },
+    ]
+  },
   ],
 };
 
@@ -86,7 +133,7 @@ function Node({ node }) {
         strokeOpacity={0.6}
         rx={10}
         onClick={() => {
-          alert(`clicked: ${JSON.stringify(node.data.name)}`);
+          alert(`clicked: ${JSON.stringify(node.data.acronimo)}`);
         }}
       />
       <text
@@ -97,7 +144,7 @@ function Node({ node }) {
         fill={green}
         style={{ pointerEvents: 'none' }}
       >
-        {node.data.acronimo}
+        {node.data.name}
       </text>
     </Group>
   );
