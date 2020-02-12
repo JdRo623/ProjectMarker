@@ -76,13 +76,13 @@ export default function Dashboard() {
               </CardIcon>
               <p className={classes.cardCategory}>Cursos Terminados</p>
               <h3 className={classes.cardTitle}>
-                0/28 <small></small>
+                0/24 <small></small>
               </h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <Update />
-                Actualizado 12/02/2019
+                Actualizado 12/02/2020
               </div>
             </CardFooter>
           </Card>
@@ -94,12 +94,12 @@ export default function Dashboard() {
                 <Store />
               </CardIcon>
               <p className={classes.cardCategory}>Competencias</p>
-              <h3 className={classes.cardTitle}>5</h3>
+              <h3 className={classes.cardTitle}>4</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <Update />
-                Actualizado 12/02/2019
+                Actualizado 12/02/2020
               </div>
             </CardFooter>
           </Card>
@@ -116,7 +116,7 @@ export default function Dashboard() {
             <CardFooter stats>
               <div className={classes.stats}>
                 <Update />
-                Actualizado 12/02/2019
+                Actualizado 12/02/2020
               </div>
             </CardFooter>
           </Card>
@@ -133,7 +133,7 @@ export default function Dashboard() {
             <CardFooter stats>
               <div className={classes.stats}>
                 <Update />
-                Actualizado 12/02/2019
+                Actualizado 12/02/2020
               </div>
             </CardFooter>
           </Card>

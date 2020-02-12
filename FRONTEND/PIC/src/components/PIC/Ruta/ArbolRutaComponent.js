@@ -82,27 +82,37 @@ const tree = {
     ]
   },
   {
-    "name": "Análisis de requerimientos, \n necesidades y problemas TI",
-    "children": [
-      { "name": "B1" },
-      { "name": "B2" },
-      { "name": "B3" },
+    "name": "Aplicación normativa y Doctrinal",
+    "children": [{
+      "name": "Basico",
+      "children": [ {
+        "name": "Actividad 1", "acronimo": "Principios, doctrina  y fundamentos de la normativa TACI"
+      }
+      ]
+    }]
+  },
+  {
+    "name": "Cercania al Ciudadano",
+    "children": [{
+      "name": "Basico",
+      "children": [ {
+        "name": "Actividad 1", "acronimo": "Comunicación interpersonal"
+      },{
+        "name": "Actividad 2", "acronimo": "El servidor público: Integridad, transparencia y sentido de la público"
+      }
+      ]
+    }
     ]
   },
   {
-    "name": "Análisis de requerimientos, \n necesidades y problemas TI",
-    "children": [
-      { "name": "B1" },
-      { "name": "B2" },
-      { "name": "B3" },
-    ]
-  },
-  {
-    "name": "Análisis de requerimientos, \n necesidades y problemas TI",
-    "children": [
-      { "name": "B1" },
-      { "name": "B2" },
-      { "name": "B3" },
+    "name": "Gestión del Conocimiento",
+    "children": [{
+      "name": "Alto",
+      "children": [ {
+        "name": "Actividad 1", "acronimo": "Gestión del conocimiento y mentoring"
+      }
+      ]
+    }
     ]
   },
   ],
