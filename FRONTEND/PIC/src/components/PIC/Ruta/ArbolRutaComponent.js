@@ -175,7 +175,7 @@ function RootNode({ node }) {
 }
 
 function ParentNode({ node }) {
-  const width = 250;
+  const width = 200;
   const height = 20;
   const centerX = -width / 2;
   const centerY = -height / 2;
@@ -209,8 +209,8 @@ function ParentNode({ node }) {
 }
 
 export default ({
-  width = 1500,
-  height = 800,
+  width = 900,
+  height = 900,
   margin = {
     top: 10,
     left: 30,
