@@ -40,7 +40,7 @@ function registrarActividades (req, res) {
                                                 
                                                 var numValues = row.actualCellCount;
                                                 if(numValues==0) break;   
-                                                if(row.getCell(1).value+"" === "") break;
+                                                if(!row.getCell(1).value) break;
                                                 actividad.proceso= row.getCell(1).value+""
                                                 actividad.competencia= row.getCell(2).value+""
                                                 actividad.roles= row.getCell(3).value+""
