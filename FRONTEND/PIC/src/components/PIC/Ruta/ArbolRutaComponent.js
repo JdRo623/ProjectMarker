@@ -109,7 +109,7 @@ const tree = {
 };
 
 function Node({ node }) {
-  const width = 250;
+  const width = 120;
   const height = 20;
   const centerX = -width / 2;
   const centerY = -height / 2;
@@ -204,7 +204,7 @@ function ParentNode({ node }) {
 
 export default ({
   width = 1500,
-  height = 500,
+  height = 800,
   margin = {
     top: 10,
     left: 30,

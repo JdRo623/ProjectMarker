@@ -76,17 +76,13 @@ export default function Dashboard() {
               </CardIcon>
               <p className={classes.cardCategory}>Cursos Terminados</p>
               <h3 className={classes.cardTitle}>
-                2/50 <small></small>
+                0/28 <small></small>
               </h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <Danger>
-                  <Warning />
-                </Danger>
-                <a href="#pablo" onClick={e => e.preventDefault()}>
-                  Placeholder
-                </a>
+                <Update />
+                Actualizado 12/02/2019
               </div>
             </CardFooter>
           </Card>
@@ -97,13 +93,13 @@ export default function Dashboard() {
               <CardIcon color="success">
                 <Store />
               </CardIcon>
-              <p className={classes.cardCategory}>Nivel promedio</p>
-              <h3 className={classes.cardTitle}>2</h3>
+              <p className={classes.cardCategory}>Competencias</p>
+              <h3 className={classes.cardTitle}>5</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <DateRange />
-                Ultimas 24 horas
+                <Update />
+                Actualizado 12/02/2019
               </div>
             </CardFooter>
           </Card>
@@ -114,13 +110,13 @@ export default function Dashboard() {
               <CardIcon color="danger">
                 <Icon>info_outline</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}>Cursos atrasados</p>
-              <h3 className={classes.cardTitle}>49</h3>
+              <p className={classes.cardCategory}>Nivel Promedio</p>
+              <h3 className={classes.cardTitle}>Basico</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <LocalOffer />
-                Obtenido de Moodle
+                <Update />
+                Actualizado 12/02/2019
               </div>
             </CardFooter>
           </Card>
@@ -131,13 +127,13 @@ export default function Dashboard() {
               <CardIcon color="info">
                 <Accessibility />
               </CardIcon>
-              <p className={classes.cardCategory}>Competencias</p>
-              <h3 className={classes.cardTitle}>+12</h3>
+              <p className={classes.cardCategory}>Horas restantes</p>
+              <h3 className={classes.cardTitle}>360</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <Update />
-                Actualizado 30/12/2019
+                Actualizado 12/02/2019
               </div>
             </CardFooter>
           </Card>
