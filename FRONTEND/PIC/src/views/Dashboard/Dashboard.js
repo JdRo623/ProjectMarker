@@ -28,7 +28,9 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-
+import Button from "components/CustomButtons/Button.js";
+import avatar from "assets/img/faces/user.png";
+import CardAvatar from "components/Card/CardAvatar.js";
 import { bugs, website, server } from "variables/general.js";
 
 import {
@@ -38,6 +40,7 @@ import {
 } from "variables/charts.js";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
+import ArbolRutaComponent from "components/PIC/Ruta/ArbolRutaComponent";
 
 const useStyles = makeStyles(styles);
 
@@ -46,6 +49,25 @@ export default function Dashboard() {
   return (
     <div>
       <GridContainer>
+      <GridItem xs={12} sm={12} md={12}>
+          <Card profile>
+            <CardAvatar profile>
+              <a href="#pablo" onClick={e => e.preventDefault()}>
+                <img src={avatar} alt="..." />
+              </a>
+            </CardAvatar>
+            <CardBody profile>
+              <h6 className={classes.cardCategory}>9043048</h6>
+              <h4 className={classes.cardTitle}>HENRY ALBERTO GALVAN RODRIGUEZ</h4>
+              <p className={classes.description}>
+                GESTOR I - 30101 - Servicios Informáticos
+              </p>
+              <Button color="primary" round>
+                Obtener Ruta
+              </Button>
+            </CardBody>
+          </Card>
+        </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
             <CardHeader color="warning" stats icon>
@@ -121,7 +143,25 @@ export default function Dashboard() {
           </Card>
         </GridItem>
       </GridContainer>
+      
       <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card>
+          <CardHeader color="primary">
+            <h4 className={classes.cardTitleWhite}>Ruta de Aprendizaje</h4>
+            <p className={classes.cardCategoryWhite}>
+            </p>
+          </CardHeader>
+            <CardBody>
+              
+            <h4 className={classes.cardTitleWhite}>Ruta de Aprendizaje</h4>
+            <ArbolRutaComponent/>
+            </CardBody>
+            </Card>
+        </GridItem>
+      </GridContainer>
+
+    {/*  <GridContainer>
         <GridItem xs={12} sm={12} md={4}>
           <Card chart>
             <CardHeader color="success">
@@ -195,7 +235,7 @@ export default function Dashboard() {
           </Card>
         </GridItem>
       </GridContainer>
-    {/*  <GridContainer>
+      <GridContainer>
         <GridItem xs={12} sm={12} md={6}>
           <CustomTabs
             title="Tasks:"

@@ -7,6 +7,12 @@
   "dependencies": {
     "@material-ui/core": "4.3.2",
     "@material-ui/icons": "4.2.1",
+    "@vx/gradient": "0.0.193",
+    "@vx/group": "0.0.193",
+    "@vx/hierarchy": "0.0.193",
+    "@vx/mock-data": "0.0.193",
+    "@vx/scale": "0.0.193",
+    "@vx/shape": "0.0.193",
     "axios": "^0.19.1",
     "chartist": "0.10.1",
     "classnames": "2.2.6",
