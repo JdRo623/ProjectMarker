@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 var util = require('util');
 const boom = require('boom')
 const config = require('../../config.json');
-const ActividadesHandler = require('../../models/actividad.model');
+const CursosHandler = require('../../models/curso.model');
 var tools = require('../utils/tools.js');
 var Excel = require('exceljs');
 
@@ -49,7 +49,7 @@ function registrarActividades (req, res) {
                                                 actividad.nombre_actividad= row.getCell(7).value+""
                                                 actividad.modalidad = row.getCell(8).value+""
                                                 actividad.tipo_oferta= row.getCell(9).value+""
-                                                actividad.replacion_programas_anteriores= row.getCell(10).value+""
+                                                actividad.relacion_programas_anteriores= row.getCell(10).value+""
                                                 actividad.cantidad_participantes_sugerida= row.getCell(11).value+"" 
                                                 actividad.cantidad_participantes_total= row.getCell(12).value+"" 
                                                 actividad.nivel_ruta= row.getCell(13).value+""    
@@ -70,7 +70,7 @@ function registrarActividades (req, res) {
                                     });
                                     var old = JSON.stringify(actividades).replace(/null/g, 'N/A'); //convert to JSON string
                                     var newArray = JSON.parse(old);
-                                    ActividadesHandler.insertMany(newArray,(err, actividades) => {
+                                    CursosHandler.insertMany(newArray,(err, actividades) => {
                                                 if(err)return res.status(500).send({ estado: 'Error',message: 'Error en la petición', data: Object.assign ({"error": err})});
                                                 if(!actividades) return res.status(200).send({ estado: 'Error',message: 'No fue posible registrar los miembros', data: Object.assign ({})});
                                         

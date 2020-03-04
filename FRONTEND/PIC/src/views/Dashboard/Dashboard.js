@@ -31,6 +31,8 @@ import CardFooter from "components/Card/CardFooter.js";
 import Button from "components/CustomButtons/Button.js";
 import avatar from "assets/img/faces/user.png";
 import CardAvatar from "components/Card/CardAvatar.js";
+
+
 import { bugs, website, server } from "variables/general.js";
 
 import {
