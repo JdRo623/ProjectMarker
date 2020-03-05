@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 
 import { NotificationManager } from "../../components/common/react-notifications";
 import { Formik, Form, Field } from "formik";
-
+import HttpUtil from '../../util/HttpService.js';
+import constantes from "../../util/Constantes.js"
 import { loginUser } from "../../redux/actions";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import IntlMessages from "../../helpers/IntlMessages";
@@ -13,15 +14,48 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "demo@gogo.com",
-      password: "gogo123"
+      email: "",
+      password: ""
     };
   }
 
   onUserLogin = (values) => {
+    const infoLogin = {
+      correo : values.email,
+      secret : values.secret
+  }
     if (!this.props.loading) {
       if (values.email !== "" && values.password !== "") {
-        this.props.loginUser(values, this.props.history);
+          const url = constantes.urlServer + constantes.servicios.autenticarAgente;
+          HttpUtil.requestPost(url, infoLogin, 
+              (response) => { 
+                  if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
+                      localStorage.setItem('userInfo', JSON.stringify(response.data));
+                 //     history.push("/admin");
+                   //   this.setState({redirect : true, showLoader : false, user : response.data});
+                  }else{
+                    alert("Error al autenticar: "+ response.message);
+
+                     /* this.setState({
+                          alertTitle : 'Error al autenticar',
+                          alertMessage : response.message,
+                          alertType : 'error', 
+                          showLoader : false
+                      });*/
+                  }
+              }, 
+                () => {
+
+                  alert("Error al autenticar: Ocurrio un error al autenticarce, por favor intenta de nuevo");
+
+                 /* this.setState({
+                      alertTitle : 'Error!',
+                      alertMessage : 'Ocurrio un error al autenticarce, por favor intenta de nuevo',
+                      alertType : 'error', 
+                      showLoader : false
+                  });*/
+              });
+        //this.props.loginUser(values, this.props.history);
       }
     }
   }
@@ -29,9 +63,9 @@ class Login extends Component {
   validateEmail = (value) => {
     let error;
     if (!value) {
-      error = "Please enter your email address";
+      error = "Por favor ingresa tu correo";
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-      error = "Invalid email address";
+      error = "Correo Electronico invalido";
     }
     return error;
   }
@@ -39,9 +73,9 @@ class Login extends Component {
   validatePassword = (value) => {
     let error;
     if (!value) {
-      error = "Please enter your password";
+      error = "Por favor ingresa tu contraseña";
     } else if (value.length < 4) {
-      error = "Value must be longer than 3 characters";
+      error = "La contraseña debe tener más de 3 caracteres";
     }
     return error;
   }
@@ -50,7 +84,7 @@ class Login extends Component {
     if (this.props.error) {
       NotificationManager.warning(
         this.props.error,
-        "Login Error",
+        "Error de Inicio de Sesión",
         3000,
         null,
         null,
@@ -68,21 +102,13 @@ class Login extends Component {
         <Colxx xxs="12" md="10" className="mx-auto my-auto">
           <Card className="auth-card">
             <div className="position-relative image-side ">
-              <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
+              <p className="text-white h2"></p>
               <p className="white mb-0">
-                Please use your credentials to login.
-                <br />
-                If you are not a member, please{" "}
-                <NavLink to={`/register`} className="white">
-                  register
-                </NavLink>
-                .
+               
               </p>
             </div>
             <div className="form-side">
-              <NavLink to={`/`} className="white">
-                <span className="logo-single" />
-              </NavLink>
+
               <CardTitle className="mb-4">
                 <IntlMessages id="user.login-title" />
               </CardTitle>
