@@ -14,6 +14,15 @@ const BlankPage = React.lazy(() =>
   import(/* webpackChunkName: "viwes-blank-page" */ './blank-page')
 );
 
+const Profile = React.lazy(()=>
+import(/* webpackChunkName: "viwes-blank-page" */ './profile')
+);
+
+const Pic = React.lazy(()=>
+import(/* webpackChunkName: "viwes-blank-page" */ './pic')
+);
+
+
 class App extends Component {
   render() {
     const { match } = this.props;
@@ -31,6 +40,14 @@ class App extends Component {
               <Route
                 path={`${match.url}/second-menu`}
                 render={props => <SecondMenu {...props} />}
+              />
+              <Route
+                path={`${match.url}/profile`}
+                render={props => <Profile {...props} />}
+              />
+              <Route
+                path={`${match.url}/pic`}
+                render={props => <Pic {...props} />}
               />
               <Route
                 path={`${match.url}/blank-page`}

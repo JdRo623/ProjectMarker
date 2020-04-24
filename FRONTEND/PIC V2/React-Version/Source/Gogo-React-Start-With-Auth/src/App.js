@@ -27,7 +27,7 @@ const ViewError = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/error')
 );
 const ViewPic = React.lazy(() =>
-  import(/* webpackChunkName: "views-error" */ './views/pic')
+  import(/* webpackChunkName: "views-error" */ './views/user/login')
 );
 
 const AuthRoute = ({ component: Component, authUser, ...rest }) => {

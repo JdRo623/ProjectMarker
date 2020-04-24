@@ -42,6 +42,11 @@ module.exports = {
   "menu.search": "Búsqueda",
   "menu.docs": "Docs",
   "menu.blank-page": "Blank Page",
+  "menu.cuestionario": "Cuestionario",
+  "menu.ruta-aprendizaje": "Ruta de Aprendizaje",
+  "menu.colaborador": "Colaborador",
+  "menu.administrador": "Administrador",
+  "menu.carga-archivos": "Carga Archivos",
   /* 04.Error  */
   "pages.error-title": "Vaya, parece que ha ocurrido un error!",
   "pages.error-code": "Código de error",

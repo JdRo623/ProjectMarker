@@ -14,7 +14,7 @@ import Select from "react-select";
 import CustomSelectInput from "../../components/common/CustomSelectInput";
 import IntlMessages from "../../helpers/IntlMessages";
 
-import { addTodoItem } from "../../redux/actions";
+//import { addTodoItem } from "../../redux/actions";
 
 class AddNewTodoModal extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ class AddNewTodoModal extends Component {
       category: this.state.category.value,
       status: this.state.status
     };
-    this.props.addTodoItem(newItem);
+  //  this.props.addTodoItem(newItem);
     this.props.toggleModal();
     this.setState({
       title: "",
@@ -172,6 +172,6 @@ const mapStateToProps = ({ todoApp }) => {
 export default connect(
   mapStateToProps,
   {
-    addTodoItem
+  //  addTodoItem
   }
 )(AddNewTodoModal);
