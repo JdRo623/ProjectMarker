@@ -21,7 +21,7 @@ const data = [
       {
         icon: "simple-icon-paper-plane",
         label: "menu.cuestionario",
-        to: "/app/profile/social"
+        to: "/app/pic/cuestionario"
       },
       {
         icon: "simple-icon-paper-plane",

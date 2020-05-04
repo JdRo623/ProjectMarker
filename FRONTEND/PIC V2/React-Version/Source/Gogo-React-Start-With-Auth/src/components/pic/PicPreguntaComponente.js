@@ -13,14 +13,14 @@ import {
 import { Wizard, Steps, Step } from 'react-albus';
 import { Card, CardBody, Form, FormGroup, Input, Label } from "reactstrap";
 
-export default function PicPreguntasCompetenciasI(props) {
+export default function PicPreguntaComponente(props) {
     const [listItems, setListItems] = useState(null);
   
     useEffect(() => {
         console.log(props.respuestas)
         if (props.respuestas && listItems==null) 
                 setListItems(props.respuestas.map((respuesta) =>
-            <AvRadio customInput label={respuesta.enunciadoRespuesta} value={respuesta.value} />
+            <AvRadio customInput label={respuesta.enunciadoRespuesta} value={respuesta.id} />
         ))
     })
     return (

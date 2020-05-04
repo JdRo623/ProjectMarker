@@ -220,8 +220,8 @@ class TopNav extends Component {
             <MobileMenuIcon />
           </NavLink>
 
-          
-       {/*   <div className="position-relative d-none d-none d-lg-inline-block">
+
+          {/*   <div className="position-relative d-none d-none d-lg-inline-block">
             <a
               className="btn btn-outline-primary btn-sm ml-2"
               target="_top"
@@ -230,7 +230,7 @@ class TopNav extends Component {
               <IntlMessages id="user.buy" />
             </a>
           </div>*/}
-        </div> 
+        </div>
         {/*<a className="navbar-logo" href="/">
           <span className="logo d-none d-xs-block" />
           <span className="logo-mobile d-block d-xs-none" />
@@ -256,7 +256,7 @@ class TopNav extends Component {
           <div className="user d-inline-block">
             <UncontrolledDropdown className="dropdown-menu-right">
               <DropdownToggle className="p-0" color="empty">
-                <span className="name mr-1">Joan Duarte</span>
+                <span >Joan Duarte</span>
                 <span>
                   <img alt="Profile" src="/assets/img/logo-dian.png" />
                 </span>

@@ -7,15 +7,15 @@ const preguntasMock = [
         encabezadoPregunta: "De acuerdo con lo anterior, decide:",
         opcionesRespuestas: [
             {
-                enunciado: "Adelantar la investigación a que haya lugar, siempre y cuando los hechos denunciados correspondan a irregularidades de carácter tributario.",
+                enunciadoRespuesta: "Adelantar la investigación a que haya lugar, siempre y cuando los hechos denunciados correspondan a irregularidades de carácter tributario.",
                 id: "1.1"
             },
             {
-                enunciado: "Dar el trámite como denuncia de terceros para ser estudiada.",
+                enunciadoRespuesta: "Dar el trámite como denuncia de terceros para ser estudiada.",
                 id: "1.2"
             },
             {
-                enunciado: "Solicitar al denunciante evidencia probatoria para dar trámite como denuncia.",
+                enunciadoRespuesta: "Solicitar al denunciante evidencia probatoria para dar trámite como denuncia.",
                 id: "1.3"
             }
         ]
@@ -23,19 +23,19 @@ const preguntasMock = [
         idPregunta: "2",
         competencia: "Aplicación derecho TACI",
         nivel: "Básico",
-        situacionProblema: "Identificación de conductas objeto de sanción fiscal",
+        situacionProblema: "Usted es jefe de la unidad de fiscalización y está revisando el caso de una empresa que hizo la declaración de renta del año pasado, la cual evidencia que los ingresos brutos son diferentes a los reportados en la declaración. Usted decide hacer una notificación a la empresa, explicando los hechos de la inexactitud, calculando el valor que debe corregir, el impuesto y las sanciones que debe hacer a la liquidación privada.",
         encabezadoPregunta: "La notificación que debe realizar es:",
         opcionesRespuestas: [
             {
-                enunciado: "Un emplazamiento para corregir.",
+                enunciadoRespuesta: "Un emplazamiento para corregir.",
                 id: "2.1"
             },
             {
-                enunciado: "Una liquidación de revisión.",
+                enunciadoRespuesta: "Una liquidación de revisión.",
                 id: "2.2"
             },
             {
-                enunciado: "Un requerimiento especial.",
+                enunciadoRespuesta: "Un requerimiento especial.",
                 id: "2.3"
             }
         ]

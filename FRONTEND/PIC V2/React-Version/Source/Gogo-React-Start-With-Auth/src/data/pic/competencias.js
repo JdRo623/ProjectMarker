@@ -6,8 +6,8 @@ const competenciasMock = [
     },
     {
         idCompetencia: "2",
-        nombreCompetencia: "Aplicación derecho TACI",
-        descripcionCompetencia: "Descripcion Competencia Aplicación derecho TACI"
+        nombreCompetencia: "Fundamentación DIAN",
+        descripcionCompetencia: "Aplicación de principios normativos y habilidad para comprender y resolver cuestionamientos para el cumplimiento de los procesos y procedimientos de la Entidad"
     }
 ]
 
