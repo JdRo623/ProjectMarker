@@ -286,6 +286,34 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /cargarUsuarios:
+      x-swagger-router-controller: user_j_controller
+      post:
+        description: Carga de usuarios de un excel
+        operationId: CargarEmpleado
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /traerUsuario:
+      x-swagger-router-controller: user_j_controller
+      post:
+        description: buscarUsuario
+        operationId: buscarEmpleado
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
