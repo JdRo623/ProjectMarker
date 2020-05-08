@@ -23,6 +23,7 @@ import PicSeccionInformacionPersonal from "../../../components/pic/PicSeccionInf
 
 import PicSeccionPreguntasI from "../../../components/pic/PicSeccionPreguntasI";
 import PicSeccionPreguntasII from "../../../components/pic/PicSeccionPreguntasII";
+import PicSeccionPreguntasIII from "../../../components/pic/PicSeccionPreguntasIII";
 
 class Cuestionario extends Component {
   state = {
@@ -39,18 +40,18 @@ class Cuestionario extends Component {
     }
   }
 
-  pasoSiguiente = ()=>{
-    switch (this.state.activeTab ) {
+  pasoSiguiente = () => {
+    switch (this.state.activeTab) {
       case "1":
         this.toggleTab("2")
         break;
-        case "2":
+      case "2":
         this.toggleTab("3")
         break;
-        case "3":
+      case "3":
         this.toggleTab("4")
         break;
-        case "4":
+      case "4":
         break;
       default:
         break;
@@ -62,11 +63,10 @@ class Cuestionario extends Component {
       <Fragment>
         <Row>
           <Colxx xxs="12" lg="5" xl="4" className="mb-3">
-            
+            <PicColaboradorCard />
           </Colxx>
+          <Colxx xxs="12" lg="12" xl="8" className="mb-3">
 
-          <Colxx xxs="12" lg="12" xl="12" className="mb-3">
-          <PicColaboradorCard />
 
             <Nav tabs className="separator-tabs ml-0 mb-5">
               <NavItem>
@@ -102,16 +102,16 @@ class Cuestionario extends Component {
 
             <TabContent activeTab={this.state.activeTab}>
               <TabPane tabId="1">
-                <PicSeccionInformacionPersonal pasoSiguiente = {this.pasoSiguiente}/>
+                <PicSeccionInformacionPersonal pasoSiguiente={this.pasoSiguiente} />
               </TabPane>
               <TabPane tabId="2">
-                <PicSeccionPreguntasI pasoSiguiente = {this.pasoSiguiente}/>
+                <PicSeccionPreguntasI pasoSiguiente={this.pasoSiguiente} />
               </TabPane>
               <TabPane tabId="3">
-                <PicSeccionPreguntasII pasoSiguiente = {this.pasoSiguiente}/>
+                <PicSeccionPreguntasII pasoSiguiente={this.pasoSiguiente} />
               </TabPane>
               <TabPane tabId="4">
-                <PicSeccionInformacionPersonal pasoSiguiente = {this.pasoSiguiente}/>
+                <PicSeccionPreguntasIII pasoSiguiente={this.pasoSiguiente} />
               </TabPane>
             </TabContent>
 

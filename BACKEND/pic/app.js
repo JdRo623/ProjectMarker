@@ -15,6 +15,7 @@ var interceptor = require('express-interceptor');
 module.exports = app; // for testing
 var keyczar = require('keyczarjs');
 var bodyParser = require('body-parser');
+var keys = require('./api/utils/keys.js');
 
 app.use(interceptor(function(req,res){
   return {
@@ -23,11 +24,7 @@ app.use(interceptor(function(req,res){
     },
     intercept: function(body, done) {
       res.set('Content-Type', 'application/json');
-      var keys = {
-        meta: '{\"name\":\"\",\"purpose\":\"DECRYPT_AND_ENCRYPT\",\"type\":\"AES\",\"versions\":[{\"exportable\":false,\"status\":\"PRIMARY\",\"versionNumber\":1}],\"encrypted\":false}',
-        1: '{\"aesKeyString\":\"JfEMByS4DjhzoPGJRtiF1A\",\"hmacKey\":{\"hmacKeyString\":\"cijFnmB6azfcR7wKOjbQHAU2ihPjenQI2hwM9kO4f78\",\"size\":256},\"mode\":\"CBC\",\"size\":128}'
-    };
-    var keyset = keyczar.fromJson(JSON.stringify(keys));
+    var keyset = keyczar.fromJson(JSON.stringify(keys.keys));
     body = keyset.encrypt(body);
       done(JSON.stringify({respuesta: body}));
     }
