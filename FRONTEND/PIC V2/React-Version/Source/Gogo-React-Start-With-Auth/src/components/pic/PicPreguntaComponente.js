@@ -28,12 +28,12 @@ export default function PicPreguntaComponente(props) {
             <div className="wizard-basic-step">
                 <FormGroup>
                     <center>
-                        <h5>
+                        <h4>
                             {props.encabezado}
-                        </h5>
-                        <h6>
+                        </h4>
+                        <h5>
                             {props.descriptor}
-                        </h6>
+                        </h5>
                     </center>
                     <AvForm
                         className="av-tooltip tooltip-label-right"
@@ -42,7 +42,7 @@ export default function PicPreguntaComponente(props) {
                             className="error-l-150"
                             name="radioPersonasCargo"
                             required>
-                            <h6>{props.pregunta}</h6>
+                            <h5>{props.pregunta}</h5>
                             <div>{listItems}</div>
                         </AvRadioGroup>
                     </AvForm>

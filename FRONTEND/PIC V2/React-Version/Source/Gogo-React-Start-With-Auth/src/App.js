@@ -9,7 +9,6 @@ import {
 import { IntlProvider } from 'react-intl';
 import './helpers/Firebase';
 import AppLocale from './lang';
-import ColorSwitcher from './components/common/ColorSwitcher';
 import NotificationContainer from './components/common/react-notifications/NotificationContainer';
 import { isMultiColorActive, isDemo } from './constants/defaultValues';
 import { getDirection } from './helpers/Utils';
@@ -75,7 +74,6 @@ class App extends Component {
         >
           <React.Fragment>
             <NotificationContainer />
-            {isMultiColorActive && <ColorSwitcher />}
             <Suspense fallback={<div className="loading" />}>
               <Router>
                 <Switch>

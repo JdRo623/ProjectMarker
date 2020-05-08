@@ -24,7 +24,7 @@ import userDummy from "../../data/pic/dummyUser";
 const picColaboradorCard = (props) => {
   return (
     <Card className="mb-4">
-      {/*<SingleLightbox thumb="/assets/img/logo-dian.png" large="/assets/img/profile-pic.jpg" className="img-thumbnail card-img social-profile-img" />*/}
+      <SingleLightbox thumb="/assets/img/logo-dian-h.jpg" large="/assets/img/logo-dian-h.jpg" className="card-img-top" onClick="" />
 
       <CardBody>
         <div className="text-center pt-4">

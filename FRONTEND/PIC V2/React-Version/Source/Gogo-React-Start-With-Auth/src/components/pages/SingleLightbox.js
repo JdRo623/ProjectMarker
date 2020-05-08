@@ -14,7 +14,7 @@ class SingleLightbox extends Component {
       }
 
       onThumbClick() {
-        this.setState({ isOpen: true });
+      //  this.setState({ isOpen: true });
     }
 
 
