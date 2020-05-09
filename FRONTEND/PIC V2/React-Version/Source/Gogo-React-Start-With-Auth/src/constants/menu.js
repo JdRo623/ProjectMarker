@@ -39,7 +39,7 @@ const data = [
       {
         icon: "simple-icon-paper-plane",
         label: "menu.carga-archivos",
-        to: "/app/second-menu/second"
+        to: "/app/pic/util"
       }
     ]
   }/*,

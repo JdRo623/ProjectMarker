@@ -16,7 +16,8 @@ function CargarEmpleado(req, res){
     try {
         var carga = async(req,res) => {            
             try {
-                var obtener = tools.decrypt(req.body.data)                
+                var obtener = tools.decrypt(req.body.data) 
+                console.log(obtener)               
                 var data = obtener.archivo;                
                 data = data.replace(/^data:image\/png;base64,/, "");
                 let buff = new Buffer(data, 'base64');    

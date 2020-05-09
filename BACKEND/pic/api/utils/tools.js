@@ -1,7 +1,7 @@
 'use strict';
 var keys = require('./keys.js');
 var keyczar = require('keyczarjs');
-
+var CryptoJS = require("crypto-js");
 
 module.exports = {
   getFechaActual: getFechaActual,
@@ -27,24 +27,26 @@ function getFechaActual() {
   return dd + '-' + mm + '-' + yyyy + ' ' + hour + ':' + minu + ':' + ss;
 }
 
+function encrypt(text) {
+  var response
+  try {
+      response = CryptoJS.AES.encrypt((text), cryptoKeys).toString();
+  } finally {
+      return (response);
+  }
+}
 
 function decrypt(text) {
   var response
+  console.log(text)
   try {
-    var keyset = keyczar.fromJson(JSON.stringify(keys.keys));
-    response = (keyset.decrypt(text));
+      var bytes = CryptoJS.AES.decrypt(text, cryptoKeys);
+      response = (bytes.toString(CryptoJS.enc.Utf8));
+
   } finally {
-    return (response);
+      return (response);
   }
-
 }
-
-function encrypt(text) {
-  var keyset = keyczar.fromJson(JSON.stringify(keys.keys));
-  var textDecrypt = (keyset.encrypt(text));
-  return textDecrypt;
-}
-
 
 function generadorConsecutivo() {
   var today = new Date();
