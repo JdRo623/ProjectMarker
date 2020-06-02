@@ -3,18 +3,21 @@ const Schema = mongoose.Schema;
 
 const actividad = Schema({
     consecutivo: String,
-    eje_tematico: String,
     proceso: String,
+    proceso_comun: String,
     competencia: String,
-    roles: String,
+    descripcion_competencia: String,
+    eje_funcion_publica: String,
+    eje_pilar_dian: String,
+    eje_tematico_pic: String,
     tema_central: String,
     nombre_actividad: String,
     modalidad: String,
     tipo_oferta: String,
+    relacion_programas_anteriores: String,
+    cantidad_participantes_sugerida_total: String,
+    cantidad_participantes_sugerida_grupo: String,
     cantidad_participantes: String,
-    relacion_programas_anteriores:String,
-    cantidad_participantes_sugerida:String,
-    cantidad_participantes_total:String,
     nivel_ruta: String,
     intencidad_horaria: String,
     objetivo_actividad: String,
@@ -23,7 +26,8 @@ const actividad = Schema({
     perfil_conferencista: String,
     pre_requisitos: String,
     fecha_ejecucion: String,
-    fecha_registro: String,    
+    necesidad_capacitacion: String,
+    incidentes_criticos: String
 }
 )
 

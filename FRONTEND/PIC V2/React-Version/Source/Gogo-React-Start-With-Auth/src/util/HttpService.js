@@ -1,27 +1,17 @@
 import React from 'react';
 import axios from 'axios';
 import keyczar from './keyczar';
+import Util from './Util'
 
 
-function createInstance(){
-  const keys = {
-    meta: '{\"name\":\"\",\"purpose\":\"DECRYPT_AND_ENCRYPT\",\"type\":\"AES\",\"versions\":[{\"exportable\":false,\"status\":\"PRIMARY\",\"versionNumber\":1}],\"encrypted\":false}',
-    1: '{\"aesKeyString\":\"JfEMByS4DjhzoPGJRtiF1A\",\"hmacKey\":{\"hmacKeyString\":\"cijFnmB6azfcR7wKOjbQHAU2ihPjenQI2hwM9kO4f78\",\"size\":256},\"mode\":\"CBC\",\"size\":128}'
-};
-  const instance = keyczar.fromJson(JSON.stringify(keys));
-
-  return instance;
-};
 
 function cifrar(text){
-  const instance = createInstance();
-  return instance.encrypt(text);
+  return Util.encryptText(text);
 }
 
 function decifrar(text){
   try {
-    const instance = createInstance();
-    return instance.decrypt(text);
+    return Util.decryptJson(text);
   } catch (error) {
     return text;
   }

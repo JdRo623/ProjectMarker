@@ -16,6 +16,8 @@ import PicSeccionInformacionPersonal from "../../../components/pic/PicSeccionInf
 import { FormGroup, Label, Button } from "reactstrap";
 import { Formik, Form, Field } from "formik";
 import PicEncriptarDesencriptar from "../../../components/pic/PicEncriptarDesencriptar";
+import PicCargaDocumentos from "../../../components/pic/PicCargaDocumentos";
+import Constantes from "../../../util/Constantes.js"
 import Utils from "../../../util/Util";
 
 class Util extends Component {
@@ -62,10 +64,18 @@ class Util extends Component {
             <Fragment>
                 <Row>
                     <Colxx xxs="12" lg="5" xl="4" className="mb-3">
-                        <PicEncriptarDesencriptar handleSubmit={this.encriptarInformacion} titulo = "Encriptar" />
+                        <PicEncriptarDesencriptar handleSubmit={this.encriptarInformacion} titulo="Encriptar" />
                     </Colxx>
                     <Colxx xxs="12" lg="12" xl="8" className="mb-3">
-                        <PicEncriptarDesencriptar handleSubmit={this.desencriptarInformacion} titulo = "Desencriptar"/>
+                        <PicEncriptarDesencriptar handleSubmit={this.desencriptarInformacion} titulo="Desencriptar" />
+                    </Colxx>
+                </Row>
+                <Row>
+                    <Colxx xxs="12" lg="12" xl="6" className="mb-3">
+                        <PicCargaDocumentos titulo= "Cargar Usuarios Excel" servicio = {Constantes.servicios.cargarUsuarios}/>
+                    </Colxx>
+                    <Colxx xxs="12" lg="12" xl="6" className="mb-3">
+                        <PicCargaDocumentos titulo= "Cargar PIC" servicio = {Constantes.servicios.registrarActividades}/>
                     </Colxx>
                 </Row>
             </Fragment>

@@ -7,6 +7,7 @@ module.exports = {
   getFechaActual: getFechaActual,
   decrypt: decrypt,
   encrypt: encrypt,
+  decryptJson: decryptJson,
   generadorConsecutivo: generadorConsecutivo
 };
 
@@ -30,7 +31,7 @@ function getFechaActual() {
 function encrypt(text) {
   var response
   try {
-      response = CryptoJS.AES.encrypt((text), cryptoKeys).toString();
+      response = CryptoJS.AES.encrypt((text), keys.cryptoKeys).toString();
   } finally {
       return (response);
   }
@@ -38,15 +39,39 @@ function encrypt(text) {
 
 function decrypt(text) {
   var response
-  console.log(text)
   try {
-      var bytes = CryptoJS.AES.decrypt(text, cryptoKeys);
+      var bytes = CryptoJS.AES.decrypt(text, keys.cryptoKeys);
       response = (bytes.toString(CryptoJS.enc.Utf8));
 
+  }finally {
+      return (response);
+  }
+}
+
+function encryptJson(text) {
+  var response
+  try {
+      response = CryptoJS.AES.encrypt(JSON.stringify(text), keys.cryptoKeys).toString();
   } finally {
       return (response);
   }
 }
+
+function decryptJson(text) {
+  var response
+  try {
+      var bytes = CryptoJS.AES.decrypt(text, keys.cryptoKeys);
+      response = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+
+  }catch(err){
+    console.log(err)
+
+  } 
+  finally {
+      return (response);
+  }
+}
+
 
 function generadorConsecutivo() {
   var today = new Date();

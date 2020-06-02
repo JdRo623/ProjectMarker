@@ -286,6 +286,24 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /generarReportePic:
+      # binds a127 app logic to a route
+      x-swagger-router-controller: cursos_controller
+      post:
+        description: Controla la creación de usuarios del sistema
+        # used as the method name of the controller
+        operationId: informePIC
+        responses:
+          "200":
+            description: Success
+            schema:
+              # a pointer to a definition
+              $ref: "#/definitions/GenericResponse"
+          # responses may fall through to errors
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /cargarUsuarios:
       x-swagger-router-controller: user_j_controller
       post:
@@ -305,6 +323,48 @@ paths:
       post:
         description: buscarUsuario
         operationId: buscarEmpleado
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /listaNiveles:
+      x-swagger-router-controller: user_j_controller
+      post:
+        description: listado de niveles
+        operationId: listaNiveles
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /agregarPregunta:
+      x-swagger-router-controller: preguntas_w_controller
+      post:
+        description: agregar una pregunta
+        operationId: agregarPregunta
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /obtenerPreguntasNuevas:
+      x-swagger-router-controller: preguntas_w_controller
+      post:
+        description: obtener preguntas
+        operationId: obtenerPreguntasNuevas
         responses:
           "200":
             description: Success

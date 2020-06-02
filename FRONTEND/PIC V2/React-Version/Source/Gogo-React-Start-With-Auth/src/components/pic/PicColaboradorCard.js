@@ -21,7 +21,7 @@ import IntlMessages from "../../helpers/IntlMessages";
 import SingleLightbox from "../../components/pages/SingleLightbox";
 import userDummy from "../../data/pic/dummyUser";
 
-const picColaboradorCard = (props) => {
+const PicColaboradorCard = (props) => {
   return (
     <Card className="mb-4">
       <SingleLightbox thumb="/assets/img/logo-dian-h.jpg" large="/assets/img/logo-dian-h.jpg" className="card-img-top" onClick="" />
@@ -60,4 +60,4 @@ const picColaboradorCard = (props) => {
   )
 };
 
-export default picColaboradorCard;
+export default PicColaboradorCard;

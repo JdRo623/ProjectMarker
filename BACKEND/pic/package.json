@@ -7,7 +7,7 @@
   "author": "",
   "license": "",
   "main": "app.js",
-  "engines":{
+  "engines": {
     "node": "10.20.1"
   },
   "dependencies": {

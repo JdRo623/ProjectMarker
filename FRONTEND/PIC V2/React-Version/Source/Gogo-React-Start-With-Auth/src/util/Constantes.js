@@ -1,5 +1,5 @@
 const constantes = {
-   urlServer : 'http://pic-dian.eastus.cloudapp.azure.com:10010',
+   urlServer : 'https://back-joanapp.herokuapp.com',
    servicios : {
          autenticarAgente : '/identificacionUsuario',
          registrarPreguntas : '/registrarPreguntas',
@@ -13,7 +13,9 @@ const constantes = {
          registrarEmpleados : '/registrarEmpleados',
          obtenerProcesos : '/obtenerProcesos',
          registrarActividades : '/registrarActividades',
-         obtenerEmpleado : '/obtenerEmpleado'
+         obtenerEmpleado : '/obtenerEmpleado',
+         cargarUsuarios : '/cargarUsuarios',
+         traerUsuario : '/traerUsuario'
    },
    mensajes : {
        ERROR : 'Error'

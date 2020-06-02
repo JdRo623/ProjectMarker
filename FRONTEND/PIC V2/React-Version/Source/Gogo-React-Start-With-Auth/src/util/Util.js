@@ -22,7 +22,33 @@ function decryptText(text) {
     }
 }
 
+function encryptJson(text) {
+    var response
+    try {
+        response = CryptoJS.AES.encrypt(JSON.stringify(text), cryptoKeys).toString();
+    } finally {
+        return (response);
+    }
+}
+
+function decryptJson(text) {
+    var response
+    try {
+        var bytes = CryptoJS.AES.decrypt(text, cryptoKeys);
+        response = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+
+    } catch (err) {
+        console.log(err)
+
+    }
+    finally {
+        return (response);
+    }
+}
+
 module.exports = {
     encryptText: encryptText,
-    decryptText: decryptText
+    decryptText: decryptText,
+    decryptJson: decryptJson,
+    encryptJson: encryptJson
 };

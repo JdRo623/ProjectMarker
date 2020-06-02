@@ -10,13 +10,14 @@ var Excel = require('exceljs');
 module.exports = {
     CargarEmpleado: CargarEmpleado,
     buscarEmpleado: buscarEmpleado,
+    listaNiveles: listaNiveles
 }
 
 function CargarEmpleado(req, res){
     try {
         var carga = async(req,res) => {            
             try {
-                var obtener = tools.decrypt(req.body.data) 
+                var obtener = tools.decryptJson(req.body.data) 
                 console.log(obtener)               
                 var data = obtener.archivo;                
                 data = data.replace(/^data:image\/png;base64,/, "");
@@ -47,7 +48,8 @@ function CargarEmpleado(req, res){
                                         nivel1 : String,
                                         nivel2 : String,
                                         nivel3 : String,
-                                        nivel4 : String
+                                        nivel4 : String,
+                                        estado_encuesta : String
                                     }; 
 
                                     var row = worksheet.getRow(rowCount);            
@@ -64,7 +66,8 @@ function CargarEmpleado(req, res){
                                     user_j.nivel1 = tools.encrypt(row.getCell(2).value+"");
                                     user_j.nivel2 = tools.encrypt(row.getCell(3).value+"");
                                     user_j.nivel3 = tools.encrypt(row.getCell(4).value+"");
-                                    user_j.nivel4 = tools.encrypt(row.getCell(5).value+"");                                    
+                                    user_j.nivel4 = tools.encrypt(row.getCell(5).value+"");
+                                    user_j.estado_encuesta;                                    
                                     users.push(user_j);
                                     rowCount++;
                                 }
@@ -112,7 +115,7 @@ function CargarEmpleado(req, res){
 function buscarEmpleado(req,res){
     try {
         var traer = async(req,res) => {
-            var dec = tools.decrypt(req.body.data);
+            var dec = tools.decryptJson(req.body.data);
             const filtro = {
                 email : dec.email
             }            
@@ -121,7 +124,7 @@ function buscarEmpleado(req,res){
                     console.log(err);
                 }
                 if(!user){
-                    return res.status(200).send({
+                    return res.status(640).send({
                         estado: 'Error',
                         message: 'No existe el empleado', 
                         //data: Object.assign(user) 
@@ -159,3 +162,81 @@ function buscarEmpleado(req,res){
     }
 }
 
+function listaNiveles(req, res){
+    try {
+        var niveles = [];
+        var listar = async(req, res) => {
+            await user_jModel.find((err, users) => {
+                if (err){
+                    console.log(err);
+                }
+                if (!users){
+                    return res.status(601).send({
+                        estado: 'usuarios no encontrados',
+                        message: util.format('no obtenida'),
+                        data: Object.assign(err)
+                    });
+                }else {
+                    users.forEach(element => {
+                        var lvl = {
+                            nivel : String,
+                            nombre : String
+                        }
+                        lvl.nivel = "nivel 1";
+                        lvl.nombre = tools.decrypt(element.nivel1);
+                        niveles.push(lvl);
+                    });
+                    users.forEach(element => {
+                        var lvl = {
+                            nivel : String,
+                            nombre : String
+                        }
+                        lvl.nivel = "nivel 2";
+                        lvl.nombre = tools.decrypt(element.nivel2);
+                        niveles.push(lvl);
+                    });
+                    users.forEach(element => {
+                        var lvl = {
+                            nivel : String,
+                            nombre : String
+                        }
+                        lvl.nivel = "nivel 3";
+                        lvl.nombre = tools.decrypt(element.nivel3);
+                        niveles.push(lvl);
+                    });
+                    users.forEach(element => {
+                        var lvl = {
+                            nivel : String,
+                            nombre : String
+                        }
+                        lvl.nivel = "nivel 4";
+                        lvl.nombre = tools.decrypt(element.nivel4);
+                        niveles.push(lvl);
+                    });
+                    
+                   for(let i = 0; i<niveles.length ; i++){
+                        if(niveles[i].nombre == ''){
+                            niveles.splice(i,i);
+                        }else{
+                            for(let j = i+1; j< niveles.length ; j++){
+                                if(niveles[i].nombre == niveles[j].nombre){
+                                    niveles.splice(j,j);
+                                }
+                            }
+                        }
+                   }
+
+                   return res.status(200).send({
+                    estado: 'niveles',
+                    message: util.format('listado de niveles'),
+                    data: Object.assign(niveles)
+                });
+                    
+                }
+            })
+        }
+        listar(req,res);
+    } catch (error) {
+        throw boom.boomify(error)
+    }
+}
