@@ -8,12 +8,9 @@ const pregunta_w = Schema({
     },
     situacion_problema:String,
     encabezado_pregunta:String,
-    opciones:[
-        {
-            pregunta: String,
-            correcta: Boolean
-        }
-    ],
+    respuesta1: String,
+    respuesta2: String,
+    respuesta3: String,
     competencia: String,    
     nivel: String,
     curso: String,

@@ -6,13 +6,36 @@ const config = require('../../config.json');
 const Pregunta = require('../../models/preguntas.model');
 var tools = require('../utils/tools.js');
 var Excel = require('exceljs');
+var WordExtractor = require("word-extractor");
 
 module.exports = {
     registrarPregunta: registrarPregunta,
     registrarPreguntas: registrarPreguntas,
     obtenerPreguntas: obtenerPreguntas,
+    registrarPreguntaWord: registrarPreguntaWord
 };
 
+
+function registrarPreguntaWord(req, res) {
+    try {
+        var registro = async (req, res) => {
+            var extractor = new WordExtractor();
+            var extracted = extractor.extract("file.doc");
+            extracted.then(function (doc) {
+                console.log(doc.getBody());
+                return res.status(200).send({
+                    estado: 'Registrada',
+                    message: util.format("Pregunta registrada exitosamente"),
+                    data: Object.assign(preguntaG)
+                });
+            });
+
+        }
+        registro(req, res)
+    } catch (err) {
+        throw boom.boomify(err)
+    }
+}
 function registrarPregunta(req, res) {
     try {
         var registro = async (req, res) => {
@@ -88,7 +111,7 @@ function registrarPreguntas(req, res) {
                                         var row = worksheet.getRow(rowCount);
                                         var pregunta = {
                                             fecha_registro: fecha,
-                                            consecutivo: row.getCell(4).value+ tools.generadorConsecutivo(),
+                                            consecutivo: row.getCell(4).value + tools.generadorConsecutivo(),
                                         };
 
                                         var numValues = row.actualCellCount;

@@ -16,26 +16,39 @@ function agregarPregunta(req,res){
         var agregar = async(req,res) => {
             try {
                 var obtener = tools.decryptJson(req.body.data);
-                console.log(obtener);
                 var pregunta = obtener.pregunta;
+                console.log(pregunta);
+
                 Pregunta_w.insertMany(pregunta, (error, pregunta) => {
                     if(error){
                         console.log(error);
-                        return res.status(603).json(error)
+                        return res.status(603).send({
+                            estado: 'Pregunta no registrada',
+                            message: util.format("Ya se ha registrado una pregunta con el número de pregunta ingresado"),
+                            data: Object.assign({})
+                        })
                     }
                     if(!pregunta){
                         console.log(error);
-                        return res.status(604).json(error)
+                        return res.status(604).send({
+                            estado: 'Pregunta no registrada',
+                            message: util.format("Se presentó un error registrando la pregunta"),
+                            data: Object.assign({})
+                        })
                     }
 
-                    return res.status(200).json("se a agregado la pregunta") 
+                    return res.status(200).send({
+                        estado: 'Pregunta agregada',
+                        message: util.format("La pregunta ha sido registrada con exito"),
+                        data: Object.assign({})
+                    }) 
                 })
                 
             } catch (error) {
                 console.log(error);
                 return res.status(602).send({
-                    estado: 'no agrego pregunta',
-                    message: util.format("Error agregando pregunta"),
+                    estado: 'Pregunta no registrada',
+                    message: util.format("Se presentó un error registrando la pregunta"),
                     data: Object.assign({})
                 });
             }

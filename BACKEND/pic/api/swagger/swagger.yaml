@@ -304,6 +304,24 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /generarReportePicRoles:
+      # binds a127 app logic to a route
+      x-swagger-router-controller: cursos_controller
+      post:
+        description: Controla la creación de usuarios del sistema
+        # used as the method name of the controller
+        operationId: informePICRoles
+        responses:
+          "200":
+            description: Success
+            schema:
+              # a pointer to a definition
+              $ref: "#/definitions/GenericResponse"
+          # responses may fall through to errors
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"              
   /cargarUsuarios:
       x-swagger-router-controller: user_j_controller
       post:
@@ -365,6 +383,160 @@ paths:
       post:
         description: obtener preguntas
         operationId: obtenerPreguntasNuevas
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /obtenerCargosPic:
+      x-swagger-router-controller: cargo.controller
+      post:
+        description: obtener cargos
+        operationId: darCargos
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /obtenerSeccionales:
+      x-swagger-router-controller: seccionales.controller
+      post:
+        description: obtener seccionales
+        operationId: darSeccionales
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /subdireccionSeccional:
+      x-swagger-router-controller: subdireccion.controller
+      post:
+        description: obtener subdirecciones por seccionales
+        operationId: subdireccionSeccional
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /coordinacionesSeccional:
+      x-swagger-router-controller: coordinaciones.controller
+      post:
+        description: obtener coordinaciones por seccionales
+        operationId: coordinacionSecional
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /cuestionario:
+      x-swagger-router-controller: cuestionario.controller
+      post:
+        description: agregar cuestionario
+        operationId: Cuestionario
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /cambioPassword:
+      x-swagger-router-controller: user_j_controller
+      post:
+        description: Cambio Contraseña
+        operationId: cambioPassword
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /logIn:
+      x-swagger-router-controller: auth_controller
+      post:
+        description: entrada devuelve un token
+        operationId: logIn
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /completadas:
+      x-swagger-router-controller: cuestionario.controller
+      post:
+        description: devuelve encuentas respondidas y n respondidas
+        operationId: completadas
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /actualizarCompetencia:
+      x-swagger-router-controller: cuestionario.controller
+      post:
+        description: actualizar competencia
+        operationId: actualizarCompetencia
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /actualizarPregunta:
+      x-swagger-router-controller: cuestionario.controller
+      post:
+        description: actualizar pregunta
+        operationId: actualizarPregunta
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /actualizarEstadoCuestionario:
+      x-swagger-router-controller: cuestionario.controller
+      post:
+        description: actualizar estado cuestionario
+        operationId: actualizarEstadoCuestionario
         responses:
           "200":
             description: Success

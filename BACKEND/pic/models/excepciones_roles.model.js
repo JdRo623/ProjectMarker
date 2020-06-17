@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const subgrupo = Schema({
+const excepcion = Schema({
     nombre: String,
     fecha_registro: String,
     cursos: [
@@ -13,6 +13,6 @@ const subgrupo = Schema({
             ]
         }
     ],
-    direccion: String
+
 })
-module.exports = mongoose.model('SubGrupos', subgrupo);
+module.exports = mongoose.model('Excepciones', excepcion);

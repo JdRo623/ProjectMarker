@@ -10,89 +10,128 @@ var Excel = require('exceljs');
 module.exports = {
     CargarEmpleado: CargarEmpleado,
     buscarEmpleado: buscarEmpleado,
-    listaNiveles: listaNiveles
+    listaNiveles: listaNiveles,
+    cambioPassword:cambioPassword
 }
 
-function CargarEmpleado(req, res){
+function cambioPassword(req,res){
     try {
-        var carga = async(req,res) => {            
+        var datos = async(req,res) => {
             try {
-                var obtener = tools.decryptJson(req.body.data) 
-                console.log(obtener)               
-                var data = obtener.archivo;                
-                data = data.replace(/^data:image\/png;base64,/, "");
-                let buff = new Buffer(data, 'base64');    
+                var dec = tools.decryptJson(req.body.data);
+                const filtro = {
+                    email: tools.decrypt(dec.email)
+                }
+                user_jModel.findOneAndUpdate(filtro, {password: dec.password},(err,user)=>{
+                    if(err){
+                        return res.status(640).send({
+                            estado: 'Error',
+                            message: err,
+                            //data: Object.assign(user) 
+                        });
+                    }
+                    return res.status(200).send({
+                        estado: 'Contraseña actualizada',
+                        message: 'Contraseña actualizada',
+                        //data: Object.assign(user) 
+                    });
+                })
+            } catch (error) {
+                throw boom.boomify(error)
+            }
+        }
+        datos(req,res);
+    } catch (error) {
+        throw boom.boomify(error)
+    }
+}
+
+function CargarEmpleado(req, res) {
+    try {
+        var carga = async (req, res) => {
+            try {
+                var obtener = tools.decryptJson(req.body.data)
+                var data = obtener.archivo.replace(/^data:image\/png;base64,/, "");
+                let buff = new Buffer(data, 'base64');
                 var workbook = new Excel.Workbook();
-                workbook.xlsx.load(buff).then(function (){
+                const fecha = tools.getFechaActual();
+                workbook.xlsx.load(buff).then(function () {
                     try {
-                        var rowCount = 2;                        
-                        var users =[];                      
-                                                                  
-                        workbook.eachSheet(function(worksheet, sheetId){
-                            
-                            if(sheetId == 1){  
-                                console.log("dentro dentro");
-                                let aux = true;                              
-                                while(rowCount <= 5){ 
-                                    var user_j = {
-                                        nombres : String,
-                                        apellidos : String,
-                                        nombres_jefe : String,
-                                        apellidos_jefe : String,
-                                        Fecha_Inicio : String,
-                                        email : String,
-                                        identificacion : String,
-                                        ciudad : String,
-                                        cargo : String,
-                                        descripccion_cargo : String,
-                                        nivel1 : String,
-                                        nivel2 : String,
-                                        nivel3 : String,
-                                        nivel4 : String,
-                                        estado_encuesta : String
-                                    }; 
+                        var users = [];
+                        var worksheet = workbook.getWorksheet(1);
 
-                                    var row = worksheet.getRow(rowCount);            
-                                    user_j.nombres = tools.encrypt(row.getCell(10).value+"");
-                                    user_j.apellidos = tools.encrypt(row.getCell(11).value+"");                                    
-                                    user_j.nombres_jefe = tools.encrypt(row.getCell(15).value+"");
-                                    user_j.apellidos_jefe = tools.encrypt(row.getCell(16).value+"");
-                                    user_j.Fecha_Inicio = tools.encrypt(row.getCell(13).value+"");
-                                    user_j.email = row.getCell(9).value+"";
-                                    user_j.identificacion = tools.encrypt(row.getCell(8).value+"");
-                                    user_j.ciudad = row.getCell(7).value+"";
-                                    user_j.cargo = tools.encrypt(row.getCell(1).value+"");
-                                    user_j.descripccion_cargo = tools.encrypt(row.getCell(6).value+"");
-                                    user_j.nivel1 = tools.encrypt(row.getCell(2).value+"");
-                                    user_j.nivel2 = tools.encrypt(row.getCell(3).value+"");
-                                    user_j.nivel3 = tools.encrypt(row.getCell(4).value+"");
-                                    user_j.nivel4 = tools.encrypt(row.getCell(5).value+"");
-                                    user_j.estado_encuesta;                                    
-                                    users.push(user_j);
-                                    rowCount++;
-                                }
-                                var old = JSON.stringify(users).replace(/null/g, 'N/A'); //convert to JSON string
-                                var newArray = JSON.parse(old);
-                                user_jModel.insertMany(newArray, (error, usuarios) => {
-                                    if(error){
-                                        console.log(error);
-                                        return res.status(603).json(error)
-                                    }
-                                    if(!usuarios){
-                                        console.log(error);
-                                        return res.status(604).json(error)
-                                    }
+                        let aux = true;
+                        worksheet.eachRow(function (row, rowNumber) {
+                            var user_j = {
+                                nombres: String,
+                                apellidos: String,
+                                nombres_jefe: String,
+                                apellidos_jefe: String,
+                                Fecha_Inicio: String,
+                                email: String,
+                                identificacion: String,
+                                ciudad: String,
+                                cargo: String,
+                                descripccion_cargo: String,
+                                nivel1: String,
+                                nivel2: String,
+                                nivel3: String,
+                                nivel4: String,
+                                fecha_registro: String,
+                                estado_encuesta: String
+                            };
+                            user_j.nombres = tools.encrypt(row.getCell(10).value + "");
+                            user_j.apellidos = tools.encrypt(row.getCell(11).value + "");
+                            user_j.nombres_jefe = tools.encrypt(row.getCell(15).value + "");
+                            user_j.apellidos_jefe = tools.encrypt(row.getCell(16).value + "");
+                            user_j.Fecha_Inicio = tools.encrypt(row.getCell(13).value + "");
+                            user_j.email = row.getCell(9).value + "";
+                            user_j.identificacion = tools.encrypt(row.getCell(8).value + "");
+                            user_j.ciudad = row.getCell(7).value + "";
+                            user_j.cargo = tools.encrypt(row.getCell(1).value + "");
+                            user_j.descripccion_cargo = tools.encrypt(row.getCell(6).value + "");
+                            user_j.nivel1 = tools.encrypt(row.getCell(2).value + "");
+                            user_j.nivel2 = tools.encrypt(row.getCell(3).value + "");
+                            user_j.nivel3 = tools.encrypt(row.getCell(4).value + "");
+                            user_j.nivel4 = tools.encrypt(row.getCell(5).value + "");
+                            user_j.fecha_registro = fecha
+                            user_j.estado_encuesta;
+                            users.push(user_j);
+                        })
 
-                                    return res.status(200).json("se han cargado los usuarios")                
+                        //  console.log(users.length);
+
+                        var old = JSON.stringify(users).replace(/null/g, 'N/A'); //convert to JSON string
+                        var newArray = JSON.parse(old);
+                        user_jModel.insertMany(newArray, (error, usuarios) => {
+                            if (error) {
+                                console.log(error);
+                                return res.status(603).send({
+                                    estado: 'Error',
+                                    message: util.format(error),
+                                    data: Object.assign({})
                                 })
                             }
+                            if (!usuarios) {
+                                console.log(error);
+                                return res.status(604).send({
+                                    estado: 'Error',
+                                    message: util.format("No ha sido posible almacenar los empleados"),
+                                    data: Object.assign({})
+                                })
+                            }
+
+                            return res.status(200).send({
+                                estado: 'Empleados almacenados',
+                                message: util.format("Los empleados han sido registrados correctamente en el sistema."),
+                                data: Object.assign({})
+                            });
                         })
-                        
                     } catch (error) {
                         console.log(error);
                         return res.status(601).send({
-                            estado: 'Empleados vacio',
-                            message: util.format("no hay registros"),
+                            estado: 'Empleados vacios',
+                            message: util.format("No hay registros"),
                             data: Object.assign({})
                         });
                     }
@@ -109,28 +148,28 @@ function CargarEmpleado(req, res){
         carga(req, res);
     } catch (error) {
         throw boom.boomify(error)
-    }    
+    }
 }
 
-function buscarEmpleado(req,res){
+function buscarEmpleado(req, res) {
     try {
-        var traer = async(req,res) => {
+        var traer = async (req, res) => {
             var dec = tools.decryptJson(req.body.data);
             const filtro = {
-                email : dec.email
-            }            
+                email: dec.email
+            }
             await user_jModel.findOne(filtro, (err, user) => {
-                if(err){
+                if (err) {
                     console.log(err);
                 }
-                if(!user){
+                if (!user) {
                     return res.status(640).send({
                         estado: 'Error',
-                        message: 'No existe el empleado', 
+                        message: 'No existe el empleado',
                         //data: Object.assign(user) 
                     });
-                } else {     
-                    console.log(user);              
+                } else {
+                    console.log(user);
                     var user_decript = {};
                     user_decript.nombres = tools.decrypt(user.nombres);
                     user_decript.apellidos = tools.decrypt(user.apellidos);
@@ -146,41 +185,41 @@ function buscarEmpleado(req,res){
                     user_decript.nivel2 = tools.decrypt(user.nivel2);
                     user_decript.nivel3 = tools.decrypt(user.nivel3);
                     user_decript.nivel4 = tools.decrypt(user.nivel4);
-                    
+
 
                     return res.status(200).send({
                         estado: 'Empleado Encontrado',
                         message: util.format('Información Obtenida'),
                         data: Object.assign(user_decript)
                     });
-                }                    
+                }
             })
         }
-        traer(req,res);
+        traer(req, res);
     } catch (error) {
         console.log(error);
     }
 }
 
-function listaNiveles(req, res){
+function listaNiveles(req, res) {
     try {
         var niveles = [];
-        var listar = async(req, res) => {
+        var listar = async (req, res) => {
             await user_jModel.find((err, users) => {
-                if (err){
+                if (err) {
                     console.log(err);
                 }
-                if (!users){
+                if (!users) {
                     return res.status(601).send({
                         estado: 'usuarios no encontrados',
                         message: util.format('no obtenida'),
                         data: Object.assign(err)
                     });
-                }else {
+                } else {
                     users.forEach(element => {
                         var lvl = {
-                            nivel : String,
-                            nombre : String
+                            nivel: String,
+                            nombre: String
                         }
                         lvl.nivel = "nivel 1";
                         lvl.nombre = tools.decrypt(element.nivel1);
@@ -188,8 +227,8 @@ function listaNiveles(req, res){
                     });
                     users.forEach(element => {
                         var lvl = {
-                            nivel : String,
-                            nombre : String
+                            nivel: String,
+                            nombre: String
                         }
                         lvl.nivel = "nivel 2";
                         lvl.nombre = tools.decrypt(element.nivel2);
@@ -197,8 +236,8 @@ function listaNiveles(req, res){
                     });
                     users.forEach(element => {
                         var lvl = {
-                            nivel : String,
-                            nombre : String
+                            nivel: String,
+                            nombre: String
                         }
                         lvl.nivel = "nivel 3";
                         lvl.nombre = tools.decrypt(element.nivel3);
@@ -206,36 +245,36 @@ function listaNiveles(req, res){
                     });
                     users.forEach(element => {
                         var lvl = {
-                            nivel : String,
-                            nombre : String
+                            nivel: String,
+                            nombre: String
                         }
                         lvl.nivel = "nivel 4";
                         lvl.nombre = tools.decrypt(element.nivel4);
                         niveles.push(lvl);
                     });
-                    
-                   for(let i = 0; i<niveles.length ; i++){
-                        if(niveles[i].nombre == ''){
-                            niveles.splice(i,i);
-                        }else{
-                            for(let j = i+1; j< niveles.length ; j++){
-                                if(niveles[i].nombre == niveles[j].nombre){
-                                    niveles.splice(j,j);
+
+                    for (let i = 0; i < niveles.length; i++) {
+                        if (niveles[i].nombre == '') {
+                            niveles.splice(i, i);
+                        } else {
+                            for (let j = i + 1; j < niveles.length; j++) {
+                                if (niveles[i].nombre == niveles[j].nombre) {
+                                    niveles.splice(j, j);
                                 }
                             }
                         }
-                   }
+                    }
 
-                   return res.status(200).send({
-                    estado: 'niveles',
-                    message: util.format('listado de niveles'),
-                    data: Object.assign(niveles)
-                });
-                    
+                    return res.status(200).send({
+                        estado: 'niveles',
+                        message: util.format('listado de niveles'),
+                        data: Object.assign(niveles)
+                    });
+
                 }
             })
         }
-        listar(req,res);
+        listar(req, res);
     } catch (error) {
         throw boom.boomify(error)
     }

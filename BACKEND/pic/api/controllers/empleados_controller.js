@@ -67,7 +67,7 @@ function registrarEmpleados(req, res) {
                 workbook.xlsx.load(buff)
                     .then(function () {
                         try {
-                            var worksheet = workbook.getWorksheet('KactuS - KNmContr');
+                            var worksheet = workbook.getWorksheet(1);
                             var rowCount = 2;
                             var empleadosDefinitivos = [];
                             if (worksheet) {

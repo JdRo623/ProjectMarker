@@ -14,6 +14,7 @@ const user_j = Schema({
     descripccion_cargo: String,
     nivel1: String,
     nivel2: String,
+    fecha_registro: String,
     nivel3: {
         type: String,
         require: false
@@ -25,6 +26,10 @@ const user_j = Schema({
     estado_encuesta:{
         type: String,
         default: "No completado"
+    },
+    password:{
+        type: String,
+        default: this.identificacion,
     }
 
 })
