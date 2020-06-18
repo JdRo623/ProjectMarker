@@ -131,6 +131,7 @@ export default function PicSeccionInformacionPersonal(props) {
             HttpUtil.requestPost(url, filtros,
                 (response) => {
                     console.log(response)
+                    props.setEstadoPaso(true)
                     props.setCuestionario(response.data)
                     goToNext()
                     setModal(false);

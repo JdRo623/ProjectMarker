@@ -28,7 +28,10 @@ import PicSeccionPreguntasIII from "../../../components/pic/PicSeccionPreguntasI
 export default function Cuestionario(props) {
   const [activeTab, setActiveTab] = useState("1");
   const [totalPasos, setTotalPasos] = useState("4");
-  const [cuestionarioUsuario, setCuestionario] = useState({listado_competencias:[]});
+  const [cuestionarioUsuario, setCuestionario] = useState({ listado_competencias: [] });
+  const [informacionPersonalCompleto, setInformacionPersonalCompleto] = useState(false);
+  const [seccionPreguntasICompleto, setSeccionPreguntasICompleto] = useState(false);
+
   const toggleTab = (tab) => {
     console.log(tab)
     if (activeTab !== tab) {
@@ -55,8 +58,20 @@ export default function Cuestionario(props) {
         break;
     }
   }
-
+  const PreguntasSeccionIElement = () => (
+    <PicSeccionPreguntasI
+      setEstadoPaso={setSeccionPreguntasICompleto}
+      competencias={cuestionarioUsuario.listado_competencias}
+      pasoSiguiente={pasoSiguiente} />
+  )
+  const PreguntasSeccionIIElement = () => (
+    <PicSeccionPreguntasII
+      preguntas={cuestionarioUsuario.listado_competencias}
+      pasoSiguiente={pasoSiguiente} />
+  )
   return (
+
+
     <Fragment>
       <Row>
         <Colxx xxs="12" lg="5" xl="4" className="mb-3">
@@ -100,16 +115,15 @@ export default function Cuestionario(props) {
           <TabContent activeTab={activeTab}>
             <TabPane tabId="1">
               <PicSeccionInformacionPersonal
-                setCuestionario ={setCuestionario}
+                setCuestionario={setCuestionario}
+                setEstadoPaso={setInformacionPersonalCompleto}
                 pasoSiguiente={pasoSiguiente} />
             </TabPane>
             <TabPane tabId="2">
-              <PicSeccionPreguntasI 
-              competencias = {cuestionarioUsuario.listado_competencias}
-              pasoSiguiente={pasoSiguiente} />
+              {informacionPersonalCompleto ? <PreguntasSeccionIElement /> : null}
             </TabPane>
             <TabPane tabId="3">
-              <PicSeccionPreguntasII pasoSiguiente={pasoSiguiente} />
+              {seccionPreguntasICompleto ? <PreguntasSeccionIIElement /> : null}
             </TabPane>
             <TabPane tabId="4">
               <PicSeccionPreguntasIII pasoSiguiente={pasoSiguiente} />

@@ -42,11 +42,16 @@ function logIn(req,res){
             }
         }else{
             if(tools.decrypt(user.identificacion) == dec.password){
+                var send = {
+                    cambio_pass: true,
+
+                }
                 const token = jwt.sign({user}, 'my-secret', {expiresIn: 5400});
+                send.token = token;
                 return res.status(200).send({
                     estado: 'usuario encontrado',
                     message: 'token del usuario', 
-                    data: Object.assign(token) 
+                    data: Object.assign(send) 
                 });
             }else{
                 return res.status(200).send({
