@@ -26,19 +26,36 @@ function logIn(req,res){
                 //data: Object.assign(user) 
             });
         }
-        if(tools.decrypt(user.password) == dec.password){
-            const token = jwt.sign({user}, 'my-secret', {expiresIn: 5400});
-            return res.status(200).send({
-                estado: 'usuario encontrado',
-                message: 'token del usuario', 
-                data: Object.assign(token) 
-            });
+        if(user.password){
+            if(tools.decrypt(user.password) == dec.password){
+                const token = jwt.sign({user}, 'my-secret', {expiresIn: 5400});
+                return res.status(200).send({
+                    estado: 'usuario encontrado',
+                    message: 'token del usuario', 
+                    data: Object.assign(token) 
+                });
+            }else{
+                return res.status(200).send({
+                    estado: 'Contraseña invalida',
+                    message: 'Contraseña invalida'                 
+                });
+            }
         }else{
-            return res.status(200).send({
-                estado: 'Contraseña invalida',
-                message: 'Contraseña invalida'                 
-            });
+            if(tools.decrypt(user.identificacion) == dec.password){
+                const token = jwt.sign({user}, 'my-secret', {expiresIn: 5400});
+                return res.status(200).send({
+                    estado: 'usuario encontrado',
+                    message: 'token del usuario', 
+                    data: Object.assign(token) 
+                });
+            }else{
+                return res.status(200).send({
+                    estado: 'Contraseña invalida',
+                    message: 'Contraseña invalida'                 
+                });
+            }
         }
+        
         
 
     });
