@@ -14,37 +14,50 @@ import logo from '../../assets/img/logo_dian.png';
 import constantes from '../../util/Constantes';
 import HttpService from '../../util/HttpService';
 
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: 'lcespedesp@dian.gov.co',
-      password: '475944',
+      loading: false,
+      form: {
+        email: 'lcespedesp@dian.gov.co',
+        password: '475944',
+      },
     };
   }
 
-  //TODO
-  onUserLogin = (values) => {
-    const { email, password } = this.state;
-    HttpService.requestPost(
-      constantes.urlServer + constantes.servicios.login,
-      {
-        email,
-        password,
-      },
-      (response) => {
-        console.log('response login', response);
-      }
-    );
-    /*if (!this.props.loading) {
-      if (values.email !== '' && values.password !== '') {
-        this.props.loginUser(values, this.props.history);
-      }
-    }*/
+  onUserLogin = async () => {
+    this.setState({ loading: true });
+    const { email, password } = this.state.form;
+    if (!this.validateEmail(email) || !this.validatePassword(password)) {
+      await HttpService.requestPost(
+        constantes.urlServer + constantes.servicios.login,
+        {
+          email,
+          password,
+        },
+        (response) => {
+          if (response.data) {
+            cookies.set('token', response.data, { path: '/' });
+
+            //this.props.history.push('/')
+
+            this.props.loginUser(
+              { email: 'demo@gogo.com', password: 'gogo123' },
+              this.props.history
+            );
+          }
+        }
+      );
+    }
+    this.setState({ loading: false });
   };
 
   validateEmail = (value) => {
-    let error;
+    let error = null;
     if (!value) {
       error = 'Por favor, ingrese su correo electronico';
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
@@ -54,7 +67,7 @@ class Login extends Component {
   };
 
   validatePassword = (value) => {
-    let error;
+    let error = null;
     if (!value) {
       error = 'Por favor, ingrese su contraseña';
     } else if (value.length < 4) {
@@ -93,6 +106,16 @@ class Login extends Component {
     }*/
   }
 
+  handleChange = (e) => {
+    this.setState({
+      ...this.state,
+      form: {
+        ...this.state.form,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
   componentDidUpdate() {
     if (this.props.error) {
       NotificationManager.warning(
@@ -107,9 +130,6 @@ class Login extends Component {
   }
 
   render() {
-    const { password, email } = this.state;
-    const initialValues = { email, password };
-
     return (
       <Row className='h-100'>
         <Colxx xxs='12' md='8' className='mx-auto my-auto'>
@@ -123,7 +143,7 @@ class Login extends Component {
               <CardTitle className='mb-4'>
                 <IntlMessages id='user.login-title' />
               </CardTitle>
-              <Formik initialValues={initialValues} onSubmit={this.onUserLogin}>
+              <Formik onSubmit={this.onUserLogin}>
                 {({ errors, touched }) => (
                   <Form className='av-tooltip tooltip-label-bottom'>
                     <FormGroup className='form-group has-float-label'>
@@ -133,7 +153,8 @@ class Login extends Component {
                       <Field
                         className='form-control'
                         name='email'
-                        validate={this.validateEmail}
+                        onChange={this.handleChange}
+                        value={this.state.form.email}
                       />
                       {errors.email && touched.email && (
                         <div className='invalid-feedback d-block'>
@@ -149,7 +170,8 @@ class Login extends Component {
                         className='form-control'
                         type='password'
                         name='password'
-                        validate={this.validatePassword}
+                        onChange={this.handleChange}
+                        value={this.state.form.password}
                       />
                       {errors.password && touched.password && (
                         <div className='invalid-feedback d-block'>
@@ -164,7 +186,7 @@ class Login extends Component {
                       <Button
                         color='primary'
                         className={`btn-shadow btn-multiple-state ${
-                          this.props.loading ? 'show-spinner' : ''
+                          this.state.loading ? 'show-spinner' : ''
                         }`}
                         size='lg'
                       >
