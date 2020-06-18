@@ -19,27 +19,50 @@ function logIn(req, res) {
     if (err) {
       console.log(err);
     }
-    if (!user) {
-      return res.status(640).send({
-        estado: 'Error',
-        message: 'No existe el usuario',
-        //data: Object.assign(user)
-      });
-    }
-    if (tools.decrypt(user.password) == dec.password) {
-      const token = jwt.sign({ user }, 'my-secret', { expiresIn: 5400 });
-      return res.status(200).send({
-        estado: 'usuario encontrado',
-        message: 'token del usuario',
-        data: Object.assign(token),
-      });
-    } else {
-      return res.status(200).send({
-        estado: 'Contraseña invalida',
-        message: 'Contraseña invalida',
-      });
-    }
-  });
+    user.findOne(filtro, (err, user) =>{
+        if(err){
+            console.log(err);
+        }
+        if(!user){
+            return res.status(640).send({
+                estado: 'Error',
+                message: 'No existe el usuario', 
+                //data: Object.assign(user) 
+            });
+        }
+        if(user.password){
+            if(tools.decrypt(user.password) == dec.password){
+                const token = jwt.sign({user}, 'my-secret', {expiresIn: 5400});
+                return res.status(200).send({
+                    estado: 'usuario encontrado',
+                    message: 'token del usuario', 
+                    data: Object.assign(token) 
+                });
+            }else{
+                return res.status(200).send({
+                    estado: 'Contraseña invalida',
+                    message: 'Contraseña invalida'                 
+                });
+            }
+        }else{
+            if(tools.decrypt(user.identificacion) == dec.password){
+                const token = jwt.sign({user}, 'my-secret', {expiresIn: 5400});
+                return res.status(200).send({
+                    estado: 'usuario encontrado',
+                    message: 'token del usuario', 
+                    data: Object.assign(token) 
+                });
+            }else{
+                return res.status(200).send({
+                    estado: 'Contraseña invalida',
+                    message: 'Contraseña invalida'                 
+                });
+            }
+        }
+        
+        
+
+    });
 }
 
 function verify(req, res, next) {
