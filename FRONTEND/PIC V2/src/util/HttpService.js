@@ -1,9 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import keyczar from './keyczar';
-import Util from './Util'
-import { NotificationManager } from "../components/common/react-notifications";
-
+import Util from './Util';
+import { NotificationManager } from '../components/common/react-notifications';
 
 function cifrar(text) {
   return Util.encryptText(text);
@@ -18,10 +17,7 @@ function decifrar(text) {
 }
 
 class HttpUtil extends React.Component {
-
-
-
-  static requestPost(url, data, sucessCallBack, errorCallBack, message) {
+  static async requestPost(url, data, sucessCallBack, errorCallBack, message) {
     const userInfoStr = localStorage.getItem('userInfo');
     if (userInfoStr) {
       const userInfo = JSON.parse(userInfoStr);
@@ -30,17 +26,36 @@ class HttpUtil extends React.Component {
 
     var today = new Date();
 
-    console.log('Antes de: url' + url + ' ' + today.getHours() + ':' +
-      today.getMinutes() + ':' + today.getSeconds() + ':' +
-      today.getMilliseconds());
+    console.log(
+      'Antes de: url' +
+        url +
+        ' ' +
+        today.getHours() +
+        ':' +
+        today.getMinutes() +
+        ':' +
+        today.getSeconds() +
+        ':' +
+        today.getMilliseconds()
+    );
     const dataRequest = {
-      data: cifrar(JSON.stringify(data))
-    }
-    console.log('Despues de: ' + url + ' ' + today.getHours() + ':' +
-      today.getMinutes() + ':' + today.getSeconds() + ':' +
-      today.getMilliseconds());
-    
-    axios.post(url, dataRequest)
+      data: cifrar(JSON.stringify(data)),
+    };
+    console.log(
+      'Despues de: ' +
+        url +
+        ' ' +
+        today.getHours() +
+        ':' +
+        today.getMinutes() +
+        ':' +
+        today.getSeconds() +
+        ':' +
+        today.getMilliseconds()
+    );
+
+    await axios
+      .post(url, dataRequest)
       .then(function (response) {
         const dataDecrypt = JSON.parse(decifrar(response.data.respuesta));
         console.log(dataDecrypt);
@@ -50,55 +65,61 @@ class HttpUtil extends React.Component {
           5000,
           null,
           null,
-          "filled"
+          'filled'
         );
-        if (sucessCallBack != null && sucessCallBack !== undefined) sucessCallBack(dataDecrypt);
+        if (sucessCallBack != null && sucessCallBack !== undefined)
+          sucessCallBack(dataDecrypt);
       })
       .catch(function (error) {
-        if(error.response){
-          const dataDecrypt = JSON.parse(decifrar(error.response.data.respuesta));
+        if (error.response) {
+          const dataDecrypt = JSON.parse(
+            decifrar(error.response.data.respuesta)
+          );
           NotificationManager.error(
             dataDecrypt.message,
             dataDecrypt.estado,
             5000,
             () => {
-              alert("callback");
+              alert('callback');
             },
             null,
-            "filled"
+            'filled'
           );
-        }else{
+        } else {
           NotificationManager.error(
-            "Ha ocurrido un error con el Servidor, por favor contacte al supervisor del sistema",
-            "Error",
+            'Ha ocurrido un error con el Servidor, por favor contacte al supervisor del sistema',
+            'Error',
             5000,
             () => {
-              alert("callback");
+              alert('callback');
             },
             null,
-            "filled"
+            'filled'
           );
         }
-       // console.log(dataDecrypt);
-        if (errorCallBack != null && errorCallBack !== undefined) errorCallBack(error.response);
+        // console.log(dataDecrypt);
+        if (errorCallBack != null && errorCallBack !== undefined)
+          errorCallBack(error.response);
       });
   }
 
   static requestGet(url, sucessCallBack, errorCallBack) {
-    axios.get(url)
+    axios
+      .get(url)
       .then(function (response) {
         console.log(response);
-        if (sucessCallBack != null && sucessCallBack !== undefined) sucessCallBack(response.data);
+        if (sucessCallBack != null && sucessCallBack !== undefined)
+          sucessCallBack(response.data);
       })
       .catch(function (error) {
         console.log(error);
-        if (errorCallBack != null && errorCallBack !== undefined) errorCallBack(error);
+        if (errorCallBack != null && errorCallBack !== undefined)
+          errorCallBack(error);
       });
   }
 
   render() {
-    return
-
+    return;
   }
 }
 

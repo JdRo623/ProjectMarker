@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
 } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import './helpers/Firebase';
@@ -12,6 +12,7 @@ import AppLocale from './lang';
 import NotificationContainer from './components/common/react-notifications/NotificationContainer';
 import { isMultiColorActive, isDemo } from './constants/defaultValues';
 import { getDirection } from './helpers/Utils';
+import { CookiesProvider, Cookies } from 'react-cookie';
 
 const ViewMain = React.lazy(() =>
   import(/* webpackChunkName: "views" */ './views')
@@ -28,26 +29,27 @@ const ViewError = React.lazy(() =>
 const ViewPic = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/user/login')
 );
+const ViewReset = React.lazy(() => import('./views/user/cambio'));
 
 const AuthRoute = ({ component: Component, authUser, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={props =>
+      render={(props) =>
         authUser || isDemo ? (
           <Component {...props} />
         ) : (
           <Redirect
             to={{
               pathname: '/user/login',
-              state: { from: props.location }
+              state: { from: props.location },
             }}
           />
         )
       }
     />
   );
-}
+};
 
 class App extends Component {
   constructor(props) {
@@ -67,36 +69,40 @@ class App extends Component {
     const currentAppLocale = AppLocale[locale];
 
     return (
-      <div className="h-100">
+      <div className='h-100'>
         <IntlProvider
           locale={currentAppLocale.locale}
           messages={currentAppLocale.messages}
         >
           <React.Fragment>
             <NotificationContainer />
-            <Suspense fallback={<div className="loading" />}>
+            <Suspense fallback={<div className='loading' />}>
               <Router>
                 <Switch>
                   <AuthRoute
-                    path="/app"
+                    path='/app'
                     authUser={loginUser}
                     component={ViewApp}
                   />
                   <Route
-                    path="/user"
-                    render={props => <ViewPic {...props} />}
+                    path='/user/reset'
+                    render={(props) => <ViewReset {...props} />}
                   />
                   <Route
-                    path="/error"
-                    exact
-                    render={props => <ViewError {...props} />}
+                    path='/user'
+                    render={(props) => <ViewPic {...props} />}
                   />
                   <Route
-                    path="/"
+                    path='/error'
                     exact
-                    render={props => <ViewMain {...props} />}
+                    render={(props) => <ViewError {...props} />}
                   />
-                  <Redirect to="/error" />
+                  <Route
+                    path='/'
+                    exact
+                    render={(props) => <ViewMain {...props} />}
+                  />
+                  <Redirect to='/error' />
                 </Switch>
               </Router>
             </Suspense>
@@ -114,7 +120,4 @@ const mapStateToProps = ({ authUser, settings }) => {
 };
 const mapActionsToProps = {};
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(App);
+export default connect(mapStateToProps, mapActionsToProps)(App);

@@ -19,34 +19,35 @@ const Reportes = React.lazy(() =>
   import(/* webpackChunkName: "cuestionario" */ './reportes')
 );
 
-
-
-
 const PagesPic = ({ match }) => (
-  <Suspense fallback={<div className="loading" />}>
+  <Suspense fallback={<div className='loading' />}>
     <Switch>
-      <Redirect exact from={`${match.url}/`} to={`${match.url}/carguePreguntas`} />
+      <Redirect
+        exact
+        from={`${match.url}/`}
+        to={`${match.url}/carguePreguntas`}
+      />
       <Route
         path={`${match.url}/cuestionario`}
-        render={props => <Cuestionario {...props} />}
+        render={(props) => <Cuestionario {...props} />}
       />
       <Route
         path={`${match.url}/rutaAprendizaje`}
-        render={props => <RutaAprendizaje {...props} />}
+        render={(props) => <RutaAprendizaje {...props} />}
       />
       <Route
         path={`${match.url}/util`}
-        render={props => <Util {...props} />}
+        render={(props) => <Util {...props} />}
       />
       <Route
         path={`${match.url}/carguePreguntas`}
-        render={props => <CarguePreguntas {...props} />}
+        render={(props) => <CarguePreguntas {...props} />}
       />
       <Route
         path={`${match.url}/reportes`}
-        render={props => <Reportes {...props} />}
+        render={(props) => <Reportes {...props} />}
       />
-      <Redirect to="/error" />
+      <Redirect to='/error' />
     </Switch>
   </Suspense>
 );

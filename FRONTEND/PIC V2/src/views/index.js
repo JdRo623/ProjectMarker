@@ -1,9 +1,14 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
-class Main extends Component {
-  render() {
-    return <Redirect to="/app" />
+const Main = () => {
+  const cookies = new Cookies();
+  const cambio = cookies.get('cambio');
+  if (cambio) {
+    return <Redirect to='/user/reset' />;
   }
-}
+  return <Redirect to='/app' />;
+};
+
 export default Main;
