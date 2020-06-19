@@ -12,8 +12,10 @@ module.exports = {
     registrarPregunta: registrarPregunta,
     registrarPreguntas: registrarPreguntas,
     obtenerPreguntas: obtenerPreguntas,
-    registrarPreguntaWord: registrarPreguntaWord
+    registrarPreguntaWord: registrarPreguntaWord,    
 };
+
+
 
 
 function registrarPreguntaWord(req, res) {

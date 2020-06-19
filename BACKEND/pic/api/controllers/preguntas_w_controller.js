@@ -9,6 +9,36 @@ var tools = require('../utils/tools.js');
 module.exports = {
     agregarPregunta : agregarPregunta,
     obtenerPreguntasNuevas: obtenerPreguntasNuevas,
+    buscarPreguntasPorID:buscarPreguntasPorID
+}
+
+function buscarPreguntasPorID(req, res){
+    try {
+        var obtener = async(req,res)=>{
+            var dec = tools.decryptJson(req.body.data);
+            await Pregunta_w.findOne({numero_pregunta: dec.data.id},(err,preguntaBuscada)=>{
+                if(err){
+                    console.log(err);
+                }
+                if(!preguntaBuscada){
+                    return res.status(200).send({
+                        estado: 'Pregunta no encontrada',
+                        message: util.format("la pregunta no se encuentra"),
+                        //data: Object.assign(preguntaG)
+                    });
+                }
+                return res.status(200).send({
+                    estado: 'Pregunta  encontrada',
+                    message: util.format("la pregunta se encuentra"),
+                    data: Object.assign(preguntaBuscada)
+                });
+            })
+        }
+        obtener(req,res);
+    } catch (error) {
+        throw boom.boomify(err)
+    }
+
 }
 
 function agregarPregunta(req,res){
