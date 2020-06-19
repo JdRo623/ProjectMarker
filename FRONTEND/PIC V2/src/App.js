@@ -29,6 +29,7 @@ const ViewError = React.lazy(() =>
 const ViewPic = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ './views/user/login')
 );
+const ViewReset = React.lazy(() => import('./views/user/cambio'));
 
 const AuthRoute = ({ component: Component, authUser, ...rest }) => {
   return (
@@ -82,6 +83,10 @@ class App extends Component {
                     path='/app'
                     authUser={loginUser}
                     component={ViewApp}
+                  />
+                  <Route
+                    path='/user/reset'
+                    render={(props) => <ViewReset {...props} />}
                   />
                   <Route
                     path='/user'

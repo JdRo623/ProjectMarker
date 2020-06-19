@@ -22,7 +22,6 @@ class AvailityCustom extends Component {
       <Card className="mb-5">
         <CardBody>
           <h6 className="mb-4">Custom Rules</h6>
-
           <AvForm
             className="av-tooltip tooltip-label-right"
             onSubmit={this.handleSubmit}>

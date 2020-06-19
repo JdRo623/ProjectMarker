@@ -1,5 +1,9 @@
 import React, { Fragment, useState, useEffect, useReducer } from "react";
-import { Card, CardBody, Form, FormGroup, Input, Label } from "reactstrap";
+import {
+  Card, CardBody, Modal,
+  ModalHeader,
+  ModalBody, Form, FormGroup, Input, Label
+} from "reactstrap";
 import { Wizard, Steps, Step } from 'react-albus';
 import { BottomNavigation } from "../../components/wizard/BottomNavigation";
 import { TopNavigation } from "../../components/wizard/TopNavigation";
@@ -9,6 +13,9 @@ import PicFinalSeccionComponente from "../../components/pic/PicFinalSeccionCompo
 
 import competenciasListado from "../../data/pic/competencias";
 import preguntasCompetencias from "../../data/pic/preguntasCompetencias";
+import constantes from "../../util/Constantes.js"
+import HttpUtil from '../../util/HttpService.js'
+
 
 export default function PicSeccionPreguntasI(props) {
 
@@ -16,87 +23,92 @@ export default function PicSeccionPreguntasI(props) {
 
   const [respuestas, setRespuestas] = useState([]);
   const [competencias, setCompetencias] = useState(props.competencias);
-  const [competenciasCards, setCompetenciasCards] = useState(<Step id="1"></Step>);
-  const [competenciasCards2, setCompetenciasCards2] = useState(competenciasCards);
-  const [, forceUpdate] = useReducer(x => x + 1, 0);
   const [bottomNavHidden, setBottomNavHidden] = useState(false);
   const [topNavDisabled, setTopNavDisabled] = useState(false);
-  const [modificado, setModificado] = useState(false);
+  var contadorPasos = 1
+  const [modal, setModal] = useState(false);
+  const [competenciasCards, setCompetenciasCards] = useState(competencias.map((competencia) =>
+    <Step id={""+contadorPasos++} desc="" >
+      <PicPreguntaComponente
+        encabezado={competencia.nombreCompetencia}
+        pregunta="Importancia para mi rol"
+        descriptor={competencia.descripcionCompetencia}
+        respuestas={preguntasCompetencias} />
+    </Step>));
+  const [competenciasCards2, setCompetenciasCards2] = useState(competenciasCards);
 
+  const Test = ({competenciasMapeo, preguntasCompetencias}) => (
+    <>
+      {competenciasMapeo.map((competencia) =>
+    <Step id={""+contadorPasos++} desc="" >
+      <PicPreguntaComponente
+        encabezado={competencia.nombreCompetencia}
+        pregunta="Importancia para mi rol"
+        descriptor={competencia.descripcionCompetencia}
+        respuestas={preguntasCompetencias} />
+    </Step>)}
+    </>
+  ); 
 
+  const TestII = ({competenciasMapeo, preguntasCompetencias}) => (
+    <>
+      
+    <Step id={contadorPasos++} name={competenciasMapeo[0].nombreCompetencia} desc="" >
+      <PicPreguntaComponente
+        encabezado={competenciasMapeo[0].nombreCompetencia}
+        pregunta="Importancia para mi rol"
+        descriptor={competenciasMapeo[0].descripcionCompetencia}
+        respuestas={preguntasCompetencias} />
+    </Step>)
+    </>
+  ); 
   useEffect(() => {
     console.log(competencias)
-    console.log(competencias.length != 0)
-    console.log(competencias.length != 0 && competenciasCards === competenciasCards2)
-    // console.log(modificado)
-    if (competencias.length == 0) {
-      setCompetencias(props.competencias)
+    console.log(contadorPasos)
 
-    }
-    if (competencias.length != 0 && competenciasCards === competenciasCards2) {
-      setCompetenciasCards(props.competencias.map((competencia) =>
-        <Step id={competencia.idCompetencia} name="" desc="" >
+    //setCompetencias(competenciasListado)
+    //props.competencias
+    if (competenciasCards === competenciasCards2) {
+      console.log("Actualizó View")
+
+      /*setCompetenciasCards(competencias.map((competencia) =>
+        <Step id={competencia.nombreCompetencia} name="" desc="" >
           <PicPreguntaComponente
             encabezado={competencia.nombreCompetencia}
             pregunta="Importancia para mi rol"
             descriptor={competencia.descripcionCompetencia}
             respuestas={preguntasCompetencias} />
-        </Step>))
+        </Step>))*/
+
     }
 
     if (competencias.length != 0 && competenciasCards !== competenciasCards2) {
-      forceUpdate()
+      //forceUpdate()
     }
-
-
   })
-  /* componentDidMount() {
-     this.setState({ competencias: [] })
-     console.log(this.props.competencias)
-     //Consulta servicio web
-     /*this.setState({ respuestas: preguntasCompetencias })
-     this.setState({ competencias: competenciasListado })
- 
- 
-   }
-   componentDidUpdate() {
-     if (this.state.competenciasCards == null)
-       this.setState({
-         competenciasCards: this.state.competencias.map((competencia) =>
-           <Step id={competencia.idCompetencia} name="" desc="" >
-             <PicPreguntaComponente
-               encabezado={competencia.nombreCompetencia}
-               pregunta="Importancia para mi rol"
-               descriptor={competencia.descripcionCompetencia}
-               respuestas={preguntasCompetencias} />
-           </Step>
-         )
-       })
-     /* if(this.state.competenciasCards == null)
-      this.setState({
-        competenciasCards: 
-      })
-   }*/
-
   const topNavClick = (stepItem, push) => {
     if (topNavDisabled) {
       return;
     }
+    console.log(stepItem.id)
     push(stepItem.id);
   }
 
   const onClickNext = (goToNext, steps, step) => {
     step.isDone = true;
+    console.log(steps)
+    console.log(step)
     if (steps.length - 2 <= steps.indexOf(step)) {
       setBottomNavHidden(true)
       setTopNavDisabled(true)
+      props.setEstadoPaso(true)
       // this.setState({ bottomNavHidden: true, topNavDisabled: true });
     }
     if (steps.length - 1 <= steps.indexOf(step)) {
       return;
     }
     //clickSiguiente(goToNext, step)
-    //        goToNext();
+    goToNext();
   }
 
 
@@ -119,31 +131,46 @@ export default function PicSeccionPreguntasI(props) {
   }
 
   return (
-    <Card className="mb-5">
-      <CardBody className="wizard wizard-default">
-        <Wizard>
-          <TopNavigation className="justify-content-center" disableNav={true} topNavClick={topNavClick} />
-          <Steps>
-            <Step id="0" name="Instrucciones" desc="" >
-              <PicInstruccionComponente
-                encabezado="Instrucción Sección I"
-                descriptor="Contenido de la instrucción"
-              />
-            </Step>
-            {competenciasCards}
-            <Step id="-1" name="Final de Sección" desc="" >
-              <PicFinalSeccionComponente
-                encabezado="Final de Sección I"
-                descriptor="Contenido de final de sección"
-                pasoSiguiente={props.pasoSiguiente}
+    <Fragment>
+      <div>
+        <Modal isOpen={modal} >
+          <ModalHeader>
+            Obteniendo información
+                    </ModalHeader>
+          <ModalBody>
+            Obteniendo opciones de información personal del servidor
+                    </ModalBody>
+        </Modal>
+      </div>
+      <Card className="mb-5">
+        <CardBody className="wizard wizard-default">
+          <Wizard>
+            <TopNavigation className="justify-content-center" disableNav={false} topNavClick={topNavClick} />
+            <Steps>
+              <Step id="0" name="Instrucciones" desc="" >
+                <PicInstruccionComponente
+                  encabezado="Instrucción Sección I"
+                  descriptor="Contenido de la instrucción"
+                />
+              </Step>
 
-              />
-            </Step>
-          </Steps>
-          <BottomNavigation onClickNext={onClickNext} onClickPrev={onClickPrev} className={"justify-content-center " + (bottomNavHidden && "invisible")} prevLabel={"Anterior"} nextLabel={"Siguiente"} />
-        </Wizard>
-      </CardBody>
-    </Card>
+              {competenciasCards
+              
+              }
+              <Step id="-1" name="Final de Sección" desc="" >
+                <PicFinalSeccionComponente
+                  encabezado="Final de Sección I"
+                  descriptor="Contenido de final de sección"
+                  pasoSiguiente={props.pasoSiguiente}
+                />
+              </Step>
+            </Steps>
+            <BottomNavigation onClickNext={onClickNext} onClickPrev={onClickPrev} className={"justify-content-center " + (bottomNavHidden && "invisible")} prevLabel={"Anterior"} nextLabel={"Siguiente"} />
+          </Wizard>
+        </CardBody>
+      </Card>
+    </Fragment>
+
   );
 
 }

@@ -3,13 +3,11 @@ import { Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 
 const Main = () => {
-  /*const cookies = new Cookies();
-  const token = cookies.get('token');
-  if (token) {
-    return <Redirect to='/' />;
-  } else {
-    return <Redirect to='/user/login' />;
-  }*/
+  const cookies = new Cookies();
+  const cambio = cookies.get('cambio');
+  if (cambio) {
+    return <Redirect to='/user/reset' />;
+  }
   return <Redirect to='/app' />;
 };
 

@@ -41,10 +41,12 @@ class Login extends Component {
         },
         (response) => {
           if (response.data) {
-            cookies.set('token', response.data, { path: '/' });
-
-            //this.props.history.push('/')
-
+            const { token, cambio_pass } = response.data;
+            cookies.set('token', token, { path: '/' });
+            if (cambio_pass) {
+              cookies.set('cambio', cambio_pass, { path: '/' });
+              cookies.set('email', this.state.form.email, { path: '/' });
+            }
             this.props.loginUser(
               { email: 'demo@gogo.com', password: 'gogo123' },
               this.props.history
