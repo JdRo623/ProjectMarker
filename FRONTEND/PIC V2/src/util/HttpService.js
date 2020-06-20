@@ -4,11 +4,11 @@ import keyczar from './keyczar';
 import Util from './Util';
 import { NotificationManager } from '../components/common/react-notifications';
 
-function cifrar(text) {
+export function cifrar(text) {
   return Util.encryptText(text);
 }
 
-function decifrar(text) {
+export function decifrar(text) {
   try {
     return Util.decryptJson(text);
   } catch (error) {
