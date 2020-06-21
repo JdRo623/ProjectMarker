@@ -15,6 +15,7 @@ import {
 import IntlMessages from '../../helpers/IntlMessages';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import { useInputValue } from '../../hooks/useInputValue';
+import { NotificationManager } from '../../components/common/react-notifications';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -24,6 +25,7 @@ import HttpUtil from '../../util/HttpService.js';
 
 export function PicAgregarEmpleado(props) {
   const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const identificacion = useInputValue('');
   const nombres = useInputValue('');
   const apellidos = useInputValue('');
@@ -32,31 +34,58 @@ export function PicAgregarEmpleado(props) {
   const email = useInputValue('');
   const ciudad = useInputValue('');
 
-  const enviarPregunta = async () => {
+  const registrarEmpleado = async (e) => {
+    e.preventDefault();
+    setLoading(true);
     setModal(true);
     try {
       setModal(false);
       const url = constantes.urlServer + constantes.servicios.crearNuevoUsuario;
       const form = {
-        identificacion,
-        nombres,
-        apellidos,
-        nombres_jefe,
-        apellidos_jefe,
-        email,
-        ciudad,
+        identificacion: identificacion.value,
+        nombres: nombres.value,
+        apellidos: apellidos.value,
+        nombres_jefe: nombres_jefe.value,
+        apellidos_jefe: apellidos_jefe.value,
+        email: email.value,
+        ciudad: ciudad.value,
       };
-      identificacion.value = '';
-      nombres.value = '';
-      apellidos.value = '';
-      nombres_jefe.value = '';
-      apellidos_jefe.value = '';
-      email.value = '';
-      ciudad.value = '';
-      await HttpUtil.requestPost(url, form);
+      await HttpUtil.requestPost(url, form).then((response) => {
+        if (response) {
+          console.log('response', response);
+          identificacion.value = '';
+          nombres.value = '';
+          apellidos.value = '';
+          nombres_jefe.value = '';
+          apellidos_jefe.value = '';
+          email.value = '';
+          ciudad.value = '';
+          setLoading(false);
+        } else {
+          console.log('no hay respuesta');
+          setLoading(false);
+          NotificationManager.error(
+            'Ha ocurrido un error al crear el empleado',
+            'Error',
+            5000,
+            () => {},
+            null,
+            'filled'
+          );
+        }
+      });
     } catch (error) {
+      setLoading(false);
       setModal(false);
-      console.error('Error', error);
+      NotificationManager.error(
+        'Ha ocurrido un error al crear el empleado',
+        'Error',
+        5000,
+        () => {},
+        null,
+        'filled'
+      );
+      console.error(error);
     }
   };
 
@@ -74,7 +103,7 @@ export function PicAgregarEmpleado(props) {
             <Card>
               <CardBody>
                 <CardTitle>Agregar empleado</CardTitle>
-                <Form>
+                <Form onSubmit={registrarEmpleado}>
                   <Label className='form-group has-float-label'>
                     <Input type='text' {...identificacion} />
                     <IntlMessages id='empleado.identificacion' />
@@ -103,8 +132,23 @@ export function PicAgregarEmpleado(props) {
                     <Input type='text' {...ciudad} />
                     <IntlMessages id='empleado.ciudad' />
                   </Label>
-                  <Button color='primary' onClick={enviarPregunta}>
-                    <IntlMessages id='empleado.submit' />
+                  <Button
+                    color='primary'
+                    className={`btn-shadow btn-multiple-state ${
+                      loading ? 'show-spinner' : ''
+                    }`}
+                    size='lg'
+                    type='submit'
+                    disabled={loading}
+                  >
+                    <span className='spinner d-inline-block'>
+                      <span className='bounce1' />
+                      <span className='bounce2' />
+                      <span className='bounce3' />
+                    </span>
+                    <span className='label'>
+                      <IntlMessages id='empleado.submit' />
+                    </span>
                   </Button>
                 </Form>
               </CardBody>
