@@ -10,184 +10,185 @@ const subgrupo = require('../../models/subdireccion.model')
 const coordinacion = require('../../models/coordinacion.model')
 const cursoHandler = require('../../models/curso.model')
 const PreguntasHandler = require('../../models/preguntas_w.model')
+const preguntas_seccionIII = require('../utils/preguntasSeccionIII.js');
 
 module.exports = {
-    Cuestionario:Cuestionario,
-    completadas:completadas,
-    actualizarCompetencia:actualizarCompetencia,
-    actualizarPregunta:actualizarPregunta,
-    actualizarEstadoCuestionario:actualizarEstadoCuestionario
+    Cuestionario: Cuestionario,
+    completadas: completadas,
+    actualizarCompetencia: actualizarCompetencia,
+    actualizarPregunta: actualizarPregunta,
+    actualizarEstadoCuestionario: actualizarEstadoCuestionario
 }
 
-function actualizarEstadoCuestionario(req,res){
+function actualizarEstadoCuestionario(req, res) {
     try {
-        var actualizando = async(req,res)=>{
-            var dec = tools.decryptJson(req.body.data);            
-            var respondido = true;    
-                cuestionario.findOne({email: dec.data.email},(err,cuestionarioBuscado)=>{
-                    if(err){
-                        console.log(err)
-                    }
-                    if(!cuestionarioBuscado){
-                        return res.status(601).send({
-                            estado: 'No existe el cuestionario',
-                            message: util.format('no existe el cuestionario')
-                        });
-                    }
-                    
-                    if(respondido){
-                        cuestionarioBuscado.listado_competencias.forEach(element => {                    
-                            if(element.estado_respuesta != 'Respondida'){                            
-                                respondido = false;
-                                break;
-                            }
-                        });
-                    }
-                    if(respondido){
-                        cuestionarioBuscado.listado_preguntas.forEach(element => {                    
-                            if(element.estado_respuesta != 'Respondida'){                            
-                                respondido = false;
-                                break;
-                            }
-                        });
-                    }
-                    if(respondido){
-                        cuestionarioBuscado.listado_preguntas_seccion_iii.forEach(element => {                    
-                            if(element.estado_respuesta != 'Respondida'){                            
-                                respondido = false;
-                                break;
-                            }
-                        });
-                    }
-                    
-                    if(respondido){
-                        cuestionarioBuscado.estado_cuestionario = 'Respondido';
-                        cuestionario.updateOne({email: dec.data.email}, cuestionarioBuscado).then(()=>{
-                            return res.status(200).send({
-                                estado: 'Exito',
-                                message: util.format('cuestionario actualizado'),
-                                data: Object.assign(cuestionarioBuscado)
-                            });
-        
-                        })
-                    }else{
+        var actualizando = async (req, res) => {
+            var dec = tools.decryptJson(req.body.data);
+            var respondido = true;
+            cuestionario.findOne({ email: dec.data.email }, (err, cuestionarioBuscado) => {
+                if (err) {
+                    console.log(err)
+                }
+                if (!cuestionarioBuscado) {
+                    return res.status(601).send({
+                        estado: 'No existe el cuestionario',
+                        message: util.format('no existe el cuestionario')
+                    });
+                }
+
+                if (respondido) {
+                    cuestionarioBuscado.listado_competencias.forEach(element => {
+                        if (element.estado_respuesta != 'Respondida') {
+                            respondido = false;
+                            break;
+                        }
+                    });
+                }
+                if (respondido) {
+                    cuestionarioBuscado.listado_preguntas.forEach(element => {
+                        if (element.estado_respuesta != 'Respondida') {
+                            respondido = false;
+                            break;
+                        }
+                    });
+                }
+                if (respondido) {
+                    cuestionarioBuscado.listado_preguntas_seccion_iii.forEach(element => {
+                        if (element.estado_respuesta != 'Respondida') {
+                            respondido = false;
+                            break;
+                        }
+                    });
+                }
+
+                if (respondido) {
+                    cuestionarioBuscado.estado_cuestionario = 'Respondido';
+                    cuestionario.updateOne({ email: dec.data.email }, cuestionarioBuscado).then(() => {
                         return res.status(200).send({
-                            estado: 'no se actualizo cuestionario',
-                            message: util.format('no se han respondido todos los campos'),
+                            estado: 'Exito',
+                            message: util.format('cuestionario actualizado'),
                             data: Object.assign(cuestionarioBuscado)
                         });
-                    }                                       
-    
-                })
-         }
-         actualizando(req,res);
-    } catch (error) {
-        throw boom.boomify(err)
-    }
-}
 
-function actualizarPregunta(req,res){
- try {
-     var actualizando = async(req,res)=>{
-        var dec = tools.decryptJson(req.body.data);            
-            
-            cuestionario.findOne({email: dec.data.email},(err,cuestionarioBuscado)=>{
-                if(err){
-                    console.log(err)
-                }
-                if(!cuestionarioBuscado){
-                    return res.status(601).send({
-                        estado: 'No existe el cuestionario',
-                        message: util.format('no existe el cuestionario')
-                    });
-                }
-                
-                cuestionarioBuscado.listado_preguntas.forEach(element => {                    
-                    if(element.id_pregunta == dec.data.id_pregunta){
-                        
-                        element.valor_respuesta = dec.data.valor_respuesta;
-                        element.estado_respuesta =  dec.data.estado_respuesta;                        
-                    }
-                }); 
-                cuestionario.updateOne({email: dec.data.email}, cuestionarioBuscado).then(()=>{
+                    })
+                } else {
                     return res.status(200).send({
-                        estado: 'Exito',
-                        message: util.format('cuestionario actualizado'),
+                        estado: 'no se actualizo cuestionario',
+                        message: util.format('no se han respondido todos los campos'),
                         data: Object.assign(cuestionarioBuscado)
                     });
-
-                })                   
+                }
 
             })
-     }
-     actualizando(req,res);
- } catch (error) {
-    throw boom.boomify(err)
- }
-}
-
-
-function actualizarCompetencia(req,res){
-    try {
-        var actualizando = async(req,res)=>{
-            var dec = tools.decryptJson(req.body.data);            
-            
-            cuestionario.findOne({email: dec.data.email},(err,cuestionarioBuscado)=>{
-                if(err){
-                    console.log(err)
-                }
-                if(!cuestionarioBuscado){
-                    return res.status(601).send({
-                        estado: 'No existe el cuestionario',
-                        message: util.format('no existe el cuestionario')
-                    });
-                }
-                
-                cuestionarioBuscado.listado_competencias.forEach(element => {
-                    if(element.nombreCompetencia == dec.data.competencia){
-                        element.valor_respuesta = dec.data.valor_respuesta;
-                        element.estado_respuesta =  dec.data.estado_respuesta;                        
-                    }
-                }); 
-                cuestionario.updateOne({email: dec.data.email}, cuestionarioBuscado).then(()=>{
-                    return res.status(200).send({
-                        estado: 'Exito',
-                        message: util.format('cuestionario actualizado'),
-                        data: Object.assign(cuestionarioBuscado)
-                    });
-
-                })                   
-
-            })
-            
         }
-        actualizando(req,res);
+        actualizando(req, res);
     } catch (error) {
         throw boom.boomify(err)
     }
 }
 
-function completadas(req,res){    
+function actualizarPregunta(req, res) {
     try {
-        var traer = async(req,res)=>{
+        var actualizando = async (req, res) => {
+            var dec = tools.decryptJson(req.body.data);
+
+            cuestionario.findOne({ email: dec.data.email }, (err, cuestionarioBuscado) => {
+                if (err) {
+                    console.log(err)
+                }
+                if (!cuestionarioBuscado) {
+                    return res.status(601).send({
+                        estado: 'No existe el cuestionario',
+                        message: util.format('no existe el cuestionario')
+                    });
+                }
+
+                cuestionarioBuscado.listado_preguntas.forEach(element => {
+                    if (element.id_pregunta == dec.data.id_pregunta) {
+
+                        element.valor_respuesta = dec.data.valor_respuesta;
+                        element.estado_respuesta = dec.data.estado_respuesta;
+                    }
+                });
+                cuestionario.updateOne({ email: dec.data.email }, cuestionarioBuscado).then(() => {
+                    return res.status(200).send({
+                        estado: 'Exito',
+                        message: util.format('cuestionario actualizado'),
+                        data: Object.assign(cuestionarioBuscado)
+                    });
+
+                })
+
+            })
+        }
+        actualizando(req, res);
+    } catch (error) {
+        throw boom.boomify(err)
+    }
+}
+
+
+function actualizarCompetencia(req, res) {
+    try {
+        var actualizando = async (req, res) => {
+            var dec = tools.decryptJson(req.body.data);
+
+            cuestionario.findOne({ email: dec.data.email }, (err, cuestionarioBuscado) => {
+                if (err) {
+                    console.log(err)
+                }
+                if (!cuestionarioBuscado) {
+                    return res.status(601).send({
+                        estado: 'No existe el cuestionario',
+                        message: util.format('no existe el cuestionario')
+                    });
+                }
+
+                cuestionarioBuscado.listado_competencias.forEach(element => {
+                    if (element.nombreCompetencia == dec.data.competencia) {
+                        element.valor_respuesta = dec.data.valor_respuesta;
+                        element.estado_respuesta = dec.data.estado_respuesta;
+                    }
+                });
+                cuestionario.updateOne({ email: dec.data.email }, cuestionarioBuscado).then(() => {
+                    return res.status(200).send({
+                        estado: 'Exito',
+                        message: util.format('cuestionario actualizado'),
+                        data: Object.assign(cuestionarioBuscado)
+                    });
+
+                })
+
+            })
+
+        }
+        actualizando(req, res);
+    } catch (error) {
+        throw boom.boomify(err)
+    }
+}
+
+function completadas(req, res) {
+    try {
+        var traer = async (req, res) => {
             var respondidas = 0;
             var noRespondidas = 0;
-            cuestionario.find((err,cuestionarios)=>{
-                if(err){
+            cuestionario.find((err, cuestionarios) => {
+                if (err) {
                     console.log(err);
                 }
-                if(!cuestionarios){
+                if (!cuestionarios) {
                     return res.status(200).send({
                         estado: 'No Hay Cuestionarios',
                         message: util.format(err)
                     });
                 }
-                                
+
                 cuestionarios.forEach(element => {
                     console.log(element);
-                    if(element.estado_cuestionario == 'Pendiente'){
+                    if (element.estado_cuestionario == 'Pendiente') {
                         noRespondidas++;
-                    }else{
+                    } else {
                         respondidas++;
                     }
                 });
@@ -203,7 +204,7 @@ function completadas(req,res){
 
             })
         }
-        traer(req,res);
+        traer(req, res);
     } catch (error) {
         throw boom.boomify(err)
     }
@@ -239,7 +240,8 @@ function Cuestionario(req, res) {
                         listado_preguntas_seccion_iii: [],
                         estado_cuestionario: "Pendiente"
                     }
-                    subgrupo.findOne({ seccional: cues.seccional }, (err, subgrupoElegido) => {
+                    subgrupo.findOne({ nombre: cues.subgrupo }, (err, subgrupoElegido) => {
+
                         if (err) {
                             console.log(err);
                             return res.status(601).send({
@@ -248,6 +250,7 @@ function Cuestionario(req, res) {
                                 data: Object.assign({})
                             });
                         }
+
                         //console.log(subgrupoElegido)
                         if (subgrupoElegido.cursos.length != 0) {
                             subgrupoElegido.cursos.forEach(cursoSubGrupo => {
@@ -255,13 +258,13 @@ function Cuestionario(req, res) {
                                     cursoSubGrupo.cargos.forEach(cargoCurso => {
                                         if (cargoCurso == cues.rol) {
                                             //TODO ACTIVAR
-                                           // cursos.push({ idCurso: cursoCoordinacion.idCurso });
+                                            // cursos.push({ idCurso: cursoCoordinacion.idCurso });
                                         }
                                     });
                                 }
                             })
                         }
-                        coordinacion.findOne({ seccional: cues.seccional }, (err, coordinacionObtenida) => {
+                        coordinacion.findOne({ nombre: cues.coordinacion }, (err, coordinacionObtenida) => {
                             if (err) {
                                 console.log(err);
                                 return res.status(601).send({
@@ -271,7 +274,7 @@ function Cuestionario(req, res) {
                                 });
                             }
 
-                           // console.log(coordinacionObtenida)
+                            console.log(coordinacionObtenida)
                             cursos = [];
                             //TODO: VALIDACION DE SI SI SELECCIONÓ COORDINACIÓN O GIT
                             if (coordinacionObtenida.cursos.length != 0) {
@@ -285,9 +288,10 @@ function Cuestionario(req, res) {
                                     }
                                 })
                             }
+                            console.log(cursos);
 
-                            cursos.forEach(cursoEspecifico =>{
-                                newCuestionario.listado_cursos.push({ idCurso: cursoEspecifico})
+                            cursos.forEach(cursoEspecifico => {
+                                newCuestionario.listado_cursos.push({ idCurso: cursoEspecifico })
                             })
 
                             cursoHandler.find((err, listadoCursosObtenidos) => {
@@ -300,7 +304,8 @@ function Cuestionario(req, res) {
 
                                     });
                                 }
-                                var competenciasGuardar=[]
+
+                                var competenciasGuardar = []
                                 newCuestionario.listado_cursos.forEach(cursoEspecifico => {
                                     listadoCursosObtenidos.forEach(cursoObtenido => {
                                         if (cursoObtenido.consecutivo == cursoEspecifico.idCurso) {
@@ -308,19 +313,21 @@ function Cuestionario(req, res) {
                                             if (!competencias.includes(cursoObtenido.competencia)) {
                                                 competencias.push(cursoObtenido.competencia);
                                                 competenciasGuardar.push({
-                                                    nombreCompetencia:cursoObtenido.competencia,
-                                                    descripcionCompetencia:cursoObtenido.descripcion_competencia
+                                                    nombreCompetencia: cursoObtenido.competencia,
+                                                    descripcionCompetencia: cursoObtenido.descripcion_competencia
                                                 })
                                             }
                                         }
                                     })
                                 })
-                                    newCuestionario.listado_competencias = competenciasGuardar
-                              //  newCuestionario.listado_competencias = competencias
-                                PreguntasHandler.find({codificacion: {$in: cursos}},(err, listadoPreguntas) => {
-                                    console.log(listadoPreguntas)
-                                    listadoPreguntas.forEach(preguntaEspecifica =>{
-                                        newCuestionario.listado_preguntas.push({id_pregunta:preguntaEspecifica.numero_pregunta})
+                                newCuestionario.listado_competencias = competenciasGuardar
+                                preguntas_seccionIII.preguntasMock.forEach(preguntaSeccionIII => {
+                                    newCuestionario.listado_preguntas_seccion_iii.push({ id_pregunta: preguntaSeccionIII.idPregunta })
+                                })
+                                //  newCuestionario.listado_competencias = competencias
+                                PreguntasHandler.find({ codificacion: { $in: cursos } }, (err, listadoPreguntas) => {
+                                    listadoPreguntas.forEach(preguntaEspecifica => {
+                                        newCuestionario.listado_preguntas.push({ id_pregunta: preguntaEspecifica.numero_pregunta })
                                     })
                                     console.log(newCuestionario)
                                     var CuestionarioGuardar = new cuestionarioHandler(newCuestionario);
@@ -333,20 +340,20 @@ function Cuestionario(req, res) {
                                             });
                                         }
                                         if (cuestionarioCreado) {
-                                           // console.log(cuestionarioCreado);
+                                            // console.log(cuestionarioCreado);
                                             return res.status(200).send({
                                                 estado: 'Exito',
                                                 message: util.format('Cuestionario registrado Exitosamente'),
                                                 data: Object.assign(cuestionarioCreado)
                                             });
-                                        }else{
+                                        } else {
                                             return res.status(601).send({
                                                 estado: 'Error',
                                                 message: util.format('No fue posible crear el Cuestionario'),
                                                 data: Object.assign({})
                                             });
                                         }
-    
+
                                     })
 
                                 })
@@ -355,7 +362,7 @@ function Cuestionario(req, res) {
 
                         });
                     });
-                }else{
+                } else {
                     return res.status(200).send({
                         estado: 'Ya existe el cuestionario',
                         message: util.format('Ya existe el cuestionario'),

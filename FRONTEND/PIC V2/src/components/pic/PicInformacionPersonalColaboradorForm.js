@@ -18,10 +18,6 @@ export default function PicInformacionPersonalColaboradorComponent(props) {
 
   const manejarEnvio=(e) =>{
     props.setElegido(e.target.value)
-    /*if (errors.length === 0) {
-      props.metodoSiguiente()
-      props.setElegido(values.select)
-    }*/
   }
 
   return (

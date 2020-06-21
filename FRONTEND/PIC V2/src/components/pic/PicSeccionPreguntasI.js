@@ -15,6 +15,7 @@ import competenciasListado from "../../data/pic/competencias";
 import preguntasCompetencias from "../../data/pic/preguntasCompetencias";
 import constantes from "../../util/Constantes.js"
 import HttpUtil from '../../util/HttpService.js'
+import { NotificationManager } from "../../components/common/react-notifications";
 
 
 export default function PicSeccionPreguntasI(props) {
@@ -27,17 +28,19 @@ export default function PicSeccionPreguntasI(props) {
   const [topNavDisabled, setTopNavDisabled] = useState(false);
   var contadorPasos = 1
   const [modal, setModal] = useState(false);
+  const [respuestaElegida, setRespuestaElegida] = useState("");
+
   const [competenciasCards, setCompetenciasCards] = useState(competencias.map((competencia) =>
-    <Step id={""+contadorPasos++} desc="" >
+    <Step id={"" + contadorPasos++} desc="" >
       <PicPreguntaComponente
         encabezado={competencia.nombreCompetencia}
         pregunta="Importancia para mi rol"
         descriptor={competencia.descripcionCompetencia}
+        setElegido={setRespuestaElegida}
         respuestas={preguntasCompetencias} />
     </Step>));
-  
-  useEffect(() => {
-  })
+
+
   const topNavClick = (stepItem, push) => {
     if (topNavDisabled) {
       return;
@@ -46,12 +49,37 @@ export default function PicSeccionPreguntasI(props) {
     push(stepItem.id);
   }
 
+  const enviarPregunta = (goToNext, steps, step) => {
+    console.log(step)
+    console.log(steps)
+
+    if (respuestaElegida == "") {
+      switch (step.id) {
+        case "0":
+          onClickNext(goToNext, steps, step)
+          break;
+        case "-1":
+          onClickNext(goToNext, steps, step)
+          break;
+        default:
+          //Mostrar Error
+          break;
+      }
+    } else {
+      setRespuestaElegida("")
+      //Realziar Consulta
+      //Activar al guardar
+      onClickNext(goToNext, steps, step)
+    }
+
+
+  }
   const onClickNext = (goToNext, steps, step) => {
     step.isDone = true;
     if (steps.length - 2 <= steps.indexOf(step)) {
       setBottomNavHidden(true)
       setTopNavDisabled(true)
-      props.setEstadoPaso(true)
+      props.setEstadoPaso()
       // this.setState({ bottomNavHidden: true, topNavDisabled: true });
     }
     if (steps.length - 1 <= steps.indexOf(step)) {
@@ -60,7 +88,7 @@ export default function PicSeccionPreguntasI(props) {
     //clickSiguiente(goToNext, step)
     goToNext();
   }
-
+  
 
   const onClickPrev = (goToPrev, steps, step) => {
     if (steps.indexOf(step) <= 0) {
@@ -105,7 +133,6 @@ export default function PicSeccionPreguntasI(props) {
               </Step>
 
               {competenciasCards
-              
               }
               <Step id="-1" name="Final de Sección" desc="" >
                 <PicFinalSeccionComponente
@@ -115,7 +142,7 @@ export default function PicSeccionPreguntasI(props) {
                 />
               </Step>
             </Steps>
-            <BottomNavigation onClickNext={onClickNext} onClickPrev={onClickPrev} className={"justify-content-center " + (bottomNavHidden && "invisible")} prevLabel={"Anterior"} nextLabel={"Siguiente"} />
+            <BottomNavigation onClickNext={enviarPregunta} onClickPrev={onClickPrev} className={"justify-content-center " + (bottomNavHidden && "invisible")} prevLabel={"Anterior"} nextLabel={"Siguiente"} />
           </Wizard>
         </CardBody>
       </Card>

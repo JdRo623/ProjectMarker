@@ -1,7 +1,9 @@
 import React, { Fragment, useState, useEffect, useReducer } from "react";
-import { Card, CardBody, Modal,
+import {
+  Card, CardBody, Modal,
   ModalHeader,
-  ModalBody,} from "reactstrap";
+  ModalBody,
+} from "reactstrap";
 import { Wizard, Steps, Step } from 'react-albus';
 import { BottomNavigation } from "../wizard/BottomNavigation";
 import { TopNavigation } from "../wizard/TopNavigation";
@@ -9,12 +11,15 @@ import PicPreguntaComponente from "./PicPreguntaComponente";
 import preguntasSeccionII from "../../data/pic/preguntasSeccionII";
 import PicInstruccionComponente from "../../components/pic/PicInstruccionComponente";
 import PicFinalSeccionComponente from "../../components/pic/PicFinalSeccionComponente";
+import constantes from "../../util/Constantes.js"
+import HttpUtil from '../../util/HttpService.js'
 
 export default function PicSeccionPreguntasII(props) {
 
-
   const [respuestas, setRespuestas] = useState([]);
   const [preguntas, setPreguntas] = useState(props.preguntas);
+  var contadorPasos = 1
+
   const [preguntasCards, setPreguntasCards] = useState(preguntas.map((pregunta) =>
     <Step id={"" + contadorPasos++} desc="" >
       <PicPreguntaComponente
@@ -25,7 +30,6 @@ export default function PicSeccionPreguntasII(props) {
 
   const [bottomNavHidden, setBottomNavHidden] = useState(false);
   const [topNavDisabled, setTopNavDisabled] = useState(false);
-  var contadorPasos = 1
   const [modal, setModal] = useState(false);
 
   const topNavClick = (stepItem, push) => {
@@ -35,8 +39,47 @@ export default function PicSeccionPreguntasII(props) {
     push(stepItem.id);
   }
 
+  useEffect(() => {
+    if (preguntas.length == 0) {
+      obtenerInformaciónPregunta()
+    }
+  }, []);
+  
+  const obtenerInformaciónPregunta = () => {
+    try {
+      setModal(true);
+      const url = constantes.urlServer + constantes.servicios.buscarPreguntasPorIDCuestionario;
+      const filtros = {
+        cuestionario: true,
+        preguntas_obtener: props.preguntas
+      }
+
+      HttpUtil.requestPost(url, filtros,
+        (response) => {
+          console.log(response.data)
+          setPreguntas(response.data)
+          setPreguntasCards(preguntas.map((pregunta) =>
+            <Step id={"" + contadorPasos++} desc="" >
+              <PicPreguntaComponente
+                pregunta={pregunta.encabezadoPregunta}
+                descriptor={pregunta.situacionProblema}
+                respuestas={pregunta.opcionesRespuestas} />
+            </Step>))
+          setModal(false);
+        },
+        () => {
+          setModal(false);
+        });
+    } catch (error) {
+      setModal(false);
+    }
+
+  }
   const onClickNext = (goToNext, steps, step) => {
     step.isDone = true;
+    console.log(steps)
+    console.log(step)
+
     if (steps.length - 2 <= steps.indexOf(step)) {
       setBottomNavHidden(true)
       setTopNavDisabled(true)

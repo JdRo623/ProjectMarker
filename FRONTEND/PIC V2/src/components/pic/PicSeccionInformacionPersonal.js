@@ -12,6 +12,7 @@ import PicInstruccionComponente from "../../components/pic/PicInstruccionCompone
 import PicFinalSeccionComponente from "../../components/pic/PicFinalSeccionComponente";
 import constantes from "../../util/Constantes.js"
 import HttpUtil from '../../util/HttpService.js'
+import { NotificationManager } from "../../components/common/react-notifications";
 
 export default function PicSeccionInformacionPersonal(props) {
 
@@ -28,14 +29,14 @@ export default function PicSeccionInformacionPersonal(props) {
     const [coordinacionSeleccionado, setCoordinacionSeleccionado] = useState("");
     const [cuestionarioUsuario, setCuestionarioUsuario] = useState("");
 
-    const obtenerCargos = (goToNext) => {
+    const obtenerCargos = (goToNext, steps, step) => {
         try {
             setModal(true);
             const url = constantes.urlServer + constantes.servicios.obtenerCargosPic;
             HttpUtil.requestPost(url, {},
                 (response) => {
                     setCargoListado(response.data)
-                    goToNext()
+                    onClickNext(goToNext, steps, step)
                     setModal(false);
                 },
                 () => {
@@ -47,14 +48,14 @@ export default function PicSeccionInformacionPersonal(props) {
 
     }
 
-    const obtenerSeccionales = (goToNext) => {
+    const obtenerSeccionales = (goToNext, steps, step) => {
         try {
             setModal(true);
             const url = constantes.urlServer + constantes.servicios.obtenerSeccionales;
             HttpUtil.requestPost(url, {},
                 (response) => {
                     setSeccionalListado(response.data)
-                    goToNext()
+                    onClickNext(goToNext, steps, step)
                     setModal(false);
                 },
                 () => {
@@ -66,7 +67,7 @@ export default function PicSeccionInformacionPersonal(props) {
         }
 
     }
-    const obtenerSubdireccionSeccional = (goToNext) => {
+    const obtenerSubdireccionSeccional = (goToNext, steps, step) => {
         try {
             setModal(true);
             const url = constantes.urlServer + constantes.servicios.subdireccionSeccional;
@@ -78,7 +79,7 @@ export default function PicSeccionInformacionPersonal(props) {
             HttpUtil.requestPost(url, filtros,
                 (response) => {
                     setSubprocesoListado(response.data)
-                    goToNext()
+                    onClickNext(goToNext, steps, step)
                     setModal(false);
                 },
                 () => {
@@ -89,7 +90,7 @@ export default function PicSeccionInformacionPersonal(props) {
         }
 
     }
-    const obtenerCoordinacionesSeccional = (goToNext) => {
+    const obtenerCoordinacionesSeccional = (goToNext, steps, step) => {
         try {
             const url = constantes.urlServer + constantes.servicios.coordinacionesSeccional;
             setModal(true);
@@ -102,7 +103,7 @@ export default function PicSeccionInformacionPersonal(props) {
                 (response) => {
                     console.log(response)
                     setCoordinacionesListado(response.data)
-                    goToNext()
+                    onClickNext(goToNext, steps, step)
                     setModal(false);
                 },
                 () => {
@@ -115,7 +116,7 @@ export default function PicSeccionInformacionPersonal(props) {
 
     }
 
-    const enviarInformacionPersonal = (goToNext) => {
+    const enviarInformacionPersonal = (goToNext, steps, step) => {
         try {
             const url = constantes.urlServer + constantes.servicios.cuestionario;
             setModal(true);
@@ -133,7 +134,7 @@ export default function PicSeccionInformacionPersonal(props) {
                     console.log(response)
                     props.setEstadoPaso(true)
                     props.setCuestionario(response.data)
-                    goToNext()
+                    onClickNext(goToNext, steps, step)
                     setModal(false);
                 },
                 () => {
@@ -153,26 +154,54 @@ export default function PicSeccionInformacionPersonal(props) {
         push(stepItem.id);
     }
 
-    const clickSiguiente = (goToNext, step) => {
+    const mostrarMensajeError = (tittle,message) =>{
+        NotificationManager.error(
+            message,
+            tittle,
+            3000,
+            () => {
+                alert("callback");
+            },
+            null,
+            'filled'
+        );
+    }
+    const clickSiguiente = (goToNext, steps, step) => {
         console.log(step.id)
         switch (step.id) {
             case "0":
-                obtenerCargos(goToNext)
+                obtenerCargos(goToNext, steps, step)
                 break;
             case "1":
-                obtenerSeccionales(goToNext)
+                if (cargoSeleccionado == "") {
+                    mostrarMensajeError("Error","Por favor seleccione un Cargo para continuar.")
+                } else {
+                    obtenerSeccionales(goToNext, steps, step)
+                }
                 break;
             case "2":
-                obtenerSubdireccionSeccional(goToNext)
+                if (seccionalSeleccionada == "") {
+                    mostrarMensajeError("Error","Por favor seleccione una Secional o Dirección para continuar.")
+                } else {
+                    obtenerSubdireccionSeccional(goToNext, steps, step)
+                }
                 break;
             case "3":
-                obtenerCoordinacionesSeccional(goToNext)
+                if (subprocesoSeleccionado == "") {
+                    mostrarMensajeError("Error","Por favor seleccione una Subdirección o división para continuar.")
+                } else {
+                    obtenerCoordinacionesSeccional(goToNext, steps, step)
+                }
                 break;
             case "4":
-                enviarInformacionPersonal(goToNext)
+                if (coordinacionSeleccionado == "") {
+                    mostrarMensajeError("Error","Por favor seleccione un Grupo interno de trabajo, Coordinación o Punto de contacto para continuar.")
+                } else {
+                    enviarInformacionPersonal(goToNext, steps, step)
+                }
                 break;
             default:
-                goToNext(goToNext)
+                onClickNext(goToNext, steps, step)
                 break;
         }
     }
@@ -182,13 +211,11 @@ export default function PicSeccionInformacionPersonal(props) {
         if (steps.length - 2 <= steps.indexOf(step)) {
             setBottomNavHidden(true)
             setTopNavDisabled(true)
-            // this.setState({ bottomNavHidden: true, topNavDisabled: true });
         }
         if (steps.length - 1 <= steps.indexOf(step)) {
             return;
         }
-        clickSiguiente(goToNext, step)
-        //        goToNext();
+        goToNext();
     }
 
     const onClickPrev = (goToPrev, steps, step) => {
@@ -198,7 +225,7 @@ export default function PicSeccionInformacionPersonal(props) {
         goToPrev();
     }
 
-    
+
 
     return (
         <Fragment>
@@ -266,7 +293,7 @@ export default function PicSeccionInformacionPersonal(props) {
                                 />
                             </Step>
                         </Steps>
-                        <BottomNavigation onClickNext={onClickNext} onClickPrev={onClickPrev} className={"justify-content-center " + (bottomNavHidden && "invisible")} prevLabel={"Anterior"} nextLabel={"Siguiente"} />
+                        <BottomNavigation onClickNext={clickSiguiente} onClickPrev={onClickPrev} className={"justify-content-center " + (bottomNavHidden && "invisible")} prevLabel={"Anterior"} nextLabel={"Siguiente"} />
                     </Wizard>
                 </CardBody>
             </Card>

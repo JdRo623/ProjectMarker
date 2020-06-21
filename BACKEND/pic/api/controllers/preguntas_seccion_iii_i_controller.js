@@ -5,6 +5,8 @@ const boom = require('boom')
 const config = require('../../config.json');
 const Pregunta = require('../../models/preguntas_seccion_iii_i.model');
 var tools = require('../utils/tools.js');
+var preguntas_seccionIII = require('../utils/preguntasSeccionIII.js');
+
 var Excel = require('exceljs');
 
 module.exports = {
@@ -134,9 +136,13 @@ function obtenerPreguntas_iii_i(req, res) {
                 procesado: reqDecrypt.proceso,
                 subproceso: reqDecrypt.subproceso
             }
-            reqDecrypt.consecutivo = "";
-            var pregunta = new Pregunta(reqDecrypt);
-            await Pregunta.find(filtros, (err, preguntaG) => {
+            return res.status(200).send({
+                estado: 'Obtenidas',
+                message: util.format("Preguntas de la sección I obtenidas exitosamente"),
+                data: Object.assign(preguntas_seccionIII.preguntasMock)
+            });
+
+           /* await Pregunta.find(filtros, (err, preguntaG) => {
                 if (err) return res.status(500).send({ estado: 'Error', message: 'Error en la petición', data: Object.assign({}) });
                 if (!preguntaG) return res.status(200).send({ estado: 'Error', message: 'No hay ninguna pregunta registrada en el momento', data: Object.assign({}) });
                 return res.status(200).send({
@@ -144,7 +150,7 @@ function obtenerPreguntas_iii_i(req, res) {
                     message: util.format("Preguntas de la sección I obtenidas exitosamente"),
                     data: Object.assign(preguntaG)
                 });
-            });
+            });*/
 
         }
         obtener(req, res)
