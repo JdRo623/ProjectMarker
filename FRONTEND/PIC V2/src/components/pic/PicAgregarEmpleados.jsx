@@ -50,30 +50,50 @@ export function PicAgregarEmpleado(props) {
         email: email.value,
         ciudad: ciudad.value,
       };
-      await HttpUtil.requestPost(url, form).then((response) => {
-        if (response) {
-          console.log('response', response);
-          identificacion.value = '';
-          nombres.value = '';
-          apellidos.value = '';
-          nombres_jefe.value = '';
-          apellidos_jefe.value = '';
-          email.value = '';
-          ciudad.value = '';
-          setLoading(false);
-        } else {
-          console.log('no hay respuesta');
-          setLoading(false);
-          NotificationManager.error(
-            'Ha ocurrido un error al crear el empleado',
-            'Error',
-            5000,
-            () => {},
-            null,
-            'filled'
-          );
-        }
-      });
+      if (
+        form.identificacion &&
+        form.nombres &&
+        form.apellidos &&
+        form.nombres_jefe &&
+        form.apellidos_jefe &&
+        form.email &&
+        form.ciudad
+      ) {
+        await HttpUtil.requestPost(url, form).then((response) => {
+          if (response) {
+            console.log('response', response);
+            identificacion.value = '';
+            nombres.value = '';
+            apellidos.value = '';
+            nombres_jefe.value = '';
+            apellidos_jefe.value = '';
+            email.value = '';
+            ciudad.value = '';
+            setLoading(false);
+          } else {
+            console.log('no hay respuesta');
+            setLoading(false);
+            NotificationManager.error(
+              'Ha ocurrido un error al crear el empleado',
+              'Error',
+              5000,
+              () => {},
+              null,
+              'filled'
+            );
+          }
+        });
+      } else {
+        NotificationManager.error(
+          'Rellene todos los campos para continuar',
+          'Error',
+          5000,
+          () => {},
+          null,
+          'filled'
+        );
+        setLoading(false);
+      }
     } catch (error) {
       setLoading(false);
       setModal(false);
