@@ -49,6 +49,7 @@ module.exports = {
   'menu.administrador': 'Administrador',
   'menu.carga-archivos': 'Carga Archivos',
   'menu.cargue-preguntas': 'Cargue de Preguntas',
+  'menu.busqueda-preguntas': 'Busqueda de Preguntas',
   'menu.reportes': 'Realizar Reportes',
 
   /* 04.Error  */

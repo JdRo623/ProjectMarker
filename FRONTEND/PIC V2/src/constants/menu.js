@@ -52,6 +52,11 @@ const data = [
         icon: "simple-icon-question",
         label: "menu.cargue-preguntas",
         to: "/app/pic/carguePreguntas"
+      },
+      {
+        icon: "simple-icon-question",
+        label: "menu.busqueda-preguntas",
+        to: "/app/pic/busquedaPregunta"
       }
     ]
   }/*,

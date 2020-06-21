@@ -35,56 +35,8 @@ export default function PicSeccionPreguntasI(props) {
         descriptor={competencia.descripcionCompetencia}
         respuestas={preguntasCompetencias} />
     </Step>));
-  const [competenciasCards2, setCompetenciasCards2] = useState(competenciasCards);
-
-  const Test = ({competenciasMapeo, preguntasCompetencias}) => (
-    <>
-      {competenciasMapeo.map((competencia) =>
-    <Step id={""+contadorPasos++} desc="" >
-      <PicPreguntaComponente
-        encabezado={competencia.nombreCompetencia}
-        pregunta="Importancia para mi rol"
-        descriptor={competencia.descripcionCompetencia}
-        respuestas={preguntasCompetencias} />
-    </Step>)}
-    </>
-  ); 
-
-  const TestII = ({competenciasMapeo, preguntasCompetencias}) => (
-    <>
-      
-    <Step id={contadorPasos++} name={competenciasMapeo[0].nombreCompetencia} desc="" >
-      <PicPreguntaComponente
-        encabezado={competenciasMapeo[0].nombreCompetencia}
-        pregunta="Importancia para mi rol"
-        descriptor={competenciasMapeo[0].descripcionCompetencia}
-        respuestas={preguntasCompetencias} />
-    </Step>)
-    </>
-  ); 
+  
   useEffect(() => {
-    console.log(competencias)
-    console.log(contadorPasos)
-
-    //setCompetencias(competenciasListado)
-    //props.competencias
-    if (competenciasCards === competenciasCards2) {
-      console.log("Actualizó View")
-
-      /*setCompetenciasCards(competencias.map((competencia) =>
-        <Step id={competencia.nombreCompetencia} name="" desc="" >
-          <PicPreguntaComponente
-            encabezado={competencia.nombreCompetencia}
-            pregunta="Importancia para mi rol"
-            descriptor={competencia.descripcionCompetencia}
-            respuestas={preguntasCompetencias} />
-        </Step>))*/
-
-    }
-
-    if (competencias.length != 0 && competenciasCards !== competenciasCards2) {
-      //forceUpdate()
-    }
   })
   const topNavClick = (stepItem, push) => {
     if (topNavDisabled) {
@@ -96,8 +48,6 @@ export default function PicSeccionPreguntasI(props) {
 
   const onClickNext = (goToNext, steps, step) => {
     step.isDone = true;
-    console.log(steps)
-    console.log(step)
     if (steps.length - 2 <= steps.indexOf(step)) {
       setBottomNavHidden(true)
       setTopNavDisabled(true)

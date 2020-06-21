@@ -16,22 +16,28 @@ function buscarPreguntasPorID(req, res){
     try {
         var obtener = async(req,res)=>{
             var dec = tools.decryptJson(req.body.data);
-            await Pregunta_w.findOne({numero_pregunta: dec.data.id},(err,preguntaBuscada)=>{
+            await Pregunta_w.findOne({numero_pregunta: dec.id},(err,preguntaBuscada)=>{
                 if(err){
-                    console.log(err);
-                }
-                if(!preguntaBuscada){
-                    return res.status(200).send({
-                        estado: 'Pregunta no encontrada',
-                        message: util.format("la pregunta no se encuentra"),
-                        //data: Object.assign(preguntaG)
+                    return res.status(603).send({
+                        estado: 'Error',
+                        message: util.format("Ocurrió un error al buscar la pregunta en el servidor"),
+                        data: Object.assign({})
                     });
                 }
-                return res.status(200).send({
-                    estado: 'Pregunta  encontrada',
-                    message: util.format("la pregunta se encuentra"),
-                    data: Object.assign(preguntaBuscada)
-                });
+                if(!preguntaBuscada){
+                    return res.status(603).send({
+                        estado: 'Error',
+                        message: util.format("No se encontró una pregunta con el número ingresado"),
+                        data: Object.assign({})
+                    });
+                }else{
+                    return res.status(200).send({
+                        estado: 'Exito',
+                        message: util.format("Pregunta obtenida"),
+                        data: Object.assign(preguntaBuscada)
+                    });
+                }
+
             })
         }
         obtener(req,res);

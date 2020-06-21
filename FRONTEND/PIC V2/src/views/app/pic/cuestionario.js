@@ -66,12 +66,10 @@ export default function Cuestionario(props) {
   )
   const PreguntasSeccionIIElement = () => (
     <PicSeccionPreguntasII
-      preguntas={cuestionarioUsuario.listado_competencias}
+      preguntas={cuestionarioUsuario.listado_preguntas}
       pasoSiguiente={pasoSiguiente} />
   )
   return (
-
-
     <Fragment>
       <Row>
         <Colxx xxs="12" lg="5" xl="4" className="mb-3">
