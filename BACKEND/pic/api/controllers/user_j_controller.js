@@ -27,13 +27,13 @@ function crearNuevoUsuario(req, res) {
         if (!UsuarioBuscado) {
         
           var usuarioNuevo = {
-            nombres: tools.decrypt(dec.data.nombres),
-            apellidos: tools.decrypt(dec.data.apellidos),
-            nombres_jefe: tools.decrypt(dec.data.nombres_jefe),
-            apellidos_jefe: tools.decrypt(dec.data.apellidos_jefe),
+            nombres: tools.encrypt(dec.data.nombres),
+            apellidos: tools.encrypt(dec.data.apellidos),
+            nombres_jefe: tools.encrypt(dec.data.nombres_jefe),
+            apellidos_jefe: tools.encrypt(dec.data.apellidos_jefe),
             email: dec.data.email,
-            identificacion: tools.decrypt(dec.data.identificacion),
-            ciudad: tools.decrypt(dec.data.ciudad),
+            identificacion: tools.encrypt(dec.data.identificacion),
+            ciudad: tools.encrypt(dec.data.ciudad),
           };
           console.log('creando usuario');
           user_jModel.create(usuarioNuevo)
