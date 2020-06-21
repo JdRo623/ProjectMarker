@@ -26,6 +26,7 @@ const constantes = {
     cuestionario: '/cuestionario',
     login: '/login',
     cambioPassword: '/cambioPassword',
+    crearNuevoUsuario: '/crearNuevoUsuario',
   },
   mensajes: {
     ERROR: 'Error',

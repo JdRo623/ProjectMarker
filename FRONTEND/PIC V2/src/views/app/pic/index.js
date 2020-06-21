@@ -15,6 +15,8 @@ const CarguePreguntas = React.lazy(() =>
   import(/* webpackChunkName: "cuestionario" */ './carga_preguntas')
 );
 
+const AgregarEmpleados = React.lazy(() => import('./agregar_empleados'));
+
 const Reportes = React.lazy(() =>
   import(/* webpackChunkName: "cuestionario" */ './reportes')
 );
@@ -42,6 +44,10 @@ const PagesPic = ({ match }) => (
       <Route
         path={`${match.url}/carguePreguntas`}
         render={(props) => <CarguePreguntas {...props} />}
+      />
+      <Route
+        path={`${match.url}/crear-empleado`}
+        render={(props) => <AgregarEmpleados {...props} />}
       />
       <Route
         path={`${match.url}/reportes`}
