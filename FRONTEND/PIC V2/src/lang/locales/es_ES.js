@@ -1,6 +1,7 @@
 /* Gogo Language Texts
 
 Table of Contents
+//ESTE ES EL QUE SE CAMBIA
 
 01.General
 02.User Login, Logout, Register
@@ -50,6 +51,7 @@ module.exports = {
   'menu.carga-archivos': 'Carga Archivos',
   'menu.cargue-preguntas': 'Cargue de Preguntas',
   'menu.busqueda-preguntas': 'Busqueda de Preguntas',
+  'menu.crear-empleado': 'Crear Empleado',
   'menu.reportes': 'Realizar Reportes',
 
   /* 04.Error  */
@@ -74,4 +76,7 @@ module.exports = {
   'preguntas.justificacion_incorrectas': 'Justificación respuestas incorrectas',
   'preguntas.bibliografia': 'Bibliografía',
   'preguntas.submit': 'Guardar Pregunta',
+
+  /** Empleado */
+  'empleado.submit': 'Guardar Empleado',
 };

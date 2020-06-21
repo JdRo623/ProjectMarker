@@ -28,7 +28,8 @@ const constantes = {
     cambioPassword: '/cambioPassword',
     buscarPreguntasPorID: '/buscarPreguntasPorID',
     buscarPreguntasPorIDCuestionario: '/preguntasPorIDCuestionario',
-    obtenerPreguntasSeccionIII: "/obtenerPreguntasSeccionIII"
+    obtenerPreguntasSeccionIII: "/obtenerPreguntasSeccionIII",
+    crearNuevoUsuario: '/crearNuevoUsuario',
   },
   mensajes: {
     ERROR: 'Error',
