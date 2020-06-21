@@ -554,6 +554,20 @@ paths:
         responses:
           "200":
             description: Success
+            schema:  
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /crearNuevoUsuario:
+      x-swagger-router-controller: user_j_controller
+      post:
+        description: crear Nuevo usuario
+        operationId: crearNuevoUsuario
+        responses:
+          "200":
+            description: Success
             schema:
               $ref: "#/definitions/GenericResponse"
           default:

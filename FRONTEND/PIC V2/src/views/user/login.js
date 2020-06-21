@@ -30,9 +30,9 @@ class Login extends Component {
   }
 
   onUserLogin = async () => {
-    this.setState({ loading: true });
     const { email, password } = this.state.form;
     if (!this.validateEmail(email) || !this.validatePassword(password)) {
+      this.setState({ loading: true });
       await HttpService.requestPost(
         constantes.urlServer + constantes.servicios.login,
         {
@@ -44,18 +44,20 @@ class Login extends Component {
             const { token, cambio_pass } = response.data;
             cookies.set('token', token, { path: '/' });
             if (cambio_pass) {
-              cookies.set('cambio', cambio_pass, { path: '/' });
-              cookies.set('email', this.state.form.email, { path: '/' });
+              localStorage.setItem('cambio', cambio_pass);
+              localStorage.setItem('email', this.state.form.email);
             }
             this.props.loginUser(
               { email: 'demo@gogo.com', password: 'gogo123' },
               this.props.history
             );
+            this.setState({ loading: false });
+          } else {
+            this.setState({ loading: false });
           }
         }
       );
     }
-    this.setState({ loading: false });
   };
 
   validateEmail = (value) => {

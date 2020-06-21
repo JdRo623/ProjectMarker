@@ -11,7 +11,7 @@ import IntlMessages from '../../helpers/IntlMessages';
 
 import logo from '../../assets/img/logo_dian.png';
 import constantes from '../../util/Constantes';
-import HttpService from '../../util/HttpService';
+import HttpService, { cifrar } from '../../util/HttpService';
 
 import Cookies from 'universal-cookie';
 
@@ -22,7 +22,7 @@ export default class Cambio extends Component {
     this.state = {
       loading: false,
       form: {
-        email: this.cookies.get('email'),
+        email: localStorage.getItem('email'),
         password: '',
         confirmPassword: '',
       },
@@ -54,14 +54,43 @@ export default class Cambio extends Component {
       !this.validatePassword(confirmPassword)
     ) {
       if (this.state.form.password === this.state.form.confirmPassword) {
-        this.cookies.remove('cambio');
-        this.cookies.remove('email');
-        this.props.history.push('/app');
-        this.setState({ loading: false });
+        await HttpService.requestPost(
+          constantes.urlServer + constantes.servicios.cambioPassword,
+          {
+            email: this.state.form.email,
+            password: cifrar(this.state.form.password),
+          }
+        )
+          .then(async () => {
+            localStorage.removeItem('cambio');
+            localStorage.removeItem('email');
+            this.setState({ loading: false });
+            await this.props.history.push('/app');
+          })
+          .catch(() => {
+            this.setState({ loading: false });
+          });
       } else {
+        NotificationManager.error(
+          'La contraseña y la confirmación no coinciden, por favor verifique',
+          'Error',
+          5000,
+          () => {},
+          null,
+          'filled'
+        );
         this.setState({ loading: false });
-        return 'La contraseña y la verificación no coinciden';
       }
+    } else {
+      NotificationManager.error(
+        'Valide que los campos de contraseña tengan el formato correcto, por favor',
+        'Error',
+        5000,
+        () => {},
+        null,
+        'filled'
+      );
+      this.setState({ loading: false });
     }
   };
   render() {
@@ -123,6 +152,7 @@ export default class Cambio extends Component {
                           this.state.loading ? 'show-spinner' : ''
                         }`}
                         size='lg'
+                        type='submit'
                       >
                         <span className='spinner d-inline-block'>
                           <span className='bounce1' />
