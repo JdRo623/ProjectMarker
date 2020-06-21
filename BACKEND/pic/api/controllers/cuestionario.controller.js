@@ -16,7 +16,37 @@ module.exports = {
     completadas:completadas,
     actualizarCompetencia:actualizarCompetencia,
     actualizarPregunta:actualizarPregunta,
-    actualizarEstadoCuestionario:actualizarEstadoCuestionario
+    actualizarEstadoCuestionario:actualizarEstadoCuestionario,
+    buscarCuestionarioCorreo:buscarCuestionarioCorreo
+}
+
+function buscarCuestionarioCorreo(req,res){
+    try {
+        var buscar = async(req,res)=>{
+            console.log(req.body);
+            var dec = tools.decryptJson(req.body.data);
+            
+            cuestionarioHandler.findOne({email:dec.data.email},(err,cuestionarioBuscado)=>{
+                if(err){
+                    console.log(err)
+                }
+                if(!cuestionarioBuscado){
+                    return res.status(200).send({
+                        estado: 'No existe el cuestionario',
+                        message: util.format('no existe el cuestionario')
+                    });
+                }
+                return res.status(200).send({
+                    estado: 'Cuestionario encontrado',
+                    message: util.format('Cuestionario encontrado'),
+                    data: Object.assign(cuestionarioBuscado)
+                });
+            });
+        }
+        buscar(req,res);
+    } catch (error) {
+        throw boom.boomify(err)
+    }
 }
 
 function actualizarEstadoCuestionario(req,res){
@@ -29,7 +59,7 @@ function actualizarEstadoCuestionario(req,res){
                         console.log(err)
                     }
                     if(!cuestionarioBuscado){
-                        return res.status(601).send({
+                        return res.status(200).send({
                             estado: 'No existe el cuestionario',
                             message: util.format('no existe el cuestionario')
                         });
