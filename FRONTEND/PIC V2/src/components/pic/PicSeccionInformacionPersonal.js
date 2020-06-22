@@ -118,7 +118,13 @@ export default function PicSeccionInformacionPersonal(props) {
 
     const enviarInformacionPersonal = (goToNext, steps, step) => {
         try {
-            const url = constantes.urlServer + constantes.servicios.cuestionario;
+            var url =""
+            if(props.pruebas){
+                url = constantes.urlServer + constantes.servicios.CuestionarioConsulta;
+            }else{
+                url = constantes.urlServer + constantes.servicios.cuestionario;
+
+            } 
             setModal(true);
             const filtros = {
                 email: "",

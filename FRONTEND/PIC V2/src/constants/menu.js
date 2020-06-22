@@ -66,7 +66,12 @@ const data = [
       {
         icon: 'iconsminds-handshake',
         label: 'menu.crear-empleado',
-        to: '/app/pic/crear-empleado', 
+        to: '/app/pic/crear-empleado',
+      },
+      {
+        icon: 'iconsminds-handshake',
+        label: 'menu.consultar-cuestionario',
+        to: '/app/pic/consultar-cuestionario',
       }
     ]
   }/*,

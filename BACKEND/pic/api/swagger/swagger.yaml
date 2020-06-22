@@ -480,6 +480,20 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /cuestionarioConsulta:
+      x-swagger-router-controller: cuestionario.controller
+      post:
+        description: agregar cuestionario
+        operationId: CuestionarioConsulta
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"            
   /cambioPassword:
       x-swagger-router-controller: user_j_controller
       post:

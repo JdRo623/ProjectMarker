@@ -17,7 +17,8 @@ module.exports = {
     completadas: completadas,
     actualizarCompetencia: actualizarCompetencia,
     actualizarPregunta: actualizarPregunta,
-    actualizarEstadoCuestionario: actualizarEstadoCuestionario
+    actualizarEstadoCuestionario: actualizarEstadoCuestionario,
+    CuestionarioConsulta:CuestionarioConsulta
 }
 
 function actualizarEstadoCuestionario(req, res) {
@@ -229,6 +230,7 @@ function Cuestionario(req, res) {
                 }
                 if (!cuestionario) {
                     newCuestionario = {
+                        id_Cuestionario: cues.email,
                         email: cues.email,
                         coordinacion: cues.coordinacion,
                         rol: cues.rol,
@@ -369,6 +371,196 @@ function Cuestionario(req, res) {
                         data: Object.assign(cuestionario)
                     });
                 }
+            })
+        }
+        agregar(req, res);
+    } catch (error) {
+        throw boom.boomify(err)
+    }
+}
+
+
+function CuestionarioConsulta(req, res) {
+    try {
+        var agregar = async (req, res) => {
+            var newCuestionario;
+            var cues = (tools.decryptJson(req.body.data))
+            var competencias = [];
+            var fechaCorreo =  "Prueba."+tools.getFechaActual()+"@dian.gov.co"
+            var encontrado = false;
+            var cursos = [];
+            console.log(cues);
+            newCuestionario = {
+                id_Cuestionario: fechaCorreo,
+                email:fechaCorreo,
+                coordinacion: cues.coordinacion,
+                rol: cues.rol,
+                subgrupo: cues.subgrupo,
+                seccional: cues.seccional,
+                listado_competencias: [],
+                listado_cursos: [],
+                listado_preguntas: [],
+                listado_preguntas_seccion_iii: [],
+                estado_cuestionario: "Pendiente"
+            }
+            subgrupo.findOne({ nombre: cues.subgrupo }, (err, subgrupoElegido) => {
+
+                if (err) {
+                    console.log(err);
+                    return res.status(601).send({
+                        estado: 'error',
+                        message: util.format(err),
+                        data: Object.assign({})
+                    });
+                }
+
+                //console.log(subgrupoElegido)
+                if (subgrupoElegido.cursos.length != 0) {
+                    subgrupoElegido.cursos.forEach(cursoSubGrupo => {
+                        if (cursoSubGrupo.cargos.length != 0) {
+                            cursoSubGrupo.cargos.forEach(cargoCurso => {
+                                if (cargoCurso == cues.rol) {
+                                    //TODO ACTIVAR
+                                    // cursos.push({ idCurso: cursoCoordinacion.idCurso });
+                                }
+                            });
+                        }
+                    })
+                }
+                coordinacion.findOne({ nombre: cues.coordinacion }, (err, coordinacionObtenida) => {
+                    if (err) {
+                        console.log(err);
+                        return res.status(601).send({
+                            estado: 'error',
+                            message: util.format(err),
+                            data: Object.assign({})
+                        });
+                    }
+
+                    console.log(coordinacionObtenida)
+                    cursos = [];
+                    //TODO: VALIDACION DE SI SI SELECCIONÓ COORDINACIÓN O GIT
+                    if (coordinacionObtenida.cursos.length != 0) {
+                        coordinacionObtenida.cursos.forEach(cursoCoordinacion => {
+                            if (cursoCoordinacion.cargos.length != 0) {
+                                cursoCoordinacion.cargos.forEach(cargoCurso => {
+                                    if (cargoCurso == cues.rol) {
+                                        cursos.push(cursoCoordinacion.idCurso);
+                                    }
+                                });
+                            }
+                        })
+                    }
+                    console.log(cursos);
+
+                    cursos.forEach(cursoEspecifico => {
+                        newCuestionario.listado_cursos.push({ idCurso: cursoEspecifico })
+                    })
+
+                    cursoHandler.find((err, listadoCursosObtenidos) => {
+                        if (err) {
+                            console.log(err);
+                            return res.status(601).send({
+                                estado: 'error',
+                                message: util.format(err),
+                                data: Object.assign({})
+
+                            });
+                        }
+
+                        var competenciasGuardar = []
+                        newCuestionario.listado_cursos.forEach(cursoEspecifico => {
+                            listadoCursosObtenidos.forEach(cursoObtenido => {
+                                if (cursoObtenido.consecutivo == cursoEspecifico.idCurso) {
+                                    console.log(competencias.includes(cursoObtenido.competencia))
+                                    if (!competencias.includes(cursoObtenido.competencia)) {
+                                        competencias.push(cursoObtenido.competencia);
+                                        competenciasGuardar.push({
+                                            nombreCompetencia: cursoObtenido.competencia,
+                                            descripcionCompetencia: cursoObtenido.descripcion_competencia
+                                        })
+                                    }
+                                }
+                            })
+                        })
+                        newCuestionario.listado_competencias = competenciasGuardar
+                        preguntas_seccionIII.preguntasMock.forEach(preguntaSeccionIII => {
+                            newCuestionario.listado_preguntas_seccion_iii.push({ id_pregunta: preguntaSeccionIII.idPregunta })
+                        })
+                        //  newCuestionario.listado_competencias = competencias
+                        PreguntasHandler.find({ codificacion: { $in: cursos } }, (err, listadoPreguntas) => {
+                            listadoPreguntas.forEach(preguntaEspecifica => {
+                                newCuestionario.listado_preguntas.push({ id_pregunta: preguntaEspecifica.numero_pregunta })
+                            })
+                            var CuestionarioGuardar = new cuestionarioHandler(newCuestionario);
+                            CuestionarioGuardar.save((err, cuestionarioCreado) => {
+                                if (err) {
+                                    return res.status(601).send({
+                                        estado: 'error',
+                                        message: util.format(err),
+                                        data: Object.assign({})
+                                    });
+                                }
+                                if (cuestionarioCreado) {
+                                    // console.log(cuestionarioCreado);
+                                    newCuestionario = {
+                                        id_Cuestionario: fechaCorreo,
+                                        email: fechaCorreo,
+                                        coordinacion: cues.coordinacion,
+                                        rol: cues.rol,
+                                        subgrupo: cues.subgrupo,
+                                        seccional: cues.seccional,
+                                        listado_competencias: "",
+                                        listado_cursos: "",
+                                        listado_preguntas: "",
+                                        listado_preguntas_seccion_iii: "",
+                                        estado_cuestionario: "Pendiente"
+                                    }
+                                    var temp =""
+                                    cuestionarioCreado.listado_competencias.forEach(cursoObtenido => {
+                                        temp+=""+cursoObtenido.nombreCompetencia+" "
+                                    })
+                                    newCuestionario.listado_competencias = temp
+
+                                    temp =""
+                                    cuestionarioCreado.listado_cursos.forEach(cursoObtenido => {
+                                        temp+=""+cursoObtenido.idCurso+" "
+                                    })
+                                    newCuestionario.listado_cursos = temp
+
+                                    temp =""
+                                    cuestionarioCreado.listado_preguntas.forEach(cursoObtenido => {
+                                        temp+=""+cursoObtenido.id_pregunta+" "
+                                    })
+                                    newCuestionario.listado_preguntas = temp
+
+                                    temp =""
+                                    cuestionarioCreado.listado_preguntas_seccion_iii.forEach(cursoObtenido => {
+                                        temp+=""+cursoObtenido.id_pregunta+" "
+                                    })
+                                    newCuestionario.listado_preguntas_seccion_iii = temp
+                                    console.log(newCuestionario)
+
+                                    return res.status(200).send({
+                                        estado: 'Exito',
+                                        message: util.format('Cuestionario registrado Exitosamente'),
+                                        data: Object.assign(newCuestionario)
+                                    });
+                                } else {
+                                    return res.status(601).send({
+                                        estado: 'Error',
+                                        message: util.format('No fue posible crear el Cuestionario'),
+                                        data: Object.assign({})
+                                    });
+                                }
+
+                            })
+
+                        })
+                    })
+
+
+                });
             })
         }
         agregar(req, res);
