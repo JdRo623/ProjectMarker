@@ -155,10 +155,7 @@ export default function Cuestionario(props) {
         </Modal>
       </div>
       <Row>
-        <Colxx xxs="12" lg="5" xl="4" className="mb-3">
-          <PicColaboradorCard />
-        </Colxx>
-        <Colxx xxs="12" lg="12" xl="8" className="mb-3">
+        <Colxx xxs="12" lg="12" xl="12" className="mb-3">
 
 
           <Nav tabs className="separator-tabs ml-0 mb-5">

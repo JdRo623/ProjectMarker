@@ -30,6 +30,7 @@ export default function PicSeccionPreguntasI(props) {
   const [modal, setModal] = useState(false);
   const [respuestaElegida, setRespuestaElegida] = useState("");
 
+
   const [competenciasCards, setCompetenciasCards] = useState(competencias.map((competencia) =>
     <Step id={"" + contadorPasos++} desc="" >
       <PicPreguntaComponente
@@ -49,10 +50,9 @@ export default function PicSeccionPreguntasI(props) {
     push(stepItem.id);
   }
 
-  const enviarPregunta = (goToNext, steps, step) => {
+  const validarSiguiente = (goToNext, steps, step) => {
     console.log(step)
     console.log(steps)
-
     if (respuestaElegida == "") {
       switch (step.id) {
         case "0":
@@ -62,7 +62,7 @@ export default function PicSeccionPreguntasI(props) {
           onClickNext(goToNext, steps, step)
           break;
         default:
-          //Mostrar Error
+          mostrarMensajeError("Error", "Seleccione una respuesta para continuar")
           break;
       }
     } else {
@@ -88,13 +88,10 @@ export default function PicSeccionPreguntasI(props) {
     //clickSiguiente(goToNext, step)
     goToNext();
   }
-  
+
 
   const onClickPrev = (goToPrev, steps, step) => {
-    if (steps.indexOf(step) <= 0) {
-      return;
-    }
-    goToPrev();
+    mostrarMensajeError("Error", "No puede regresar a una pregunta resuelta")
   }
 
   const clickSiguiente = (goToNext, steps, step) => {
@@ -106,6 +103,19 @@ export default function PicSeccionPreguntasI(props) {
     if (errors.length === 0) {
       //submit
     }
+  }
+
+  const mostrarMensajeError = (tittle, message) => {
+    NotificationManager.error(
+      message,
+      tittle,
+      3000,
+      () => {
+        alert("callback");
+      },
+      null,
+      'filled'
+    );
   }
 
   return (
@@ -142,7 +152,7 @@ export default function PicSeccionPreguntasI(props) {
                 />
               </Step>
             </Steps>
-            <BottomNavigation onClickNext={enviarPregunta} onClickPrev={onClickPrev} className={"justify-content-center " + (bottomNavHidden && "invisible")} prevLabel={"Anterior"} nextLabel={"Siguiente"} />
+            <BottomNavigation onClickNext={validarSiguiente} onClickPrev={onClickPrev} className={"justify-content-center " + (bottomNavHidden && "invisible")} prevLabel={"Anterior"} nextLabel={"Siguiente"} />
           </Wizard>
         </CardBody>
       </Card>

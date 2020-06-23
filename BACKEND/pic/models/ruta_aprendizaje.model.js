@@ -13,15 +13,50 @@ const ruta = Schema({
         {
             nombreCompetencia: String,
             valor_respuesta: String,
-            listado_cursos: [
+            listado_cursos_basicos: [
                 {
                     numero_curso: String,
+                    nombreCurso: String,
+                    colorEstado: String,
                     estado_curso: {
                         type: String,
                         default: 'Por Cursar' //Por Cursar , Cursando, Cursado
                     }
                 }
-            ]
+            ],
+            listado_cursos_medios: [
+                {
+                    numero_curso: String,
+                    nombreCurso: String,
+                    colorEstado: String,
+                    estado_curso: {
+                        type: String,
+                        default: 'Por Cursar' //Por Cursar , Cursando, Cursado
+                    }
+                }
+            ],
+            listado_cursos_altos: [
+                {
+                    numero_curso: String,
+                    nombreCurso: String,
+                    colorEstado: String,
+                    estado_curso: {
+                        type: String,
+                        default: 'Por Cursar' //Por Cursar , Cursando, Cursado
+                    }
+                }
+            ],
+            listado_cursos_superiores: [
+                {
+                    numero_curso: String,
+                    nombreCurso: String,
+                    colorEstado: String,
+                    estado_curso: {
+                        type: String,
+                        default: 'Por Cursar' //Por Cursar , Cursando, Cursado
+                    }
+                }
+            ],
             
         }
     ],
