@@ -1,7 +1,7 @@
 /* Gogo Language Texts
 
 Table of Contents
-
+//ESTE ES EL QUE SE CAMBIA
 01.General
 02.User Login, Logout, Register
 03.Menu
@@ -50,7 +50,10 @@ module.exports = {
   'menu.administrador': 'Administrador',
   'menu.carga-archivos': 'Carga Archivos',
   'menu.cargue-preguntas': 'Cargue de Preguntas',
+  'menu.busqueda-preguntas': 'Busqueda de Preguntas',
+  'menu.crear-empleado': 'Crear Empleado',
   'menu.reportes': 'Realizar Reportes',
+  'menu.consultar-cuestionario': 'Consultar Cuestionario',
 
   /* 04.Error  */
   'pages.error-title': 'Vaya, parece que ha ocurrido un error!',
@@ -74,4 +77,13 @@ module.exports = {
   'preguntas.justificacion_incorrectas': 'Justificación respuestas incorrectas',
   'preguntas.bibliografia': 'Bibliografía',
   'preguntas.submit': 'Guardar Pregunta',
+  /** EMPLEADO */
+  'empleado.identificacion': 'Identificación de Empleado',
+  'empleado.nombres': 'Nombres de Empleado',
+  'empleado.apellidos': 'Apellidos de Empleado',
+  'empleado.nombresjefe': 'Nombres de Jefe',
+  'empleado.apellidosjefe': 'Apellidos de Jefe',
+  'empleado.email': 'Email de Empleado',
+  'empleado.ciudad': 'Ciudad de Empleado',
+  'empleado.submit': 'Guardar Empleado',
 };

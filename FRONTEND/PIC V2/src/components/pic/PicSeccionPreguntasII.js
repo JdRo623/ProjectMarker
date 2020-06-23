@@ -1,5 +1,9 @@
-import React, { Component } from "react";
-import { Card, CardBody, Form, FormGroup, Input, Label } from "reactstrap";
+import React, { Fragment, useState, useEffect, useReducer } from "react";
+import {
+  Card, CardBody, Modal,
+  ModalHeader,
+  ModalBody,
+} from "reactstrap";
 import { Wizard, Steps, Step } from 'react-albus';
 import { BottomNavigation } from "../wizard/BottomNavigation";
 import { TopNavigation } from "../wizard/TopNavigation";
@@ -7,45 +11,78 @@ import PicPreguntaComponente from "./PicPreguntaComponente";
 import preguntasSeccionII from "../../data/pic/preguntasSeccionII";
 import PicInstruccionComponente from "../../components/pic/PicInstruccionComponente";
 import PicFinalSeccionComponente from "../../components/pic/PicFinalSeccionComponente";
+import constantes from "../../util/Constantes.js"
+import HttpUtil from '../../util/HttpService.js'
 
-class PicSeccionPreguntasII extends Component {
+export default function PicSeccionPreguntasII(props) {
 
-  constructor(props) {
-    super(props);
-    this.onClickNext = this.onClickNext.bind(this);
-    this.onClickPrev = this.onClickPrev.bind(this);
-    this.topNavClick = this.topNavClick.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  const [respuestas, setRespuestas] = useState([]);
+  const [preguntas, setPreguntas] = useState(props.preguntas);
+  var contadorPasos = 1
 
-    this.state = {
-      respuestas: [],
-      preguntas: preguntasSeccionII,
-      competenciasCards: null,
-      bottomNavHidden: false,
-      topNavDisabled: false,
-    }
+  const [preguntasCards, setPreguntasCards] = useState(preguntas.map((pregunta) =>
+    <Step id={"" + contadorPasos++} desc="" >
+      <PicPreguntaComponente
+        pregunta={pregunta.encabezadoPregunta}
+        descriptor={pregunta.situacionProblema}
+        respuestas={pregunta.opcionesRespuestas} />
+    </Step>));
 
-    this.preguntasCards = this.state.preguntas.map((preguntas) =>
-      <Step id={preguntas.idPregunta} name="" desc="" >
-        <PicPreguntaComponente
-          pregunta={preguntas.encabezadoPregunta}
-          descriptor={preguntas.situacionProblema}
-          respuestas={preguntas.opcionesRespuestas} />
-      </Step>)
-  }
+  const [bottomNavHidden, setBottomNavHidden] = useState(false);
+  const [topNavDisabled, setTopNavDisabled] = useState(false);
+  const [modal, setModal] = useState(false);
 
- 
-  topNavClick(stepItem, push) {
-    if (this.state.topNavDisabled) {
+  const topNavClick = (stepItem, push) => {
+    if (topNavDisabled) {
       return;
     }
     push(stepItem.id);
   }
 
-  onClickNext(goToNext, steps, step) {
+  useEffect(() => {
+    if (preguntas.length == 0) {
+      obtenerInformaciónPregunta()
+    }
+  }, []);
+  
+  const obtenerInformaciónPregunta = () => {
+    try {
+      setModal(true);
+      const url = constantes.urlServer + constantes.servicios.buscarPreguntasPorIDCuestionario;
+      const filtros = {
+        cuestionario: true,
+        preguntas_obtener: props.preguntas
+      }
+
+      HttpUtil.requestPost(url, filtros,
+        (response) => {
+          console.log(response.data)
+          setPreguntas(response.data)
+          setPreguntasCards(preguntas.map((pregunta) =>
+            <Step id={"" + contadorPasos++} desc="" >
+              <PicPreguntaComponente
+                pregunta={pregunta.encabezadoPregunta}
+                descriptor={pregunta.situacionProblema}
+                respuestas={pregunta.opcionesRespuestas} />
+            </Step>))
+          setModal(false);
+        },
+        () => {
+          setModal(false);
+        });
+    } catch (error) {
+      setModal(false);
+    }
+
+  }
+  const onClickNext = (goToNext, steps, step) => {
     step.isDone = true;
+    console.log(steps)
+    console.log(step)
+
     if (steps.length - 2 <= steps.indexOf(step)) {
-      this.setState({ bottomNavHidden: true, topNavDisabled: true });
+      setBottomNavHidden(true)
+      setTopNavDisabled(true)
     }
     if (steps.length - 1 <= steps.indexOf(step)) {
       return;
@@ -53,13 +90,13 @@ class PicSeccionPreguntasII extends Component {
     goToNext();
   }
 
-  onClickPrev(goToPrev, steps, step) {
+  const onClickPrev = (goToPrev, steps, step) => {
     if (steps.indexOf(step) <= 0) {
       return;
     }
     goToPrev();
   }
-  handleSubmit(event, errors, values) {
+  const handleSubmit = (event, errors, values) => {
     console.log(errors);
     console.log(values);
     if (errors.length === 0) {
@@ -67,36 +104,44 @@ class PicSeccionPreguntasII extends Component {
     }
   }
 
-  render() {
-
-    return (
+  return (
+    <Fragment>
+      <div>
+        <Modal isOpen={modal} >
+          <ModalHeader>
+            Obteniendo información
+                    </ModalHeader>
+          <ModalBody>
+            Obteniendo opciones de información personal del servidor
+                    </ModalBody>
+        </Modal>
+      </div>
       <Card className="mb-5">
         <CardBody className="wizard wizard-default">
           <Wizard>
-            <TopNavigation className="justify-content-center" disableNav={true} topNavClick={this.topNavClick} />
+            <TopNavigation className="justify-content-center" disableNav={true} topNavClick={topNavClick} />
             <Steps>
-            <Step id="0" name="Instrucciones" desc="" >
+              <Step id="0" name="Instrucciones" desc="" >
                 <PicInstruccionComponente
                   encabezado="Instrucción Sección II"
                   descriptor="Contenido de la instrucción"
                 />
               </Step>
-              {this.preguntasCards}
+              {preguntasCards}
               <Step id="-1" name="Final de Sección" desc="" >
                 <PicFinalSeccionComponente
                   encabezado="Final de Sección II"
                   descriptor="Contenido de final de sección"
-                  pasoSiguiente = {this.props.pasoSiguiente}
+                  pasoSiguiente={props.pasoSiguiente}
 
                 />
               </Step>
             </Steps>
-            <BottomNavigation onClickNext={this.onClickNext} onClickPrev={this.onClickPrev} className={"justify-content-center " + (this.state.bottomNavHidden && "invisible")} prevLabel={"Anterior"} nextLabel={"Siguiente"} />
+            <BottomNavigation onClickNext={onClickNext} onClickPrev={onClickPrev} className={"justify-content-center " + (bottomNavHidden && "invisible")} prevLabel={"Anterior"} nextLabel={"Siguiente"} />
           </Wizard>
         </CardBody>
       </Card>
-    );
-  }
-}
+    </Fragment>
 
-export default PicSeccionPreguntasII;
+  );
+}

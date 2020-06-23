@@ -71,6 +71,7 @@ class HttpUtil extends React.Component {
           sucessCallBack(dataDecrypt);
       })
       .catch(function (error) {
+        console.log(error)
         if (error.response) {
           const dataDecrypt = JSON.parse(
             decifrar(error.response.data.respuesta)

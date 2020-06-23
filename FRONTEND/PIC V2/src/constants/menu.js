@@ -15,52 +15,78 @@ const data = [
    {*/
 
     //DESBLOQUEAR
-    id: "blankpage",
-    icon: "simple-icon-user",
-    label: "menu.colaborador",
-    to: "/app/second-menu/second",
+    id: 'blankpage',
+    icon: 'simple-icon-user',
+    label: 'menu.colaborador',
+    to: '/app/second-menu/second',
     subs: [
       {
-        icon: "simple-icon-question",
-        label: "menu.cuestionario",
-        to: "/app/pic/cuestionario"
+        icon: 'simple-icon-question',
+        label: 'menu.cuestionario',
+        to: '/app/pic/cuestionario',
       },
       {
-        icon: "iconsminds-arrow-outside-gap-45",
-        label: "menu.ruta-aprendizaje",
-        to: "/app/pic/rutaAprendizaje"
-      }
-    ]
+        icon: 'iconsminds-arrow-outside-gap-45',
+        label: 'menu.ruta-aprendizaje',
+        to: '/app/pic/rutaAprendizaje',
+      },
+    ],
   },
   {
-    id: "secondmenu",
-    icon: "iconsminds-administrator",
-    label: "menu.administrador",
-    to: "/app/second-menu",
+    id: 'secondmenu',
+    icon: 'iconsminds-administrator',
+    label: 'menu.administrador',
+    to: '/app/second-menu',
     subs: [
       {
-        icon: "iconsminds-upload",
-        label: "menu.carga-archivos",
-        to: "/app/pic/util"
+        icon: 'iconsminds-upload',
+        label: 'menu.carga-archivos',
+        to: '/app/pic/util',
       },
       {
-        icon: "iconsminds-upload",
-        label: "menu.reportes",
-        to: "/app/pic/reportes"
+        icon: 'iconsminds-upload',
+        label: 'menu.reportes',
+        to: '/app/pic/reportes',
+      },
+      {
+        icon: 'simple-icon-question',
+        label: 'menu.cargue-preguntas',
+        to: '/app/pic/carguePreguntas',
       },
       {
         icon: "simple-icon-question",
         label: "menu.cargue-preguntas",
         to: "/app/pic/carguePreguntas"
+      },
+      {
+        icon: "simple-icon-question",
+        label: "menu.busqueda-preguntas",
+        to: "/app/pic/busquedaPregunta"
+      },
+      {
+        icon: 'iconsminds-handshake',
+        label: 'menu.crear-empleado',
+        to: '/app/pic/crear-empleado',
+      },
+      {
+        icon: 'iconsminds-handshake',
+        label: 'menu.consultar-cuestionario',
+        to: '/app/pic/consultar-cuestionario',
       }
     ]
   }/*,
+        icon: 'iconsminds-handshake',
+        label: 'menu.crear-empleado',
+        to: '/app/pic/crear-empleado',
+      },
+    ],
+  } /*,
   {
     id: "docs",
     icon: "iconsminds-library",
     label: "menu.docs",
     to: "https://gogo-react-docs.coloredstrategies.com/",
     newWindow:true
-  }*/
+  }*/,
 ];
 export default data;

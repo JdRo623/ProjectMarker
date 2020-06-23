@@ -50,5 +50,5 @@ module.exports = {
     encryptText: encryptText,
     decryptText: decryptText,
     decryptJson: decryptJson,
-    encryptJson: encryptJson
+    encryptJson: encryptJson,
 };

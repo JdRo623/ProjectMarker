@@ -5,10 +5,9 @@ import {
   CardBody,
   Nav,
   NavItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownItem,
-  DropdownMenu,
+  Modal,
+  ModalHeader,
+  ModalBody,
   TabContent,
   TabPane,
   Badge,
@@ -24,6 +23,9 @@ import PicSeccionInformacionPersonal from "../../../components/pic/PicSeccionInf
 import PicSeccionPreguntasI from "../../../components/pic/PicSeccionPreguntasI";
 import PicSeccionPreguntasII from "../../../components/pic/PicSeccionPreguntasII";
 import PicSeccionPreguntasIII from "../../../components/pic/PicSeccionPreguntasIII";
+import constantes from "../../../util/Constantes.js"
+import HttpUtil from '../../../util/HttpService.js'
+
 
 export default function Cuestionario(props) {
   const [activeTab, setActiveTab] = useState("1");
@@ -31,6 +33,10 @@ export default function Cuestionario(props) {
   const [cuestionarioUsuario, setCuestionario] = useState({ listado_competencias: [] });
   const [informacionPersonalCompleto, setInformacionPersonalCompleto] = useState(false);
   const [seccionPreguntasICompleto, setSeccionPreguntasICompleto] = useState(false);
+  const [seccionPreguntasIICompleto, setSeccionPreguntasIICompleto] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [preguntas, setPreguntas] = useState([]);
+  const [preguntasIII, setPreguntasIII] = useState([]);
 
   const toggleTab = (tab) => {
     console.log(tab)
@@ -40,6 +46,10 @@ export default function Cuestionario(props) {
       );
     }
   }
+
+  useEffect(() => {
+    obtenerCuestionario()
+  }, []);
 
   const pasoSiguiente = () => {
     switch (activeTab) {
@@ -58,21 +68,92 @@ export default function Cuestionario(props) {
         break;
     }
   }
+
+  const obtenerCuestionario = () => {
+
+  }
   const PreguntasSeccionIElement = () => (
     <PicSeccionPreguntasI
-      setEstadoPaso={setSeccionPreguntasICompleto}
+      setEstadoPaso={obtenerInformacionPregunta}
       competencias={cuestionarioUsuario.listado_competencias}
       pasoSiguiente={pasoSiguiente} />
   )
   const PreguntasSeccionIIElement = () => (
     <PicSeccionPreguntasII
-      preguntas={cuestionarioUsuario.listado_competencias}
+      preguntas={preguntas}
+      pasoSiguiente={obtenerInformacionPreguntaIII} />
+  )
+
+  const PreguntasSeccionIIIElement = () => (
+    <PicSeccionPreguntasIII
+      preguntas={preguntasIII}
       pasoSiguiente={pasoSiguiente} />
   )
+
+  const obtenerInformacionPregunta = () => {
+    try {
+      setModal(true);
+      const url = constantes.urlServer + constantes.servicios.buscarPreguntasPorIDCuestionario;
+      const filtros = {
+        cuestionario: true,
+        preguntas_obtener: cuestionarioUsuario.listado_preguntas
+      }
+
+      HttpUtil.requestPost(url, filtros,
+        (response) => {
+          console.log(response.data)
+          setPreguntas(response.data)
+          toggleTab("3")
+          setSeccionPreguntasICompleto(true)
+          setModal(false);
+        },
+        () => {
+          setModal(false);
+        });
+    } catch (error) {
+      setModal(false);
+    }
+
+  }
+
+  const obtenerInformacionPreguntaIII = () => {
+    try {
+      setModal(true);
+      const url = constantes.urlServer + constantes.servicios.obtenerPreguntasSeccionIII;
+      const filtros = {
+
+      }
+
+      HttpUtil.requestPost(url, filtros,
+        (response) => {
+          console.log(response.data)
+          setPreguntasIII(response.data)
+          toggleTab("4")
+          setSeccionPreguntasIICompleto(true)
+          setModal(false);
+        },
+        () => {
+          setModal(false);
+        });
+    } catch (error) {
+      setModal(false);
+    }
+
+  }
+
   return (
-
-
     <Fragment>
+
+      <div>
+        <Modal isOpen={modal} >
+          <ModalHeader>
+            Obteniendo información
+                    </ModalHeader>
+          <ModalBody>
+            Obteniendo opciones de información personal del servidor
+                    </ModalBody>
+        </Modal>
+      </div>
       <Row>
         <Colxx xxs="12" lg="5" xl="4" className="mb-3">
           <PicColaboradorCard />
@@ -126,7 +207,7 @@ export default function Cuestionario(props) {
               {seccionPreguntasICompleto ? <PreguntasSeccionIIElement /> : null}
             </TabPane>
             <TabPane tabId="4">
-              <PicSeccionPreguntasIII pasoSiguiente={pasoSiguiente} />
+              {seccionPreguntasIICompleto ? <PreguntasSeccionIIIElement /> : null}
             </TabPane>
           </TabContent>
 

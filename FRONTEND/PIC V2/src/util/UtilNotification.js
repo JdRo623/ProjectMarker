@@ -11,7 +11,7 @@ function createNotification(type, className, tittle, message) {
                     3000,
                     null,
                     null,
-                    cName
+                    'filled'
                 );
                 break;
             case "secondary":
@@ -21,7 +21,7 @@ function createNotification(type, className, tittle, message) {
                     3000,
                     null,
                     null,
-                    cName
+                    'filled'
                 );
                 break;
             case "info":
@@ -34,7 +34,7 @@ function createNotification(type, className, tittle, message) {
                     3000,
                     null,
                     null,
-                    cName
+                    'filled'
                 );
                 break;
             case "warning":
@@ -44,7 +44,7 @@ function createNotification(type, className, tittle, message) {
                     3000,
                     null,
                     null,
-                    cName
+                    'filled'
                 );
                 break;
             case "error":
@@ -56,7 +56,7 @@ function createNotification(type, className, tittle, message) {
                         alert("callback");
                     },
                     null,
-                    cName
+                    'filled'
                 );
                 break;
             default:

@@ -15,6 +15,13 @@ const CarguePreguntas = React.lazy(() =>
   import(/* webpackChunkName: "cuestionario" */ './carga_preguntas')
 );
 
+const BuscarPreguntas = React.lazy(() =>
+  import(/* webpackChunkName: "cuestionario" */ './busqueda_pregunta')
+);
+const AgregarEmpleados = React.lazy(() => import('./agregar_empleados'));
+
+const ConsultarCuestionario = React.lazy(() => import('./consultar_cuestionario'));
+
 const Reportes = React.lazy(() =>
   import(/* webpackChunkName: "cuestionario" */ './reportes')
 );
@@ -26,6 +33,10 @@ const PagesPic = ({ match }) => (
         exact
         from={`${match.url}/`}
         to={`${match.url}/carguePreguntas`}
+      />
+      <Route
+        path={`${match.url}/busquedaPregunta`}
+        render={(props) => <BuscarPreguntas {...props} />}
       />
       <Route
         path={`${match.url}/cuestionario`}
@@ -42,6 +53,14 @@ const PagesPic = ({ match }) => (
       <Route
         path={`${match.url}/carguePreguntas`}
         render={(props) => <CarguePreguntas {...props} />}
+      />
+      <Route
+        path={`${match.url}/crear-empleado`}
+        render={(props) => <AgregarEmpleados {...props} />}
+      />
+      <Route
+        path={`${match.url}/consultar-cuestionario`}
+        render={(props) => <ConsultarCuestionario {...props} />}
       />
       <Route
         path={`${match.url}/reportes`}

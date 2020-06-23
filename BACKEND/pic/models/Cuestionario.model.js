@@ -6,8 +6,9 @@ const cuestionario = Schema({
         type:String,
         unique:true
     },
-    email: String,
+    id_colaborador: String,
     coordinacion: String,
+    email: String,
     rol: String,
     subgrupo: String,
     seccional: String,
