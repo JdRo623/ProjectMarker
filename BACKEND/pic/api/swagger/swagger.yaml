@@ -620,6 +620,20 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /buscarCuestionarioCorreo:
+      x-swagger-router-controller: cuestionario.controller
+      post:
+        description: buscar cuestionario por correo 
+        operationId: buscarCuestionarioCorreo
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
