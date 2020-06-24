@@ -40,59 +40,71 @@ export default function PicRutaAprendizajeComponent(props) {
                                         {props.rutaAprendizaje.listado_competencias.map(competencia => {
                                             return (
                                                 <tr>
-                                                    <td >
+                                                    <td className="align-middle">
                                                         <center>
                                                             {competencia.nombre_competencia}
                                                         </center>
                                                     </td>
-                                                    <td >
-                                                        {competencia.listado_cursos_basicos.map(curso => {
-                                                            return (
-                                                                <tr bgcolor={curso.colorEstado}>
-                                                                    <td >
-                                                                        <font color="#FFFFFF">
-                                                                            {curso.nombreCurso}
-                                                                        </font>
-                                                                    </td>
-                                                                </tr>
-                                                            )
-                                                        })}</td>
-                                                    <td >
-                                                        {competencia.listado_cursos_medios.map(curso => {
-                                                            return (
-                                                                <tr bgcolor={curso.colorEstado}>
-                                                                    <td >
-                                                                        <font color="#FFFFFF">
-                                                                            {curso.nombreCurso}
-                                                                        </font>
-                                                                    </td>
-                                                                </tr>
-                                                            )
-                                                        })}</td>
-                                                    <td>
-                                                        {competencia.listado_cursos_altos.map(curso => {
-                                                            return (
-                                                                <tr bgcolor={curso.colorEstado}>
-                                                                    <td >
-                                                                        <font color="#FFFFFF">
-                                                                            {curso.nombreCurso}
-                                                                        </font>
-                                                                    </td>
-                                                                </tr>
-                                                            )
-                                                        })}</td>
-                                                    <td >
-                                                        {competencia.listado_cursos_superiores.map(curso => {
-                                                            return (
-                                                                <tr bgcolor={curso.colorEstado}>
-                                                                    <td >
-                                                                        <font color="#FFFFFF">
-                                                                            {curso.nombreCurso}
-                                                                        </font>
-                                                                    </td>
-                                                                </tr>
-                                                            )
-                                                        })}</td>
+                                                    <td className="align-middle">
+                                                        <center>
+                                                            {competencia.listado_cursos_basicos.map(curso => {
+                                                                return (
+                                                                    <tr bgcolor={curso.colorEstado}>
+                                                                        <td >
+                                                                            <font color="#FFFFFF">
+                                                                                {curso.nombreCurso}
+                                                                            </font>
+                                                                        </td>
+                                                                    </tr>
+                                                                )
+                                                            })}
+                                                        </center>
+                                                    </td>
+                                                    <td className="align-middle">
+                                                        <center>
+                                                            {competencia.listado_cursos_medios.map(curso => {
+                                                                return (
+                                                                    <tr bgcolor={curso.colorEstado}>
+                                                                        <td >
+                                                                            <font color="#FFFFFF">
+                                                                                {curso.nombreCurso}
+                                                                            </font>
+                                                                        </td>
+                                                                    </tr>
+                                                                )
+                                                            })}
+                                                        </center>
+                                                    </td>
+                                                    <td className="align-middle">
+                                                        <center>
+                                                            {competencia.listado_cursos_altos.map(curso => {
+                                                                return (
+                                                                    <tr bgcolor={curso.colorEstado}>
+                                                                        <td >
+                                                                            <font color="#FFFFFF">
+                                                                                {curso.nombreCurso}
+                                                                            </font>
+                                                                        </td>
+                                                                    </tr>
+                                                                )
+                                                            })}
+                                                        </center>
+                                                    </td>
+                                                    <td className="align-middle">
+                                                        <center>
+                                                            {competencia.listado_cursos_superiores.map(curso => {
+                                                                return (
+                                                                    <tr bgcolor={curso.colorEstado}>
+                                                                        <td >
+                                                                            <font color="#FFFFFF">
+                                                                                {curso.nombreCurso}
+                                                                            </font>
+                                                                        </td>
+                                                                    </tr>
+                                                                )
+                                                            })}
+                                                        </center>
+                                                    </td>
                                                 </tr>
                                             )
                                         })}{" "}

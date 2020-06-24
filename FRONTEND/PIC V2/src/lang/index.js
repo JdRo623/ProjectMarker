@@ -8,8 +8,8 @@ const AppLocale = {
     es: esLang,
     enrtl:enRtlLang
 };
-addLocaleData(AppLocale.en.data);
-addLocaleData(AppLocale.es.data);
-addLocaleData(AppLocale.enrtl.data);
+//addLocaleData(AppLocale.en.data);
+//addLocaleData(AppLocale.es.data);
+//addLocaleData(AppLocale.enrtl.data);
 
 export default AppLocale;
