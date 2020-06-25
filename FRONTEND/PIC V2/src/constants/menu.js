@@ -22,6 +22,11 @@ const data = [
     subs: [
       {
         icon: 'simple-icon-question',
+        label: 'menu.principal_empleado',
+        to: '/app/pic/principal_colaborador',
+      },
+      {
+        icon: 'simple-icon-question',
         label: 'menu.cuestionario',
         to: '/app/pic/cuestionario',
       },
@@ -52,11 +57,6 @@ const data = [
         icon: 'simple-icon-question',
         label: 'menu.cargue-preguntas',
         to: '/app/pic/carguePreguntas',
-      },
-      {
-        icon: "simple-icon-question",
-        label: "menu.cargue-preguntas",
-        to: "/app/pic/carguePreguntas"
       },
       {
         icon: "simple-icon-question",

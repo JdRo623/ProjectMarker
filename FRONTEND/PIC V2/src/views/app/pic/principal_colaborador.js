@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import { injectIntl } from 'react-intl';
-
-import PicCargaPreguntas from '../../../components/pic/PicCargaPreguntas';
+import {
+    Row,
+  } from "reactstrap";
+import PicColaboradorCard from '../../../components/pic/PicColaboradorCard';
+import { Colxx } from "../../../components/common/CustomBootstrap";
 
 export default function PrincipalColaborador(props) {
 

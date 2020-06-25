@@ -79,7 +79,7 @@ export default class PopoverTooltipUi extends Component {
                 </CardTitle>
 
                 {this.state.popovers.map((popover, i) => {
-                  return <PopoverItem key={i} item={popover} id={i} />;
+                  return <PopoverItem color = {"secondary"} key={i} item={popover} id={i} />;
                 })}
               </CardBody>
             </Card>

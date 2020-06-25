@@ -26,12 +26,12 @@ export default function PicReporteComponent(props) {
     return (
         <Fragment>
             <Row className="mb-4">
-                <Colxx xxs="6">
+                <Colxx xxs="12">
                     <Card>
                         <CardBody>
                             <CardTitle>
                                 <IntlMessages id=" " />
-                                Colaboradores por realizar cuestionario
+                                {props.titulo}
                             </CardTitle>
                             <Row>
                                 <Colxx xxs="12" lg="12" className="mb-5">

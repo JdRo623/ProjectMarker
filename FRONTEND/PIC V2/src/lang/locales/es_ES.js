@@ -54,6 +54,7 @@ module.exports = {
   'menu.crear-empleado': 'Crear Empleado',
   'menu.reportes': 'Realizar Reportes',
   'menu.consultar-cuestionario': 'Consultar Cuestionario',
+  'menu.principal_empleado': 'Inicio',
 
   /* 04.Error  */
   'pages.error-title': 'Vaya, parece que ha ocurrido un error!',

@@ -163,7 +163,7 @@ export const doughnutChartData = {
         "#f29494"
       ],
       borderWidth: 2,
-      data: [60, 20, 20]
+      data: [1, 0, 99]
     }
   ]
 }

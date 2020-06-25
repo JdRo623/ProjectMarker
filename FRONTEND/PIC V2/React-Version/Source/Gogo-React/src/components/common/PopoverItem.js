@@ -20,7 +20,7 @@ export class PopoverItem extends React.Component {
       <span>
         <Button
           className="mr-1 mb-2"
-          color="secondary"
+          color= {this.props.color}
           id={"Popover-" + this.props.id}
           onClick={this.toggle}
         >

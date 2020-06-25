@@ -4,53 +4,34 @@ import { injectIntl } from "react-intl";
 import PicReporteComponent from "../../../components/pic/PicReporteComponent";
 
 import {
-    lineChartData,
-    polarAreaChartData,
-    areaChartData,
-    scatterChartData,
-    barChartData,
-    radarChartData,
-    pieChartData,
-    doughnutChartData
+  lineChartData,
+  polarAreaChartData,
+  areaChartData,
+  scatterChartData,
+  barChartData,
+  radarChartData,
+  pieChartData,
+  doughnutChartData
 } from "../../../data/charts";
+import {
+  Row,
+} from "reactstrap";
+import { Colxx } from "../../../components/common/CustomBootstrap";
 
 class Reportes extends Component {
-  state = {
-    activeTab: "1",
-    totalPasos: "4"
-  };
-
-  toggleTab(tab) {
-    console.log(tab)
-    if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab
-      });
-    }
-  }
-
-  pasoSiguiente = () => {
-    switch (this.state.activeTab) {
-      case "1":
-        this.toggleTab("2")
-        break;
-      case "2":
-        this.toggleTab("3")
-        break;
-      case "3":
-        this.toggleTab("4")
-        break;
-      case "4":
-        break;
-      default:
-        break;
-    }
-  }
-
   render() {
     return (
       <Fragment>
-        <PicReporteComponent informacion={doughnutChartData}/>
+        <Row>
+          <Colxx xxs="12" lg="6" xl="6" className="mb-3">
+            <PicReporteComponent titulo={"No. total de inscritos por actividad"} informacion={doughnutChartData} />
+          </Colxx>
+          <Colxx xxs="12" lg="6" xl="6" className="mb-3">
+            <PicReporteComponent titulo={"No. de inscritos por competencia y nivel"} informacion={doughnutChartData} />
+          </Colxx>
+        </Row>
+        
+
       </Fragment>
     )
   }

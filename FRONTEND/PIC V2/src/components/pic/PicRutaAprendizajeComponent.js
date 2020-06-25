@@ -19,7 +19,7 @@ export default function PicRutaAprendizajeComponent(props) {
             <div className="disable-text-selection">
                 <Row>
                     <Colxx xxs="12">
-                        <Card className="mb-4">
+                        <Card>
                             <CardBody>
                                 <CardTitle>
                                     Ruta de Aprendizaje
