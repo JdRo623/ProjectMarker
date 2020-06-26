@@ -64,24 +64,26 @@ function cambioPassword(req, res) {
         const filtro = {
           email: tools.decrypt(dec.email),
         };
-        user_jModel.findOneAndUpdate(
-          filtro,
-          { password: dec.password },
-          (err, user) => {
-            if (err) {
-              return res.status(640).send({
-                estado: "Error",
-                message: err,
-                //data: Object.assign(user)
-              });
-            }
+        user_jModel.findOne(filtro,(err,usuarioBuscado)=>{
+          if(err){
+            console.log(err);
+          }
+          if(!usuarioBuscado){
             return res.status(200).send({
-              estado: "Contraseña actualizada",
-              message: "Contraseña actualizada",
-              //data: Object.assign(user)
+              estado: "Usuario no encontrado",
+              message: util.format('usuario no encontrado'),
+              data: Object.assign({}),
             });
           }
-        );
+          usuarioBuscado.password = tools.encrypt(dec.password);
+          user_jModel.updateOne(filtro,usuarioBuscado).then(()=>{
+            return res.status(200).send({
+              estado: 'Contraseña actualizada',
+              message: util.format('Contraseña Actualizada'),
+              data: Object.assign(cuestionarioBuscado)
+          });
+          });
+        });
       } catch (error) {
         throw boom.boomify(error);
       }

@@ -634,6 +634,20 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /estadisticaCurso:
+      x-swagger-router-controller: ruta_controller
+      post:
+        description: estadisticas de curso 
+        operationId: estadisticaCurso
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
