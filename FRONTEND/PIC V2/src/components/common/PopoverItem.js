@@ -20,19 +20,19 @@ export class PopoverItem extends React.Component {
       <span>
         <Button
           className="mr-1 mb-2"
-          color="secondary"
-          id={"Popover-" + this.props.id}
+          color={this.props.color}
+          id={"Popover-" + this.props.idCurso}
           onClick={this.toggle}
         >
-          {this.props.item.text}
+          {this.props.nombreCurso}
         </Button>
         <Popover
-          placement={this.props.item.placement}
+          placement="top"
           isOpen={this.state.popoverOpen}
-          target={"Popover-" + this.props.id}
+          target={"Popover-" + this.props.idCurso}
           toggle={this.toggle}
         >
-          <PopoverBody>{this.props.item.body}</PopoverBody>
+          <PopoverBody>{this.props.idCurso+" - "+this.props.nombreCurso+": "+this.props.estado}</PopoverBody>
         </Popover>
       </span>
     );

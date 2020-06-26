@@ -10,17 +10,17 @@ const rutaAprendizaje = {
     listado_competencias: [
         {
             nombre_competencia: "Identificación de conductas objeto de sanción fiscal",
-            colorEstado_basico: "primary", //primary/#b69329/error
-            colorEstado_medio: "#b69329", //primary/#b69329/error
-            colorEstado_alto: "error", //primary/#b69329/error
-            colorEstado_superior: "error", //primary/#b69329/error
+            colorEstado_basico: "primary", //primary/#warning/error
+            colorEstado_medio: "#b69329", //primary/#warning/error
+            colorEstado_alto: "error", //primary/#warning/error
+            colorEstado_superior: "error", //success/#warning/danger
             listado_cursos_basicos: [{
                 idCurso: "01",
                 nombreCurso: "Diplomado NIC-NIIF",
                 fechaActualizacion: "27/05/2020",
                 estado: "Aprobado",
                 nivel: "BÁSICO",
-                colorEstado: "primary" //primary/#b69329/error
+                colorEstado: "success" //primary/#b69329/error
             },
             {
                 idCurso: "02",
@@ -28,7 +28,7 @@ const rutaAprendizaje = {
                 fechaActualizacion: "27/05/2020",
                 estado: "Aprobado",
                 nivel: "BÁSICO",
-                colorEstado: "primary" //primary/#b69329/error
+                colorEstado: "success" //primary/#b69329/error
             }
             ],
             listado_cursos_medios: [
@@ -39,7 +39,7 @@ const rutaAprendizaje = {
                     fechaActualizacion: "27/05/2020",
                     estado: "Cursando",
                     nivel: "MEDIO",
-                    colorEstado: "#DFD800" //primary/#b69329/error
+                    colorEstado: "warning" //primary/#b69329/error
                 },
                 {
                     idCurso: "04",
@@ -48,7 +48,7 @@ const rutaAprendizaje = {
                     fechaActualizacion: "27/05/2020",
                     estado: "Aprobado",
                     nivel: "MEDIO",
-                    colorEstado: "primary" //primary/#b69329/error
+                    colorEstado: "success" //primary/#b69329/error
                 }
             ],
             listado_cursos_altos: [
@@ -59,7 +59,7 @@ const rutaAprendizaje = {
                     fechaActualizacion: "27/05/2020",
                     estado: "Por Cursar",
                     nivel: "ALTO",
-                    colorEstado: "error" //primary/#b69329/error
+                    colorEstado: "danger" //primary/#b69329/error
                 },
                 {
                     idCurso: "06",
@@ -68,7 +68,7 @@ const rutaAprendizaje = {
                     fechaActualizacion: "27/05/2020",
                     estado: "Cursando",
                     nivel: "ALTO",
-                    colorEstado: "#DFD800" //primary/#b69329/error
+                    colorEstado: "warning" //primary/#b69329/error
                 }
             ],
             listado_cursos_superiores: [
@@ -79,7 +79,7 @@ const rutaAprendizaje = {
                     fechaActualizacion: "27/05/2020",
                     estado: "Por Cursar",
                     nivel: "SUPERIOR",
-                    colorEstado: "error" //primary/#b69329/error
+                    colorEstado: "danger" //primary/#b69329/error
                 },
                 {
                     idCurso: "08",
@@ -88,7 +88,173 @@ const rutaAprendizaje = {
                     fechaActualizacion: "27/05/2020",
                     estado: "Por Cursar",
                     nivel: "SUPERIOR",
-                    colorEstado: "error" //primary/#b69329/error
+                    colorEstado: "danger" //primary/#b69329/error
+                }
+            ],
+        },{
+            nombre_competencia: "Identificación de conductas objeto de sanción fiscal",
+            colorEstado_basico: "primary", //primary/#b69329/error
+            colorEstado_medio: "#b69329", //primary/#b69329/error
+            colorEstado_alto: "error", //primary/#b69329/error
+            colorEstado_superior: "error", //primary/#b69329/error
+            listado_cursos_basicos: [{
+                idCurso: "01",
+                nombreCurso: "Diplomado NIC-NIIF",
+                fechaActualizacion: "27/05/2020",
+                estado: "Aprobado",
+                nivel: "BÁSICO",
+                colorEstado: "success" //primary/#b69329/error
+            },
+            {
+                idCurso: "02",
+                nombreCurso: "Modelos de negocio y financiación",
+                fechaActualizacion: "27/05/2020",
+                estado: "Aprobado",
+                nivel: "BÁSICO",
+                colorEstado: "success" //primary/#b69329/error
+            }
+            ],
+            listado_cursos_medios: [
+                {
+                    idCurso: "03",
+                    nombreCurso: "Auditoría fiscal TACI y detección del fraude",
+                    competencia: "Identificación de conductas objeto de sanción fiscal",
+                    fechaActualizacion: "27/05/2020",
+                    estado: "Cursando",
+                    nivel: "MEDIO",
+                    colorEstado: "warning" //primary/#b69329/error
+                },
+                {
+                    idCurso: "04",
+                    nombreCurso: "Investigación del fraude fiscal",
+                    competencia: "Identificación de conductas objeto de sanción fiscal",
+                    fechaActualizacion: "27/05/2020",
+                    estado: "Aprobado",
+                    nivel: "MEDIO",
+                    colorEstado: "success" //primary/#b69329/error
+                }
+            ],
+            listado_cursos_altos: [
+                {
+                    idCurso: "05",
+                    nombreCurso: "Análisis de caso del fraude fiscal en la auditoría TACI",
+                    competencia: "Identificación de conductas objeto de sanción fiscal",
+                    fechaActualizacion: "27/05/2020",
+                    estado: "Por Cursar",
+                    nivel: "ALTO",
+                    colorEstado: "danger" //primary/#b69329/error
+                },
+                {
+                    idCurso: "06",
+                    nombreCurso: "Metodologías de la investigación fiscal",
+                    competencia: "Identificación de conductas objeto de sanción fiscal",
+                    fechaActualizacion: "27/05/2020",
+                    estado: "Cursando",
+                    nivel: "ALTO",
+                    colorEstado: "warning" //primary/#b69329/error
+                }
+            ],
+            listado_cursos_superiores: [
+                {
+                    idCurso: "07",
+                    nombreCurso: "Fuentes de información digital y fiscalización internacional",
+                    competencia: "Identificación de conductas objeto de sanción fiscal",
+                    fechaActualizacion: "27/05/2020",
+                    estado: "Por Cursar",
+                    nivel: "SUPERIOR",
+                    colorEstado: "danger" //primary/#b69329/error
+                },
+                {
+                    idCurso: "08",
+                    nombreCurso: "Análisis de datos y toma de decisiones en la investigación fiscal",
+                    competencia: "Identificación de conductas objeto de sanción fiscal",
+                    fechaActualizacion: "27/05/2020",
+                    estado: "Por Cursar",
+                    nivel: "SUPERIOR",
+                    colorEstado: "danger" //primary/#b69329/error
+                }
+            ],
+        },{
+            nombre_competencia: "Identificación de conductas objeto de sanción fiscal",
+            colorEstado_basico: "primary", //primary/#b69329/error
+            colorEstado_medio: "#b69329", //primary/#b69329/error
+            colorEstado_alto: "error", //primary/#b69329/error
+            colorEstado_superior: "error", //primary/#b69329/error
+            listado_cursos_basicos: [{
+                idCurso: "01",
+                nombreCurso: "Diplomado NIC-NIIF",
+                fechaActualizacion: "27/05/2020",
+                estado: "Aprobado",
+                nivel: "BÁSICO",
+                colorEstado: "success" //primary/#b69329/error
+            },
+            {
+                idCurso: "02",
+                nombreCurso: "Modelos de negocio y financiación",
+                fechaActualizacion: "27/05/2020",
+                estado: "Aprobado",
+                nivel: "BÁSICO",
+                colorEstado: "success" //primary/#b69329/error
+            }
+            ],
+            listado_cursos_medios: [
+                {
+                    idCurso: "03",
+                    nombreCurso: "Auditoría fiscal TACI y detección del fraude",
+                    competencia: "Identificación de conductas objeto de sanción fiscal",
+                    fechaActualizacion: "27/05/2020",
+                    estado: "Cursando",
+                    nivel: "MEDIO",
+                    colorEstado: "warning" //primary/#b69329/error
+                },
+                {
+                    idCurso: "04",
+                    nombreCurso: "Investigación del fraude fiscal",
+                    competencia: "Identificación de conductas objeto de sanción fiscal",
+                    fechaActualizacion: "27/05/2020",
+                    estado: "Aprobado",
+                    nivel: "MEDIO",
+                    colorEstado: "success" //primary/#b69329/error
+                }
+            ],
+            listado_cursos_altos: [
+                {
+                    idCurso: "05",
+                    nombreCurso: "Análisis de caso del fraude fiscal en la auditoría TACI",
+                    competencia: "Identificación de conductas objeto de sanción fiscal",
+                    fechaActualizacion: "27/05/2020",
+                    estado: "Por Cursar",
+                    nivel: "ALTO",
+                    colorEstado: "danger" //primary/#b69329/error
+                },
+                {
+                    idCurso: "06",
+                    nombreCurso: "Metodologías de la investigación fiscal",
+                    competencia: "Identificación de conductas objeto de sanción fiscal",
+                    fechaActualizacion: "27/05/2020",
+                    estado: "Cursando",
+                    nivel: "ALTO",
+                    colorEstado: "warning" //primary/#b69329/error
+                }
+            ],
+            listado_cursos_superiores: [
+                {
+                    idCurso: "07",
+                    nombreCurso: "Fuentes de información digital y fiscalización internacional",
+                    competencia: "Identificación de conductas objeto de sanción fiscal",
+                    fechaActualizacion: "27/05/2020",
+                    estado: "Por Cursar",
+                    nivel: "SUPERIOR",
+                    colorEstado: "danger" //primary/#b69329/error
+                },
+                {
+                    idCurso: "08",
+                    nombreCurso: "Análisis de datos y toma de decisiones en la investigación fiscal",
+                    competencia: "Identificación de conductas objeto de sanción fiscal",
+                    fechaActualizacion: "27/05/2020",
+                    estado: "Por Cursar",
+                    nivel: "SUPERIOR",
+                    colorEstado: "danger" //primary/#b69329/error
                 }
             ],
         },

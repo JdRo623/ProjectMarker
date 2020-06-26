@@ -11,12 +11,19 @@ import {
     AvCheckbox
 } from "availity-reactstrap-validation";
 import { Wizard, Steps, Step } from 'react-albus';
-import { Card, CardBody, Form, FormGroup, Input, Label } from "reactstrap";
+import { Card, CardBody, Table, FormGroup, Input, Label } from "reactstrap";
 import Timer from 'react-compound-timer';
 
 export default function PicPreguntaComponente(props) {
     const [listItems, setListItems] = useState(null);
     const [estadoOpciones, setEstadoOpciones] = useState(false)
+
+    const RespuestaAdicional = () => (
+        <AvRadio customInput label={
+            <p className="mb-3">No se la respuesta a esta pregunta</p>
+        } value={"NS"} />
+    )
+
     const manejarEnvio = (e) => {
         props.setElegido(e.target.value)
     }
@@ -43,12 +50,17 @@ export default function PicPreguntaComponente(props) {
             <div className="wizard-basic-step">
 
                 <FormGroup>
-                    <center>
-                        <h4 dangerouslySetInnerHTML={{ __html: props.encabezado }}>
-                        </h4>
-                        <h5 dangerouslySetInnerHTML={{ __html: props.descriptor }}>
-                        </h5>
-                    </center>
+                    <Table responsive>
+                        <tbody>
+                            <tr>
+                                <h4 dangerouslySetInnerHTML={{ __html: props.encabezado }}>
+                                </h4>
+                                <h5 dangerouslySetInnerHTML={{ __html: props.descriptor }}>
+                                </h5>
+                            </tr>
+                        </tbody>
+                    </Table>
+
                     <AvForm
                         className="av-tooltip tooltip-label-right"
                         onChange={manejarEnvio}>
@@ -58,7 +70,16 @@ export default function PicPreguntaComponente(props) {
                             name="radioPersonasCargo"
                             required>
                             <h5 dangerouslySetInnerHTML={{ __html: props.pregunta }}></h5>
-                            <div>{listItems}</div>
+                            <div>
+                                <Table responsive>
+                                    <tbody>
+                                        <tr>
+                                            {listItems}
+                                            {props.mostrarRespuestaAdicional ? <RespuestaAdicional /> : null}
+                                        </tr>
+                                    </tbody>
+                                </Table>
+                            </div>
                         </AvRadioGroup>
                     </AvForm>
                 </FormGroup>
@@ -76,7 +97,7 @@ export default function PicPreguntaComponente(props) {
                         <React.Fragment>
                             <center>
                                 <h5>
-                                    Tiempo restante: 0 
+                                    Tiempo restante: 0
                                 <Timer.Minutes />:
                                     <Timer.Seconds />
                                 </h5>

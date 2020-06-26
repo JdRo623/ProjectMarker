@@ -13,11 +13,14 @@ import PicInstruccionComponente from "../../components/pic/PicInstruccionCompone
 import PicFinalSeccionComponente from "../../components/pic/PicFinalSeccionComponente";
 import constantes from "../../util/Constantes.js"
 import HttpUtil from '../../util/HttpService.js'
+import InstruccionImg from '../../assets/img/sii-inicio.png';
+import FinalImg from '../../assets/img/sii-final.png';
 
 export default function PicSeccionPreguntasII(props) {
 
   const [respuestas, setRespuestas] = useState([]);
-  const [preguntas, setPreguntas] = useState(props.preguntas);
+  //const [preguntas, setPreguntas] = useState(props.preguntas);
+  const [preguntas, setPreguntas] = useState(preguntasSeccionII);
   const [respuestaElegida, setRespuestaElegida] = useState("");
 
   var contadorPasos = 1
@@ -47,7 +50,7 @@ export default function PicSeccionPreguntasII(props) {
       obtenerInformaciónPregunta()
     }
   }, []);
-  
+
   const obtenerInformaciónPregunta = () => {
     try {
       setModal(true);
@@ -64,6 +67,7 @@ export default function PicSeccionPreguntasII(props) {
           setPreguntasCards(preguntas.map((pregunta) =>
             <Step id={"" + contadorPasos++} desc="" >
               <PicPreguntaComponente
+                mostrarRespuestaAdicional = {true}
                 pregunta={pregunta.encabezadoPregunta}
                 descriptor={pregunta.situacionProblema}
                 respuestas={pregunta.opcionesRespuestas} />
@@ -119,24 +123,36 @@ export default function PicSeccionPreguntasII(props) {
                     </ModalBody>
         </Modal>
       </div>
-      <Card className="mb-5">
+      <Card className="mb-5" style={{ borderRadius: 10 }}>
         <CardBody className="wizard wizard-default">
           <Wizard>
-            <TopNavigation className="justify-content-center" disableNav={true} topNavClick={topNavClick} />
+            <br></br>
+            <br></br>
+
             <Steps>
               <Step id="0" name="Instrucciones" desc="" >
                 <PicInstruccionComponente
-                  encabezado="Instrucción Sección II"
-                  descriptor="Contenido de la instrucción"
+                  encabezado="Instrucciones - II"
+                  descriptor={
+                    <div>
+                      <p>¿Ya notaste que sin tu ayuda no podemos avanzar en nuestra estrategia de transformación organizacional?</p>
+                      <img src={InstruccionImg} width='850' height='540' />
+                    </div>
+                  }
                 />
               </Step>
               {preguntasCards}
               <Step id="-1" name="Final de Sección" desc="" >
                 <PicFinalSeccionComponente
-                  encabezado="Final de Sección II"
+                  encabezado="Finalización - Sección II"
                   descriptor="Contenido de final de sección"
                   pasoSiguiente={props.pasoSiguiente}
-
+                  descriptor={
+                    <div>
+                      <p>¡Ya has conducido por las curvas más cerradas y tus estadísticas muestran que te acercas cada vez más a la meta!</p>
+                      <img src={FinalImg} width='850' height='540' />
+                    </div>
+                  }
                 />
               </Step>
             </Steps>

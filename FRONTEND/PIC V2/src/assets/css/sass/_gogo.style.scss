@@ -85,16 +85,18 @@ $animation-time-short: 200ms;
 $border-radius: 0.1rem;
 $border-radius-rounded: 0.75rem;
 
-$theme-color-purple: #73BA6A;
-$theme-color-blue: #145388;
+$theme-color-purple: #191b32;
+$theme-color-dian-verde: #61bd55;
+$theme-color-blue: #191b32;
 $theme-color-green: #576a3d;
 $theme-color-orange: #e2863b;
 $theme-color-red: #880a1f;
 
-$info-color: #3195a5;
+$info-color: #191b32;
 $success-color: #3e884f;
-$warning-color: #b69329;
+$warning-color: #ddd01c;
 $error-color: #c43d4b;
+$dian-blue-color: #191b32;
 
 /* 01.Base */
 html {
@@ -1579,7 +1581,7 @@ button {
 
 /* 09.Navbar*/
 .navbar {
-  background: $foreground-color;
+  background: $dian-blue-color;
   height: $navbar-height;
   padding: 1.5rem 0;
   @include depth(1);
@@ -1622,7 +1624,7 @@ button {
   }
 
   .menu-button-mobile {
-    color: $secondary-color;
+    color: $foreground-color;
     text-align: center;
     margin-left: $main-margin-xs;
     svg {
@@ -1636,7 +1638,7 @@ button {
   }
 
   .menu-button {
-    color: $secondary-color;
+    color: $foreground-color;
     width: $main-menu-width;
     text-align: center;
 
@@ -1645,13 +1647,13 @@ button {
     }
 
     .main {
-      fill: $primary-color;
+      fill: $foreground-color;
       transition: fill $menu-collapse-time;
       width: 10px;
     }
 
     .sub {
-      fill: $primary-color;
+      fill: $foreground-color;
       transition: fill $menu-collapse-time;
     }
 
@@ -8697,14 +8699,14 @@ body {
 }
 
 footer.page-footer {
-  padding-top: 2.2rem;
-  padding-bottom: 2.2rem;
+  padding-top: 1.0rem;
+  padding-bottom: 1.0rem;
   border-top: 1px solid $separator-color;
   width: 100%;
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 90px;
+  height: 100px;
 
   @include respond-below(xs) {
     height: 60px;

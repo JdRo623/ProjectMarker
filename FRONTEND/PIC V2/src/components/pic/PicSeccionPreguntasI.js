@@ -16,6 +16,8 @@ import preguntasCompetencias from "../../data/pic/preguntasCompetencias";
 import constantes from "../../util/Constantes.js"
 import HttpUtil from '../../util/HttpService.js'
 import { NotificationManager } from "../../components/common/react-notifications";
+import InstruccionImg from '../../assets/img/si-inicio.png';
+import FinalImg from '../../assets/img/si-final.png';
 
 
 export default function PicSeccionPreguntasI(props) {
@@ -130,15 +132,22 @@ export default function PicSeccionPreguntasI(props) {
                     </ModalBody>
         </Modal>
       </div>
-      <Card className="mb-5">
+      <Card className="mb-5" style={{ borderRadius: 10 }}>
         <CardBody className="wizard wizard-default">
           <Wizard>
-            <TopNavigation className="justify-content-center" disableNav={false} topNavClick={topNavClick} />
+            <br></br>
+            <br></br>
+
             <Steps>
               <Step id="0" name="Instrucciones" desc="" >
                 <PicInstruccionComponente
-                  encabezado="Instrucción Sección I"
-                  descriptor="Contenido de la instrucción"
+                  encabezado="Instrucciones - Sección I"
+                  descriptor={
+                    <div>
+                      <p>¡Tú eres el único que conoce todo lo que aportas a la Entidad y lo experto que requieres ser para hacerlo!</p>
+                      <img src={InstruccionImg} width='850' height='540' />
+                    </div>
+                  }
                 />
               </Step>
 
@@ -146,8 +155,13 @@ export default function PicSeccionPreguntasI(props) {
               }
               <Step id="-1" name="Final de Sección" desc="" >
                 <PicFinalSeccionComponente
-                  encabezado="Final de Sección I"
-                  descriptor="Contenido de final de sección"
+                  encabezado="Finalización - Sección I"
+                  descriptor={
+                    <div>
+                      <p>¡Ya tienes tu automotor listo, es hora de que empiece la carrera y sientas la adrenalina de la nueva estrategia para la formulación del PIC!</p>
+                      <img src={FinalImg} width='850' height='540' />
+                    </div>
+                  }
                   pasoSiguiente={props.pasoSiguiente}
                 />
               </Step>

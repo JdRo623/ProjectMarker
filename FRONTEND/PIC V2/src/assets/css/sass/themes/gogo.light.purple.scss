@@ -9,7 +9,7 @@ $light-btn-background: #d4d4d4;
 
 $button-text-color: #fff;
 
-$theme-color-1: #73BA6A;
+$theme-color-1: #19217a;
 $theme-color-2: #0B9EC9;
 $theme-color-3: #70B974;
 $theme-color-4: #69B680;
@@ -32,8 +32,8 @@ $shadowOffsetsBottom : 1 3 6 10 15;
 $shadowBlursBottom: 3 6 6 5 6;
 $shadowOpacitiesBottom: 0.04 0.1 0.2 0.22 0.22;
 
-$logoPath: "/assets/img/logo_dian.jpg";
-$logoPathMobile: "/assets/img/logo_dian.jpg";
+$logoPath: "/assets/img/logo-dian-neg.svg";
+$logoPathMobile: "/assets/img/logo-dian-neg-mob.svg";
 
 @import "../_mixins.scss";
 @import "../_gogo.style.scss";
