@@ -7,6 +7,7 @@ import { servicePath } from "../../constants/defaultValues";
 
 import RutaAprendizajeMock from "../../data/pic/rutaApredizajeMock";
 import PopoverItem from "../../components/common/PopoverItem";
+import logo from '../../assets/img/fondo_ruta_pic.png';
 
 function collect(props) {
     return { data: props.data };
@@ -16,6 +17,9 @@ const apiUrl = servicePath + "/cakes/paging";
 class PicRutaAprendizajeComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.state ={
+            imagenFondo: {background: logo}
+        }
     }
     render() {
         return (
@@ -23,29 +27,31 @@ class PicRutaAprendizajeComponent extends React.Component {
                 <div className="disable-text-selection">
                     <Row>
                         <Colxx xxs="12">
-                            <Card style={{ borderRadius: 10 }}>
+                            <Card style={{ borderRadius: 10, background: "#191b32" }}>
                                 <CardBody>
                                     <Table responsive>
                                         <thead>
                                        
                                             <tr>
-                                                <th><center>Competencia</center></th>
-                                                <th><center>Basico</center></th>
-                                                <th><center>Medio</center></th>
-                                                <th><center>Alto</center></th>
-                                                <th><center>Superior</center></th>
+                                                <th ><center><p style={{ borderRadius: 10, color: "#FFFFFF" }}>Competencia</p></center></th>
+                                                <th><center><p style={{ borderRadius: 10, color: "#FFFFFF" }}>Basico</p></center></th>
+                                                <th><center><p style={{ borderRadius: 10, color: "#FFFFFF" }}>Medio</p></center></th>
+                                                <th><center><p style={{ borderRadius: 10, color: "#FFFFFF" }}>Alto</p></center></th>
+                                                <th><center><p style={{ borderRadius: 10, color: "#FFFFFF" }}>Superior</p></center></th>
                                             </tr>
                                         </thead>
                                         <tbody >
                                             {this.props.rutaAprendizaje.listado_competencias.map(competencia => {
                                                 return (
                                                     <tr>
-                                                        <td className="align-middle">
+                                                        <td className="align-middle" >
                                                             <center>
+                                                            <p style={{ color: "#FFFFFF" }}>
                                                                 {competencia.nombre_competencia}
+                                                                </p>
                                                             </center>
                                                         </td>
-                                                        <td className="align-middle">
+                                                        <td className="align-middle" >
                                                             <center>
                                                                 {competencia.listado_cursos_basicos.map(curso => {
                                                                     return (
@@ -54,7 +60,7 @@ class PicRutaAprendizajeComponent extends React.Component {
                                                                 })}
                                                             </center>
                                                         </td>
-                                                        <td className="align-middle">
+                                                        <td className="align-middle"  >
                                                             <center>
                                                                 {competencia.listado_cursos_medios.map(curso => {
                                                                     return (
@@ -63,22 +69,20 @@ class PicRutaAprendizajeComponent extends React.Component {
                                                                 })}
                                                             </center>
                                                         </td>
-                                                        <td className="align-middle">
+                                                        <td className="align-middle" >
                                                             <center> {competencia.listado_cursos_altos.map(curso => {
                                                                 return (
                                                                     <PopoverItem color={curso.colorEstado} estado={curso.estado} nombreCurso={curso.nombreCurso} idCurso={curso.idCurso} />
-
                                                                 )
                                                             })}
                                                             </center>
 
                                                         </td>
-                                                        <td className="align-middle">
+                                                        <td className="align-middle" >
                                                             <center>
                                                                 {competencia.listado_cursos_superiores.map(curso => {
                                                                     return (
                                                                         <PopoverItem color={curso.colorEstado} estado={curso.estado} nombreCurso={curso.nombreCurso} idCurso={curso.idCurso} />
-
                                                                     )
                                                                 })}
                                                             </center>

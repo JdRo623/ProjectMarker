@@ -135,7 +135,7 @@ export default function PicSeccionPreguntasII(props) {
                   encabezado="Instrucciones - II"
                   descriptor={
                     <div>
-                      <p>¿Ya notaste que sin tu ayuda no podemos avanzar en nuestra estrategia de transformación organizacional?</p>
+                      <p>¿Te das cuenta? ¡Con tu ayuda avanzaremos en la estrategia de transformación organizacional!</p>
                       <img src={InstruccionImg} width='850' height='540' />
                     </div>
                   }
@@ -149,7 +149,7 @@ export default function PicSeccionPreguntasII(props) {
                   pasoSiguiente={props.pasoSiguiente}
                   descriptor={
                     <div>
-                      <p>¡Ya has conducido por las curvas más cerradas y tus estadísticas muestran que te acercas cada vez más a la meta!</p>
+                      <p>¡Ahora te acercas cada vez más a la cima!</p>
                       <img src={FinalImg} width='850' height='540' />
                     </div>
                   }

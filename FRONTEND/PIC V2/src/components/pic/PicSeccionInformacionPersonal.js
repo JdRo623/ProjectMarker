@@ -276,7 +276,7 @@ export default function PicSeccionInformacionPersonal(props) {
 
                                     descriptor={
                                         <div>
-                                            <p>¡Es el momento para calentar motores para construir un mejor país!</p>
+                                            <p>¡Es el momento de calentar los músculos para iniciar el camino a la construcción de tu rumbo y el de tu país!</p>
                                             <img src={InstruccionImg} width='850' height='540' />
                                         </div>
                                     }
@@ -287,7 +287,7 @@ export default function PicSeccionInformacionPersonal(props) {
                                     encabezado="Bienvenidos"
                                     descriptor={
                                         <div>
-                                            <p>Gracias, ¡Sin tu ayuda no somos la Dirección de Impuestos y Aduanas Nacionales!</p>
+                                            <p>Gracias, ¡Con tu valioso compromiso somos una mejor Dirección de Impuestos y Aduanas Nacionales!</p>
                                             <img src={BienvenidosImg} width='850' height='540' />
                                         </div>
                                     }
@@ -296,7 +296,7 @@ export default function PicSeccionInformacionPersonal(props) {
                             </Step>
                             <Step id="2" name="Instrucciones" desc="" >
                                 <PicInstruccionComponente
-                                    encabezado="¡Antes de empezar! ¿Te gustaría ser un piloto de Fórmula 1 por un día?"
+                                    encabezado="¡Hoy sentirás una experiencia única en tu Entidad!"
                                     descriptor={
                                         <div>
                                             <img src={AntesImg} width='850' height='540' />
@@ -310,7 +310,7 @@ export default function PicSeccionInformacionPersonal(props) {
                                 <PicInstruccionComponente
                                     encabezado="Instrucciones - Información personal"
                                     descriptor={<div>
-                                        <p>¡Estás a punto de iniciar esta carrera, subámonos juntos a tu automotor!</p>
+                                        <p>¡Estás a punto de iniciar este viaje, empecemos esta experiencia!</p>
                                         <img src={InstruccionInfoPersonalImg} width='850' height='540' />
 
                                     </div>}
@@ -355,7 +355,7 @@ export default function PicSeccionInformacionPersonal(props) {
                                 <PicFinalSeccionComponente
                                     encabezado="Finalización - Información Personal"
                                     descriptor={<div>
-                                        <p>¡Tu pista está identificada y es momento de que alistemos todo lo que necesitamos para correr!</p>
+                                        <p>¡Es momento de que alistemos todo lo que necesitamos para llegar a la cima!</p>
                                         <img src={FinalImg} width='850' height='540' />
 
                                     </div>}

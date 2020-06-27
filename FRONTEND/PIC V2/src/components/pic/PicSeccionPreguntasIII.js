@@ -97,7 +97,7 @@ export default function PicSeccionPreguntasIII(props) {
                   encabezado="Instrucciones - Sección III"
                   descriptor={
                     <div>
-                      <p>¡Estamos en la recta final y aprender de tu experiencia es lo más importante para nosotros!</p>
+                      <p>¡El paisaje es hermoso en este punto de la montaña y aprender de tu experiencia es lo más importante para nosotros!</p>
                       <img src={InstruccionImg} width='850' height='540' />
                     </div>
                   }
@@ -111,7 +111,7 @@ export default function PicSeccionPreguntasIII(props) {
                   pasoSiguiente={props.pasoSiguiente}
                   descriptor={
                     <div>
-                      <p>¡Wow, los fans no dejan de gritar tu nombre en la línea de meta!</p>
+                      <p>¡Qué bien siente el aire puro que recorre la cima de las montañas y la satisfacción del trabajo realizado!</p>
                       <img src={FinalImg} width='850' height='540' />
                     </div>
                   }

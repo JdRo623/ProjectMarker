@@ -48,7 +48,7 @@ module.exports = {
   'menu.blank-page': 'Blank Page',
   'menu.cuestionario': 'Cuestionario',
   'menu.ruta-aprendizaje': 'Ruta de Aprendizaje',
-  'menu.colaborador': 'Colaborador',
+  'menu.colaborador': 'Funcionario',
   'menu.administrador': 'Administrador',
   'menu.carga-archivos': 'Carga Archivos',
   /* 04.Error  */

@@ -144,7 +144,7 @@ export default function PicSeccionPreguntasI(props) {
                   encabezado="Instrucciones - Sección I"
                   descriptor={
                     <div>
-                      <p>¡Tú eres el único que conoce todo lo que aportas a la Entidad y lo experto que requieres ser para hacerlo!</p>
+                      <p>¡Haz un reconocimiento de lo que necesitas para hacer un mejor trabajo en la Entidad! </p>
                       <img src={InstruccionImg} width='850' height='540' />
                     </div>
                   }
@@ -158,7 +158,7 @@ export default function PicSeccionPreguntasI(props) {
                   encabezado="Finalización - Sección I"
                   descriptor={
                     <div>
-                      <p>¡Ya tienes tu automotor listo, es hora de que empiece la carrera y sientas la adrenalina de la nueva estrategia para la formulación del PIC!</p>
+                      <p>¡Ya tienes tu mapa en la mano, ahora vas a sentir la adrenalina de las preguntas para la formulación del PIC!</p>
                       <img src={FinalImg} width='850' height='540' />
                     </div>
                   }
