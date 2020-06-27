@@ -19,26 +19,24 @@ export default function PicPreguntaComponente(props) {
     const [listItems, setListItems] = useState(null);
     const [estadoOpciones, setEstadoOpciones] = useState(false)
     const [idPregunta, setIdPregunta] = useState(props.idPregunta)
-    const [columna, setColumna] = useState(props.columa)
+
     const RespuestaAdicional = () => (
         <Colxx xxs="3" lg="3" xl="3" className="mb-3">
             <AvRadio customInput label={
                 <p className="mb-3">No se la respuesta a esta pregunta</p>
             } value={"NS"} />
         </Colxx>
-
-
     )
 
     const manejarEnvio = (e) => {
         props.setElegido(e.target.value)
         props.setIdElegido(idPregunta)
     }
-    
+
     useEffect(() => {
         if (props.respuestas && listItems == null)
             setListItems(props.respuestas.map((respuesta) =>
-                <Colxx xxs="12" lg={props.columna} xl={props.columna} className="mb-3">
+                <Colxx xxs="12" lg="2" xl="2" className="mb-3">
                     <AvRadio customInput label={
                         <p className="mb-3" dangerouslySetInnerHTML={{ __html: respuesta.enunciadoRespuesta }} />
                     } value={respuesta.id} />

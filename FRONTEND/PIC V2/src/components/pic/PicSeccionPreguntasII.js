@@ -13,24 +13,28 @@ import PicInstruccionComponente from "../../components/pic/PicInstruccionCompone
 import PicFinalSeccionComponente from "../../components/pic/PicFinalSeccionComponente";
 import constantes from "../../util/Constantes.js"
 import HttpUtil from '../../util/HttpService.js'
+import { NotificationManager } from "../../components/common/react-notifications";
 import InstruccionImg from '../../assets/img/sii-inicio.png';
 import FinalImg from '../../assets/img/sii-final.png';
 
 export default function PicSeccionPreguntasII(props) {
 
   const [respuestas, setRespuestas] = useState([]);
-  //const [preguntas, setPreguntas] = useState(props.preguntas);
-  const [preguntas, setPreguntas] = useState(preguntasSeccionII);
+  const [preguntas, setPreguntas] = useState(props.preguntas);
+  //const [preguntas, setPreguntas] = useState(preguntasSeccionII);
   const [respuestaElegida, setRespuestaElegida] = useState("");
-
+  const [preguntaElegida, setPreguntaElegida] = useState("");
   var contadorPasos = 1
 
   const [preguntasCards, setPreguntasCards] = useState(preguntas.map((pregunta) =>
     <Step id={"" + contadorPasos++} desc="" >
       <PicPreguntaComponente
+        columna="12"
         pregunta={pregunta.encabezadoPregunta}
         descriptor={pregunta.situacionProblema}
         setElegido={setRespuestaElegida}
+        setIdElegido={setPreguntaElegida}
+        idPregunta={pregunta.id_pregunta}
         respuestas={pregunta.opcionesRespuestas} />
     </Step>));
 
@@ -82,6 +86,53 @@ export default function PicSeccionPreguntasII(props) {
     }
 
   }
+
+  const validarSiguiente = (goToNext, steps, step) => {
+    console.log(step)
+    console.log(steps)
+    if (respuestaElegida == "") {
+      switch (step.id) {
+        case "0":
+          onClickNext(goToNext, steps, step)
+          break;
+        case "-1":
+          onClickNext(goToNext, steps, step)
+          break;
+        default:
+          mostrarMensajeError("Error", "Seleccione una respuesta para continuar")
+          break;
+      }
+    } else {
+      //actualizarCompetencia
+      try {
+        setModal(true);
+        const url = constantes.urlServer + constantes.servicios.actualizarPregunta;
+        const filtros = {
+          data: {
+            email: '',
+            id_pregunta: preguntaElegida,
+            valor_respuesta: respuestaElegida,
+            estado_respuesta: 'Respondida'
+          }
+        }
+
+        HttpUtil.requestPost(url, filtros,
+          (response) => {
+            setRespuestaElegida("")
+            setPreguntaElegida("")
+            onClickNext(goToNext, steps, step)
+            setModal(false);
+          },
+          () => {
+            setModal(false);
+          });
+      } catch (error) {
+        setModal(false);
+      }
+    }
+
+
+  }
   const onClickNext = (goToNext, steps, step) => {
     step.isDone = true;
     console.log(steps)
@@ -109,6 +160,19 @@ export default function PicSeccionPreguntasII(props) {
     if (errors.length === 0) {
       //submit
     }
+  }
+
+  const mostrarMensajeError = (tittle, message) => {
+    NotificationManager.error(
+      message,
+      tittle,
+      3000,
+      () => {
+        alert("callback");
+      },
+      null,
+      'filled'
+    );
   }
 
   return (
@@ -156,7 +220,7 @@ export default function PicSeccionPreguntasII(props) {
                 />
               </Step>
             </Steps>
-            <BottomNavigation onClickNext={onClickNext} onClickPrev={onClickPrev} className={"justify-content-center " + (bottomNavHidden && "invisible")} prevLabel={"Anterior"} nextLabel={"Siguiente"} />
+            <BottomNavigation onClickNext={validarSiguiente} onClickPrev={onClickPrev} className={"justify-content-center " + (bottomNavHidden && "invisible")} prevLabel={"Anterior"} nextLabel={"Siguiente"} />
           </Wizard>
         </CardBody>
       </Card>

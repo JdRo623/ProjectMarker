@@ -31,15 +31,19 @@ export default function PicSeccionPreguntasI(props) {
   var contadorPasos = 1
   const [modal, setModal] = useState(false);
   const [respuestaElegida, setRespuestaElegida] = useState("");
+  const [competenciaElegida, setCompetenciaElegida] = useState("");
 
 
   const [competenciasCards, setCompetenciasCards] = useState(competencias.map((competencia) =>
     <Step id={"" + contadorPasos++} desc="" >
       <PicPreguntaComponente
+        columna="2"
         encabezado={competencia.nombreCompetencia}
         pregunta="Importancia para mi rol"
         descriptor={competencia.descripcionCompetencia}
+        setIdElegido={setCompetenciaElegida}
         setElegido={setRespuestaElegida}
+        idPregunta={competencia.nombreCompetencia}
         respuestas={preguntasCompetencias} />
     </Step>));
 
@@ -68,10 +72,32 @@ export default function PicSeccionPreguntasI(props) {
           break;
       }
     } else {
-      setRespuestaElegida("")
-      //Realziar Consulta
-      //Activar al guardar
-      onClickNext(goToNext, steps, step)
+      //actualizarCompetencia
+      try {
+        setModal(true);
+        const url = constantes.urlServer + constantes.servicios.actualizarCompetencia;
+        const filtros = {
+          data: {
+            email: '',
+            competencia: competenciaElegida,
+            valor_respuesta: respuestaElegida,
+            estado_respuesta: 'Respondida'
+          }
+        }
+
+        HttpUtil.requestPost(url, filtros,
+          (response) => {
+            setRespuestaElegida("")
+            setCompetenciaElegida("")
+            onClickNext(goToNext, steps, step)
+            setModal(false);
+          },
+          () => {
+            setModal(false);
+          });
+      } catch (error) {
+        setModal(false);
+      }
     }
 
 

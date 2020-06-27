@@ -57,7 +57,7 @@ function actualizarEstadoCuestionario(req, res) {
         var actualizando = async (req, res) => {
             var dec = tools.decryptJson(req.body.data);
             var respondido = true;
-            cuestionario.findOne({ email: dec.data.email }, (err, cuestionarioBuscado) => {
+            cuestionarioHandler.findOne({ email: dec.data.email }, (err, cuestionarioBuscado) => {
                 if (err) {
                     console.log(err)
                 }
@@ -95,7 +95,7 @@ function actualizarEstadoCuestionario(req, res) {
 
                 if (respondido) {
                     cuestionarioBuscado.estado_cuestionario = 'Respondido';
-                    cuestionario.updateOne({ email: dec.data.email }, cuestionarioBuscado).then(() => {
+                    cuestionarioHandler.updateOne({ email: dec.data.email }, cuestionarioBuscado).then(() => {
                         return res.status(200).send({
                             estado: 'Exito',
                             message: util.format('cuestionario actualizado'),
@@ -124,25 +124,32 @@ function actualizarPregunta(req, res) {
         var actualizando = async (req, res) => {
             var dec = tools.decryptJson(req.body.data);
 
-            cuestionario.findOne({ email: dec.data.email }, (err, cuestionarioBuscado) => {
+            cuestionarioHandler.findOne({ email: dec.data.email }, (err, cuestionarioBuscado) => {
                 if (err) {
-                    console.log(err)
-                }
+                    return res.status(601).send({
+                        estado: 'No existe el cuestionario',
+                        message: util.format('no existe el cuestionario'),
+                        data: Object.assign(err)
+
+                    });                }
                 if (!cuestionarioBuscado) {
                     return res.status(601).send({
                         estado: 'No existe el cuestionario',
-                        message: util.format('no existe el cuestionario')
+                        message: util.format('no existe el cuestionario'),
+                        data: Object.assign({})
+
                     });
                 }
-
                 cuestionarioBuscado.listado_preguntas.forEach(element => {
+                    console.log(element.id_pregunta)
+                    console.log(dec.data.id_pregunta)
                     if (element.id_pregunta == dec.data.id_pregunta) {
 
                         element.valor_respuesta = dec.data.valor_respuesta;
                         element.estado_respuesta = dec.data.estado_respuesta;
                     }
                 });
-                cuestionario.updateOne({ email: dec.data.email }, cuestionarioBuscado).then(() => {
+                cuestionarioHandler.updateOne({ email: dec.data.email }, cuestionarioBuscado).then(() => {
                     return res.status(200).send({
                         estado: 'Exito',
                         message: util.format('cuestionario actualizado'),
@@ -165,14 +172,21 @@ function actualizarCompetencia(req, res) {
         var actualizando = async (req, res) => {
             var dec = tools.decryptJson(req.body.data);
 
-            cuestionario.findOne({ email: dec.data.email }, (err, cuestionarioBuscado) => {
+            cuestionarioHandler.findOne({ email: dec.data.email }, (err, cuestionarioBuscado) => {
                 if (err) {
-                    console.log(err)
+                    return res.status(601).send({
+                        estado: 'No existe el cuestionario',
+                        message: util.format('no existe el cuestionario'),
+                        data: Object.assign(err)
+
+                    });
                 }
                 if (!cuestionarioBuscado) {
                     return res.status(601).send({
                         estado: 'No existe el cuestionario',
-                        message: util.format('no existe el cuestionario')
+                        message: util.format('no existe el cuestionario'),
+                        data: Object.assign({})
+
                     });
                 }
 
@@ -182,10 +196,10 @@ function actualizarCompetencia(req, res) {
                         element.estado_respuesta = dec.data.estado_respuesta;
                     }
                 });
-                cuestionario.updateOne({ email: dec.data.email }, cuestionarioBuscado).then(() => {
+                cuestionarioHandler.updateOne({ email: dec.data.email }, cuestionarioBuscado).then(() => {
                     return res.status(200).send({
                         estado: 'Exito',
-                        message: util.format('cuestionario actualizado'),
+                        message: util.format('Cuestionario Actualizado'),
                         data: Object.assign(cuestionarioBuscado)
                     });
 
@@ -205,7 +219,7 @@ function completadas(req, res) {
         var traer = async (req, res) => {
             var respondidas = 0;
             var noRespondidas = 0;
-            cuestionario.find((err, cuestionarios) => {
+            cuestionarioHandler.find((err, cuestionarios) => {
                 if (err) {
                     console.log(err);
                 }

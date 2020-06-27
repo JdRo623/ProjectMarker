@@ -6,7 +6,7 @@ import {
 } from "reactstrap"; import { Wizard, Steps, Step } from 'react-albus';
 import { BottomNavigation } from "../wizard/BottomNavigation";
 import { TopNavigation } from "../wizard/TopNavigation";
-import PicPreguntaComponente from "./PicPreguntaComponente";
+import PicPreguntaComponente from "./PicPreguntaComponenteHorizontal";
 import preguntasSeccionIII from "../../data/pic/preguntasSeccionIII";
 import PicInstruccionComponente from "../../components/pic/PicInstruccionComponente";
 import PicFinalSeccionComponente from "../../components/pic/PicFinalSeccionComponente";
@@ -30,6 +30,8 @@ export default function PicSeccionPreguntasIII(props) {
         descriptor={pregunta.situacionProblema}
         respuestas={pregunta.opcionesRespuestas} />
     </Step>));
+
+
 
   const [bottomNavHidden, setBottomNavHidden] = useState(false);
   const [topNavDisabled, setTopNavDisabled] = useState(false);

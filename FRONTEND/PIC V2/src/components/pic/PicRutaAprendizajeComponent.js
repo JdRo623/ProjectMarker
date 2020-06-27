@@ -17,8 +17,8 @@ const apiUrl = servicePath + "/cakes/paging";
 class PicRutaAprendizajeComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state ={
-            imagenFondo: {background: logo}
+        this.state = {
+            imagenFondo: { background: logo }
         }
     }
     render() {
@@ -31,13 +31,13 @@ class PicRutaAprendizajeComponent extends React.Component {
                                 <CardBody>
                                     <Table responsive>
                                         <thead>
-                                       
+
                                             <tr>
-                                                <th ><center><p style={{ borderRadius: 10, color: "#FFFFFF" }}>Competencia</p></center></th>
-                                                <th><center><p style={{ borderRadius: 10, color: "#FFFFFF" }}>Basico</p></center></th>
-                                                <th><center><p style={{ borderRadius: 10, color: "#FFFFFF" }}>Medio</p></center></th>
-                                                <th><center><p style={{ borderRadius: 10, color: "#FFFFFF" }}>Alto</p></center></th>
-                                                <th><center><p style={{ borderRadius: 10, color: "#FFFFFF" }}>Superior</p></center></th>
+                                                <th><center><p style={{color: "#FFFFFF" }}>Competencia</p></center></th>
+                                                <th><center><p style={{color: "#FFFFFF" }}>Basico</p></center></th>
+                                                <th><center><p style={{color: "#FFFFFF" }}>Medio</p></center></th>
+                                                <th><center><p style={{color: "#FFFFFF" }}>Alto</p></center></th>
+                                                <th><center><p style={{color: "#FFFFFF" }}>Superior</p></center></th>
                                             </tr>
                                         </thead>
                                         <tbody >
@@ -46,8 +46,8 @@ class PicRutaAprendizajeComponent extends React.Component {
                                                     <tr>
                                                         <td className="align-middle" >
                                                             <center>
-                                                            <p style={{ color: "#FFFFFF" }}>
-                                                                {competencia.nombre_competencia}
+                                                                <p style={{ color: "#FFFFFF" }}>
+                                                                    {competencia.nombre_competencia}
                                                                 </p>
                                                             </center>
                                                         </td>
@@ -90,7 +90,6 @@ class PicRutaAprendizajeComponent extends React.Component {
                                                     </tr>
                                                 )
                                             })}{" "}
-
                                         </tbody>
                                     </Table>
                                 </CardBody>
