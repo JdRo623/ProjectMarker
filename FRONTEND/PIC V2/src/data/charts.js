@@ -93,20 +93,52 @@ export const scatterChartData = {
 }
 
 export const barChartData = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+  labels: [
+  'Aduaneras y cambiarias', 'Inteligencia de Negocio', 
+  'Gestión administrativa y de procesos', 
+  'Liderazgo y trabajo en equipo.', 'Gestión documental'],
   datasets: [
     {
-      label: 'Cakes',
+      label: 'Basico',
       borderColor: colors.themeColor1,
       backgroundColor: colors.themeColor1_10,
-      data: [456, 479, 324, 569, 702, 600],
+      data: [456, 479, 324, 415, 364],
       borderWidth: 2
     },
     {
-      label: 'Desserts',
+      label: 'Medio',
       borderColor: colors.themeColor2,
       backgroundColor: colors.themeColor2_10,
-      data: [364, 504, 605, 400, 345, 320],
+      data: [364, 504, 315, 400, 535],
+      borderWidth: 2
+    },{
+      label: 'Alto',
+      borderColor: colors.themeColor3,
+      backgroundColor: colors.themeColor3_10,
+      data: [456, 479, 324, 495, 516],
+      borderWidth: 2
+    },
+    {
+      label: 'Superior',
+      borderColor: colors.themeColor5,
+      backgroundColor: colors.themeColor5_10,
+      data: [623, 569, 540, 514, 499],
+      borderWidth: 2
+    }
+  ]
+}
+
+export const barChartDataII = {
+  labels: [
+  'Principios éticos en el ejercicio del servicio',
+  'Predicción y modelos estadísticos para el análisis de datos',
+  'Avances internacionales en contratación pública.'],
+  datasets: [
+    {
+      label: 'Número de inscritos',
+      borderColor: colors.themeColor1,
+      backgroundColor: colors.themeColor1_10,
+      data: [795,763,718],
       borderWidth: 2
     }
   ]

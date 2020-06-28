@@ -3,13 +3,15 @@ import {
   Card, CardBody, Modal,
   ModalHeader,
   ModalBody,
-} from "reactstrap";import { Wizard, Steps, Step } from 'react-albus';
+} from "reactstrap"; import { Wizard, Steps, Step } from 'react-albus';
 import { BottomNavigation } from "../wizard/BottomNavigation";
 import { TopNavigation } from "../wizard/TopNavigation";
-import PicPreguntaComponente from "./PicPreguntaComponente";
+import PicPreguntaComponente from "./PicPreguntaComponenteHorizontal";
 import preguntasSeccionIII from "../../data/pic/preguntasSeccionIII";
 import PicInstruccionComponente from "../../components/pic/PicInstruccionComponente";
 import PicFinalSeccionComponente from "../../components/pic/PicFinalSeccionComponente";
+import InstruccionImg from '../../assets/img/siii-inicio.png';
+import FinalImg from '../../assets/img/siii-final.png';
 
 export default function PicSeccionPreguntasIII(props) {
 
@@ -28,6 +30,8 @@ export default function PicSeccionPreguntasIII(props) {
         descriptor={pregunta.situacionProblema}
         respuestas={pregunta.opcionesRespuestas} />
     </Step>));
+
+
 
   const [bottomNavHidden, setBottomNavHidden] = useState(false);
   const [topNavDisabled, setTopNavDisabled] = useState(false);
@@ -83,24 +87,36 @@ export default function PicSeccionPreguntasIII(props) {
                     </ModalBody>
         </Modal>
       </div>
-      <Card className="mb-5">
+      <Card className="mb-5" style={{ borderRadius: 10 }}>
         <CardBody className="wizard wizard-default">
           <Wizard>
-            <TopNavigation className="justify-content-center" disableNav={true} topNavClick={topNavClick} />
+            <br></br>
+            <br></br>
+
             <Steps>
               <Step id="0" name="Instrucciones" desc="" >
                 <PicInstruccionComponente
-                  encabezado="Instrucción Sección II"
-                  descriptor="Contenido de la instrucción"
+                  encabezado="Instrucciones - Sección III"
+                  descriptor={
+                    <div>
+                      <p>¡El paisaje es hermoso en este punto de la montaña y aprender de tu experiencia es lo más importante para nosotros!</p>
+                      <img src={InstruccionImg} width='850' height='540' />
+                    </div>
+                  }
                 />
               </Step>
               {preguntasCards}
               <Step id="-1" name="Final de Sección" desc="" >
                 <PicFinalSeccionComponente
-                  encabezado="Final de Sección II"
+                  encabezado="Finalización - Sección III"
                   descriptor="Contenido de final de sección"
                   pasoSiguiente={props.pasoSiguiente}
-
+                  descriptor={
+                    <div>
+                      <p>¡Qué bien siente el aire puro que recorre la cima de las montañas y la satisfacción del trabajo realizado!</p>
+                      <img src={FinalImg} width='850' height='540' />
+                    </div>
+                  }
                 />
               </Step>
             </Steps>

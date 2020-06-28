@@ -16,6 +16,8 @@ import preguntasCompetencias from "../../data/pic/preguntasCompetencias";
 import constantes from "../../util/Constantes.js"
 import HttpUtil from '../../util/HttpService.js'
 import { NotificationManager } from "../../components/common/react-notifications";
+import InstruccionImg from '../../assets/img/si-inicio.png';
+import FinalImg from '../../assets/img/si-final.png';
 
 
 export default function PicSeccionPreguntasI(props) {
@@ -29,15 +31,19 @@ export default function PicSeccionPreguntasI(props) {
   var contadorPasos = 1
   const [modal, setModal] = useState(false);
   const [respuestaElegida, setRespuestaElegida] = useState("");
+  const [competenciaElegida, setCompetenciaElegida] = useState("");
 
 
   const [competenciasCards, setCompetenciasCards] = useState(competencias.map((competencia) =>
     <Step id={"" + contadorPasos++} desc="" >
       <PicPreguntaComponente
+        columna="2"
         encabezado={competencia.nombreCompetencia}
         pregunta="Importancia para mi rol"
         descriptor={competencia.descripcionCompetencia}
+        setIdElegido={setCompetenciaElegida}
         setElegido={setRespuestaElegida}
+        idPregunta={competencia.nombreCompetencia}
         respuestas={preguntasCompetencias} />
     </Step>));
 
@@ -66,10 +72,32 @@ export default function PicSeccionPreguntasI(props) {
           break;
       }
     } else {
-      setRespuestaElegida("")
-      //Realziar Consulta
-      //Activar al guardar
-      onClickNext(goToNext, steps, step)
+      //actualizarCompetencia
+      try {
+        setModal(true);
+        const url = constantes.urlServer + constantes.servicios.actualizarCompetencia;
+        const filtros = {
+          data: {
+            email: '',
+            competencia: competenciaElegida,
+            valor_respuesta: respuestaElegida,
+            estado_respuesta: 'Respondida'
+          }
+        }
+
+        HttpUtil.requestPost(url, filtros,
+          (response) => {
+            setRespuestaElegida("")
+            setCompetenciaElegida("")
+            onClickNext(goToNext, steps, step)
+            setModal(false);
+          },
+          () => {
+            setModal(false);
+          });
+      } catch (error) {
+        setModal(false);
+      }
     }
 
 
@@ -130,15 +158,22 @@ export default function PicSeccionPreguntasI(props) {
                     </ModalBody>
         </Modal>
       </div>
-      <Card className="mb-5">
+      <Card className="mb-5" style={{ borderRadius: 10 }}>
         <CardBody className="wizard wizard-default">
           <Wizard>
-            <TopNavigation className="justify-content-center" disableNav={false} topNavClick={topNavClick} />
+            <br></br>
+            <br></br>
+
             <Steps>
               <Step id="0" name="Instrucciones" desc="" >
                 <PicInstruccionComponente
-                  encabezado="Instrucción Sección I"
-                  descriptor="Contenido de la instrucción"
+                  encabezado="Instrucciones - Sección I"
+                  descriptor={
+                    <div>
+                      <p>¡Haz un reconocimiento de lo que necesitas para hacer un mejor trabajo en la Entidad! </p>
+                      <img src={InstruccionImg} width='850' height='540' />
+                    </div>
+                  }
                 />
               </Step>
 
@@ -146,8 +181,13 @@ export default function PicSeccionPreguntasI(props) {
               }
               <Step id="-1" name="Final de Sección" desc="" >
                 <PicFinalSeccionComponente
-                  encabezado="Final de Sección I"
-                  descriptor="Contenido de final de sección"
+                  encabezado="Finalización - Sección I"
+                  descriptor={
+                    <div>
+                      <p>¡Ya tienes tu mapa en la mano, ahora vas a sentir la adrenalina de las preguntas para la formulación del PIC!</p>
+                      <img src={FinalImg} width='850' height='540' />
+                    </div>
+                  }
                   pasoSiguiente={props.pasoSiguiente}
                 />
               </Step>

@@ -11,7 +11,7 @@
         themeColor2_10 : rootStyle.getPropertyValue("--theme-color-2-10").trim(),
         themeColor3_10 : rootStyle.getPropertyValue("--theme-color-3-10").trim(),
         themeColor4_10 : rootStyle.getPropertyValue("--theme-color-3-10").trim(),
-        themeColor5_10 : rootStyle.getPropertyValue("--theme-color-3-10").trim(),
+        themeColor5_10 : rootStyle.getPropertyValue("--theme-color-5-10").trim(),
         themeColor6_10 : rootStyle.getPropertyValue("--theme-color-3-10").trim(),
         primaryColor: rootStyle.getPropertyValue("--primary-color").trim(),
         foregroundColor: rootStyle.getPropertyValue("--foreground-color").trim(),

@@ -11,21 +11,38 @@ import {
     AvCheckbox
 } from "availity-reactstrap-validation";
 import { Wizard, Steps, Step } from 'react-albus';
-import { Card, CardBody, Form, FormGroup, Input, Label } from "reactstrap";
+import { Card, CardBody, Table, FormGroup, Input, Label, Row } from "reactstrap";
 import Timer from 'react-compound-timer';
+import { Colxx } from "../../components/common/CustomBootstrap";
 
 export default function PicPreguntaComponente(props) {
     const [listItems, setListItems] = useState(null);
     const [estadoOpciones, setEstadoOpciones] = useState(false)
+    const [idPregunta, setIdPregunta] = useState(props.idPregunta)
+    const [columna, setColumna] = useState(props.columa)
+    const RespuestaAdicional = () => (
+        <Colxx xxs="3" lg="3" xl="3" className="mb-3">
+            <AvRadio customInput label={
+                <p className="mb-3">No se la respuesta a esta pregunta</p>
+            } value={"NS"} />
+        </Colxx>
+
+
+    )
+
     const manejarEnvio = (e) => {
         props.setElegido(e.target.value)
+        props.setIdElegido(idPregunta)
     }
+    
     useEffect(() => {
         if (props.respuestas && listItems == null)
             setListItems(props.respuestas.map((respuesta) =>
-                <AvRadio customInput label={
-                    <p className="mb-3" dangerouslySetInnerHTML={{ __html: respuesta.enunciadoRespuesta }} />
-                } value={respuesta.id} />
+                <Colxx xxs="12" lg={props.columna} xl={props.columna} className="mb-3">
+                    <AvRadio customInput label={
+                        <p className="mb-3" dangerouslySetInnerHTML={{ __html: respuesta.enunciadoRespuesta }} />
+                    } value={respuesta.id} />
+                </Colxx>
             ))
     })
 
@@ -43,12 +60,17 @@ export default function PicPreguntaComponente(props) {
             <div className="wizard-basic-step">
 
                 <FormGroup>
-                    <center>
-                        <h4 dangerouslySetInnerHTML={{ __html: props.encabezado }}>
-                        </h4>
-                        <h5 dangerouslySetInnerHTML={{ __html: props.descriptor }}>
-                        </h5>
-                    </center>
+                    <Table>
+                        <tbody>
+                            <tr>
+                                <h4 dangerouslySetInnerHTML={{ __html: props.encabezado }}>
+                                </h4>
+                                <h5 dangerouslySetInnerHTML={{ __html: props.descriptor }}>
+                                </h5>
+                            </tr>
+                        </tbody>
+                    </Table>
+
                     <AvForm
                         className="av-tooltip tooltip-label-right"
                         onChange={manejarEnvio}>
@@ -58,12 +80,20 @@ export default function PicPreguntaComponente(props) {
                             name="radioPersonasCargo"
                             required>
                             <h5 dangerouslySetInnerHTML={{ __html: props.pregunta }}></h5>
-                            <div>{listItems}</div>
+                            <div>
+                                <Table>
+                                    <tbody>
+                                        <Row>                                       
+                                            {listItems}
+                                        </Row>
+                                    </tbody>
+                                </Table>
+                            </div>
                         </AvRadioGroup>
                     </AvForm>
                 </FormGroup>
                 <Timer
-                    initialTime={120000}
+                    initialTime={119999}
                     direction="backward"
                     startImmediately={true}
                     onStart={() => console.log('onStart hook')}
@@ -76,7 +106,7 @@ export default function PicPreguntaComponente(props) {
                         <React.Fragment>
                             <center>
                                 <h5>
-                                    Tiempo restante: 0 
+                                    Tiempo restante: 0
                                 <Timer.Minutes />:
                                     <Timer.Seconds />
                                 </h5>

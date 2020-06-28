@@ -39,7 +39,8 @@ class TopNav extends Component {
 
     this.state = {
       isInFullScreen: false,
-      searchKeyword: ""
+      searchKeyword: "",
+      hStyle: { color: 'white' }
     };
   }
 
@@ -197,6 +198,7 @@ class TopNav extends Component {
     this.props.clickOnMobileMenu(containerClassnames);
   };
 
+  
   render() {
     const { containerClassnames, menuClickCount, locale } = this.props;
     const { messages } = this.props.intl;
@@ -221,7 +223,7 @@ class TopNav extends Component {
           </NavLink>
 
 
-          {/*   <div className="position-relative d-none d-none d-lg-inline-block">
+          {/*  <div className="position-relative d-none d-none d-lg-inline-block">
             <a
               className="btn btn-outline-primary btn-sm ml-2"
               target="_top"
@@ -231,10 +233,10 @@ class TopNav extends Component {
             </a>
           </div>*/}
         </div>
-        {/*<a className="navbar-logo" href="/">
+        {<a className="navbar-logo" href="/">
           <span className="logo d-none d-xs-block" />
           <span className="logo-mobile d-block d-xs-none" />
-        </a> */}
+        </a>}
 
         <div className="navbar-right">
           <div className="header-icons d-inline-block align-middle">
@@ -256,10 +258,7 @@ class TopNav extends Component {
           <div className="user d-inline-block">
             <UncontrolledDropdown className="dropdown-menu-right">
               <DropdownToggle className="p-0" color="empty">
-                <span >Joan Duarte</span>
-                <span>
-                  <img alt="Profile" src="/assets/img/logo-dian.png" />
-                </span>
+                <span style={ this.state.hStyle }>Joan Duarte</span>
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>
                 <DropdownItem onClick={() => this.handleLogout()}>

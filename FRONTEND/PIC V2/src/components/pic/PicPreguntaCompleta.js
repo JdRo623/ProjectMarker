@@ -10,7 +10,7 @@ import {
     Modal,
     ModalHeader,
     ModalBody,
-    Form,
+    Table,
     Input,
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
@@ -30,7 +30,7 @@ export default function PicPreguntaCompleta(props) {
         if (event.key === "Enter") {
             obtenerPreguntaEspecifica()
         }
-      }
+    }
     const obtenerPreguntaEspecifica = () => {
         try {
             setModal(true);
@@ -73,17 +73,17 @@ export default function PicPreguntaCompleta(props) {
                     <CardTitle>
                         Ingrese el numero de la pregunta
                             </CardTitle>
-                        <Label className="form-group has-float-label">
-                            <Input
-                                type="text"
-                                onKeyPress={keyPressed}
-                                value={numeroPregunta}
-                                onChange={e => setNumeroPregunta(e.target.value)}
-                            />
+                    <Label className="form-group has-float-label">
+                        <Input
+                            type="text"
+                            onKeyPress={keyPressed}
+                            value={numeroPregunta}
+                            onChange={e => setNumeroPregunta(e.target.value)}
+                        />
                                 Número de la pregunta
                             </Label>
-                        <Button color="primary" onClick={obtenerPreguntaEspecifica}>
-                            Buscar Pregunta
+                    <Button color="primary" onClick={obtenerPreguntaEspecifica}>
+                        Buscar Pregunta
                                 </Button>
                 </CardBody>
 
@@ -95,16 +95,31 @@ export default function PicPreguntaCompleta(props) {
 
                         {pregunta.numero_pregunta}
                     </p>
-                    <p className="text-muted text-small mb-2">Situación problema:</p>
-                    <p className="mb-3" dangerouslySetInnerHTML={{ __html: pregunta.situacion_problema }}/>
-                    <p className="text-muted text-small mb-2">Encabezado de la pregunta:</p>
-                    <p className="mb-3" dangerouslySetInnerHTML={{ __html: pregunta.encabezado_pregunta }}/>
-                    <p className="text-muted text-small mb-2">Opciones de respuesta: A:</p>
-                    <p className="mb-3" dangerouslySetInnerHTML={{ __html: pregunta.respuesta1 }} />
-                    <p className="text-muted text-small mb-2">Opciones de respuesta: B:</p>
-                    <p className="mb-3" dangerouslySetInnerHTML={{ __html: pregunta.respuesta2 }} />
-                    <p className="text-muted text-small mb-2">Opciones de respuesta: C:</p>
-                    <p className="mb-3" dangerouslySetInnerHTML={{ __html: pregunta.respuesta3 }} />   
+
+                    <Table responsive>
+                        <tbody>
+                            <tr>
+                                <p className="text-muted text-small mb-2">Situación problema:</p>
+                                <p className="mb-3" dangerouslySetInnerHTML={{ __html: pregunta.situacion_problema }} />
+                                <p className="text-muted text-small mb-2">Encabezado de la pregunta:</p>
+                                <p className="mb-3" dangerouslySetInnerHTML={{ __html: pregunta.encabezado_pregunta }} />
+                            </tr>
+                        </tbody>
+                    </Table>
+
+                    <Table responsive>
+                        <tbody>
+                            <tr>
+                                <p className="text-muted text-small mb-2">Opciones de respuesta: A:</p>
+                                <p className="mb-3" dangerouslySetInnerHTML={{ __html: pregunta.respuesta1 }} />
+                                <p className="text-muted text-small mb-2">Opciones de respuesta: B:</p>
+                                <p className="mb-3" dangerouslySetInnerHTML={{ __html: pregunta.respuesta2 }} />
+                                <p className="text-muted text-small mb-2">Opciones de respuesta: C:</p>
+                                <p className="mb-3" dangerouslySetInnerHTML={{ __html: pregunta.respuesta3 }} />
+                            </tr>
+                        </tbody>
+                    </Table>
+
                     <p className="text-muted text-small mb-2">Competencia:</p>
                     <p className="mb-3" dangerouslySetInnerHTML={{ __html: pregunta.competencia }} />
                     <p className="text-muted text-small mb-2">Nivel:</p>

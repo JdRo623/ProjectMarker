@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import {
     Card, CardBody, Modal,
     ModalHeader,
-    ModalBody, Form, FormGroup, Input, Label
+    ModalBody, Form, FormGroup, Input, Label, CardHeader
 } from "reactstrap";
 import { Wizard, Steps, Step } from 'react-albus';
 import { BottomNavigation } from "../../components/wizard/BottomNavigation";
@@ -13,6 +13,12 @@ import PicFinalSeccionComponente from "../../components/pic/PicFinalSeccionCompo
 import constantes from "../../util/Constantes.js"
 import HttpUtil from '../../util/HttpService.js'
 import { NotificationManager } from "../../components/common/react-notifications";
+import InstruccionImg from '../../assets/img/instrucciones-i.png';
+import BienvenidosImg from '../../assets/img/bienvenidos-i.png';
+import AntesImg from '../../assets/img/antes.png';
+import InstruccionInfoPersonalImg from '../../assets/img/ip-inicio.png';
+import FinalImg from '../../assets/img/ip-final.png';
+import { Picture } from 'react-responsive-picture';
 
 export default function PicSeccionInformacionPersonal(props) {
 
@@ -118,13 +124,13 @@ export default function PicSeccionInformacionPersonal(props) {
 
     const enviarInformacionPersonal = (goToNext, steps, step) => {
         try {
-            var url =""
-            if(props.pruebas){
+            var url = ""
+            if (props.pruebas) {
                 url = constantes.urlServer + constantes.servicios.CuestionarioConsulta;
-            }else{
+            } else {
                 url = constantes.urlServer + constantes.servicios.cuestionario;
 
-            } 
+            }
             setModal(true);
             const filtros = {
                 email: "",
@@ -160,7 +166,7 @@ export default function PicSeccionInformacionPersonal(props) {
         push(stepItem.id);
     }
 
-    const mostrarMensajeError = (tittle,message) =>{
+    const mostrarMensajeError = (tittle, message) => {
         NotificationManager.error(
             message,
             tittle,
@@ -179,29 +185,38 @@ export default function PicSeccionInformacionPersonal(props) {
                 obtenerCargos(goToNext, steps, step)
                 break;
             case "1":
+                obtenerCargos(goToNext, steps, step)
+                break;
+            case "2":
+                obtenerCargos(goToNext, steps, step)
+                break;
+            case "3":
+                obtenerCargos(goToNext, steps, step)
+                break;
+            case "4":
                 if (cargoSeleccionado == "") {
-                    mostrarMensajeError("Error","Por favor seleccione un Cargo para continuar.")
+                    mostrarMensajeError("Error", "Por favor seleccione un Cargo para continuar.")
                 } else {
                     obtenerSeccionales(goToNext, steps, step)
                 }
                 break;
-            case "2":
+            case "5":
                 if (seccionalSeleccionada == "") {
-                    mostrarMensajeError("Error","Por favor seleccione una Secional o Dirección para continuar.")
+                    mostrarMensajeError("Error", "Por favor seleccione una Secional o Dirección para continuar.")
                 } else {
                     obtenerSubdireccionSeccional(goToNext, steps, step)
                 }
                 break;
-            case "3":
+            case "6":
                 if (subprocesoSeleccionado == "") {
-                    mostrarMensajeError("Error","Por favor seleccione una Subdirección o división para continuar.")
+                    mostrarMensajeError("Error", "Por favor seleccione una Subdirección o división para continuar.")
                 } else {
                     obtenerCoordinacionesSeccional(goToNext, steps, step)
                 }
                 break;
-            case "4":
+            case "7":
                 if (coordinacionSeleccionado == "") {
-                    mostrarMensajeError("Error","Por favor seleccione un Grupo interno de trabajo, Coordinación o Punto de contacto para continuar.")
+                    mostrarMensajeError("Error", "Por favor seleccione un Grupo interno de trabajo, Coordinación o Punto de contacto para continuar.")
                 } else {
                     enviarInformacionPersonal(goToNext, steps, step)
                 }
@@ -231,6 +246,8 @@ export default function PicSeccionInformacionPersonal(props) {
         goToPrev();
     }
 
+    const hStyle = { color: '#191b32' }
+
 
 
     return (
@@ -245,18 +262,61 @@ export default function PicSeccionInformacionPersonal(props) {
                     </ModalBody>
                 </Modal>
             </div>
-            <Card className="mb-5">
+            <Card className="mb-5" style={{ borderRadius: 10 }}>
+
                 <CardBody className="wizard wizard-default">
+                    <br></br>
+                    <br></br>
+
                     <Wizard>
-                        <TopNavigation className="justify-content-center" disableNav={true} topNavClick={topNavClick} />
                         <Steps>
                             <Step id="0" name="Instrucciones" desc="" >
                                 <PicInstruccionComponente
-                                    encabezado="Instrucción de información personal"
-                                    descriptor="Contenido de la instrucción"
+                                    encabezado="Instrucciones"
+
+                                    descriptor={
+                                        <div>
+                                            <p>¡Es el momento de calentar los músculos para iniciar el camino a la construcción de tu rumbo y el de tu país!</p>
+                                            <img src={InstruccionImg} width='850' height='540' />
+                                        </div>
+                                    }
                                 />
                             </Step>
-                            <Step id="1" name="" desc="" >
+                            <Step id="1" name="Instrucciones" desc="" >
+                                <PicInstruccionComponente
+                                    encabezado="Bienvenidos"
+                                    descriptor={
+                                        <div>
+                                            <p>Gracias, ¡Con tu valioso compromiso somos una mejor Dirección de Impuestos y Aduanas Nacionales!</p>
+                                            <img src={BienvenidosImg} width='850' height='540' />
+                                        </div>
+                                    }
+                                    
+                                />
+                            </Step>
+                            <Step id="2" name="Instrucciones" desc="" >
+                                <PicInstruccionComponente
+                                    encabezado="¡Hoy sentirás una experiencia única en tu Entidad!"
+                                    descriptor={
+                                        <div>
+                                            <img src={AntesImg} width='850' height='540' />
+
+                                        </div>
+                                    }
+
+                                />
+                            </Step>
+                            <Step id="3" name="Instrucciones" desc="" >
+                                <PicInstruccionComponente
+                                    encabezado="Instrucciones - Información personal"
+                                    descriptor={<div>
+                                        <p>¡Estás a punto de iniciar este viaje, empecemos esta experiencia!</p>
+                                        <img src={InstruccionInfoPersonalImg} width='850' height='540' />
+
+                                    </div>}
+                                />
+                            </Step>
+                            <Step id="4" name="" desc="" >
                                 <PicInformacionPersonalColaboradorForm
                                     encabezado="Cargo"
                                     elegido={cargoSeleccionado}
@@ -264,7 +324,7 @@ export default function PicSeccionInformacionPersonal(props) {
                                     respuestas={cargoListado}
                                 />
                             </Step>
-                            <Step id="2" name="" desc="" >
+                            <Step id="5" name="" desc="" >
                                 <PicInformacionPersonalColaboradorForm
                                     encabezado="Secional o Dirección"
                                     respuestas={seccionalListado}
@@ -273,7 +333,7 @@ export default function PicSeccionInformacionPersonal(props) {
 
                                 />
                             </Step>
-                            <Step id="3" name="" desc="" >
+                            <Step id="6" name="" desc="" >
                                 <PicInformacionPersonalColaboradorForm
                                     encabezado="Subdirección o división"
                                     respuestas={subprocesoListado}
@@ -282,7 +342,7 @@ export default function PicSeccionInformacionPersonal(props) {
 
                                 />
                             </Step>
-                            <Step id="4" name="" desc="" >
+                            <Step id="7" name="" desc="" >
                                 <PicInformacionPersonalColaboradorForm
                                     encabezado="Grupo interno de trabajo, Coordinación o Punto de contacto"
                                     respuestas={coordinacionesListado}
@@ -291,10 +351,14 @@ export default function PicSeccionInformacionPersonal(props) {
 
                                 />
                             </Step>
-                            <Step id="5" name="Final de Sección" desc="" >
+                            <Step id="8" name="Final de Sección" desc="" >
                                 <PicFinalSeccionComponente
-                                    encabezado="Final de Sección de registro de Información Personal"
-                                    descriptor="Contenido de final de sección"
+                                    encabezado="Finalización - Información Personal"
+                                    descriptor={<div>
+                                        <p>¡Es momento de que alistemos todo lo que necesitamos para llegar a la cima!</p>
+                                        <img src={FinalImg} width='850' height='540' />
+
+                                    </div>}
                                     pasoSiguiente={props.pasoSiguiente}
                                 />
                             </Step>

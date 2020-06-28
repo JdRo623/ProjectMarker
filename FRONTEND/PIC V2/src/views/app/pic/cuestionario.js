@@ -163,20 +163,19 @@ export default function Cuestionario(props) {
             </NavItem>
             <NavItem>
               <NavLink className={classnames({ active: activeTab === "1", "nav-link": true })}
-                onClick={() => { toggleTab("1"); }} to="#" location={{}}>
+                to="#" location={{}}>
                 Información Personal
                 </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink className={classnames({ active: activeTab === "2", "nav-link": true })}
-                onClick={() => { toggleTab("2"); }} to="#" location={{}}>
+              <NavLink className={classnames({ active: activeTab === "2", "nav-link": true })} 
+                to="#" location={{}}>
                 Sección I
                 </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
                 className={classnames({ active: activeTab === "3", "nav-link": true })}
-                onClick={() => { toggleTab("3"); }}
                 to="#" location={{}}>
                 Sección II
                 </NavLink>

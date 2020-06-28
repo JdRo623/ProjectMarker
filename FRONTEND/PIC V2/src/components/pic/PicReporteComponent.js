@@ -27,7 +27,7 @@ export default function PicReporteComponent(props) {
         <Fragment>
             <Row className="mb-4">
                 <Colxx xxs="12">
-                    <Card>
+                    <Card style={{ borderRadius: 10 }}>
                         <CardBody>
                             <CardTitle>
                                 <IntlMessages id=" " />

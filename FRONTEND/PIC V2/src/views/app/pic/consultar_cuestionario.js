@@ -48,17 +48,17 @@ export default function ConsultarCuestionario(props) {
             
             <Card className="mb-4">
                 <CardBody>
-                    <p className="text-muted text-small mb-2">coordinacion:</p>
+                    <p className="text-muted text-small mb-2">Coordinación:</p>
                     <p className="mb-3">
                         {cuestionarioUsuario.coordinacion}
                     </p>
-                    <p className="text-muted text-small mb-2">email:</p>
+                    <p className="text-muted text-small mb-2">Email:</p>
                     <p className="mb-3" dangerouslySetInnerHTML={{ __html: cuestionarioUsuario.email }}/>
-                    <p className="text-muted text-small mb-2">rol:</p>
+                    <p className="text-muted text-small mb-2">Rol:</p>
                     <p className="mb-3" dangerouslySetInnerHTML={{ __html: cuestionarioUsuario.rol }}/>
-                    <p className="text-muted text-small mb-2">subgrupo:</p>
+                    <p className="text-muted text-small mb-2">Subgrupo:</p>
                     <p className="mb-3" dangerouslySetInnerHTML={{ __html: cuestionarioUsuario.subgrupo }} />
-                    <p className="text-muted text-small mb-2">seccional:</p>
+                    <p className="text-muted text-small mb-2">Seccional:</p>
                     <p className="mb-3" dangerouslySetInnerHTML={{ __html: cuestionarioUsuario.seccional }} />
                     <p className="text-muted text-small mb-2">Listado Cursos:</p>
                     <p className="mb-3" dangerouslySetInnerHTML={{ __html: cuestionarioUsuario.listado_cursos }} />   

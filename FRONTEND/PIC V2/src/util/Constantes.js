@@ -30,7 +30,10 @@ const constantes = {
     buscarPreguntasPorIDCuestionario: '/preguntasPorIDCuestionario',
     obtenerPreguntasSeccionIII: "/obtenerPreguntasSeccionIII",
     crearNuevoUsuario: '/crearNuevoUsuario',
-    CuestionarioConsulta:"/CuestionarioConsulta"
+    CuestionarioConsulta:"/CuestionarioConsulta",
+    actualizarCompetencia: "/actualizarCompetencia",
+    actualizarPregunta: "/actualizarPregunta",
+    actualizarEstadoCuestionario: "/actualizarEstadoCuestionario"
   },
   mensajes: {
     ERROR: 'Error',

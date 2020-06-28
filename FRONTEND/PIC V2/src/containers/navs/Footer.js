@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import { Row } from "reactstrap";
 import { Colxx } from "../../components/common/CustomBootstrap";
 
+import logo from '../../assets/img/estudiando-logo.svg';
+import logoDian from '../../assets/img/logo-dian-principal.png';
 
 const Footer = () => {
     return (
@@ -10,10 +12,18 @@ const Footer = () => {
             <div className="footer-content">
                 <div className="container-fluid">
                     <Row>
-                        <Colxx xxs="12" sm="6">
-                            <p className="mb-0 text-muted">Pic. 2020</p>
+
+                        <Colxx xxs="6" sm="6">
+                            <center>
+                                <img className="mb-0" src={logo} width='70' height='70' />
+                            </center>
                         </Colxx>
-                        <Colxx className="col-sm-6 d-none d-sm-block">
+                        <Colxx xxs="6" sm="6">
+                            <center>
+                                <img className="mb-0" src={logoDian} width='120' height='70' />
+
+
+                            </center>
 
                         </Colxx>
                     </Row>

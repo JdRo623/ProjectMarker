@@ -13,21 +13,28 @@ import PicInstruccionComponente from "../../components/pic/PicInstruccionCompone
 import PicFinalSeccionComponente from "../../components/pic/PicFinalSeccionComponente";
 import constantes from "../../util/Constantes.js"
 import HttpUtil from '../../util/HttpService.js'
+import { NotificationManager } from "../../components/common/react-notifications";
+import InstruccionImg from '../../assets/img/sii-inicio.png';
+import FinalImg from '../../assets/img/sii-final.png';
 
 export default function PicSeccionPreguntasII(props) {
 
   const [respuestas, setRespuestas] = useState([]);
   const [preguntas, setPreguntas] = useState(props.preguntas);
+  //const [preguntas, setPreguntas] = useState(preguntasSeccionII);
   const [respuestaElegida, setRespuestaElegida] = useState("");
-
+  const [preguntaElegida, setPreguntaElegida] = useState("");
   var contadorPasos = 1
 
   const [preguntasCards, setPreguntasCards] = useState(preguntas.map((pregunta) =>
     <Step id={"" + contadorPasos++} desc="" >
       <PicPreguntaComponente
+        columna="12"
         pregunta={pregunta.encabezadoPregunta}
         descriptor={pregunta.situacionProblema}
         setElegido={setRespuestaElegida}
+        setIdElegido={setPreguntaElegida}
+        idPregunta={pregunta.id_pregunta}
         respuestas={pregunta.opcionesRespuestas} />
     </Step>));
 
@@ -47,7 +54,7 @@ export default function PicSeccionPreguntasII(props) {
       obtenerInformaciónPregunta()
     }
   }, []);
-  
+
   const obtenerInformaciónPregunta = () => {
     try {
       setModal(true);
@@ -64,6 +71,7 @@ export default function PicSeccionPreguntasII(props) {
           setPreguntasCards(preguntas.map((pregunta) =>
             <Step id={"" + contadorPasos++} desc="" >
               <PicPreguntaComponente
+                mostrarRespuestaAdicional = {true}
                 pregunta={pregunta.encabezadoPregunta}
                 descriptor={pregunta.situacionProblema}
                 respuestas={pregunta.opcionesRespuestas} />
@@ -76,6 +84,53 @@ export default function PicSeccionPreguntasII(props) {
     } catch (error) {
       setModal(false);
     }
+
+  }
+
+  const validarSiguiente = (goToNext, steps, step) => {
+    console.log(step)
+    console.log(steps)
+    if (respuestaElegida == "") {
+      switch (step.id) {
+        case "0":
+          onClickNext(goToNext, steps, step)
+          break;
+        case "-1":
+          onClickNext(goToNext, steps, step)
+          break;
+        default:
+          mostrarMensajeError("Error", "Seleccione una respuesta para continuar")
+          break;
+      }
+    } else {
+      //actualizarCompetencia
+      try {
+        setModal(true);
+        const url = constantes.urlServer + constantes.servicios.actualizarPregunta;
+        const filtros = {
+          data: {
+            email: '',
+            id_pregunta: preguntaElegida,
+            valor_respuesta: respuestaElegida,
+            estado_respuesta: 'Respondida'
+          }
+        }
+
+        HttpUtil.requestPost(url, filtros,
+          (response) => {
+            setRespuestaElegida("")
+            setPreguntaElegida("")
+            onClickNext(goToNext, steps, step)
+            setModal(false);
+          },
+          () => {
+            setModal(false);
+          });
+      } catch (error) {
+        setModal(false);
+      }
+    }
+
 
   }
   const onClickNext = (goToNext, steps, step) => {
@@ -107,6 +162,19 @@ export default function PicSeccionPreguntasII(props) {
     }
   }
 
+  const mostrarMensajeError = (tittle, message) => {
+    NotificationManager.error(
+      message,
+      tittle,
+      3000,
+      () => {
+        alert("callback");
+      },
+      null,
+      'filled'
+    );
+  }
+
   return (
     <Fragment>
       <div>
@@ -119,28 +187,40 @@ export default function PicSeccionPreguntasII(props) {
                     </ModalBody>
         </Modal>
       </div>
-      <Card className="mb-5">
+      <Card className="mb-5" style={{ borderRadius: 10 }}>
         <CardBody className="wizard wizard-default">
           <Wizard>
-            <TopNavigation className="justify-content-center" disableNav={true} topNavClick={topNavClick} />
+            <br></br>
+            <br></br>
+
             <Steps>
               <Step id="0" name="Instrucciones" desc="" >
                 <PicInstruccionComponente
-                  encabezado="Instrucción Sección II"
-                  descriptor="Contenido de la instrucción"
+                  encabezado="Instrucciones - II"
+                  descriptor={
+                    <div>
+                      <p>¿Te das cuenta? ¡Con tu ayuda avanzaremos en la estrategia de transformación organizacional!</p>
+                      <img src={InstruccionImg} width='850' height='540' />
+                    </div>
+                  }
                 />
               </Step>
               {preguntasCards}
               <Step id="-1" name="Final de Sección" desc="" >
                 <PicFinalSeccionComponente
-                  encabezado="Final de Sección II"
+                  encabezado="Finalización - Sección II"
                   descriptor="Contenido de final de sección"
                   pasoSiguiente={props.pasoSiguiente}
-
+                  descriptor={
+                    <div>
+                      <p>¡Ahora te acercas cada vez más a la cima!</p>
+                      <img src={FinalImg} width='850' height='540' />
+                    </div>
+                  }
                 />
               </Step>
             </Steps>
-            <BottomNavigation onClickNext={onClickNext} onClickPrev={onClickPrev} className={"justify-content-center " + (bottomNavHidden && "invisible")} prevLabel={"Anterior"} nextLabel={"Siguiente"} />
+            <BottomNavigation onClickNext={validarSiguiente} onClickPrev={onClickPrev} className={"justify-content-center " + (bottomNavHidden && "invisible")} prevLabel={"Anterior"} nextLabel={"Siguiente"} />
           </Wizard>
         </CardBody>
       </Card>
