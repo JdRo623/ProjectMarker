@@ -23,8 +23,8 @@ class Login extends Component {
     this.state = {
       loading: false,
       form: {
-        email: "lcespedesp@dian.gov.co",
-        password: "475944",
+        email: "",
+        password: "",
       },
     };
   }
@@ -41,11 +41,17 @@ class Login extends Component {
         },
         (response) => {
           if (response.data) {
-            const { token, cambio_pass } = response.data;
+            localStorage.clear()
+            const { token, cambio_pass, email, rol } = response.data;
             cookies.set("token", token, { path: "/" });
+            localStorage.setItem("email", email);
+            if(rol){
+              localStorage.setItem('rol', rol);
+            }else{
+              localStorage.setItem('rol', 0);
+            }
             if (cambio_pass) {
               localStorage.setItem("cambio", cambio_pass);
-              localStorage.setItem("email", this.state.form.email);
             }
             this.props.loginUser(
               { email: "demo@gogo.com", password: "gogo123" },
@@ -79,36 +85,6 @@ class Login extends Component {
     }
     return error;
   };
-
-  obtenerCargos() {
-    /* try {
-        const url = constantes.urlServer + constantes.servicios.obtenerCargosPic;
-        this.setModal(true);
-
-        HttpUtil.requestPost(url, {},
-            (response) => {
-                this.setModal(false);
-                console.log(response)
-                this.setState({ cargoListado: response.data});
-                  if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
-                      localStorage.setItem('userInfo', JSON.stringify(response.data));
-                      props.history.push("/admin");
-                 //     history.push("/admin");
-                   //   this.setState({redirect : true, showLoader : false, user : response.data});
-            },
-            () => {
-                this.setModal(false);
-                 this.setState({
-                     alertTitle : 'Error!',
-                     alertMessage : 'Ocurrio un error al autenticarce, por favor intenta de nuevo',
-                     alertType : 'error', 
-                     showLoader : false
-                 });
-            });
-    } catch (error) {
-
-    }*/
-  }
 
   handleChange = (e) => {
     this.setState({

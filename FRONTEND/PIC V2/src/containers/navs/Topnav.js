@@ -258,7 +258,9 @@ class TopNav extends Component {
           <div className="user d-inline-block">
             <UncontrolledDropdown className="dropdown-menu-right">
               <DropdownToggle className="p-0" color="empty">
-                <span style={this.state.hStyle}>Joan Duarte</span>
+                <span style={this.state.hStyle}>
+                  {localStorage.getItem("email")}
+                </span>
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>
                 <DropdownItem onClick={() => this.handleLogout()}>

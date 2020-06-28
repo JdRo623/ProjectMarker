@@ -38,7 +38,7 @@ const PagesPic = ({ match }) => (
       <Redirect
         exact
         from={`${match.url}/`}
-        to={`${match.url}/carguePreguntas`}
+        to={`${match.url}/principal_colaborador`}
       />
       <Route
         path={`${match.url}/busquedaPregunta`}

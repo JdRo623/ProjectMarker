@@ -9,6 +9,9 @@ import PicInstruccionComponente from "../../components/pic/PicInstruccionCompone
 import PicFinalSeccionComponente from "../../components/pic/PicFinalSeccionComponente";
 import InstruccionImg from "../../assets/img/siii-inicio.png";
 import FinalImg from "../../assets/img/siii-final.png";
+import constantes from "../../util/Constantes.js";
+import HttpUtil from "../../util/HttpService.js";
+import { NotificationManager } from "../../components/common/react-notifications";
 
 export default function PicSeccionPreguntasIII(props) {
   const [respuestas, setRespuestas] = useState([]);
@@ -63,11 +66,66 @@ export default function PicSeccionPreguntasIII(props) {
     goToPrev();
   };
 
-  const handleSubmit = (event, errors, values) => {
-    console.log(errors);
-    console.log(values);
-    if (errors.length === 0) {
-      //submit
+  const mostrarMensajeError = (tittle, message) => {
+    NotificationManager.error(
+      message,
+      tittle,
+      3000,
+      () => {
+        alert("callback");
+      },
+      null,
+      "filled"
+    );
+  };
+
+  const validarSiguiente = (goToNext, steps, step) => {
+    if (respuestaElegida == "") {
+      switch (step.id) {
+        case "0":
+          onClickNext(goToNext, steps, step);
+          break;
+        case "-1":
+          onClickNext(goToNext, steps, step);
+          break;
+        default:
+          mostrarMensajeError(
+            "Error",
+            "Seleccione una respuesta para continuar"
+          );
+          break;
+      }
+    } else {
+      //actualizarCompetencia
+      try {
+        setModal(true);
+        const url =
+          constantes.urlServer + constantes.servicios.actualizarPreguntaIII;
+        const filtros = {
+          data: {
+            email: "",
+            id_pregunta: preguntaElegida,
+            valor_respuesta: respuestaElegida,
+            estado_respuesta: "Respondida",
+          },
+        };
+
+        HttpUtil.requestPost(
+          url,
+          filtros,
+          (response) => {
+            setRespuestaElegida("");
+            setPreguntaElegida("");
+            onClickNext(goToNext, steps, step);
+            setModal(false);
+          },
+          () => {
+            setModal(false);
+          }
+        );
+      } catch (error) {
+        setModal(false);
+      }
     }
   };
 
@@ -122,7 +180,7 @@ export default function PicSeccionPreguntasIII(props) {
               </Step>
             </Steps>
             <BottomNavigation
-              onClickNext={onClickNext}
+              onClickNext={validarSiguiente}
               onClickPrev={onClickPrev}
               className={
                 "justify-content-center " + (bottomNavHidden && "invisible")

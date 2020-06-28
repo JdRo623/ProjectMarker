@@ -60,25 +60,26 @@ function cambioPassword(req, res) {
       try {
         var dec = tools.decryptJson(req.body.data);
         const filtro = {
-          email: tools.decrypt(dec.email),
+          email: dec.email,
         };
         user_jModel.findOne(filtro, (err, usuarioBuscado) => {
           if (err) {
             console.log(err);
           }
           if (!usuarioBuscado) {
-            return res.status(200).send({
-              estado: "Usuario no encontrado",
-              message: util.format("usuario no encontrado"),
+            return res.status(601).send({
+              estado: "Error",
+              message: util.format("Usuario no encontrado"),
               data: Object.assign({}),
             });
           }
-          usuarioBuscado.password = tools.encrypt(dec.password);
-          user_jModel.updateOne(filtro, usuarioBuscado).then(() => {
+
+          usuarioBuscado.password = (dec.password);
+          user_jModel.updateOne(filtro, {password: usuarioBuscado.password}).then(() => {
             return res.status(200).send({
-              estado: "Contraseña actualizada",
+              estado: "Exito",
               message: util.format("Contraseña Actualizada"),
-              data: Object.assign(cuestionarioBuscado),
+              data: Object.assign({}),
             });
           });
         });

@@ -17,15 +17,31 @@ import {
 } from "../../redux/actions";
 
 import menuItems from "../../constants/menu";
+import menuItemsFuncionario from "../../constants/menuFuncionario";
+import menuItemsAdmin from "../../constants/menuAdmin";
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
+
+    var menu = menuItems
+    if (localStorage.getItem("rol") == 0) {
+      menu = menuItemsFuncionario
+      console.log(menu)
+    }else{
+      menu = menuItemsAdmin
+      console.log(menu)
+
+    }
+
     this.state = {
       selectedParentMenu: "",
       viewingParentMenu: "",
       collapsedMenus: [],
+      menuItems: menu,
     };
+
+   
   }
 
   handleWindowResize = (event) => {
@@ -215,7 +231,7 @@ class Sidebar extends Component {
       } else if (this.state.selectedParentMenu === "") {
         this.setState(
           {
-            selectedParentMenu: menuItems[0].id,
+            selectedParentMenu: this.state.menuItems[0].id,
           },
           callback
         );
@@ -231,7 +247,7 @@ class Sidebar extends Component {
 
   getIsHasSubItem = () => {
     const { selectedParentMenu } = this.state;
-    const menuItem = menuItems.find((x) => x.id === selectedParentMenu);
+    const menuItem = this.state.menuItems.find((x) => x.id === selectedParentMenu);
     if (menuItem)
       return menuItem && menuItem.subs && menuItem.subs.length > 0
         ? true
@@ -339,8 +355,8 @@ class Sidebar extends Component {
               options={{ suppressScrollX: true, wheelPropagation: false }}
             >
               <Nav vertical className="list-unstyled">
-                {menuItems &&
-                  menuItems.map((item) => {
+                {this.state.menuItems &&
+                  this.state.menuItems.map((item) => {
                     return (
                       <NavItem
                         key={item.id}
@@ -383,8 +399,8 @@ class Sidebar extends Component {
             <PerfectScrollbar
               options={{ suppressScrollX: true, wheelPropagation: false }}
             >
-              {menuItems &&
-                menuItems.map((item) => {
+              {this.state.menuItems &&
+                this.state.menuItems.map((item) => {
                   return (
                     <Nav
                       key={item.id}

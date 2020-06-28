@@ -46,7 +46,7 @@ export default function PicSeccionPreguntasII(props) {
 
   useEffect(() => {
     if (preguntas.length == 0) {
-      obtenerInformaciónPregunta();
+      //obtenerInformaciónPregunta();
     }
   }, []);
 

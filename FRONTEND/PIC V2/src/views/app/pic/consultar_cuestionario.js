@@ -29,6 +29,13 @@ export default function ConsultarCuestionario(props) {
     setInformacionPersonalCompleto,
   ] = useState(false);
 
+
+  useEffect(() => {
+    localStorage.getItem('rol');
+
+  }, []);
+
+
   const mostarInfo = () => {};
   return (
     <Fragment>
