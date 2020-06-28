@@ -55,28 +55,43 @@ function generarRutaAprendizaje(req, res) {
             PreguntasHandler.find(
               { id_pregunta: { $in: listadoPreguntas } },
               (err, listadoPreguntas) => {
-                var cursoTemporal={}
+                var cursoTemporal = {};
                 cuestionarioBuscado.listado_cursos.forEach((cursoElegido) => {
                   cursoTemporal = {
-                    nivelElegido: "",
+                    nivelElegido: null,
                     idCurso: cursoElegido.idCurso,
-                    listadoPreguntasBasico: [],
-                    listadoPreguntasMedio: [],
-                    listadoPreguntasAlto: [],
-                    listadoPreguntasSuperior: [],
                   };
                   listadoPreguntas.forEach((preguntaCompleta) => {
                     if (cursoElegido.idCurso == preguntaCompleta.codificacion) {
                       switch (preguntaCompleta.nivel) {
                         case "BÁSICO":
-                          cursoTemporal.listadoPreguntasBasico.push(
-                            preguntaCompleta
+                          cuestionarioBuscado.listado_preguntas.forEach(
+                            (pregunta) => {
+                                if(cursoTemporal.nivelElegido==null){
+                                    if(preguntaCompleta.numero_pregunta == pregunta.codificacion){
+                                        if(preguntaCompleta.clave == pregunta.valor_respuesta){
+                                            listado_cursos_basicos.push({
+                                                numero_curso: String,
+                                                nombreCurso: String,
+                                                colorEstado: String,
+                                                estado_curso: {
+                                                    type: String,
+                                                    default: 'Por Cursar' //Por Cursar , Cursando, Cursado
+                                                }
+                                            })
+                                        }
+                                    }
+                                }
+                                
+                            }
                           );
+
                           break;
                         case "MEDIO":
                           cursoTemporal.listadoPreguntasMedio.push(
                             preguntaCompleta
-                          );
+                          );  
+                          
                           break;
                         case "ALTO":
                           cursoTemporal.listadoPreguntasAlto.push(
@@ -91,14 +106,8 @@ function generarRutaAprendizaje(req, res) {
                       }
                     }
                   });
-                  listadoCursos.push(cursoTemporal)
+                  listadoCursos.push(cursoTemporal);
                 });
-                listadoCursos.forEach((curso)=>{
-                    cuestionarioBuscado.listado_preguntas.forEach((pregunta)=>{
-
-                    })
-                })
-
               }
             );
             cuestionarioBuscado.listado_competencias.forEach(
