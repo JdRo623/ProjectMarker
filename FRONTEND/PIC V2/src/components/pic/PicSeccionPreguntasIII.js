@@ -19,12 +19,16 @@ export default function PicSeccionPreguntasIII(props) {
   const [respuestas, setRespuestas] = useState([]);
   const [preguntas, setPreguntas] = useState(props.preguntas);
   const [respuestaElegida, setRespuestaElegida] = useState("");
+  const [preguntaElegida, setPreguntaElegida] = useState("");
 
   var contadorPasos = 1
 
   const [preguntasCards, setPreguntasCards] = useState(preguntas.map((pregunta) =>
     <Step id={"" + contadorPasos++} name="" desc="" >
       <PicPreguntaComponente
+        columna="2"
+        setIdElegido={setPreguntaElegida}
+        idPregunta={pregunta.idPregunta}
         pregunta={pregunta.encabezadoPregunta}
         setElegido={setRespuestaElegida}
         descriptor={pregunta.situacionProblema}

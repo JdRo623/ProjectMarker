@@ -162,27 +162,27 @@ export default function Cuestionario(props) {
             <NavItem>
             </NavItem>
             <NavItem>
-              <NavLink className={classnames({ active: activeTab === "1", "nav-link": true })}
+              <NavLink className={classnames({ active: activeTab === "1", "nav-link": true, disabled: true})}
                 to="#" location={{}}>
                 Información Personal
                 </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink className={classnames({ active: activeTab === "2", "nav-link": true })} 
+            <NavItem disabled>
+              <NavLink disabled className={classnames({ active: activeTab === "2", "nav-link": true, disabled: true })} 
                 to="#" location={{}}>
                 Sección I
                 </NavLink>
             </NavItem>
-            <NavItem>
+            <NavItem disabled>
               <NavLink
-                className={classnames({ active: activeTab === "3", "nav-link": true })}
+                className={classnames({ active: activeTab === "3", "nav-link": true, disabled: true })}
                 to="#" location={{}}>
                 Sección II
                 </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
-                className={classnames({ active: activeTab === "4", "nav-link": true })}
+                className={classnames({ active: activeTab === "4", "nav-link": true, disabled: true })}
                 to="#" location={{}}>
                 Sección III
                 </NavLink>

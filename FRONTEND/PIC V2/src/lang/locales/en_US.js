@@ -79,12 +79,12 @@ module.exports = {
   'preguntas.bibliografia': 'Bibliografía',
   'preguntas.submit': 'Guardar Pregunta',
   /** EMPLEADO */
-  'empleado.identificacion': 'Identificación de Empleado',
-  'empleado.nombres': 'Nombres de Empleado',
-  'empleado.apellidos': 'Apellidos de Empleado',
+  'empleado.identificacion': 'Identificación de Funcionario',
+  'empleado.nombres': 'Nombres de Funcionario',
+  'empleado.apellidos': 'Apellidos de Funcionario',
   'empleado.nombresjefe': 'Nombres de Jefe',
   'empleado.apellidosjefe': 'Apellidos de Jefe',
-  'empleado.email': 'Email de Empleado',
-  'empleado.ciudad': 'Ciudad de Empleado',
-  'empleado.submit': 'Guardar Empleado',
+  'empleado.email': 'Email de Funcionario',
+  'empleado.ciudad': 'Ciudad de Funcionario',
+  'empleado.submit': 'Guardar Funcionario',
 };

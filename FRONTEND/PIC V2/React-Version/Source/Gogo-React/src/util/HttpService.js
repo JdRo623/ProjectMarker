@@ -38,13 +38,11 @@ class HttpUtil extends React.Component{
 
     var today = new Date();
 
-    console.log('Antes de: url'+url+' '+today.getHours()+':'+
     today.getMinutes()+':'+today.getSeconds()+':'+ 
     today.getMilliseconds());
     const dataRequest = {
       data : cifrar(JSON.stringify(data))
     }
-    console.log('Despues de: '+url+' '+today.getHours()+':'+
     today.getMinutes()+':'+today.getSeconds()+':'+ 
     today.getMilliseconds());
 

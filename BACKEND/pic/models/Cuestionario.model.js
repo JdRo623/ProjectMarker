@@ -15,6 +15,7 @@ const cuestionario = Schema({
     listado_cursos:[
         {
             idCurso: String,
+            nombreCurso: String,
             estado_curso:{
                 type:String,
                 default:'pendiente'

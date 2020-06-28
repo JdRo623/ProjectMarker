@@ -31,6 +31,7 @@ export default function PicPreguntaComponente(props) {
     )
 
     const manejarEnvio = (e) => {
+        console.log(idPregunta)
         props.setElegido(e.target.value)
         props.setIdElegido(idPregunta)
     }

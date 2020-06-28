@@ -34,7 +34,7 @@ export default function PicSeccionPreguntasII(props) {
         descriptor={pregunta.situacionProblema}
         setElegido={setRespuestaElegida}
         setIdElegido={setPreguntaElegida}
-        idPregunta={pregunta.id_pregunta}
+        idPregunta={pregunta.idPregunta}
         respuestas={pregunta.opcionesRespuestas} />
     </Step>));
 

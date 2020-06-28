@@ -130,7 +130,6 @@ function actualizarPregunta(req, res) {
                         estado: 'No existe el cuestionario',
                         message: util.format('no existe el cuestionario'),
                         data: Object.assign(err)
-
                     });                }
                 if (!cuestionarioBuscado) {
                     return res.status(601).send({
@@ -141,10 +140,7 @@ function actualizarPregunta(req, res) {
                     });
                 }
                 cuestionarioBuscado.listado_preguntas.forEach(element => {
-                    console.log(element.id_pregunta)
-                    console.log(dec.data.id_pregunta)
                     if (element.id_pregunta == dec.data.id_pregunta) {
-
                         element.valor_respuesta = dec.data.valor_respuesta;
                         element.estado_respuesta = dec.data.estado_respuesta;
                     }
@@ -178,7 +174,6 @@ function actualizarCompetencia(req, res) {
                         estado: 'No existe el cuestionario',
                         message: util.format('no existe el cuestionario'),
                         data: Object.assign(err)
-
                     });
                 }
                 if (!cuestionarioBuscado) {
@@ -299,13 +294,16 @@ function Cuestionario(req, res) {
                         }
 
                         //console.log(subgrupoElegido)
+                        if(cues.coordinacio){
+                            
+                        }
                         if (subgrupoElegido.cursos.length != 0) {
                             subgrupoElegido.cursos.forEach(cursoSubGrupo => {
                                 if (cursoSubGrupo.cargos.length != 0) {
                                     cursoSubGrupo.cargos.forEach(cargoCurso => {
                                         if (cargoCurso == cues.rol) {
                                             //TODO ACTIVAR
-                                            // cursos.push({ idCurso: cursoCoordinacion.idCurso });
+                                            cursos.push({ idCurso: cursoCoordinacion.idCurso });
                                         }
                                     });
                                 }

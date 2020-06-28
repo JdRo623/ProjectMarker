@@ -182,13 +182,13 @@ export default function PicSeccionInformacionPersonal(props) {
         console.log(step.id)
         switch (step.id) {
             case "0":
-                obtenerCargos(goToNext, steps, step)
+                onClickNext(goToNext, steps, step)
                 break;
             case "1":
-                obtenerCargos(goToNext, steps, step)
+                onClickNext(goToNext, steps, step)
                 break;
             case "2":
-                obtenerCargos(goToNext, steps, step)
+                onClickNext(goToNext, steps, step)
                 break;
             case "3":
                 obtenerCargos(goToNext, steps, step)

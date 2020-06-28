@@ -77,8 +77,8 @@ module.exports = {
   'preguntas.justificacion_clave': 'Justificación respuesta clave',
   'preguntas.justificacion_incorrectas': 'Justificación respuestas incorrectas',
   'preguntas.bibliografia': 'Bibliografía',
-  'preguntas.submit': 'Guardar Pregunta',
+  'preguntas.submit': 'Guardar Funcionario',
 
   /** Empleado */
-  'empleado.submit': 'Guardar Empleado',
+  'empleado.submit': 'Guardar Funcionario',
 };
