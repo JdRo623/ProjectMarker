@@ -22,6 +22,42 @@ module.exports = {
     CuestionarioConsulta:CuestionarioConsulta
 }
 
+function actualizarPreguntaIII(req,res){
+    try {
+        var actu = async(req,res)=>{
+            var dec = tools.decryptJson(req.body.data);
+            cuestionarioHandler.findOne({email:dec.data.email},(err,cuestionarioBuscado)=>{
+                if(err){
+                    console.log(err);
+                }
+                if(!cuestionarioBuscado){
+                    return res.status(200).send({
+                        estado: 'cuestionario no encontrado',
+                        message: util.format('cuestionario no encontrado'),
+                        data: Object.assign({})
+                    });
+                }
+                cuestionarioBuscado.listado_preguntas_seccion_iii.forEach(preguntaBuscada=>{
+                    if(preguntaBuscada.id_pregunta == dec.data.id_pregunta){
+                        preguntaBuscada.valor_respuesta = dec.data.valor_respuesta;
+                        preguntaBuscada.estado_preguntas = dec.data.estado_respuesta;
+                    }
+                });
+                cuestionarioHandler.updateOne({email:dec.data.email},cuestionarioBuscado).then(()=>{
+                    return res.status(200).send({
+                        estado: 'PreguntaIII Actualizada',
+                        message: util.format('PreguntaIII Actualizada'),
+                        data: Object.assign(cuestionarioBuscado)
+                    });
+                })
+            })
+        }
+        actu(req,res);
+    } catch (error) {
+        
+    }
+}
+
 function buscarCuestionarioCorreo(req,res){
     try {
         var buscar = async(req,res)=>{
@@ -124,7 +160,7 @@ function actualizarPregunta(req, res) {
         var actualizando = async (req, res) => {
             var dec = tools.decryptJson(req.body.data);
 
-            cuestionario.findOne({ email: dec.data.email }, (err, cuestionarioBuscado) => {
+            cuestionarioHandler.findOne({ email: dec.data.email }, (err, cuestionarioBuscado) => {
                 if (err) {
                     console.log(err)
                 }
@@ -142,7 +178,7 @@ function actualizarPregunta(req, res) {
                         element.estado_respuesta = dec.data.estado_respuesta;
                     }
                 });
-                cuestionario.updateOne({ email: dec.data.email }, cuestionarioBuscado).then(() => {
+                cuestionarioHandler.updateOne({ email: dec.data.email }, cuestionarioBuscado).then(() => {
                     return res.status(200).send({
                         estado: 'Exito',
                         message: util.format('cuestionario actualizado'),
@@ -165,7 +201,7 @@ function actualizarCompetencia(req, res) {
         var actualizando = async (req, res) => {
             var dec = tools.decryptJson(req.body.data);
 
-            cuestionario.findOne({ email: dec.data.email }, (err, cuestionarioBuscado) => {
+            cuestionarioHandler.findOne({ email: dec.data.email }, (err, cuestionarioBuscado) => {
                 if (err) {
                     console.log(err)
                 }
@@ -182,7 +218,7 @@ function actualizarCompetencia(req, res) {
                         element.estado_respuesta = dec.data.estado_respuesta;
                     }
                 });
-                cuestionario.updateOne({ email: dec.data.email }, cuestionarioBuscado).then(() => {
+                cuestionarioHandler.updateOne({ email: dec.data.email }, cuestionarioBuscado).then(() => {
                     return res.status(200).send({
                         estado: 'Exito',
                         message: util.format('cuestionario actualizado'),
@@ -205,7 +241,7 @@ function completadas(req, res) {
         var traer = async (req, res) => {
             var respondidas = 0;
             var noRespondidas = 0;
-            cuestionario.find((err, cuestionarios) => {
+            cuestionarioHandler.find((err, cuestionarios) => {
                 if (err) {
                     console.log(err);
                 }
