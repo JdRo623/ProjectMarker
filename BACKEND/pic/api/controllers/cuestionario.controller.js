@@ -23,13 +23,18 @@ module.exports = {
     actualizarPreguntaIII:actualizarPreguntaIII
 }
 
+
 function actualizarPreguntaIII(req,res){
     try {
         var actu = async(req,res)=>{
             var dec = tools.decryptJson(req.body.data);
             cuestionarioHandler.findOne({email:dec.data.email},(err,cuestionarioBuscado)=>{
                 if(err){
-                    console.log(err);
+                    return res.status(640).send({
+                        estado: "error",
+                        message: "error",
+                        data: Object.assign(err),
+                      });
                 }
                 if(!cuestionarioBuscado){
                     return res.status(200).send({
@@ -67,7 +72,11 @@ function buscarCuestionarioCorreo(req,res){
             
             cuestionarioHandler.findOne({email:dec.data.email},(err,cuestionarioBuscado)=>{
                 if(err){
-                    console.log(err)
+                    return res.status(640).send({
+                        estado: "error",
+                        message: "error",
+                        data: Object.assign(err),
+                      });
                 }
                 if(!cuestionarioBuscado){
                     return res.status(200).send({
@@ -96,7 +105,11 @@ function actualizarEstadoCuestionario(req, res) {
             var respondido = true;
             cuestionarioHandler.findOne({ email: dec.data.email }, (err, cuestionarioBuscado) => {
                 if (err) {
-                    console.log(err)
+                    return res.status(640).send({
+                        estado: "error",
+                        message: "error",
+                        data: Object.assign(err),
+                      });
                 }
                 if (!cuestionarioBuscado) {
                     return res.status(601).send({
@@ -253,7 +266,11 @@ function completadas(req, res) {
             var noRespondidas = 0;
             cuestionarioHandler.find((err, cuestionarios) => {
                 if (err) {
-                    console.log(err);
+                    return res.status(640).send({
+                        estado: "error",
+                        message: "error",
+                        data: Object.assign(err),
+                      });
                 }
                 if (!cuestionarios) {
                     return res.status(200).send({
@@ -298,12 +315,11 @@ function Cuestionario(req, res) {
             console.log(cues);
             await cuestionarioHandler.findOne({ email: cues.email }, (err, cuestionario) => {
                 if (err) {
-                    console.log(err);
-                    return res.status(601).send({
-                        estado: 'error',
-                        message: util.format(err),
-                        data: Object.assign({})
-                    });
+                    return res.status(640).send({
+                        estado: "error",
+                        message: "error",
+                        data: Object.assign(err),
+                      });
                 }
                 if (!cuestionario) {
                     newCuestionario = {
@@ -322,12 +338,11 @@ function Cuestionario(req, res) {
                     subgrupo.findOne({ nombre: cues.subgrupo }, (err, subgrupoElegido) => {
 
                         if (err) {
-                            console.log(err);
-                            return res.status(601).send({
-                                estado: 'error',
-                                message: util.format(err),
-                                data: Object.assign({})
-                            });
+                            return res.status(640).send({
+                                estado: "error",
+                                message: "error",
+                                data: Object.assign(err),
+                              });
                         }
 
                         //console.log(subgrupoElegido)
@@ -348,12 +363,11 @@ function Cuestionario(req, res) {
                         }
                         coordinacion.findOne({ nombre: cues.coordinacion }, (err, coordinacionObtenida) => {
                             if (err) {
-                                console.log(err);
-                                return res.status(601).send({
-                                    estado: 'error',
-                                    message: util.format(err),
-                                    data: Object.assign({})
-                                });
+                                return res.status(640).send({
+                                    estado: "error",
+                                    message: "error",
+                                    data: Object.assign(err),
+                                  });
                             }
 
                             console.log(coordinacionObtenida)
@@ -378,13 +392,11 @@ function Cuestionario(req, res) {
 
                             cursoHandler.find((err, listadoCursosObtenidos) => {
                                 if (err) {
-                                    console.log(err);
-                                    return res.status(601).send({
-                                        estado: 'error',
-                                        message: util.format(err),
-                                        data: Object.assign({})
-
-                                    });
+                                    return res.status(640).send({
+                                        estado: "error",
+                                        message: "error",
+                                        data: Object.assign(err),
+                                      });
                                 }
 
                                 var competenciasGuardar = []
@@ -486,12 +498,11 @@ function CuestionarioConsulta(req, res) {
             subgrupo.findOne({ nombre: cues.subgrupo }, (err, subgrupoElegido) => {
 
                 if (err) {
-                    console.log(err);
-                    return res.status(601).send({
-                        estado: 'error',
-                        message: util.format(err),
-                        data: Object.assign({})
-                    });
+                    return res.status(640).send({
+                        estado: "error",
+                        message: "error",
+                        data: Object.assign(err),
+                      });
                 }
 
                 //console.log(subgrupoElegido)
@@ -509,12 +520,11 @@ function CuestionarioConsulta(req, res) {
                 }
                 coordinacion.findOne({ nombre: cues.coordinacion }, (err, coordinacionObtenida) => {
                     if (err) {
-                        console.log(err);
-                        return res.status(601).send({
-                            estado: 'error',
-                            message: util.format(err),
-                            data: Object.assign({})
-                        });
+                        return res.status(640).send({
+                            estado: "error",
+                            message: "error",
+                            data: Object.assign(err),
+                          });
                     }
 
                     console.log(coordinacionObtenida)
@@ -539,13 +549,11 @@ function CuestionarioConsulta(req, res) {
 
                     cursoHandler.find((err, listadoCursosObtenidos) => {
                         if (err) {
-                            console.log(err);
-                            return res.status(601).send({
-                                estado: 'error',
-                                message: util.format(err),
-                                data: Object.assign({})
-
-                            });
+                            return res.status(640).send({
+                                estado: "error",
+                                message: "error",
+                                data: Object.assign(err),
+                              });
                         }
 
                         var competenciasGuardar = []
@@ -656,7 +664,11 @@ function traerCompetencias(seccional) {
     var cursos = [];
     subgrupo.findOne({ seccional: seccional }, (err, subgrupos) => {
         if (err) {
-            console.log(err);
+            return res.status(640).send({
+                estado: "error",
+                message: "error",
+                data: Object.assign(err),
+              });
         }
         console.log(subgrupos)
         if (subgrupos.length != 0) {
@@ -666,7 +678,11 @@ function traerCompetencias(seccional) {
         }
         coordinacion.findOne({ seccional: seccional }, (err, coordinacion) => {
             if (err) {
-                console.log(err);
+                return res.status(640).send({
+                    estado: "error",
+                    message: "error",
+                    data: Object.assign(err),
+                  });
             }
             console.log(coordinacion)
             if (coordinacion.length != 0) {
@@ -681,7 +697,11 @@ function traerCompetencias(seccional) {
 
                     curso.findOne({ consecutivo: element }, (err, cursobuscado) => {
                         if (err) {
-                            console.log(err);
+                            return res.status(640).send({
+                                estado: "error",
+                                message: "error",
+                                data: Object.assign(err),
+                              });
                         }
                         competencias.array.forEach(compe => {
                             if (cursobuscado === compe) {
@@ -707,7 +727,11 @@ function traerPreguntas(seccional) {
     var encontrado = false;
     subgrupo.findOne({ seccional: seccional }, (err, subgrupos) => {
         if (err) {
-            console.log(err);
+            return res.status(640).send({
+                estado: "error",
+                message: "error",
+                data: Object.assign(err),
+              });
         }
         subgrupos.cursos.array.forEach(element => {
             cursos.array.forEach(cur => {
@@ -725,7 +749,11 @@ function traerPreguntas(seccional) {
     })
     coordinacion.findOne({ seccional: seccional }, (err, coordinacion) => {
         if (err) {
-            console.log(err);
+            return res.status(640).send({
+                estado: "error",
+                message: "error",
+                data: Object.assign(err),
+              });
         }
         coordinacion.cursos.array.forEach(element => {
             cursos.array.forEach(cur => {

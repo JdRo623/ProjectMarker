@@ -179,7 +179,11 @@ function estadisticaCompetencia(req, res) {
         var poblacion = 0;
         usuarios.find((err, usuarios) => {
           if (err) {
-            console.log(err);
+            return res.status(640).send({
+              estado: "error",
+              message: "error",
+              data: Object.assign(err),
+            });
           }
           poblacion = usuarios.length;
           curso.find((err, cursosListado) => {
@@ -267,7 +271,11 @@ function estadisticaCurso(req, res) {
         var poblacion = 0;
         usuarios.find((err, usuarios) => {
           if (err) {
-            console.log(err);
+            return res.status(640).send({
+              estado: "error",
+              message: "error",
+              data: Object.assign(err),
+            });
           }
           poblacion = usuarios.length;
           curso.find((err, cursosListado) => {

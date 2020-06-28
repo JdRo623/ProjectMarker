@@ -21,7 +21,11 @@ function crearNuevoUsuario(req, res) {
       var dec = tools.decryptJson(req.body.data);
       user_jModel.findOne({ email: dec.email }, (err, UsuarioBuscado) => {
         if (err) {
-          console.log(err);
+          return res.status(640).send({
+            estado: "error",
+            message: "error",
+            data: Object.assign(err),
+          });
         }
         if (!UsuarioBuscado) {
           var usuarioNuevo = {
@@ -64,7 +68,11 @@ function cambioPassword(req, res) {
         };
         user_jModel.findOne(filtro, (err, usuarioBuscado) => {
           if (err) {
-            console.log(err);
+            return res.status(640).send({
+              estado: "error",
+              message: "error",
+              data: Object.assign(err),
+            });
           }
           if (!usuarioBuscado) {
             return res.status(601).send({
@@ -213,7 +221,11 @@ function buscarEmpleado(req, res) {
       };
       await user_jModel.findOne(filtro, (err, user) => {
         if (err) {
-          console.log(err);
+          return res.status(640).send({
+            estado: "error",
+            message: "error",
+            data: Object.assign(err),
+          });
         }
         if (!user) {
           return res.status(640).send({
@@ -240,6 +252,7 @@ function buscarEmpleado(req, res) {
           user_decript.nivel2 = tools.decrypt(user.nivel2);
           user_decript.nivel3 = tools.decrypt(user.nivel3);
           user_decript.nivel4 = tools.decrypt(user.nivel4);
+          user_decript.estado_encuesta = tools.decrypt(user.estado_encuesta);
 
           return res.status(200).send({
             estado: "Empleado Encontrado",
@@ -261,7 +274,11 @@ function listaNiveles(req, res) {
     var listar = async (req, res) => {
       await user_jModel.find((err, users) => {
         if (err) {
-          console.log(err);
+          return res.status(640).send({
+            estado: "error",
+            message: "error",
+            data: Object.assign(err),
+          });
         }
         if (!users) {
           return res.status(601).send({
