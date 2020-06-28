@@ -19,7 +19,8 @@ module.exports = {
     actualizarPregunta:actualizarPregunta,
     actualizarEstadoCuestionario:actualizarEstadoCuestionario,
     buscarCuestionarioCorreo:buscarCuestionarioCorreo,    
-    CuestionarioConsulta:CuestionarioConsulta
+    CuestionarioConsulta:CuestionarioConsulta,
+    actualizarPreguntaIII:actualizarPreguntaIII
 }
 
 function actualizarPreguntaIII(req,res){
