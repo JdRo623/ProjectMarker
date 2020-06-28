@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from "react";
-import { Row, Card, CardTitle,Button } from "reactstrap";
+import { Row, Card, CardTitle, Button } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { Colxx } from "../components/common/CustomBootstrap";
 import IntlMessages from "../helpers/IntlMessages";
-
 
 class Error extends Component {
   componentDidMount() {
@@ -26,7 +25,6 @@ class Error extends Component {
                     <p className="white mb-0"></p>
                   </div>
                   <div className="form-side">
-                   
                     <CardTitle className="mb-4">
                       <IntlMessages id="pages.error-title" />
                     </CardTitle>

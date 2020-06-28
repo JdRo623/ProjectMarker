@@ -9,7 +9,7 @@ export default class Scatter extends React.Component {
     if (this.props.shadow) {
       Chart.defaults.scatterWithShadow = Chart.defaults.scatter;
       Chart.controllers.scatterWithShadow = Chart.controllers.scatter.extend({
-        draw: function(ease) {
+        draw: function (ease) {
           Chart.controllers.scatter.prototype.draw.call(this, ease);
           let ctx = this.chart.chart.ctx;
           ctx.save();
@@ -20,7 +20,7 @@ export default class Scatter extends React.Component {
           ctx.responsive = true;
           Chart.controllers.scatter.prototype.draw.apply(this, arguments);
           ctx.restore();
-        }
+        },
       });
     }
   }
@@ -29,10 +29,10 @@ export default class Scatter extends React.Component {
     const { data, shadow } = this.props;
     return (
       <ChartComponent
-        ref={ref => (this.chart_instance = ref && ref.chart_instance)}
+        ref={(ref) => (this.chart_instance = ref && ref.chart_instance)}
         type={shadow ? "scatterWithShadow" : "scatter"}
         options={{
-          ...scatterChartOptions
+          ...scatterChartOptions,
         }}
         data={data}
       />

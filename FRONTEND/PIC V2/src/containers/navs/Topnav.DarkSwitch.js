@@ -3,26 +3,29 @@ import Switch from "rc-switch";
 import "rc-switch/assets/index.css";
 import { Tooltip } from "reactstrap";
 
-import { defaultColor,themeColorStorageKey } from "../../constants/defaultValues";
+import {
+  defaultColor,
+  themeColorStorageKey,
+} from "../../constants/defaultValues";
 
 export default class TopnavDarkSwitch extends Component {
   constructor(props) {
     super(props);
     this.state = {
       switchChecked: false,
-      tooltipOpen: false
+      tooltipOpen: false,
     };
   }
-  componentDidMount(){
-      const color = this.getColor();
-          this.setState({
-            switchChecked:color.indexOf('dark')>-1
-          })
+  componentDidMount() {
+    const color = this.getColor();
+    this.setState({
+      switchChecked: color.indexOf("dark") > -1,
+    });
   }
 
   toggle = () => {
-    this.setState(prevState => ({
-      tooltipOpen: !prevState.tooltipOpen
+    this.setState((prevState) => ({
+      tooltipOpen: !prevState.tooltipOpen,
     }));
   };
 
@@ -34,20 +37,23 @@ export default class TopnavDarkSwitch extends Component {
   changeMode = () => {
     let color = this.getColor();
 
-    if(color.indexOf('dark')>-1){
-        color= color.replace('dark','light')
-    }else if(color.indexOf('light')>-1){
-        color= color.replace('light','dark')
+    if (color.indexOf("dark") > -1) {
+      color = color.replace("dark", "light");
+    } else if (color.indexOf("light") > -1) {
+      color = color.replace("light", "dark");
     }
 
-    this.setState({
-        switchChecked:color.indexOf('dark')>-1
-      },()=>{
-          localStorage.setItem(themeColorStorageKey,color)
+    this.setState(
+      {
+        switchChecked: color.indexOf("dark") > -1,
+      },
+      () => {
+        localStorage.setItem(themeColorStorageKey, color);
         setTimeout(() => {
-            window.location.reload();
-          }, 500);
-      })
+          window.location.reload();
+        }, 500);
+      }
+    );
   };
 
   render() {

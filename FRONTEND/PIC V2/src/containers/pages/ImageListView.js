@@ -7,7 +7,7 @@ import {
   CardImg,
   CardText,
   CustomInput,
-  Badge
+  Badge,
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import classnames from "classnames";
@@ -19,9 +19,9 @@ const ImageListView = ({ product, isSelect, collect, onCheckItem }) => {
     <Colxx sm="6" lg="4" xl="3" className="mb-3" key={product.id}>
       <ContextMenuTrigger id="menu_id" data={product.id} collect={collect}>
         <Card
-          onClick={event => onCheckItem(event, product.id)}
+          onClick={(event) => onCheckItem(event, product.id)}
           className={classnames({
-            active: isSelect
+            active: isSelect,
           })}
         >
           <div className="position-relative">
@@ -45,7 +45,8 @@ const ImageListView = ({ product, isSelect, collect, onCheckItem }) => {
                   id={`check_${product.id}`}
                   checked={isSelect}
                   onChange={() => {}}
-                  label=""/>
+                  label=""
+                />
               </Colxx>
               <Colxx xxs="10" className="mb-3">
                 <CardSubtitle>{product.title}</CardSubtitle>

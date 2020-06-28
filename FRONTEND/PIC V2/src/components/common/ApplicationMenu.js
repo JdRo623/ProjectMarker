@@ -8,7 +8,7 @@ export default class ApplicationMenu extends React.Component {
     this.toggle = this.toggle.bind(this);
 
     this.state = {
-      isOpen: false
+      isOpen: false,
     };
   }
 
@@ -30,7 +30,7 @@ export default class ApplicationMenu extends React.Component {
       this.removeEvents();
     }
     this.setState({
-      isOpen: !isOpen
+      isOpen: !isOpen,
     });
   }
 
@@ -39,13 +39,13 @@ export default class ApplicationMenu extends React.Component {
   }
 
   addEvents() {
-    ["click", "touchstart"].forEach(event =>
+    ["click", "touchstart"].forEach((event) =>
       document.addEventListener(event, this.handleDocumentClick, true)
     );
   }
 
   removeEvents() {
-    ["click", "touchstart"].forEach(event =>
+    ["click", "touchstart"].forEach((event) =>
       document.removeEventListener(event, this.handleDocumentClick, true)
     );
   }

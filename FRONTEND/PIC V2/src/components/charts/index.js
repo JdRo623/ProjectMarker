@@ -14,8 +14,8 @@ export {
   DoughnutChart,
   LineChart,
   PieChart,
-  PolarAreaChart,  
+  PolarAreaChart,
   RadarChart,
   ScatterChart,
-  SmallLineChart
+  SmallLineChart,
 };

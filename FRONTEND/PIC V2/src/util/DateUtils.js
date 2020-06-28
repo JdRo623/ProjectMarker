@@ -11,7 +11,7 @@ export function DateFormater(date) {
     "Septiembre",
     "Octubre",
     "Noviembre",
-    "Diciembre"
+    "Diciembre",
   ];
 
   var day = date.getDate();

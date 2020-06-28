@@ -10,9 +10,9 @@ const DataListView = ({ curso, product, isSelect, collect, onCheckItem }) => {
     <Colxx xxs="12" className="mb-3">
       <ContextMenuTrigger id="menu_id" data={curso.idCurso} collect={collect}>
         <Card
-          onClick={event => onCheckItem(event, curso.idCurso)}
+          onClick={(event) => onCheckItem(event, curso.idCurso)}
           className={classnames("d-flex flex-row", {
-            active: isSelect
+            active: isSelect,
           })}
         >
           <div className="pl-2 d-flex flex-grow-1 min-width-zero">

@@ -12,7 +12,7 @@ class Pagination extends React.Component {
       currentPage = 1,
       numberLimit = 5,
       lastIsActive = true,
-      firstIsActive = true
+      firstIsActive = true,
     } = this.props;
 
     let startPoint = 1;
@@ -48,7 +48,8 @@ class Pagination extends React.Component {
             <NavItem className={`page-item ${firstPageButtonClassName}`}>
               <NavLink
                 className="page-link first"
-                onClick={() => this.onChangePage(1)}>
+                onClick={() => this.onChangePage(1)}
+              >
                 <i className="simple-icon-control-start" />
               </NavLink>
             </NavItem>
@@ -62,11 +63,12 @@ class Pagination extends React.Component {
               <i className="simple-icon-arrow-left" />
             </NavLink>
           </NavItem>
-          {points.map(i => {
+          {points.map((i) => {
             return (
               <NavItem
                 key={i}
-                className={`page-item ${currentPage === i && "active"}`}>
+                className={`page-item ${currentPage === i && "active"}`}
+              >
                 <NavLink
                   className="page-link"
                   onClick={() => this.onChangePage(i)}
@@ -88,7 +90,8 @@ class Pagination extends React.Component {
             <NavItem className={`page-item ${lastPageButtonClassName}`}>
               <NavLink
                 className="page-link last"
-                onClick={() => this.onChangePage(totalPage)}>
+                onClick={() => this.onChangePage(totalPage)}
+              >
                 <i className="simple-icon-control-end" />
               </NavLink>
             </NavItem>

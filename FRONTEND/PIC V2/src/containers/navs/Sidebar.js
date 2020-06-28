@@ -1,34 +1,34 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import ReactDOM from 'react-dom';
-import { Nav, NavItem, Collapse } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
-import classnames from 'classnames';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import { withRouter } from 'react-router-dom';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import ReactDOM from "react-dom";
+import { Nav, NavItem, Collapse } from "reactstrap";
+import { NavLink } from "react-router-dom";
+import classnames from "classnames";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import { withRouter } from "react-router-dom";
 
-import IntlMessages from '../../helpers/IntlMessages';
+import IntlMessages from "../../helpers/IntlMessages";
 
 import {
   setContainerClassnames,
   addContainerClassname,
   changeDefaultClassnames,
-  changeSelectedMenuHasSubItems
-} from '../../redux/actions';
+  changeSelectedMenuHasSubItems,
+} from "../../redux/actions";
 
-import menuItems from '../../constants/menu';
+import menuItems from "../../constants/menu";
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedParentMenu: '',
-      viewingParentMenu: '',
-      collapsedMenus: []
+      selectedParentMenu: "",
+      viewingParentMenu: "",
+      collapsedMenus: [],
     };
   }
 
-  handleWindowResize = event => {
+  handleWindowResize = (event) => {
     if (event && !event.isTrusted) {
       return;
     }
@@ -36,35 +36,35 @@ class Sidebar extends Component {
     let nextClasses = this.getMenuClassesForResize(containerClassnames);
     this.props.setContainerClassnames(
       0,
-      nextClasses.join(' '),
+      nextClasses.join(" "),
       this.props.selectedMenuHasSubItems
     );
   };
 
-  handleDocumentClick = e => {
+  handleDocumentClick = (e) => {
     const container = this.getContainer();
     let isMenuClick = false;
     if (
       e.target &&
       e.target.classList &&
-      (e.target.classList.contains('menu-button') ||
-        e.target.classList.contains('menu-button-mobile'))
+      (e.target.classList.contains("menu-button") ||
+        e.target.classList.contains("menu-button-mobile"))
     ) {
       isMenuClick = true;
     } else if (
       e.target.parentElement &&
       e.target.parentElement.classList &&
-      (e.target.parentElement.classList.contains('menu-button') ||
-        e.target.parentElement.classList.contains('menu-button-mobile'))
+      (e.target.parentElement.classList.contains("menu-button") ||
+        e.target.parentElement.classList.contains("menu-button-mobile"))
     ) {
       isMenuClick = true;
     } else if (
       e.target.parentElement &&
       e.target.parentElement.parentElement &&
       e.target.parentElement.parentElement.classList &&
-      (e.target.parentElement.parentElement.classList.contains('menu-button') ||
+      (e.target.parentElement.parentElement.classList.contains("menu-button") ||
         e.target.parentElement.parentElement.classList.contains(
-          'menu-button-mobile'
+          "menu-button-mobile"
         ))
     ) {
       isMenuClick = true;
@@ -73,32 +73,32 @@ class Sidebar extends Component {
       return;
     }
     this.setState({
-      viewingParentMenu: ''
+      viewingParentMenu: "",
     });
     this.toggle();
   };
 
-  getMenuClassesForResize = classes => {
+  getMenuClassesForResize = (classes) => {
     const { menuHiddenBreakpoint, subHiddenBreakpoint } = this.props;
-    let nextClasses = classes.split(' ').filter(x => x !== '');
+    let nextClasses = classes.split(" ").filter((x) => x !== "");
     const windowWidth = window.innerWidth;
     if (windowWidth < menuHiddenBreakpoint) {
-      nextClasses.push('menu-mobile');
+      nextClasses.push("menu-mobile");
     } else if (windowWidth < subHiddenBreakpoint) {
-      nextClasses = nextClasses.filter(x => x !== 'menu-mobile');
+      nextClasses = nextClasses.filter((x) => x !== "menu-mobile");
       if (
-        nextClasses.includes('menu-default') &&
-        !nextClasses.includes('menu-sub-hidden')
+        nextClasses.includes("menu-default") &&
+        !nextClasses.includes("menu-sub-hidden")
       ) {
-        nextClasses.push('menu-sub-hidden');
+        nextClasses.push("menu-sub-hidden");
       }
     } else {
-      nextClasses = nextClasses.filter(x => x !== 'menu-mobile');
+      nextClasses = nextClasses.filter((x) => x !== "menu-mobile");
       if (
-        nextClasses.includes('menu-default') &&
-        nextClasses.includes('menu-sub-hidden')
+        nextClasses.includes("menu-default") &&
+        nextClasses.includes("menu-sub-hidden")
       ) {
-        nextClasses = nextClasses.filter(x => x !== 'menu-sub-hidden');
+        nextClasses = nextClasses.filter((x) => x !== "menu-sub-hidden");
       }
     }
     return nextClasses;
@@ -113,33 +113,33 @@ class Sidebar extends Component {
     this.props.changeSelectedMenuHasSubItems(hasSubItems);
     const { containerClassnames, menuClickCount } = this.props;
     const currentClasses = containerClassnames
-      ? containerClassnames.split(' ').filter(x => x !== '')
-      : '';
+      ? containerClassnames.split(" ").filter((x) => x !== "")
+      : "";
     let clickIndex = -1;
 
     if (!hasSubItems) {
       if (
-        currentClasses.includes('menu-default') &&
+        currentClasses.includes("menu-default") &&
         (menuClickCount % 4 === 0 || menuClickCount % 4 === 3)
       ) {
         clickIndex = 1;
       } else if (
-        currentClasses.includes('menu-sub-hidden') &&
+        currentClasses.includes("menu-sub-hidden") &&
         (menuClickCount === 2 || menuClickCount === 3)
       ) {
         clickIndex = 0;
       } else if (
-        currentClasses.includes('menu-hidden') ||
-        currentClasses.includes('menu-mobile')
+        currentClasses.includes("menu-hidden") ||
+        currentClasses.includes("menu-mobile")
       ) {
         clickIndex = 0;
       }
     } else {
-      if (currentClasses.includes('menu-sub-hidden') && menuClickCount === 3) {
+      if (currentClasses.includes("menu-sub-hidden") && menuClickCount === 3) {
         clickIndex = 2;
       } else if (
-        currentClasses.includes('menu-hidden') ||
-        currentClasses.includes('menu-mobile')
+        currentClasses.includes("menu-hidden") ||
+        currentClasses.includes("menu-mobile")
       ) {
         clickIndex = 0;
       }
@@ -158,62 +158,64 @@ class Sidebar extends Component {
   };
 
   addEvents = () => {
-    ['click', 'touchstart', 'touchend'].forEach(event =>
+    ["click", "touchstart", "touchend"].forEach((event) =>
       document.addEventListener(event, this.handleDocumentClick, true)
     );
   };
 
   removeEvents = () => {
-    ['click', 'touchstart', 'touchend'].forEach(event =>
+    ["click", "touchstart", "touchend"].forEach((event) =>
       document.removeEventListener(event, this.handleDocumentClick, true)
     );
   };
 
-  setSelectedLiActive = callback => {
-    const oldli = document.querySelector('.sub-menu  li.active');
+  setSelectedLiActive = (callback) => {
+    const oldli = document.querySelector(".sub-menu  li.active");
     if (oldli != null) {
-      oldli.classList.remove('active');
+      oldli.classList.remove("active");
     }
 
-    const oldliSub = document.querySelector('.third-level-menu  li.active');
+    const oldliSub = document.querySelector(".third-level-menu  li.active");
     if (oldliSub != null) {
-      oldliSub.classList.remove('active');
+      oldliSub.classList.remove("active");
     }
 
     /* set selected parent menu */
-    const selectedSublink = document.querySelector('.third-level-menu  a.active');
+    const selectedSublink = document.querySelector(
+      ".third-level-menu  a.active"
+    );
     if (selectedSublink != null) {
-      selectedSublink.parentElement.classList.add('active');
+      selectedSublink.parentElement.classList.add("active");
     }
 
-    const selectedlink = document.querySelector('.sub-menu  a.active');
+    const selectedlink = document.querySelector(".sub-menu  a.active");
     if (selectedlink != null) {
-      selectedlink.parentElement.classList.add('active');
+      selectedlink.parentElement.classList.add("active");
       this.setState(
         {
           selectedParentMenu: selectedlink.parentElement.parentElement.getAttribute(
-            'data-parent'
-          )
+            "data-parent"
+          ),
         },
         callback
       );
     } else {
       var selectedParentNoSubItem = document.querySelector(
-        '.main-menu  li a.active'
+        ".main-menu  li a.active"
       );
       if (selectedParentNoSubItem != null) {
         this.setState(
           {
             selectedParentMenu: selectedParentNoSubItem.getAttribute(
-              'data-flag'
-            )
+              "data-flag"
+            ),
           },
           callback
         );
-      } else if (this.state.selectedParentMenu === '') {
+      } else if (this.state.selectedParentMenu === "") {
         this.setState(
           {
-            selectedParentMenu: menuItems[0].id
+            selectedParentMenu: menuItems[0].id,
           },
           callback
         );
@@ -229,7 +231,7 @@ class Sidebar extends Component {
 
   getIsHasSubItem = () => {
     const { selectedParentMenu } = this.state;
-    const menuItem = menuItems.find(x => x.id === selectedParentMenu);
+    const menuItem = menuItems.find((x) => x.id === selectedParentMenu);
     if (menuItem)
       return menuItem && menuItem.subs && menuItem.subs.length > 0
         ? true
@@ -247,7 +249,7 @@ class Sidebar extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleWindowResize);
+    window.addEventListener("resize", this.handleWindowResize);
     this.handleWindowResize();
     this.handleProps();
     this.setSelectedLiActive(this.setHasSubItemStatus);
@@ -255,7 +257,7 @@ class Sidebar extends Component {
 
   componentWillUnmount() {
     this.removeEvents();
-    window.removeEventListener('resize', this.handleWindowResize);
+    window.removeEventListener("resize", this.handleWindowResize);
   }
 
   openSubMenu = (e, menuItem) => {
@@ -265,7 +267,7 @@ class Sidebar extends Component {
     if (!hasSubMenu) {
       this.setState({
         viewingParentMenu: selectedParent,
-        selectedParentMenu: selectedParent
+        selectedParentMenu: selectedParent,
       });
       this.toggle();
     } else {
@@ -273,35 +275,35 @@ class Sidebar extends Component {
 
       const { containerClassnames, menuClickCount } = this.props;
       const currentClasses = containerClassnames
-        ? containerClassnames.split(' ').filter(x => x !== '')
-        : '';
+        ? containerClassnames.split(" ").filter((x) => x !== "")
+        : "";
 
-      if (!currentClasses.includes('menu-mobile')) {
+      if (!currentClasses.includes("menu-mobile")) {
         if (
-          currentClasses.includes('menu-sub-hidden') &&
+          currentClasses.includes("menu-sub-hidden") &&
           (menuClickCount === 2 || menuClickCount === 0)
         ) {
           this.props.setContainerClassnames(3, containerClassnames, hasSubMenu);
         } else if (
-          currentClasses.includes('menu-hidden') &&
+          currentClasses.includes("menu-hidden") &&
           (menuClickCount === 1 || menuClickCount === 3)
         ) {
           this.props.setContainerClassnames(2, containerClassnames, hasSubMenu);
         } else if (
-          currentClasses.includes('menu-default') &&
-          !currentClasses.includes('menu-sub-hidden') &&
+          currentClasses.includes("menu-default") &&
+          !currentClasses.includes("menu-sub-hidden") &&
           (menuClickCount === 1 || menuClickCount === 3)
         ) {
           this.props.setContainerClassnames(0, containerClassnames, hasSubMenu);
         }
       } else {
         this.props.addContainerClassname(
-          'sub-show-temporary',
+          "sub-show-temporary",
           containerClassnames
         );
       }
       this.setState({
-        viewingParentMenu: selectedParent
+        viewingParentMenu: selectedParent,
       });
     }
   };
@@ -312,12 +314,12 @@ class Sidebar extends Component {
     let collapsedMenus = this.state.collapsedMenus;
     if (collapsedMenus.indexOf(menuKey) > -1) {
       this.setState({
-        collapsedMenus: collapsedMenus.filter(x => x !== menuKey)
+        collapsedMenus: collapsedMenus.filter((x) => x !== menuKey),
       });
     } else {
       collapsedMenus.push(menuKey);
       this.setState({
-        collapsedMenus
+        collapsedMenus,
       });
     }
     return false;
@@ -327,7 +329,7 @@ class Sidebar extends Component {
     const {
       selectedParentMenu,
       viewingParentMenu,
-      collapsedMenus
+      collapsedMenus,
     } = this.state;
     return (
       <div className="sidebar">
@@ -338,15 +340,15 @@ class Sidebar extends Component {
             >
               <Nav vertical className="list-unstyled">
                 {menuItems &&
-                  menuItems.map(item => {
+                  menuItems.map((item) => {
                     return (
                       <NavItem
                         key={item.id}
                         className={classnames({
                           active:
                             (selectedParentMenu === item.id &&
-                              viewingParentMenu === '') ||
-                            viewingParentMenu === item.id
+                              viewingParentMenu === "") ||
+                            viewingParentMenu === item.id,
                         })}
                       >
                         {item.newWindow ? (
@@ -355,16 +357,16 @@ class Sidebar extends Component {
                             rel="noopener noreferrer"
                             target="_blank"
                           >
-                            <i className={item.icon} />{' '}
+                            <i className={item.icon} />{" "}
                             <IntlMessages id={item.label} />
                           </a>
                         ) : (
                           <NavLink
                             to={item.to}
-                            onClick={e => this.openSubMenu(e, item)}
+                            onClick={(e) => this.openSubMenu(e, item)}
                             data-flag={item.id}
                           >
-                            <i className={item.icon} />{' '}
+                            <i className={item.icon} />{" "}
                             <IntlMessages id={item.label} />
                           </NavLink>
                         )}
@@ -382,15 +384,15 @@ class Sidebar extends Component {
               options={{ suppressScrollX: true, wheelPropagation: false }}
             >
               {menuItems &&
-                menuItems.map(item => {
+                menuItems.map((item) => {
                   return (
                     <Nav
                       key={item.id}
                       className={classnames({
-                        'd-block':
+                        "d-block":
                           (this.state.selectedParentMenu === item.id &&
-                            this.state.viewingParentMenu === '') ||
-                          this.state.viewingParentMenu === item.id
+                            this.state.viewingParentMenu === "") ||
+                          this.state.viewingParentMenu === item.id,
                       })}
                       data-parent={item.id}
                     >
@@ -401,8 +403,8 @@ class Sidebar extends Component {
                               key={`${item.id}_${index}`}
                               className={`${
                                 sub.subs && sub.subs.length > 0
-                                  ? 'has-sub-item'
-                                  : ''
+                                  ? "has-sub-item"
+                                  : ""
                               }`}
                             >
                               {sub.newWindow ? (
@@ -411,7 +413,7 @@ class Sidebar extends Component {
                                   rel="noopener noreferrer"
                                   target="_blank"
                                 >
-                                  <i className={sub.icon} />{' '}
+                                  <i className={sub.icon} />{" "}
                                   <IntlMessages id={sub.label} />
                                 </a>
                               ) : sub.subs && sub.subs.length > 0 ? (
@@ -421,19 +423,19 @@ class Sidebar extends Component {
                                       collapsedMenus.indexOf(
                                         `${item.id}_${index}`
                                       ) === -1
-                                        ? ''
-                                        : 'collapsed'
+                                        ? ""
+                                        : "collapsed"
                                     }`}
                                     to={sub.to}
                                     id={`${item.id}_${index}`}
-                                    onClick={e =>
+                                    onClick={(e) =>
                                       this.toggleMenuCollapse(
                                         e,
                                         `${item.id}_${index}`
                                       )
                                     }
                                   >
-                                    <i className="simple-icon-arrow-down" />{' '}
+                                    <i className="simple-icon-arrow-down" />{" "}
                                     <IntlMessages id={sub.label} />
                                   </NavLink>
 
@@ -448,9 +450,7 @@ class Sidebar extends Component {
                                       {sub.subs.map((thirdSub, thirdIndex) => {
                                         return (
                                           <NavItem
-                                            key={`${
-                                              item.id
-                                            }_${index}_${thirdIndex}`}
+                                            key={`${item.id}_${index}_${thirdIndex}`}
                                           >
                                             {thirdSub.newWindow ? (
                                               <a
@@ -458,14 +458,14 @@ class Sidebar extends Component {
                                                 rel="noopener noreferrer"
                                                 target="_blank"
                                               >
-                                                <i className={thirdSub.icon} />{' '}
+                                                <i className={thirdSub.icon} />{" "}
                                                 <IntlMessages
                                                   id={thirdSub.label}
                                                 />
                                               </a>
                                             ) : (
                                               <NavLink to={thirdSub.to}>
-                                                <i className={thirdSub.icon} />{' '}
+                                                <i className={thirdSub.icon} />{" "}
                                                 <IntlMessages
                                                   id={thirdSub.label}
                                                 />
@@ -479,7 +479,7 @@ class Sidebar extends Component {
                                 </Fragment>
                               ) : (
                                 <NavLink to={sub.to}>
-                                  <i className={sub.icon} />{' '}
+                                  <i className={sub.icon} />{" "}
                                   <IntlMessages id={sub.label} />
                                 </NavLink>
                               )}
@@ -503,24 +503,21 @@ const mapStateToProps = ({ menu }) => {
     subHiddenBreakpoint,
     menuHiddenBreakpoint,
     menuClickCount,
-    selectedMenuHasSubItems
+    selectedMenuHasSubItems,
   } = menu;
   return {
     containerClassnames,
     subHiddenBreakpoint,
     menuHiddenBreakpoint,
     menuClickCount,
-    selectedMenuHasSubItems
+    selectedMenuHasSubItems,
   };
 };
 export default withRouter(
-  connect(
-    mapStateToProps,
-    {
-      setContainerClassnames,
-      addContainerClassname,
-      changeDefaultClassnames,
-      changeSelectedMenuHasSubItems
-    }
-  )(Sidebar)
+  connect(mapStateToProps, {
+    setContainerClassnames,
+    addContainerClassname,
+    changeDefaultClassnames,
+    changeSelectedMenuHasSubItems,
+  })(Sidebar)
 );

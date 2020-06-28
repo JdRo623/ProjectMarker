@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from "react";
 import {
   Row,
   Card,
@@ -12,64 +12,64 @@ import {
   Label,
   Button,
   Form,
-} from 'reactstrap';
-import IntlMessages from '../../helpers/IntlMessages';
-import { Colxx, Separator } from '../../components/common/CustomBootstrap';
+} from "reactstrap";
+import IntlMessages from "../../helpers/IntlMessages";
+import { Colxx, Separator } from "../../components/common/CustomBootstrap";
 
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import 'react-quill/dist/quill.bubble.css';
-import constantes from '../../util/Constantes.js';
-import HttpUtil from '../../util/HttpService.js';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "react-quill/dist/quill.bubble.css";
+import constantes from "../../util/Constantes.js";
+import HttpUtil from "../../util/HttpService.js";
 
 const quillModules = {
   toolbar: [
-    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    ["bold", "italic", "underline", "strike", "blockquote"],
     [
-      { list: 'ordered' },
-      { list: 'bullet' },
-      { indent: '-1' },
-      { indent: '+1' },
+      { list: "ordered" },
+      { list: "bullet" },
+      { indent: "-1" },
+      { indent: "+1" },
     ],
-    ['link', 'image'],
-    ['clean'],
+    ["link", "image"],
+    ["clean"],
   ],
 };
 
 const quillFormats = [
-  'header',
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'blockquote',
-  'list',
-  'bullet',
-  'indent',
-  'link',
-  'image',
+  "header",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
 ];
 
 export default function PicCargaPreguntas(props) {
   const [modal, setModal] = useState(false);
 
-  const [numero_pregunta, setNumeroPregunta] = useState('');
-  const [situacion_problema, setSituacionProblema] = useState('');
-  const [encabezado_pregunta, setEncabezadoPregunta] = useState('');
-  const [respuesta1, setRespuesta1] = useState('');
-  const [respuesta2, setRespuesta2] = useState('');
-  const [respuesta3, setRespuesta3] = useState('');
-  const [competencia, setCompetencia] = useState('');
-  const [nivel, setNivel] = useState('');
-  const [curso, setCurso] = useState('');
-  const [codificacion, setCodificacion] = useState('');
-  const [clave, setClave] = useState('');
+  const [numero_pregunta, setNumeroPregunta] = useState("");
+  const [situacion_problema, setSituacionProblema] = useState("");
+  const [encabezado_pregunta, setEncabezadoPregunta] = useState("");
+  const [respuesta1, setRespuesta1] = useState("");
+  const [respuesta2, setRespuesta2] = useState("");
+  const [respuesta3, setRespuesta3] = useState("");
+  const [competencia, setCompetencia] = useState("");
+  const [nivel, setNivel] = useState("");
+  const [curso, setCurso] = useState("");
+  const [codificacion, setCodificacion] = useState("");
+  const [clave, setClave] = useState("");
   const [
     justificacion_respuesta_clave,
     setJustificacionRespuestaClave,
-  ] = useState('');
-  const [justificacion_incorrectas, setJustificacionIncorrectas] = useState('');
-  const [bibliografia, setBibliografia] = useState('');
+  ] = useState("");
+  const [justificacion_incorrectas, setJustificacionIncorrectas] = useState("");
+  const [bibliografia, setBibliografia] = useState("");
 
   const enviarPregunta = () => {
     try {
@@ -102,22 +102,22 @@ export default function PicCargaPreguntas(props) {
         envio,
         (response) => {
           setModal(false);
-          setNumeroPregunta('');
-          setSituacionProblema('');
-          setEncabezadoPregunta('');
-          setRespuesta1('');
-          setRespuesta2('');
-          setRespuesta3('');
-          setCompetencia('');
-          setNivel('');
-          setCurso('');
-          setCodificacion('');
-          setClave('');
-          setJustificacionRespuestaClave('');
-          setJustificacionIncorrectas('');
-          setBibliografia('');
+          setNumeroPregunta("");
+          setSituacionProblema("");
+          setEncabezadoPregunta("");
+          setRespuesta1("");
+          setRespuesta2("");
+          setRespuesta3("");
+          setCompetencia("");
+          setNivel("");
+          setCurso("");
+          setCodificacion("");
+          setClave("");
+          setJustificacionRespuestaClave("");
+          setJustificacionIncorrectas("");
+          setBibliografia("");
 
-          console.log('Cargado');
+          console.log("Cargado");
           /*if (['Aprobado', 'Aprobada'].indexOf(response.estado) > -1) {
                         localStorage.setItem('userInfo', JSON.stringify(response.data));
                         props.history.push("/admin");
@@ -129,7 +129,7 @@ export default function PicCargaPreguntas(props) {
         (response) => {
           setModal(false);
           console.warn(
-            'A Ocurrido un error al almacenar la pregunta, por favor revise el número de la pregunta'
+            "A Ocurrido un error al almacenar la pregunta, por favor revise el número de la pregunta"
           );
           /*  this.setState({
                           alertTitle: 'Error!',
@@ -140,7 +140,7 @@ export default function PicCargaPreguntas(props) {
         }
       );
     } catch (error) {
-      console.error('Error', error);
+      console.error("Error", error);
     }
   };
 
@@ -153,28 +153,28 @@ export default function PicCargaPreguntas(props) {
           <ModalBody>Registrando Preguntas</ModalBody>
         </Modal>
       </div>
-      <Row className='mb-4'>
-        <Colxx xxs='12'>
+      <Row className="mb-4">
+        <Colxx xxs="12">
           <Card>
             <CardBody>
               <CardTitle>Cargue de Preguntas</CardTitle>
 
               <Form>
-                <Label className='form-group has-float-label'>
+                <Label className="form-group has-float-label">
                   <Input
-                    type='text'
+                    type="text"
                     value={numero_pregunta}
                     onChange={(e) => setNumeroPregunta(e.target.value)}
                   />
-                  <IntlMessages id='preguntas.numero_pregunta' />
+                  <IntlMessages id="preguntas.numero_pregunta" />
                 </Label>
-                <Row className='mb-4'>
-                  <Colxx xxs='12'>
-                    <Label className='form-group has-float-label'>
-                      <IntlMessages id='preguntas.situacion_problema' />
+                <Row className="mb-4">
+                  <Colxx xxs="12">
+                    <Label className="form-group has-float-label">
+                      <IntlMessages id="preguntas.situacion_problema" />
                     </Label>
                     <ReactQuill
-                      theme='snow'
+                      theme="snow"
                       value={situacion_problema}
                       onChange={setSituacionProblema}
                       modules={quillModules}
@@ -182,13 +182,13 @@ export default function PicCargaPreguntas(props) {
                     />
                   </Colxx>
                 </Row>
-                <Row className='mb-4'>
-                  <Colxx xxs='12'>
-                    <Label className='form-group has-float-label'>
-                      <IntlMessages id='preguntas.encabezado' />
+                <Row className="mb-4">
+                  <Colxx xxs="12">
+                    <Label className="form-group has-float-label">
+                      <IntlMessages id="preguntas.encabezado" />
                     </Label>
                     <ReactQuill
-                      theme='snow'
+                      theme="snow"
                       value={encabezado_pregunta}
                       onChange={setEncabezadoPregunta}
                       modules={quillModules}
@@ -196,114 +196,114 @@ export default function PicCargaPreguntas(props) {
                     />
                   </Colxx>
                 </Row>
-                <Label className='form-group has-float-label'>
+                <Label className="form-group has-float-label">
                   <ReactQuill
-                    theme='snow'
+                    theme="snow"
                     value={respuesta1}
                     onChange={setRespuesta1}
                     modules={quillModules}
                     formats={quillFormats}
                   />
-                  <IntlMessages id='preguntas.opciones_respuestas_a' />
+                  <IntlMessages id="preguntas.opciones_respuestas_a" />
                 </Label>
-                <Label className='form-group has-float-label'>
+                <Label className="form-group has-float-label">
                   <ReactQuill
-                    theme='snow'
+                    theme="snow"
                     value={respuesta2}
                     onChange={setRespuesta2}
                     modules={quillModules}
                     formats={quillFormats}
                   />
-                  <IntlMessages id='preguntas.opciones_respuestas_b' />
+                  <IntlMessages id="preguntas.opciones_respuestas_b" />
                 </Label>
-                <Label className='form-group has-float-label'>
+                <Label className="form-group has-float-label">
                   <ReactQuill
-                    theme='snow'
+                    theme="snow"
                     value={respuesta3}
                     onChange={setRespuesta3}
                     modules={quillModules}
                     formats={quillFormats}
                   />
-                  <IntlMessages id='preguntas.opciones_respuestas_c' />
+                  <IntlMessages id="preguntas.opciones_respuestas_c" />
                 </Label>
-                <Label className='form-group has-float-label'>
+                <Label className="form-group has-float-label">
                   <Input
-                    type='text'
+                    type="text"
                     value={competencia}
                     onChange={(e) => setCompetencia(e.target.value)}
                   />
-                  <IntlMessages id='preguntas.competencia' />
+                  <IntlMessages id="preguntas.competencia" />
                 </Label>
-                <Label className='form-group has-float-label'>
+                <Label className="form-group has-float-label">
                   <Input
-                    type='text'
+                    type="text"
                     value={nivel}
                     onChange={(e) => setNivel(e.target.value)}
                   />
-                  <IntlMessages id='preguntas.nivel' />
+                  <IntlMessages id="preguntas.nivel" />
                 </Label>
-                <Label className='form-group has-float-label'>
+                <Label className="form-group has-float-label">
                   <Input
-                    type='text'
+                    type="text"
                     value={curso}
                     onChange={(e) => setCurso(e.target.value)}
                   />
-                  <IntlMessages id='preguntas.curso' />
+                  <IntlMessages id="preguntas.curso" />
                 </Label>
-                <Label className='form-group has-float-label'>
+                <Label className="form-group has-float-label">
                   <Input
-                    type='text'
+                    type="text"
                     value={codificacion}
                     onChange={(e) => setCodificacion(e.target.value)}
                   />
-                  <IntlMessages id='preguntas.codificacion' />
+                  <IntlMessages id="preguntas.codificacion" />
                 </Label>
-                <Label className='form-group has-float-label'>
+                <Label className="form-group has-float-label">
                   <Input
-                    type='text'
+                    type="text"
                     value={clave}
                     onChange={(e) => setClave(e.target.value)}
                   />
-                  <IntlMessages id='preguntas.clave' />
+                  <IntlMessages id="preguntas.clave" />
                 </Label>
-                <Row className='mb-4'>
-                  <Colxx xxs='12'>
-                    <Label className='form-group has-float-label'>
-                      <IntlMessages id='preguntas.justificacion_clave' />
+                <Row className="mb-4">
+                  <Colxx xxs="12">
+                    <Label className="form-group has-float-label">
+                      <IntlMessages id="preguntas.justificacion_clave" />
                     </Label>
                     <ReactQuill
-                      theme='bubble'
+                      theme="bubble"
                       value={justificacion_respuesta_clave}
                       onChange={setJustificacionRespuestaClave}
                     />
                   </Colxx>
                 </Row>
-                <Row className='mb-4'>
-                  <Colxx xxs='12'>
-                    <Label className='form-group has-float-label'>
-                      <IntlMessages id='preguntas.justificacion_incorrectas' />
+                <Row className="mb-4">
+                  <Colxx xxs="12">
+                    <Label className="form-group has-float-label">
+                      <IntlMessages id="preguntas.justificacion_incorrectas" />
                     </Label>
                     <ReactQuill
-                      theme='bubble'
+                      theme="bubble"
                       value={justificacion_incorrectas}
                       onChange={setJustificacionIncorrectas}
                     />
                   </Colxx>
                 </Row>
-                <Row className='mb-4'>
-                  <Colxx xxs='12'>
-                    <Label className='form-group has-float-label'>
-                      <IntlMessages id='preguntas.bibliografia' />
+                <Row className="mb-4">
+                  <Colxx xxs="12">
+                    <Label className="form-group has-float-label">
+                      <IntlMessages id="preguntas.bibliografia" />
                     </Label>
                     <ReactQuill
-                      theme='bubble'
+                      theme="bubble"
                       value={bibliografia}
                       onChange={setBibliografia}
                     />
                   </Colxx>
                 </Row>
-                <Button color='primary' onClick={enviarPregunta}>
-                  <IntlMessages id='preguntas.submit' />
+                <Button color="primary" onClick={enviarPregunta}>
+                  <IntlMessages id="preguntas.submit" />
                 </Button>
               </Form>
             </CardBody>

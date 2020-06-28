@@ -8,40 +8,40 @@ class StateButton extends React.Component {
     this.state = {
       status: "default",
       message: "",
-      messageShow: false
+      messageShow: false,
     };
   }
 
   handleOnClick = () => {
     this.setState(
       {
-        status: "processing"
+        status: "processing",
       },
       () => {
         this.props
           .onClick()
-          .then(res => {
+          .then((res) => {
             this.setState({
               status: "success",
-              message: res
+              message: res,
             });
           })
-          .catch(err => {
+          .catch((err) => {
             this.setState({
               status: "fail",
-              message: err
+              message: err,
             });
           })
           .finally(() => {
             this.setState(
               {
-                messageShow: true
+                messageShow: true,
               },
               () => {
                 setTimeout(() => {
                   this.setState({
                     messageShow: false,
-                    status: "default"
+                    status: "default",
                   });
                 }, 3000);
               }
@@ -59,7 +59,7 @@ class StateButton extends React.Component {
             {
               "show-spinner": this.state.status === "processing",
               "show-success": this.state.status === "success",
-              "show-fail": this.state.status === "fail"
+              "show-fail": this.state.status === "fail",
             }
           )}`}
           color={this.props.color}

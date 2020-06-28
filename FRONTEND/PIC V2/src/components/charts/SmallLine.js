@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import ChartComponent, { Chart } from "react-chartjs-2";
 
-import {smallLineChartOptions} from "./config"
+import { smallLineChartOptions } from "./config";
 
-const addCommas = nStr => {
+const addCommas = (nStr) => {
   nStr += "";
   var x = nStr.split(".");
   var x1 = x[0];
@@ -21,11 +21,11 @@ export default class SmallLine extends React.Component {
     this.changeState = this.changeState.bind(this);
     this.state = {
       currentValue: "",
-      currentLabel: ""
+      currentLabel: "",
     };
     Chart.defaults.lineWithLine = Chart.defaults.line;
     Chart.controllers.lineWithLine = Chart.controllers.line.extend({
-      draw: function(ease) {
+      draw: function (ease) {
         Chart.controllers.line.prototype.draw.call(this, ease);
 
         if (this.chart.tooltip._active && this.chart.tooltip._active.length) {
@@ -44,7 +44,7 @@ export default class SmallLine extends React.Component {
           ctx.stroke();
           ctx.restore();
         }
-      }
+      },
     });
   }
 
@@ -54,8 +54,8 @@ export default class SmallLine extends React.Component {
 
   render() {
     const changeState = this.changeState;
-    const {data} = this.props
-    
+    const { data } = this.props;
+
     return (
       <Fragment>
         <div>
@@ -66,32 +66,32 @@ export default class SmallLine extends React.Component {
         </div>
         <div className="chart">
           <ChartComponent
-            ref={ref => (this.chart_instance = ref && ref.chart_instance)}
+            ref={(ref) => (this.chart_instance = ref && ref.chart_instance)}
             type="lineWithLine"
             options={{
               ...smallLineChartOptions,
               tooltips: {
                 intersect: false,
                 enabled: false,
-                custom: function(tooltipModel) {
+                custom: function (tooltipModel) {
                   if (tooltipModel && tooltipModel.dataPoints) {
                     var yLabel = tooltipModel.dataPoints[0].yLabel;
                     var xLabel = tooltipModel.dataPoints[0].xLabel;
                     var label = tooltipModel.body[0].lines[0].split(":")[0];
                     changeState("$" + addCommas(yLabel), label + "-" + xLabel);
                   }
-                }
-              }
+                },
+              },
             }}
             plugins={[
               {
-                afterInit: function(chart, options) {
+                afterInit: function (chart, options) {
                   var yLabel = chart.data.datasets[0].data[0];
                   var xLabel = chart.data.labels[0];
                   var label = chart.data.datasets[0].label;
                   changeState("$" + addCommas(yLabel), label + "-" + xLabel);
-                }
-              }
+                },
+              },
             ]}
             data={data}
           />

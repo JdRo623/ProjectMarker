@@ -8,7 +8,7 @@ class SaySomething extends Component {
       messageInput,
       handleChatInputPress,
       handleChatInputChange,
-      handleSendButtonClick
+      handleSendButtonClick,
     } = this.props;
     return (
       <div className="chat-input-container d-flex justify-content-between align-items-center">
@@ -17,8 +17,8 @@ class SaySomething extends Component {
           type="text"
           placeholder={placeholder}
           value={messageInput}
-          onKeyPress={e => handleChatInputPress(e)}
-          onChange={e => handleChatInputChange(e)}
+          onKeyPress={(e) => handleChatInputPress(e)}
+          onChange={(e) => handleChatInputChange(e)}
         />
         <div>
           <Button outline color="primary" className="icon-button large ml-1">

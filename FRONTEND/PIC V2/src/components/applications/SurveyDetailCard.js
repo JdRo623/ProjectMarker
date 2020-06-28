@@ -15,7 +15,7 @@ const SurveyDetailCard = ({ survey }) => {
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{
-              __html: survey.detail
+              __html: survey.detail,
             }}
           />
 

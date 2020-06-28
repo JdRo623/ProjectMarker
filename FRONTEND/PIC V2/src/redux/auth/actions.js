@@ -13,7 +13,7 @@ import {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_ERROR,
   CHANGE_PASSWORD,
-} from '../actions';
+} from "../actions";
 
 export const loginUser = (user, history) => ({
   type: LOGIN_USER,

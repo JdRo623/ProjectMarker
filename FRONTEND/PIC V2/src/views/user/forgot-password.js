@@ -12,7 +12,7 @@ class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "demo@gogo.com"
+      email: "demo@gogo.com",
     };
   }
 
@@ -22,7 +22,7 @@ class ForgotPassword extends Component {
         this.props.forgotPassword(values, this.props.history);
       }
     }
-  }
+  };
 
   validateEmail = (value) => {
     let error;
@@ -32,7 +32,7 @@ class ForgotPassword extends Component {
       error = "Invalid email address";
     }
     return error;
-  }
+  };
 
   componentDidUpdate() {
     if (this.props.error) {
@@ -42,7 +42,7 @@ class ForgotPassword extends Component {
         3000,
         null,
         null,
-        ''
+        ""
       );
     } else {
       if (!this.props.loading && this.props.forgotUserMail === "success")
@@ -52,15 +52,12 @@ class ForgotPassword extends Component {
           3000,
           null,
           null,
-          ''
+          ""
         );
     }
-
   }
 
-
   render() {
-
     const { email } = this.state;
     const initialValues = { email };
 
@@ -89,7 +86,8 @@ class ForgotPassword extends Component {
 
               <Formik
                 initialValues={initialValues}
-                onSubmit={this.onForgotPassword}>
+                onSubmit={this.onForgotPassword}
+              >
                 {({ errors, touched }) => (
                   <Form className="av-tooltip tooltip-label-bottom">
                     <FormGroup className="form-group has-float-label">
@@ -114,7 +112,9 @@ class ForgotPassword extends Component {
                       </NavLink>
                       <Button
                         color="primary"
-                        className={`btn-shadow btn-multiple-state ${this.props.loading ? "show-spinner" : ""}`}
+                        className={`btn-shadow btn-multiple-state ${
+                          this.props.loading ? "show-spinner" : ""
+                        }`}
                         size="lg"
                       >
                         <span className="spinner d-inline-block">
@@ -122,7 +122,9 @@ class ForgotPassword extends Component {
                           <span className="bounce2" />
                           <span className="bounce3" />
                         </span>
-                        <span className="label"><IntlMessages id="user.reset-password-button" /></span>
+                        <span className="label">
+                          <IntlMessages id="user.reset-password-button" />
+                        </span>
                       </Button>
                     </div>
                   </Form>
@@ -141,10 +143,6 @@ const mapStateToProps = ({ authUser }) => {
   return { forgotUserMail, loading, error };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    forgotPassword
-  }
-)(ForgotPassword);
-
+export default connect(mapStateToProps, {
+  forgotPassword,
+})(ForgotPassword);

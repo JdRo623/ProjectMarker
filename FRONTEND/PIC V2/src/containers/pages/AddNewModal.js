@@ -7,7 +7,7 @@ import {
   ModalBody,
   ModalFooter,
   Input,
-  Label
+  Label,
 } from "reactstrap";
 import Select from "react-select";
 import CustomSelectInput from "../../components/common/CustomSelectInput";

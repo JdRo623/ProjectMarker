@@ -1,7 +1,12 @@
 import React, { Component, Fragment } from "react";
 import {
-  Pagination, PaginationItem, PaginationLink,
-  UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+  UncontrolledDropdown,
+  DropdownMenu,
+  DropdownToggle,
+  DropdownItem,
 } from "reactstrap";
 
 export default class DataTablePagination extends Component {
@@ -18,12 +23,12 @@ export default class DataTablePagination extends Component {
 
     this.state = {
       page: props.page,
-      pageSize: this.props.defaultPageSize
+      pageSize: this.props.defaultPageSize,
     };
   }
 
   static getDerivedStateFromProps(props, state) {
-    return {page: props.page};
+    return { page: props.page };
   }
 
   getSafePage(page) {
@@ -65,9 +70,9 @@ export default class DataTablePagination extends Component {
       let active = this.state.page === i ? true : false;
       pageButtons.push(
         <PaginationItem key={i} active={active}>
-          <PaginationLink
-            onClick={() => this.pageClick(i)}
-          >{i + 1}</PaginationLink>
+          <PaginationLink onClick={() => this.pageClick(i)}>
+            {i + 1}
+          </PaginationLink>
         </PaginationItem>
       );
     }
@@ -79,10 +84,7 @@ export default class DataTablePagination extends Component {
     let pageNumbers = [];
     for (let i = 0; i < pages; i++) {
       pageNumbers.push(
-        <DropdownItem
-          key={i}
-          onClick={() => this.changePage(i)}
-        >
+        <DropdownItem key={i} onClick={() => this.changePage(i)}>
           {i + 1}
         </DropdownItem>
       );
@@ -98,27 +100,34 @@ export default class DataTablePagination extends Component {
       canNext,
       pageSizeOptions,
       showPageSizeOptions,
-      showPageJump
+      showPageJump,
     } = this.props;
 
     return (
       <Fragment>
         <div className="text-center">
-          {
-            showPageJump &&
-            <div className="float-left pt-2"><span>Page </span>
+          {showPageJump && (
+            <div className="float-left pt-2">
+              <span>Page </span>
               <UncontrolledDropdown className="d-inline-block">
                 <DropdownToggle caret color="outline-primary" size="xs">
                   {this.state.page + 1}
                 </DropdownToggle>
-                <DropdownMenu direction="left" >
+                <DropdownMenu direction="left">
                   {this.renderPageJump()}
                 </DropdownMenu>
               </UncontrolledDropdown>
-              <span> of </span>{pages}</div>
-          }
+              <span> of </span>
+              {pages}
+            </div>
+          )}
 
-          <Pagination className="d-inline-block" size="sm" listClassName="justify-content-center" aria-label="Page navigation example">
+          <Pagination
+            className="d-inline-block"
+            size="sm"
+            listClassName="justify-content-center"
+            aria-label="Page navigation example"
+          >
             <PaginationItem className={`${!canPrevious && "disabled"}`}>
               <PaginationLink
                 className={"prev"}
@@ -126,7 +135,8 @@ export default class DataTablePagination extends Component {
                   if (!canPrevious) return;
                   this.changePage(page - 1);
                 }}
-                disabled={!canPrevious}>
+                disabled={!canPrevious}
+              >
                 <i className="simple-icon-arrow-left" />
               </PaginationLink>
             </PaginationItem>
@@ -139,13 +149,13 @@ export default class DataTablePagination extends Component {
                   if (!canNext) return;
                   this.changePage(page + 1);
                 }}
-                disabled={!canNext}>
+                disabled={!canNext}
+              >
                 <i className="simple-icon-arrow-right" />
               </PaginationLink>
             </PaginationItem>
           </Pagination>
-          {
-            showPageSizeOptions &&
+          {showPageSizeOptions && (
             <div className="float-right pt-2">
               <span className="text-muted text-small mr-1">Items </span>
               <UncontrolledDropdown className="d-inline-block">
@@ -166,7 +176,7 @@ export default class DataTablePagination extends Component {
                 </DropdownMenu>
               </UncontrolledDropdown>
             </div>
-          }
+          )}
         </div>
       </Fragment>
     );

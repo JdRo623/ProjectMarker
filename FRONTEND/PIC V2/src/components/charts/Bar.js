@@ -9,7 +9,7 @@ export default class Bar extends React.Component {
     if (this.props.shadow) {
       Chart.defaults.barWithShadow = Chart.defaults.bar;
       Chart.controllers.barWithShadow = Chart.controllers.bar.extend({
-        draw: function(ease) {
+        draw: function (ease) {
           Chart.controllers.bar.prototype.draw.call(this, ease);
           var ctx = this.chart.ctx;
           ctx.save();
@@ -20,20 +20,19 @@ export default class Bar extends React.Component {
           ctx.responsive = true;
           Chart.controllers.bar.prototype.draw.apply(this, arguments);
           ctx.restore();
-        }
+        },
       });
     }
   }
-
 
   render() {
     const { data, shadow } = this.props;
     return (
       <ChartComponent
-        ref={ref => (this.chart_instance = ref && ref.chart_instance)}
+        ref={(ref) => (this.chart_instance = ref && ref.chart_instance)}
         type={shadow ? "barWithShadow" : "bar"}
         options={{
-          ...barChartOptions
+          ...barChartOptions,
         }}
         data={data}
       />

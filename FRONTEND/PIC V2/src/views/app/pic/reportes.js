@@ -1,6 +1,13 @@
 import React, { Component, Fragment } from "react";
 import { injectIntl } from "react-intl";
-import { Row, Card, CardBody, CardTitle, CardSubtitle, Button, } from "reactstrap";
+import {
+  Row,
+  Card,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Button,
+} from "reactstrap";
 import IntlMessages from "../../../helpers/IntlMessages";
 
 import PicReporteComponent from "../../../components/pic/PicReporteComponent";
@@ -13,7 +20,7 @@ import {
   ScatterChart,
   BarChart,
   RadarChart,
-  PieChart
+  PieChart,
 } from "../../../components/charts";
 
 import {
@@ -21,10 +28,11 @@ import {
   polarAreaChartData,
   areaChartData,
   scatterChartData,
-  barChartData,barChartDataII,
+  barChartData,
+  barChartDataII,
   radarChartData,
   pieChartData,
-  doughnutChartData
+  doughnutChartData,
 } from "../../../data/charts";
 import { Colxx } from "../../../components/common/CustomBootstrap";
 
@@ -34,16 +42,24 @@ class Reportes extends Component {
       <Fragment>
         <Row>
           <Colxx xxs="12" lg="6" xl="6" className="mb-3">
-            <PicReporteComponent titulo={"Porcentaje de inscritos frente al total de la población"} informacion={doughnutChartData} />
+            <PicReporteComponent
+              titulo={"Porcentaje de inscritos frente al total de la población"}
+              informacion={doughnutChartData}
+            />
           </Colxx>
           <Colxx xxs="12" lg="6" xl="6" className="mb-3">
-            <PicReporteComponent titulo={"Porcentaje de inscritos frente al total de la población."} informacion={doughnutChartData} />
+            <PicReporteComponent
+              titulo={
+                "Porcentaje de inscritos frente al total de la población."
+              }
+              informacion={doughnutChartData}
+            />
           </Colxx>
         </Row>
 
         <Row className="mb-4">
           <Colxx xxs="12">
-            <Card style={{ borderRadius: 10}}>
+            <Card style={{ borderRadius: 10 }}>
               <CardBody>
                 <CardTitle>
                   Numero de funcionarios por Compotencia y por nivel
@@ -59,7 +75,7 @@ class Reportes extends Component {
                   </Colxx>
                   <Colxx xxs="12" lg="12" className="mb-5">
                     <center>
-                      <Button color="primary" >Descargar Reporte</Button>
+                      <Button color="primary">Descargar Reporte</Button>
                     </center>
                   </Colxx>
                 </Row>
@@ -70,7 +86,7 @@ class Reportes extends Component {
 
         <Row className="mb-4">
           <Colxx xxs="12">
-            <Card style={{ borderRadius: 10}}>
+            <Card style={{ borderRadius: 10 }}>
               <CardBody>
                 <CardTitle>
                   Numero de total de inscritos por actividad
@@ -86,7 +102,7 @@ class Reportes extends Component {
                   </Colxx>
                   <Colxx xxs="12" lg="12" className="mb-5">
                     <center>
-                      <Button color="primary" >Descargar Reporte</Button>
+                      <Button color="primary">Descargar Reporte</Button>
                     </center>
                   </Colxx>
                 </Row>
@@ -95,8 +111,7 @@ class Reportes extends Component {
           </Colxx>
         </Row>
       </Fragment>
-    )
+    );
   }
 }
 export default injectIntl(Reportes);
-
