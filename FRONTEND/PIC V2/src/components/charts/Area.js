@@ -9,7 +9,7 @@ export default class Area extends React.Component {
     if (this.props.shadow) {
       Chart.defaults.lineWithShadow = Chart.defaults.line;
       Chart.controllers.lineWithShadow = Chart.controllers.line.extend({
-        draw: function(ease) {
+        draw: function (ease) {
           Chart.controllers.line.prototype.draw.call(this, ease);
           var ctx = this.chart.ctx;
           ctx.save();
@@ -21,7 +21,7 @@ export default class Area extends React.Component {
           ctx.stroke();
           Chart.controllers.line.prototype.draw.apply(this, arguments);
           ctx.restore();
-        }
+        },
       });
     }
   }
@@ -30,10 +30,10 @@ export default class Area extends React.Component {
     const { data, shadow } = this.props;
     return (
       <ChartComponent
-        ref={ref => (this.chart_instance = ref && ref.chart_instance)}
+        ref={(ref) => (this.chart_instance = ref && ref.chart_instance)}
         type={shadow ? "lineWithShadow" : "line"}
         options={{
-          ...areaChartOptions
+          ...areaChartOptions,
         }}
         data={data}
       />

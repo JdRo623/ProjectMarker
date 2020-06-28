@@ -179,7 +179,6 @@ export default function PicSeccionInformacionPersonal(props) {
         );
     }
     const clickSiguiente = (goToNext, steps, step) => {
-        console.log(step.id)
         switch (step.id) {
             case "0":
                 obtenerCargos(goToNext, steps, step)
@@ -291,7 +290,7 @@ export default function PicSeccionInformacionPersonal(props) {
                                             <img src={BienvenidosImg} width='850' height='540' />
                                         </div>
                                     }
-                                    
+
                                 />
                             </Step>
                             <Step id="2" name="Instrucciones" desc="" >

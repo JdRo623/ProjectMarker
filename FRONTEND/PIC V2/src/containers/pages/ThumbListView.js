@@ -10,9 +10,9 @@ const ThumbListView = ({ product, isSelect, collect, onCheckItem }) => {
     <Colxx xxs="12" key={product.id} className="mb-3">
       <ContextMenuTrigger id="menu_id" data={product.id} collect={collect}>
         <Card
-          onClick={event => onCheckItem(event, product.id)}
+          onClick={(event) => onCheckItem(event, product.id)}
           className={classnames("d-flex flex-row", {
-            active: isSelect
+            active: isSelect,
           })}
         >
           <NavLink to={`?p=${product.id}`} className="d-flex">
@@ -47,7 +47,7 @@ const ThumbListView = ({ product, isSelect, collect, onCheckItem }) => {
                 type="checkbox"
                 id={`check_${product.id}`}
                 checked={isSelect}
-                onChange={()=>{}}
+                onChange={() => {}}
                 label=""
               />
             </div>

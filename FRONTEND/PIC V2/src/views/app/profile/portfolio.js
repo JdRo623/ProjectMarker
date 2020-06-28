@@ -16,7 +16,7 @@ import {
   CardTitle,
   CardSubtitle,
   CardText,
-  CardImg
+  CardImg,
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import classnames from "classnames";
@@ -37,16 +37,16 @@ class ProfilePortfolio extends Component {
 
     this.toggleTab = this.toggleTab.bind(this);
     this.friendsData = whotoFollowData;
-    this.productData = productData.slice(0,15);
+    this.productData = productData.slice(0, 15);
     this.state = {
-      activeTab: "1"
+      activeTab: "1",
     };
   }
 
   toggleTab(tab) {
     if (this.state.activeTab !== tab) {
       this.setState({
-        activeTab: tab
+        activeTab: tab,
       });
     }
   }
@@ -63,7 +63,8 @@ class ProfilePortfolio extends Component {
                   color="primary"
                   size="lg"
                   outline
-                  className="top-right-button top-right-button-single">
+                  className="top-right-button top-right-button-single"
+                >
                   <IntlMessages id="pages.actions" />
                 </DropdownToggle>
                 <DropdownMenu>
@@ -91,13 +92,14 @@ class ProfilePortfolio extends Component {
                 <NavLink
                   className={classnames({
                     active: this.state.activeTab === "1",
-                    "nav-link": true
+                    "nav-link": true,
                   })}
                   onClick={() => {
                     this.toggleTab("1");
                   }}
                   location={{}}
-                  to="#">
+                  to="#"
+                >
                   <IntlMessages id="pages.details" />
                 </NavLink>
               </NavItem>
@@ -105,13 +107,14 @@ class ProfilePortfolio extends Component {
                 <NavLink
                   className={classnames({
                     active: this.state.activeTab === "2",
-                    "nav-link": true
+                    "nav-link": true,
                   })}
                   onClick={() => {
                     this.toggleTab("2");
                   }}
                   location={{}}
-                  to="#">
+                  to="#"
+                >
                   <IntlMessages id="pages.followers" />
                 </NavLink>
               </NavItem>
@@ -127,33 +130,80 @@ class ProfilePortfolio extends Component {
                           <i className="simple-icon-pencil" />
                         </Button>
                       </div>
-                      <SingleLightbox thumb="/assets/img/profile-pic.jpg" large="/assets/img/profile-pic.jpg" className="card-img-top" />
+                      <SingleLightbox
+                        thumb="/assets/img/profile-pic.jpg"
+                        large="/assets/img/profile-pic.jpg"
+                        className="card-img-top"
+                      />
 
                       <CardBody>
-                        <p className="text-muted text-small mb-2"><IntlMessages id="menu.about" /></p>
-                        <p className="mb-3">
-                          I’m a web developer. I spend my whole day, practically every day, experimenting with HTML, CSS, and JavaScript; dabbling with Python and Ruby; and inhaling a wide variety of potentially useless information through a few hundred RSS feeds. I build websites that delight and inform. I do it well.
+                        <p className="text-muted text-small mb-2">
+                          <IntlMessages id="menu.about" />
                         </p>
-                        <p className="text-muted text-small mb-2"><IntlMessages id="pages.location" /></p>
+                        <p className="mb-3">
+                          I’m a web developer. I spend my whole day, practically
+                          every day, experimenting with HTML, CSS, and
+                          JavaScript; dabbling with Python and Ruby; and
+                          inhaling a wide variety of potentially useless
+                          information through a few hundred RSS feeds. I build
+                          websites that delight and inform. I do it well.
+                        </p>
+                        <p className="text-muted text-small mb-2">
+                          <IntlMessages id="pages.location" />
+                        </p>
                         <p className="mb-3">Nairobi, Kenya</p>
-                        <p className="text-muted text-small mb-2"><IntlMessages id="pages.responsibilities" /></p>
-                        <p className="mb-3">
-                          <Badge color="outline-secondary" className="mb-1 mr-1" pill>FRONTEND</Badge>
-                          <Badge color="outline-secondary" className="mb-1 mr-1" pill>JAVASCRIPT</Badge>
-                          <Badge color="outline-secondary" className="mb-1 mr-1" pill>SECURITY</Badge>
-                          <Badge color="outline-secondary" className="mb-1 mr-1" pill>DESIGN</Badge>
+                        <p className="text-muted text-small mb-2">
+                          <IntlMessages id="pages.responsibilities" />
                         </p>
-                        <p className="text-muted text-small mb-2"><IntlMessages id="menu.contact" /></p>
+                        <p className="mb-3">
+                          <Badge
+                            color="outline-secondary"
+                            className="mb-1 mr-1"
+                            pill
+                          >
+                            FRONTEND
+                          </Badge>
+                          <Badge
+                            color="outline-secondary"
+                            className="mb-1 mr-1"
+                            pill
+                          >
+                            JAVASCRIPT
+                          </Badge>
+                          <Badge
+                            color="outline-secondary"
+                            className="mb-1 mr-1"
+                            pill
+                          >
+                            SECURITY
+                          </Badge>
+                          <Badge
+                            color="outline-secondary"
+                            className="mb-1 mr-1"
+                            pill
+                          >
+                            DESIGN
+                          </Badge>
+                        </p>
+                        <p className="text-muted text-small mb-2">
+                          <IntlMessages id="menu.contact" />
+                        </p>
                         <div className="social-icons">
                           <ul className="list-unstyled list-inline">
                             <li className="list-inline-item">
-                              <NavLink to="#" location={{}}><i className="simple-icon-social-facebook"></i></NavLink>
+                              <NavLink to="#" location={{}}>
+                                <i className="simple-icon-social-facebook"></i>
+                              </NavLink>
                             </li>
                             <li className="list-inline-item">
-                              <NavLink to="#" location={{}}><i className="simple-icon-social-twitter"></i></NavLink>
+                              <NavLink to="#" location={{}}>
+                                <i className="simple-icon-social-twitter"></i>
+                              </NavLink>
                             </li>
                             <li className="list-inline-item">
-                              <NavLink to="#" location={{}}><i className="simple-icon-social-instagram"></i></NavLink>
+                              <NavLink to="#" location={{}}>
+                                <i className="simple-icon-social-instagram"></i>
+                              </NavLink>
                             </li>
                           </ul>
                         </div>
@@ -166,11 +216,11 @@ class ProfilePortfolio extends Component {
                           <IntlMessages id="pages.recent-posts" />
                         </CardTitle>
                         <div className="remove-last-border remove-last-margin remove-last-padding">
-                          {
-                            recentPostsData.map((itemData) => {
-                              return <RecentPost data={itemData} key={itemData.key} />
-                            })
-                          }
+                          {recentPostsData.map((itemData) => {
+                            return (
+                              <RecentPost data={itemData} key={itemData.key} />
+                            );
+                          })}
                         </div>
                       </CardBody>
                     </Card>
@@ -178,44 +228,58 @@ class ProfilePortfolio extends Component {
 
                   <Colxx xxs="12" lg="8" className="mb-4 col-right">
                     <Row>
-                      {
-                        this.productData.map((product) => {
-                          return (
-                            <Colxx xxs="12" lg="6" xl="4" className="mb-4" key={product.id}>
-                              <Card>
-                                <div className="position-relative">
-                                  <NavLink to="#" location={{}} className="w-40 w-sm-100">
-                                    <CardImg top alt={product.title} src={product.img} />
-                                  </NavLink>
-                                </div>
-                                <CardBody>
-                                  <NavLink to="#" location={{}} className="w-40 w-sm-100">
-                                    <CardSubtitle>{product.title}</CardSubtitle>
-                                  </NavLink>
-                                  <CardText className="text-muted text-small mb-0 font-weight-light">
-                                    {product.createDate}
-                                  </CardText>
-                                </CardBody>
-                              </Card>
-                            </Colxx>
-                          )
-                        })
-                      }
+                      {this.productData.map((product) => {
+                        return (
+                          <Colxx
+                            xxs="12"
+                            lg="6"
+                            xl="4"
+                            className="mb-4"
+                            key={product.id}
+                          >
+                            <Card>
+                              <div className="position-relative">
+                                <NavLink
+                                  to="#"
+                                  location={{}}
+                                  className="w-40 w-sm-100"
+                                >
+                                  <CardImg
+                                    top
+                                    alt={product.title}
+                                    src={product.img}
+                                  />
+                                </NavLink>
+                              </div>
+                              <CardBody>
+                                <NavLink
+                                  to="#"
+                                  location={{}}
+                                  className="w-40 w-sm-100"
+                                >
+                                  <CardSubtitle>{product.title}</CardSubtitle>
+                                </NavLink>
+                                <CardText className="text-muted text-small mb-0 font-weight-light">
+                                  {product.createDate}
+                                </CardText>
+                              </CardBody>
+                            </Card>
+                          </Colxx>
+                        );
+                      })}
                     </Row>
                   </Colxx>
                 </Row>
               </TabPane>
               <TabPane tabId="2">
                 <Row>
-                  {
-                    this.friendsData.map((itemData) => {
-                      return (
-                        <Colxx xxs="12" md="6" lg="4" key={itemData.key}>
-                          <UserCardBasic data={itemData} />
-                        </Colxx>
-                      )
-                    })
-                  }
+                  {this.friendsData.map((itemData) => {
+                    return (
+                      <Colxx xxs="12" md="6" lg="4" key={itemData.key}>
+                        <UserCardBasic data={itemData} />
+                      </Colxx>
+                    );
+                  })}
                 </Row>
               </TabPane>
             </TabContent>

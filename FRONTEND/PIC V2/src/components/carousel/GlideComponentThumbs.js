@@ -1,6 +1,6 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import Glide from '@glidejs/glide'
+import PropTypes from "prop-types";
+import Glide from "@glidejs/glide";
 import { getDirection } from "../../helpers/Utils";
 import "@glidejs/glide/dist/css/glide.core.min.css";
 import "@glidejs/glide/dist/css/glide.theme.min.css";
@@ -63,7 +63,7 @@ export default class GlideComponentThumbs extends React.Component {
       data: PropTypes.array,
     }),
     id: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
   };
 
   constructor(props) {
@@ -77,8 +77,11 @@ export default class GlideComponentThumbs extends React.Component {
     this.state = {
       total: this.props.settingsImages.data.length,
       activeIndex: 0,
-      thumbsPerView: Math.min(this.props.settingsThumbs.perView, this.props.settingsImages.data.length),
-      renderArrows: true
+      thumbsPerView: Math.min(
+        this.props.settingsThumbs.perView,
+        this.props.settingsImages.data.length
+      ),
+      renderArrows: true,
     };
     this.updateThumbBreakpoints();
   }
@@ -87,27 +90,32 @@ export default class GlideComponentThumbs extends React.Component {
     let thumbBreakpoints = this.props.settingsThumbs.breakpoints;
     let newBreakpoints = {};
     for (var prop in thumbBreakpoints) {
-      newBreakpoints[prop] = { "perView": Math.min(thumbBreakpoints[prop]["perView"], this.state.total) }
+      newBreakpoints[prop] = {
+        perView: Math.min(thumbBreakpoints[prop]["perView"], this.state.total),
+      };
     }
     this.props.settingsThumbs.breakpoints = newBreakpoints;
   }
 
   onThumbClick(index) {
-    this.setState({activeIndex: index});
+    this.setState({ activeIndex: index });
     this.glideCarouselImages.go("=" + index);
   }
 
-  thumbsResize () {
-    let perView = Math.min(this.props.settingsThumbs.perView, this.props.settingsImages.data.length);
-    this.setState({thumbsPerView: perView});
-    if (this.state.total <= perView ) {
-      this.setState({renderArrows: false});
+  thumbsResize() {
+    let perView = Math.min(
+      this.props.settingsThumbs.perView,
+      this.props.settingsImages.data.length
+    );
+    this.setState({ thumbsPerView: perView });
+    if (this.state.total <= perView) {
+      this.setState({ renderArrows: false });
     }
   }
 
-  imagesSwipeEnd () {
+  imagesSwipeEnd() {
     let gap = this.glideCarouselThumbs.index + this.state.thumbsPerView;
-    this.setState({activeIndex: this.glideCarouselImages.index});
+    this.setState({ activeIndex: this.glideCarouselImages.index });
     if (this.state.activeIndex >= gap) {
       this.glideCarouselThumbs.go(">");
     }
@@ -117,15 +125,21 @@ export default class GlideComponentThumbs extends React.Component {
   }
 
   componentDidMount() {
-    this.glideCarouselImages = new Glide(this.carouselImages, { ...this.props.settingsImages, direction: getDirection().direction });
+    this.glideCarouselImages = new Glide(this.carouselImages, {
+      ...this.props.settingsImages,
+      direction: getDirection().direction,
+    });
     this.glideCarouselImages.mount();
 
-    this.glideCarouselThumbs = new Glide(this.carouselThumbs, { ...this.props.settingsThumbs, direction: getDirection().direction });
+    this.glideCarouselThumbs = new Glide(this.carouselThumbs, {
+      ...this.props.settingsThumbs,
+      direction: getDirection().direction,
+    });
     this.glideCarouselThumbs.mount();
 
     this.glideCarouselThumbs.on("resize", this.thumbsResize);
     this.glideCarouselImages.on("swipe.end", this.imagesSwipeEnd);
-    
+
     mountTimeOut = setTimeout(() => {
       var event = document.createEvent("HTMLEvents");
       event.initEvent("resize", false, false);
@@ -154,7 +168,11 @@ export default class GlideComponentThumbs extends React.Component {
     let dots = [];
     for (let i = 0; i < this.state.total; i++) {
       dots.push(
-        <button className="glide__bullet slider-dot" key={i} data-glide-dir={"=" + i}></button>
+        <button
+          className="glide__bullet slider-dot"
+          key={i}
+          data-glide-dir={"=" + i}
+        ></button>
       );
     }
     return dots;
@@ -163,50 +181,76 @@ export default class GlideComponentThumbs extends React.Component {
   render() {
     return (
       <div>
-        <div className="glide details" ref={node => this.carouselImages = node}>
+        <div
+          className="glide details"
+          ref={(node) => (this.carouselImages = node)}
+        >
           <div data-glide-el="track" className="glide__track">
             <div className="glide__slides">
-              {
-                this.props.settingsImages.data.map(item => {
-                  return (
-                    <div key={item.id}>
-                      <div className="glide__slide">
-                        <img alt="detail" src={item.img}
-                          className="responsive border-0 border-radius img-fluid mb-3" />
-                      </div>
+              {this.props.settingsImages.data.map((item) => {
+                return (
+                  <div key={item.id}>
+                    <div className="glide__slide">
+                      <img
+                        alt="detail"
+                        src={item.img}
+                        className="responsive border-0 border-radius img-fluid mb-3"
+                      />
                     </div>
-                  );
-                })
-              }
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
 
-        <div className="glide thumbs" ref={node => this.carouselThumbs = node}>
+        <div
+          className="glide thumbs"
+          ref={(node) => (this.carouselThumbs = node)}
+        >
           <div data-glide-el="track" className="glide__track">
             <div className="glide__slides">
-              {
-                this.props.settingsThumbs.data.map((item, index) => {
-                  return (
-                    <div className={index === this.state.activeIndex ? "glide__slide active" : "glide__slide"} key={item.id} onClick={() => {this.onThumbClick(index)}}>
-                      <img alt="detail" src={item.img}
-                        className="responsive border-0 border-radius img-fluid" />
-                    </div>
-                  );
-                })
-              }
+              {this.props.settingsThumbs.data.map((item, index) => {
+                return (
+                  <div
+                    className={
+                      index === this.state.activeIndex
+                        ? "glide__slide active"
+                        : "glide__slide"
+                    }
+                    key={item.id}
+                    onClick={() => {
+                      this.onThumbClick(index);
+                    }}
+                  >
+                    <img
+                      alt="detail"
+                      src={item.img}
+                      className="responsive border-0 border-radius img-fluid"
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
-          {this.state.renderArrows &&  (
+          {this.state.renderArrows && (
             <div className="glide__arrows" data-glide-el="controls">
-              <button className="glide__arrow glide__arrow--left" data-glide-dir="<"><i
-              className="simple-icon-arrow-left"></i></button>
-              <button className="glide__arrow glide__arrow--right" data-glide-dir=">"><i
-              className="simple-icon-arrow-right"></i></button>
+              <button
+                className="glide__arrow glide__arrow--left"
+                data-glide-dir="<"
+              >
+                <i className="simple-icon-arrow-left"></i>
+              </button>
+              <button
+                className="glide__arrow glide__arrow--right"
+                data-glide-dir=">"
+              >
+                <i className="simple-icon-arrow-right"></i>
+              </button>
             </div>
           )}
         </div>
       </div>
-    )
+    );
   }
 }

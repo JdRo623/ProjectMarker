@@ -4,7 +4,7 @@ const ThumbnailLetters = (props) => {
   const { text, color, className, rounded, small } = props;
   let letters = "";
   if (text.indexOf(" ") > -1) {
-    text.split(" ").map(word => {
+    text.split(" ").map((word) => {
       if (word.length > 1) letters += word.slice(0, 1);
       return "";
     });
@@ -22,7 +22,7 @@ const ThumbnailLetters = (props) => {
         color ? "btn-" + color : ""
       }  ${className}  ${classnames({
         "rounded-circle": rounded,
-        small: small
+        small: small,
       })}`}
       title={text}
     >

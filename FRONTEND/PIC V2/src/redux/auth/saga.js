@@ -1,12 +1,12 @@
-import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
-import { auth } from '../../helpers/Firebase';
+import { all, call, fork, put, takeEvery } from "redux-saga/effects";
+import { auth } from "../../helpers/Firebase";
 import {
   LOGIN_USER,
   REGISTER_USER,
   LOGOUT_USER,
   FORGOT_PASSWORD,
   RESET_PASSWORD,
-} from '../actions';
+} from "../actions";
 
 import {
   loginUserSuccess,
@@ -17,7 +17,7 @@ import {
   forgotPasswordError,
   resetPasswordSuccess,
   resetPasswordError,
-} from './actions';
+} from "./actions";
 
 export function* watchLoginUser() {
   yield takeEvery(LOGIN_USER, loginWithEmailPassword);
@@ -35,9 +35,9 @@ function* loginWithEmailPassword({ payload }) {
   try {
     const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
     if (!loginUser.message) {
-      localStorage.setItem('user_id', loginUser.user.uid);
+      localStorage.setItem("user_id", loginUser.user.uid);
       yield put(loginUserSuccess(loginUser.user));
-      history.push('/');
+      history.push("/");
     } else {
       yield put(loginUserError(loginUser.message));
     }
@@ -66,9 +66,9 @@ function* registerWithEmailPassword({ payload }) {
       password
     );
     if (!registerUser.message) {
-      localStorage.setItem('user_id', registerUser.user.uid);
+      localStorage.setItem("user_id", registerUser.user.uid);
       yield put(registerUserSuccess(registerUser));
-      history.push('/');
+      history.push("/");
     } else {
       yield put(registerUserError(registerUser.message));
     }
@@ -86,14 +86,14 @@ const logoutAsync = async (history) => {
     .signOut()
     .then((authUser) => authUser)
     .catch((error) => error);
-  history.push('/');
+  history.push("/");
 };
 
 function* logout({ payload }) {
   const { history } = payload;
   try {
     yield call(logoutAsync, history);
-    localStorage.removeItem('user_id');
+    localStorage.removeItem("user_id");
   } catch (error) {}
 }
 
@@ -113,7 +113,7 @@ function* forgotPassword({ payload }) {
   try {
     const forgotPasswordStatus = yield call(forgotPasswordAsync, email);
     if (!forgotPasswordStatus) {
-      yield put(forgotPasswordSuccess('success'));
+      yield put(forgotPasswordSuccess("success"));
     } else {
       yield put(forgotPasswordError(forgotPasswordStatus.message));
     }
@@ -142,7 +142,7 @@ function* resetPassword({ payload }) {
       newPassword
     );
     if (!resetPasswordStatus) {
-      yield put(resetPasswordSuccess('success'));
+      yield put(resetPasswordSuccess("success"));
     } else {
       yield put(resetPasswordError(resetPasswordStatus.message));
     }

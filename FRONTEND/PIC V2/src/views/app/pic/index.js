@@ -1,36 +1,39 @@
-import React, { Suspense } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import React, { Suspense } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 const Cuestionario = React.lazy(() =>
-  import(/* webpackChunkName: "cuestionario" */ './cuestionario')
+  import(/* webpackChunkName: "cuestionario" */ "./cuestionario")
 );
 const Util = React.lazy(() =>
-  import(/* webpackChunkName: "cuestionario" */ './util')
+  import(/* webpackChunkName: "cuestionario" */ "./util")
 );
 const RutaAprendizaje = React.lazy(() =>
-  import(/* webpackChunkName: "cuestionario" */ './ruta_aprendizaje')
+  import(/* webpackChunkName: "cuestionario" */ "./ruta_aprendizaje")
 );
 
 const CarguePreguntas = React.lazy(() =>
-  import(/* webpackChunkName: "cuestionario" */ './carga_preguntas')
+  import(/* webpackChunkName: "cuestionario" */ "./carga_preguntas")
 );
 
 const BuscarPreguntas = React.lazy(() =>
-  import(/* webpackChunkName: "cuestionario" */ './busqueda_pregunta')
+  import(/* webpackChunkName: "cuestionario" */ "./busqueda_pregunta")
 );
-const AgregarEmpleados = React.lazy(() => import('./agregar_empleados'));
+const AgregarEmpleados = React.lazy(() => import("./agregar_empleados"));
 
-const ConsultarCuestionario = React.lazy(() => import('./consultar_cuestionario'));
+const ConsultarCuestionario = React.lazy(() =>
+  import("./consultar_cuestionario")
+);
 
-const PrincipalColaborador = React.lazy(() => import('./principal_colaborador'));
-
+const PrincipalColaborador = React.lazy(() =>
+  import("./principal_colaborador")
+);
 
 const Reportes = React.lazy(() =>
-  import(/* webpackChunkName: "cuestionario" */ './reportes')
+  import(/* webpackChunkName: "cuestionario" */ "./reportes")
 );
 
 const PagesPic = ({ match }) => (
-  <Suspense fallback={<div className='loading' />}>
+  <Suspense fallback={<div className="loading" />}>
     <Switch>
       <Redirect
         exact
@@ -73,7 +76,7 @@ const PagesPic = ({ match }) => (
         path={`${match.url}/reportes`}
         render={(props) => <Reportes {...props} />}
       />
-      <Redirect to='/error' />
+      <Redirect to="/error" />
     </Switch>
   </Suspense>
 );

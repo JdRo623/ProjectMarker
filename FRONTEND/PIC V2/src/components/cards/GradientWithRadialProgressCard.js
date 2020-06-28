@@ -7,7 +7,7 @@ const GradientWithRadialProgressCard = ({
   title = "title",
   detail = "detail",
   percent = 80,
-  progressText = "8/10"
+  progressText = "8/10",
 }) => {
   return (
     <Card className="progress-banner">

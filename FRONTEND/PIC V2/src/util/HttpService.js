@@ -1,8 +1,8 @@
-import React from 'react';
-import axios from 'axios';
-import keyczar from './keyczar';
-import Util from './Util';
-import { NotificationManager } from '../components/common/react-notifications';
+import React from "react";
+import axios from "axios";
+import keyczar from "./keyczar";
+import Util from "./Util";
+import { NotificationManager } from "../components/common/react-notifications";
 
 export function cifrar(text) {
   return Util.encryptText(text);
@@ -18,7 +18,7 @@ export function decifrar(text) {
 
 class HttpUtil extends React.Component {
   static async requestPost(url, data, sucessCallBack, errorCallBack, message) {
-    const userInfoStr = localStorage.getItem('userInfo');
+    const userInfoStr = localStorage.getItem("userInfo");
     if (userInfoStr) {
       const userInfo = JSON.parse(userInfoStr);
       data.token = userInfo.token;
@@ -27,30 +27,30 @@ class HttpUtil extends React.Component {
     var today = new Date();
 
     console.log(
-      'Antes de: url' +
+      "Antes de: url" +
         url +
-        ' ' +
+        " " +
         today.getHours() +
-        ':' +
+        ":" +
         today.getMinutes() +
-        ':' +
+        ":" +
         today.getSeconds() +
-        ':' +
+        ":" +
         today.getMilliseconds()
     );
     const dataRequest = {
       data: cifrar(JSON.stringify(data)),
     };
     console.log(
-      'Despues de: ' +
+      "Despues de: " +
         url +
-        ' ' +
+        " " +
         today.getHours() +
-        ':' +
+        ":" +
         today.getMinutes() +
-        ':' +
+        ":" +
         today.getSeconds() +
-        ':' +
+        ":" +
         today.getMilliseconds()
     );
 
@@ -65,13 +65,13 @@ class HttpUtil extends React.Component {
           5000,
           null,
           null,
-          'filled'
+          "filled"
         );
         if (sucessCallBack != null && sucessCallBack !== undefined)
           sucessCallBack(dataDecrypt);
       })
       .catch(function (error) {
-        console.log(error)
+        console.log(error);
         if (error.response) {
           const dataDecrypt = JSON.parse(
             decifrar(error.response.data.respuesta)
@@ -81,21 +81,21 @@ class HttpUtil extends React.Component {
             dataDecrypt.estado,
             5000,
             () => {
-              alert('callback');
+              alert("callback");
             },
             null,
-            'filled'
+            "filled"
           );
         } else {
           NotificationManager.error(
-            'Ha ocurrido un error con el Servidor, por favor contacte al supervisor del sistema',
-            'Error',
+            "Ha ocurrido un error con el Servidor, por favor contacte al supervisor del sistema",
+            "Error",
             5000,
             () => {
-              alert('callback');
+              alert("callback");
             },
             null,
-            'filled'
+            "filled"
           );
         }
         // console.log(dataDecrypt);

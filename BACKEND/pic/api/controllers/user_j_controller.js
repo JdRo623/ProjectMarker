@@ -12,36 +12,34 @@ module.exports = {
   buscarEmpleado: buscarEmpleado,
   listaNiveles: listaNiveles,
   cambioPassword: cambioPassword,
-  crearNuevoUsuario:crearNuevoUsuario
+  crearNuevoUsuario: crearNuevoUsuario,
 };
 
 function crearNuevoUsuario(req, res) {
   try {
     var crear = async (req, res) => {
       var dec = tools.decryptJson(req.body.data);
-
-      user_jModel.findOne({ email: dec.data.email }, (err, UsuarioBuscado) => {
+      user_jModel.findOne({ email: dec.email }, (err, UsuarioBuscado) => {
         if (err) {
           console.log(err);
         }
         if (!UsuarioBuscado) {
-        
           var usuarioNuevo = {
-            nombres: tools.encrypt(dec.data.nombres),
-            apellidos: tools.encrypt(dec.data.apellidos),
-            nombres_jefe: tools.encrypt(dec.data.nombres_jefe),
-            apellidos_jefe: tools.encrypt(dec.data.apellidos_jefe),
-            email: dec.data.email,
-            identificacion: tools.encrypt(dec.data.identificacion),
-            ciudad: tools.encrypt(dec.data.ciudad),
+            nombres: tools.encrypt(dec.nombres),
+            apellidos: tools.encrypt(dec.apellidos),
+            nombres_jefe: tools.encrypt(dec.nombres_jefe),
+            apellidos_jefe: tools.encrypt(dec.apellidos_jefe),
+            email: dec.email,
+            identificacion: tools.encrypt(dec.identificacion),
+            ciudad: tools.encrypt(dec.ciudad),
           };
-          console.log('creando usuario');
-          user_jModel.create(usuarioNuevo)
+          console.log("creando usuario");
+          user_jModel.create(usuarioNuevo);
           return res.status(200).send({
             estado: "Usuario creado",
             message: "Usuario Creado",
-            //data: Object.assign(UsuarioBuscado),
-          });         
+            data: Object.assign(usuarioNuevo),
+          });
         }
         return res.status(200).send({
           estado: "El usuario ya existe",
@@ -64,24 +62,24 @@ function cambioPassword(req, res) {
         const filtro = {
           email: tools.decrypt(dec.email),
         };
-        user_jModel.findOne(filtro,(err,usuarioBuscado)=>{
-          if(err){
+        user_jModel.findOne(filtro, (err, usuarioBuscado) => {
+          if (err) {
             console.log(err);
           }
-          if(!usuarioBuscado){
+          if (!usuarioBuscado) {
             return res.status(200).send({
               estado: "Usuario no encontrado",
-              message: util.format('usuario no encontrado'),
+              message: util.format("usuario no encontrado"),
               data: Object.assign({}),
             });
           }
           usuarioBuscado.password = tools.encrypt(dec.password);
-          user_jModel.updateOne(filtro,usuarioBuscado).then(()=>{
+          user_jModel.updateOne(filtro, usuarioBuscado).then(() => {
             return res.status(200).send({
-              estado: 'Contraseña actualizada',
-              message: util.format('Contraseña Actualizada'),
-              data: Object.assign(cuestionarioBuscado)
-          });
+              estado: "Contraseña actualizada",
+              message: util.format("Contraseña Actualizada"),
+              data: Object.assign(cuestionarioBuscado),
+            });
           });
         });
       } catch (error) {

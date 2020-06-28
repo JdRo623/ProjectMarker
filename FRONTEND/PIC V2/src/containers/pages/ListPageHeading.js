@@ -8,7 +8,7 @@ import {
   DropdownItem,
   DropdownToggle,
   CustomInput,
-  Collapse
+  Collapse,
 } from "reactstrap";
 import { injectIntl } from "react-intl";
 
@@ -19,27 +19,27 @@ import IntlMessages from "../../helpers/IntlMessages";
 import {
   DataListIcon,
   ThumbListIcon,
-  ImageListIcon
+  ImageListIcon,
 } from "../../components/svg";
 class ListPageHeading extends Component {
   constructor(props) {
     super();
     this.state = {
       dropdownSplitOpen: false,
-      displayOptionsIsOpen: false
+      displayOptionsIsOpen: false,
     };
   }
 
   toggleDisplayOptions = () => {
-    this.setState(prevState => ({
-      displayOptionsIsOpen: !prevState.displayOptionsIsOpen
+    this.setState((prevState) => ({
+      displayOptionsIsOpen: !prevState.displayOptionsIsOpen,
     }));
   };
-  toggleSplit =()=> {
-    this.setState(prevState => ({
-      dropdownSplitOpen: !prevState.dropdownSplitOpen
+  toggleSplit = () => {
+    this.setState((prevState) => ({
+      dropdownSplitOpen: !prevState.dropdownSplitOpen,
     }));
-  }
+  };
 
   render() {
     const { messages } = this.props.intl;
@@ -61,15 +61,13 @@ class ListPageHeading extends Component {
       orderOptions,
       pageSizes,
       toggleModal,
-      heading
+      heading,
     } = this.props;
 
     const { displayOptionsIsOpen, dropdownSplitOpen } = this.state;
     return (
       <Row>
         <Colxx xxs="12">
-
-
           <div className="mb-2">
             <Button
               color="empty"
@@ -82,7 +80,8 @@ class ListPageHeading extends Component {
             <Collapse
               isOpen={displayOptionsIsOpen}
               className="d-md-block"
-              id="displayOptions">
+              id="displayOptions"
+            >
               <div className="d-block d-md-inline-block pt-1">
                 <UncontrolledDropdown className="mr-1 float-md-left btn-group mb-1">
                   <DropdownToggle caret color="outline-dark" size="xs">
@@ -108,7 +107,7 @@ class ListPageHeading extends Component {
                     name="keyword"
                     id="search"
                     placeholder={messages["menu.search"]}
-                    onKeyPress={e => onSearchKey(e)}
+                    onKeyPress={(e) => onSearchKey(e)}
                   />
                 </div>
               </div>

@@ -1,35 +1,35 @@
-import React, { Component, Suspense } from 'react';
-import { connect } from 'react-redux';
+import React, { Component, Suspense } from "react";
+import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
-} from 'react-router-dom';
-import { IntlProvider } from 'react-intl';
-import './helpers/Firebase';
-import AppLocale from './lang';
-import NotificationContainer from './components/common/react-notifications/NotificationContainer';
-import { isMultiColorActive, isDemo } from './constants/defaultValues';
-import { getDirection } from './helpers/Utils';
-import { CookiesProvider, Cookies } from 'react-cookie';
+} from "react-router-dom";
+import { IntlProvider } from "react-intl";
+import "./helpers/Firebase";
+import AppLocale from "./lang";
+import NotificationContainer from "./components/common/react-notifications/NotificationContainer";
+import { isMultiColorActive, isDemo } from "./constants/defaultValues";
+import { getDirection } from "./helpers/Utils";
+import { CookiesProvider, Cookies } from "react-cookie";
 
 const ViewMain = React.lazy(() =>
-  import(/* webpackChunkName: "views" */ './views')
+  import(/* webpackChunkName: "views" */ "./views")
 );
 const ViewApp = React.lazy(() =>
-  import(/* webpackChunkName: "views-app" */ './views/app')
+  import(/* webpackChunkName: "views-app" */ "./views/app")
 );
 const ViewUser = React.lazy(() =>
-  import(/* webpackChunkName: "views-user" */ './views/user')
+  import(/* webpackChunkName: "views-user" */ "./views/user")
 );
 const ViewError = React.lazy(() =>
-  import(/* webpackChunkName: "views-error" */ './views/error')
+  import(/* webpackChunkName: "views-error" */ "./views/error")
 );
 const ViewPic = React.lazy(() =>
-  import(/* webpackChunkName: "views-error" */ './views/user/login')
+  import(/* webpackChunkName: "views-error" */ "./views/user/login")
 );
-const ViewReset = React.lazy(() => import('./views/user/cambio'));
+const ViewReset = React.lazy(() => import("./views/user/cambio"));
 
 const AuthRoute = ({ component: Component, authUser, ...rest }) => {
   return (
@@ -41,7 +41,7 @@ const AuthRoute = ({ component: Component, authUser, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: '/user/login',
+              pathname: "/user/login",
               state: { from: props.location },
             }}
           />
@@ -56,11 +56,11 @@ class App extends Component {
     super(props);
     const direction = getDirection();
     if (direction.isRtl) {
-      document.body.classList.add('rtl');
-      document.body.classList.remove('ltr');
+      document.body.classList.add("rtl");
+      document.body.classList.remove("ltr");
     } else {
-      document.body.classList.add('ltr');
-      document.body.classList.remove('rtl');
+      document.body.classList.add("ltr");
+      document.body.classList.remove("rtl");
     }
   }
 
@@ -69,40 +69,40 @@ class App extends Component {
     const currentAppLocale = AppLocale[locale];
 
     return (
-      <div className='h-100'>
+      <div className="h-100">
         <IntlProvider
           locale={currentAppLocale.locale}
           messages={currentAppLocale.messages}
         >
           <React.Fragment>
             <NotificationContainer />
-            <Suspense fallback={<div className='loading' />}>
+            <Suspense fallback={<div className="loading" />}>
               <Router>
                 <Switch>
                   <AuthRoute
-                    path='/app'
+                    path="/app"
                     authUser={loginUser}
                     component={ViewApp}
                   />
                   <Route
-                    path='/user/reset'
+                    path="/user/reset"
                     render={(props) => <ViewReset {...props} />}
                   />
                   <Route
-                    path='/user'
+                    path="/user"
                     render={(props) => <ViewPic {...props} />}
                   />
                   <Route
-                    path='/error'
+                    path="/error"
                     exact
                     render={(props) => <ViewError {...props} />}
                   />
                   <Route
-                    path='/'
+                    path="/"
                     exact
                     render={(props) => <ViewMain {...props} />}
                   />
-                  <Redirect to='/error' />
+                  <Redirect to="/error" />
                 </Switch>
               </Router>
             </Suspense>

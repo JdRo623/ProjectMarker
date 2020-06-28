@@ -5,7 +5,7 @@ import {
   DropdownItem,
   DropdownToggle,
   DropdownMenu,
-  Input
+  Input,
 } from "reactstrap";
 
 import { NavLink } from "react-router-dom";
@@ -16,14 +16,14 @@ import {
   setContainerClassnames,
   clickOnMobileMenu,
   logoutUser,
-  changeLocale
+  changeLocale,
 } from "../../redux/actions";
 
 import {
   menuHiddenBreakpoint,
   searchPath,
   localeOptions,
-  isDarkSwitchActive
+  isDarkSwitchActive,
 } from "../../constants/defaultValues";
 
 import { MobileMenuIcon, MenuIcon } from "../../components/svg";
@@ -40,7 +40,7 @@ class TopNav extends Component {
     this.state = {
       isInFullScreen: false,
       searchKeyword: "",
-      hStyle: { color: 'white' }
+      hStyle: { color: "white" },
     };
   }
 
@@ -66,7 +66,7 @@ class TopNav extends Component {
       (document.msFullscreenElement && document.msFullscreenElement !== null)
     );
   };
-  handleSearchIconClick = e => {
+  handleSearchIconClick = (e) => {
     if (window.innerWidth < menuHiddenBreakpoint) {
       let elem = e.target;
       if (!e.target.classList.contains("search")) {
@@ -98,7 +98,7 @@ class TopNav extends Component {
     document.removeEventListener("click", this.handleDocumentClickSearch, true);
   };
 
-  handleDocumentClickSearch = e => {
+  handleDocumentClickSearch = (e) => {
     let isSearchClick = false;
     if (
       e.target &&
@@ -123,16 +123,16 @@ class TopNav extends Component {
       if (input && input.classList) input.classList.remove("mobile-view");
       this.removeEventsSearch();
       this.setState({
-        searchKeyword: ""
+        searchKeyword: "",
       });
     }
   };
-  handleSearchInputChange = e => {
+  handleSearchInputChange = (e) => {
     this.setState({
-      searchKeyword: e.target.value
+      searchKeyword: e.target.value,
     });
   };
-  handleSearchInputKeyPress = e => {
+  handleSearchInputKeyPress = (e) => {
     if (e.key === "Enter") {
       this.search();
     }
@@ -141,7 +141,7 @@ class TopNav extends Component {
   search = () => {
     this.props.history.push(searchPath + "/" + this.state.searchKeyword);
     this.setState({
-      searchKeyword: ""
+      searchKeyword: "",
     });
   };
 
@@ -171,7 +171,7 @@ class TopNav extends Component {
       }
     }
     this.setState({
-      isInFullScreen: !isInFullScreen
+      isInFullScreen: !isInFullScreen,
     });
   };
 
@@ -198,7 +198,6 @@ class TopNav extends Component {
     this.props.clickOnMobileMenu(containerClassnames);
   };
 
-  
   render() {
     const { containerClassnames, menuClickCount, locale } = this.props;
     const { messages } = this.props.intl;
@@ -206,22 +205,23 @@ class TopNav extends Component {
       <nav className="navbar fixed-top">
         <div className="d-flex align-items-center navbar-left">
           <NavLink
-            to="#" location={{}}
+            to="#"
+            location={{}}
             className="menu-button d-none d-md-block"
-            onClick={e =>
+            onClick={(e) =>
               this.menuButtonClick(e, menuClickCount, containerClassnames)
             }
           >
             <MenuIcon />
           </NavLink>
           <NavLink
-            to="#" location={{}}
+            to="#"
+            location={{}}
             className="menu-button-mobile d-xs-block d-sm-block d-md-none"
-            onClick={e => this.mobileMenuButtonClick(e, containerClassnames)}
+            onClick={(e) => this.mobileMenuButtonClick(e, containerClassnames)}
           >
             <MobileMenuIcon />
           </NavLink>
-
 
           {/*  <div className="position-relative d-none d-none d-lg-inline-block">
             <a
@@ -233,15 +233,15 @@ class TopNav extends Component {
             </a>
           </div>*/}
         </div>
-        {<a className="navbar-logo" href="/">
-          <span className="logo d-none d-xs-block" />
-          <span className="logo-mobile d-block d-xs-none" />
-        </a>}
+        {
+          <a className="navbar-logo" href="/">
+            <span className="logo d-none d-xs-block" />
+            <span className="logo-mobile d-block d-xs-none" />
+          </a>
+        }
 
         <div className="navbar-right">
           <div className="header-icons d-inline-block align-middle">
-
-
             <button
               className="header-icon btn btn-empty d-none d-sm-inline-block"
               type="button"
@@ -251,14 +251,14 @@ class TopNav extends Component {
               {this.state.isInFullScreen ? (
                 <i className="simple-icon-size-actual d-block" />
               ) : (
-                  <i className="simple-icon-size-fullscreen d-block" />
-                )}
+                <i className="simple-icon-size-fullscreen d-block" />
+              )}
             </button>
           </div>
           <div className="user d-inline-block">
             <UncontrolledDropdown className="dropdown-menu-right">
               <DropdownToggle className="p-0" color="empty">
-                <span style={ this.state.hStyle }>Joan Duarte</span>
+                <span style={this.state.hStyle}>Joan Duarte</span>
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>
                 <DropdownItem onClick={() => this.handleLogout()}>
@@ -280,12 +280,14 @@ const mapStateToProps = ({ menu, settings }) => {
     containerClassnames,
     menuClickCount,
     selectedMenuHasSubItems,
-    locale
+    locale,
   };
 };
 export default injectIntl(
-  connect(
-    mapStateToProps,
-    { setContainerClassnames, clickOnMobileMenu, logoutUser, changeLocale }
-  )(TopNav)
+  connect(mapStateToProps, {
+    setContainerClassnames,
+    clickOnMobileMenu,
+    logoutUser,
+    changeLocale,
+  })(TopNav)
 );

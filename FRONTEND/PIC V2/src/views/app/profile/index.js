@@ -1,11 +1,11 @@
-import React, { Suspense } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import React, { Suspense } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 const Portfolio = React.lazy(() =>
-  import(/* webpackChunkName: "profile-portfolio" */ './portfolio')
+  import(/* webpackChunkName: "profile-portfolio" */ "./portfolio")
 );
 const Social = React.lazy(() =>
-  import(/* webpackChunkName: "profile-social" */ './social')
+  import(/* webpackChunkName: "profile-social" */ "./social")
 );
 
 const PagesProfile = ({ match }) => (
@@ -14,11 +14,11 @@ const PagesProfile = ({ match }) => (
       <Redirect exact from={`${match.url}/`} to={`${match.url}/portfolio`} />
       <Route
         path={`${match.url}/portfolio`}
-        render={props => <Portfolio {...props} />}
+        render={(props) => <Portfolio {...props} />}
       />
       <Route
         path={`${match.url}/social`}
-        render={props => <Social {...props} />}
+        render={(props) => <Social {...props} />}
       />
       <Redirect to="/error" />
     </Switch>
