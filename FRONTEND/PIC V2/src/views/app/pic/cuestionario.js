@@ -19,6 +19,7 @@ import { Colxx } from "../../../components/common/CustomBootstrap";
 import { injectIntl } from "react-intl";
 import PicColaboradorCard from "../../../components/pic/PicColaboradorCard";
 import PicSeccionInformacionPersonal from "../../../components/pic/PicSeccionInformacionPersonal";
+import PicSeccionInformacionFinal from "../../../components/pic/PicSeccionInformacionFinal";
 
 import PicSeccionPreguntasI from "../../../components/pic/PicSeccionPreguntasI";
 import PicSeccionPreguntasII from "../../../components/pic/PicSeccionPreguntasII";
@@ -29,8 +30,10 @@ import HttpUtil from "../../../util/HttpService.js";
 export default function Cuestionario(props) {
   const [activeTab, setActiveTab] = useState("1");
   const [totalPasos, setTotalPasos] = useState("4");
+
   const [cuestionarioUsuario, setCuestionario] = useState({
     listado_competencias: [],
+    listado_preguntas_seccion_iii: [],
   });
   const [
     informacionPersonalCompleto,
@@ -42,8 +45,14 @@ export default function Cuestionario(props) {
   const [seccionPreguntasIICompleto, setSeccionPreguntasIICompleto] = useState(
     false
   );
+  const [seccionPreguntasIIICompleto, setSeccionPreguntasIIICompleto] = useState(
+    false
+  );
+  const [formularioVacio, setFormularioVacio] = useState(false);
   const [modal, setModal] = useState(false);
   const [preguntas, setPreguntas] = useState([]);
+  const [competencias, setCompetencias] = useState([]);
+
   const [preguntasIII, setPreguntasIII] = useState([]);
 
   const toggleTab = (tab) => {
@@ -55,6 +64,89 @@ export default function Cuestionario(props) {
   useEffect(() => {
     obtenerCuestionario();
   }, []);
+
+  const InformacionPersonalElement = () => (
+    <PicSeccionInformacionPersonal
+      setFormularioVacio={setFormularioVacio}
+      setInformacionPersonalCompleto={setInformacionPersonalCompleto}
+      setCuestionario={setCuestionario}
+      setEstadoPaso={setInformacionPersonalCompleto}
+      pasoSiguiente={pasoSiguiente}
+    />
+  );
+
+  const InformacionFinalElement = () => (
+    <PicSeccionInformacionPersonal
+    />
+  );
+
+  const PreguntasSeccionIElement = () => (
+    <PicSeccionPreguntasI
+      setEstadoPaso={obtenerInformacionPregunta}
+      competencias={competencias}
+      pasoSiguiente={pasoSiguiente}
+    />
+  );
+  const PreguntasSeccionIIElement = () => (
+    <PicSeccionPreguntasII
+      preguntas={preguntas}
+      pasoSiguiente={obtenerInformacionPreguntaIII}
+    />
+  );
+
+  const PreguntasSeccionIIIElement = () => (
+    <PicSeccionPreguntasIII
+      preguntas={preguntasIII}
+      pasoSiguiente={pasoSiguiente}
+    />
+  );
+
+  const obtenerCuestionario = () => {
+    try {
+      setModal(true);
+      const url =
+        constantes.urlServer + constantes.servicios.buscarCuestionarioCorreo;
+      const filtros = {
+        email: localStorage.getItem("email"),
+      };
+
+      HttpUtil.requestPost(
+        url,
+        filtros,
+        (response) => {
+          console.log(response.data);
+          setCuestionario(response.data);
+          if (response.data.email) {
+            if (response.data.listado_competencias.length == 0) {
+              if (response.data.listado_preguntas.length == 0) {
+                if (response.data.listado_preguntas_seccion_iii.length == 0) {
+                  abrirFinal()
+                  //Mostar letrero de Ruta de Aprendizaje
+                } else {
+                  setSeccionPreguntasIICompleto(true)
+                  obtenerInformacionPreguntaIII();
+                }
+              } else {
+                setSeccionPreguntasICompleto(true)
+                obtenerInformacionPregunta();
+
+              }
+            } else {
+              obtenerInformacionCompetencia()
+            }
+          }else{
+            setFormularioVacio(true)
+          }
+          setModal(false);
+        },
+        () => {
+          setModal(false);
+        }
+      );
+    } catch (error) {
+      setModal(false);
+    }
+  };
 
   const pasoSiguiente = () => {
     switch (activeTab) {
@@ -73,28 +165,39 @@ export default function Cuestionario(props) {
         break;
     }
   };
+  const abrirFinal=()=>{
+    console.log("Abrir Final")
+    setSeccionPreguntasIIICompleto(true)
 
-  const obtenerCuestionario = () => {};
-  const PreguntasSeccionIElement = () => (
-    <PicSeccionPreguntasI
-      setEstadoPaso={obtenerInformacionPregunta}
-      competencias={cuestionarioUsuario.listado_competencias}
-      pasoSiguiente={pasoSiguiente}
-    />
-  );
-  const PreguntasSeccionIIElement = () => (
-    <PicSeccionPreguntasII
-      preguntas={preguntas}
-      pasoSiguiente={obtenerInformacionPreguntaIII}
-    />
-  );
+  }
+  const obtenerInformacionCompetencia = () => {
+    try {
+      setModal(true);
+      const url =
+        constantes.urlServer +
+        constantes.servicios.buscarCompetenciasCuestionario;
+      const filtros = {
+        email: localStorage.getItem("email"),
+      };
 
-  const PreguntasSeccionIIIElement = () => (
-    <PicSeccionPreguntasIII
-      preguntas={preguntasIII}
-      pasoSiguiente={pasoSiguiente}
-    />
-  );
+      HttpUtil.requestPost(
+        url,
+        filtros,
+        (response) => {
+          console.log(response.data);
+          setCompetencias(response.data);
+          toggleTab("2");
+          setInformacionPersonalCompleto(true);
+          setModal(false);
+        },
+        () => {
+          setModal(false);
+        }
+      );
+    } catch (error) {
+      setModal(false);
+    }
+  };
 
   const obtenerInformacionPregunta = () => {
     try {
@@ -103,8 +206,7 @@ export default function Cuestionario(props) {
         constantes.urlServer +
         constantes.servicios.buscarPreguntasPorIDCuestionario;
       const filtros = {
-        cuestionario: true,
-        preguntas_obtener: cuestionarioUsuario.listado_preguntas,
+        email: localStorage.getItem("email"),
       };
 
       HttpUtil.requestPost(
@@ -129,9 +231,13 @@ export default function Cuestionario(props) {
   const obtenerInformacionPreguntaIII = () => {
     try {
       setModal(true);
+      console.log(cuestionarioUsuario);
+
       const url =
         constantes.urlServer + constantes.servicios.obtenerPreguntasSeccionIII;
-      const filtros = {};
+      const filtros = {
+        email: localStorage.getItem("email"),
+      };
 
       HttpUtil.requestPost(
         url,
@@ -219,11 +325,7 @@ export default function Cuestionario(props) {
 
           <TabContent activeTab={activeTab}>
             <TabPane tabId="1">
-              <PicSeccionInformacionPersonal
-                setCuestionario={setCuestionario}
-                setEstadoPaso={setInformacionPersonalCompleto}
-                pasoSiguiente={pasoSiguiente}
-              />
+              {formularioVacio ? <InformacionPersonalElement /> : null}
             </TabPane>
             <TabPane tabId="2">
               {informacionPersonalCompleto ? (
@@ -236,6 +338,11 @@ export default function Cuestionario(props) {
             <TabPane tabId="4">
               {seccionPreguntasIICompleto ? (
                 <PreguntasSeccionIIIElement />
+              ) : null}
+            </TabPane>
+            <TabPane tabId="5">
+              {seccionPreguntasIIICompleto ? (
+                <InformacionFinalElement />
               ) : null}
             </TabPane>
           </TabContent>

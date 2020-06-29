@@ -662,6 +662,20 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /buscarCompetenciasCuestionario:
+      x-swagger-router-controller: preguntas_w_controller
+      post:
+        description: Actualizar pregunta iii
+        operationId: buscarCompetenciasCuestionario
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions

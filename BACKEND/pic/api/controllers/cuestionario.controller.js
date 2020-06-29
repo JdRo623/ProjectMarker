@@ -67,10 +67,9 @@ function actualizarPreguntaIII(req,res){
 function buscarCuestionarioCorreo(req,res){
     try {
         var buscar = async(req,res)=>{
-            console.log(req.body);
             var dec = tools.decryptJson(req.body.data);
             
-            cuestionarioHandler.findOne({email:dec.data.email},(err,cuestionarioBuscado)=>{
+            cuestionarioHandler.findOne({email:dec.email},(err,cuestionarioBuscado)=>{
                 if(err){
                     return res.status(640).send({
                         estado: "error",
@@ -80,13 +79,39 @@ function buscarCuestionarioCorreo(req,res){
                 }
                 if(!cuestionarioBuscado){
                     return res.status(200).send({
-                        estado: 'No existe el cuestionario',
-                        message: util.format('no existe el cuestionario')
+                        estado: 'Validación de cuestionario realizada',
+                        message: util.format('No existe el cuestionario, iniciando nuevo cuestionario'),
+                        data: Object.assign({})
                     });
                 }
+                var listado_competencias =[]
+                var listado_preguntas= []
+                var listado_preguntas_seccion_iii = []
+                
+                cuestionarioBuscado.listado_competencias.forEach((competencia)=>{
+                    if(competencia.estado_respuesta == 'No respondida'){
+                        listado_competencias.push(competencia)
+                    }
+                })
+                
+                cuestionarioBuscado.listado_preguntas.forEach((pregunta)=>{
+                    if(pregunta.estado_respuesta == 'No respondida'){
+                        listado_preguntas.push(pregunta)
+                    }
+                })
+                
+                cuestionarioBuscado.listado_preguntas_seccion_iii.forEach((pregunta)=>{
+                    if(pregunta.estado_preguntas == 'No respondida'){
+                        listado_preguntas_seccion_iii.push(pregunta)
+                    }
+                })
+
+                cuestionarioBuscado.listado_competencias = listado_competencias
+                cuestionarioBuscado.listado_preguntas = listado_preguntas
+                cuestionarioBuscado.listado_preguntas_seccion_iii = listado_preguntas_seccion_iii
                 return res.status(200).send({
-                    estado: 'Cuestionario encontrado',
-                    message: util.format('Cuestionario encontrado'),
+                    estado: 'Validación de cuestionario realizada',
+                    message: util.format('Podrás continuar el cuestionario desde donde lo dejaste'),
                     data: Object.assign(cuestionarioBuscado)
                 });
             });
@@ -355,7 +380,7 @@ function Cuestionario(req, res) {
                                     cursoSubGrupo.cargos.forEach(cargoCurso => {
                                         if (cargoCurso == cues.rol) {
                                             //TODO ACTIVAR
-                                            cursos.push({ idCurso: cursoCoordinacion.idCurso });
+                                            //cursos.push({ idCurso: cursoCoordinacion.idCurso });
                                         }
                                     });
                                 }
