@@ -12,6 +12,7 @@ const cursoHandler = require("../../models/curso.model");
 const PreguntasHandler = require("../../models/preguntas_w.model");
 const preguntas_seccionIII = require("../utils/preguntasSeccionIII.js");
 const user_jModel = require("../../models/user_j.model");
+const { ftruncate } = require("fs");
 
 module.exports = {
   Cuestionario: Cuestionario,
@@ -22,6 +23,8 @@ module.exports = {
   buscarCuestionarioCorreo: buscarCuestionarioCorreo,
   CuestionarioConsulta: CuestionarioConsulta,
   actualizarPreguntaIII: actualizarPreguntaIII,
+  cuestionarioSinCompletar: cuestionarioSinCompletar,
+  listadoHomologacion: listadoHomologacion,
 };
 
 function actualizarPreguntaIII(req, res) {
@@ -57,8 +60,8 @@ function actualizarPreguntaIII(req, res) {
             .updateOne({ email: dec.data.email }, cuestionarioBuscado)
             .then(() => {
               return res.status(200).send({
-                estado: "PreguntaIII Actualizada",
-                message: util.format("PreguntaIII Actualizada"),
+                estado: "Pregunta III Actualizada",
+                message: util.format("Pregunta III Actualizada"),
                 data: Object.assign(cuestionarioBuscado),
               });
             });
@@ -305,6 +308,134 @@ function actualizarCompetencia(req, res) {
   }
 }
 
+function listadoHomologacion(req, res) {
+  try {
+    var dec = tools.decryptJson(req.body.data);
+    var homologados = [];
+    var listado = async (req, res) => {
+      cuestionarioHandler.find(
+        { estado_cuestionario: dec.estado_cuestionario },
+        (err, cuestionarios) => {
+          if (err) {
+            return res.status(640).send({
+              estado: "error",
+              message: "error",
+              data: Object.assign(err),
+            });
+          }
+          if (!cuestionarios) {
+            return res.status(200).send({
+              estado: "No hay cuestionarios sin responder",
+              message: "No hay cuestionarios sin responder",
+              data: Object.assign({}),
+            });
+          }
+          for (let i = 0; i < cuestionarios.length; i++) {
+            let datosFaltantes = {
+              usuario: "",
+            };
+            usuario
+              .findOne({ email: cuestionarios[i].email })
+              .then((usuarioBuscado) => {
+                datosFaltantes.usuario = usuarioBuscado;
+              });
+            homologados.push(datosFaltantes);
+          }
+
+          return res.status(200).send({
+            estado: "lista de homologados",
+            message: "lista de homologados",
+            data: Object.assign(homologados),
+          });
+        }
+      );
+    };
+    listado(req, res);
+  } catch (error) {}
+}
+
+function cuestionarioSinCompletar(req, res) {
+  try {
+    var dec = tools.decryptJson(req.body.data);
+    var incompletos = [];
+    var listado = async (req, res) => {
+      cuestionarioHandler.find(
+        { estado_cuestionario: dec.estado_cuestionario },
+        (err, cuestionarios) => {
+          if (err) {
+            return res.status(640).send({
+              estado: "error",
+              message: "error",
+              data: Object.assign(err),
+            });
+          }
+          if (!cuestionarios) {
+            return res.status(200).send({
+              estado: "No hay cuestionarios sin responder",
+              message: "No hay cuestionarios sin responder",
+              data: Object.assign({}),
+            });
+          }
+          for (let i = 0; i < cuestionarios.length; i++) {
+            let date = new Date();
+            let datosFaltantes = {
+              fechaReporte:
+                date.getFullYear() +
+                "-" +
+                date.getMonth() +
+                "-" +
+                date.getDay(),
+              horaReporte:
+                date.getHours() +
+                ":" +
+                date.getMinutes() +
+                ":" +
+                date.getSeconds(),
+              usuario: "",
+            };
+            usuario
+              .findOne({ email: cuestionarios[i].email })
+              .then((usuariobuscado) => {
+                let usuarioEncontrado = {};
+                if (!usuariobuscado) {
+                  usuarioEncontrado = "Usuario sin identificar";
+                } else {
+                  usuarioEncontrado = {
+                    nombres: tools.decrypt(usuariobuscado.nombres),
+                    apellidos: tools.decrypt(usuariobuscado.apellidos),
+                    nombres_jefe: tools.decrypt(usuariobuscado.nombres_jefe),
+                    apellidos_jefe: tools.decrypt(
+                      usuariobuscado.apellidos_jefe
+                    ),
+                    email: usuariobuscado.email,
+                    identificacion: tools.decrypt(
+                      usuariobuscado.identificacion
+                    ),
+                    ciudad: tools.decrypt(usuariobuscado.ciudad),
+                    cargo: tools.decrypt(usuariobuscado.cargo),
+                    descripccion_cargo: tools.decrypt(
+                      usuariobuscado.descripccion_cargo
+                    ),
+                  };
+                }
+                console.log(usuarioEncontrado, "usuario");
+                datosFaltantes.usuario = usuarioEncontrado;
+              });
+            incompletos.push(datosFaltantes);
+          }
+          console.log(incompletos);
+          return res.status(200).send({
+            estado: "lista de cuestionarios por completar",
+            message: "lista de cuestionarios por completar",
+            data: Object.assign(incompletos),
+          });
+        }
+      );
+    };
+    listado(req, res);
+  } catch (error) {}
+}
+
 function completadas(req, res) {
   try {
     var traer = async (req, res) => {
@@ -324,7 +455,6 @@ function completadas(req, res) {
             message: util.format(err),
           });
         }
-
         cuestionarios.forEach((element) => {
           console.log(element);
           if (element.estado_cuestionario == "Pendiente") {
@@ -510,14 +640,12 @@ function Cuestionario(req, res) {
                                 });
                               }
                               if (cuestionarioCreado) {
-
-
                                 user_jModel.findOneAndUpdate(
                                   { email: cuestionarioCreado.email },
                                   {
                                     cargo: tools.encrypt(
-                                        cuestionarioCreado.rol
-                                      ),
+                                      cuestionarioCreado.rol
+                                    ),
                                     nivel3: tools.encrypt(
                                       cuestionarioCreado.subgrupo
                                     ),
@@ -897,8 +1025,4 @@ function traerPreguntas(seccional) {
     });
   });
   return cursos;
-}
-
-function traerPreguntas3(seccional) {
-  return [];
 }

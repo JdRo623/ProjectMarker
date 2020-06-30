@@ -95,7 +95,7 @@ export default function Cuestionario(props) {
   const PreguntasSeccionIIIElement = () => (
     <PicSeccionPreguntasIII
       preguntas={preguntasIII}
-      pasoSiguiente={pasoSiguiente}
+      pasoSiguiente={abrirFinal}
     />
   );
 
@@ -163,8 +163,8 @@ export default function Cuestionario(props) {
     }
   };
   const abrirFinal = () => {
-    console.log("Abrir Final");
     toggleTab("5");
+    crearRutaAprendizaje();
     setSeccionPreguntasIIICompleto(true);
   };
   const obtenerInformacionCompetencia = () => {
@@ -244,6 +244,30 @@ export default function Cuestionario(props) {
           setPreguntasIII(response.data);
           toggleTab("4");
           setSeccionPreguntasIICompleto(true);
+          setModal(false);
+        },
+        () => {
+          setModal(false);
+        }
+      );
+    } catch (error) {
+      setModal(false);
+    }
+  };
+
+  const crearRutaAprendizaje = () => {
+    try {
+      setModal(true);
+      const url = constantes.urlServer + constantes.servicios.generarRutaAprendizaje;
+      const filtros = {
+        email: localStorage.getItem("email"),
+      };
+
+      HttpUtil.requestPost(
+        url,
+        filtros,
+        (response) => {
+          console.log(response.data);
           setModal(false);
         },
         () => {

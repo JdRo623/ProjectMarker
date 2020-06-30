@@ -21,6 +21,8 @@ class PicRutaAprendizajeComponent extends React.Component {
       imagenFondo: { background: logo },
     };
   }
+
+  
   render() {
     return (
       <Fragment>
@@ -67,7 +69,7 @@ class PicRutaAprendizajeComponent extends React.Component {
                               <td className="align-middle">
                                 <center>
                                   <p style={{ color: "#FFFFFF" }}>
-                                    {competencia.nombre_competencia}
+                                    {competencia.nombreCompetencia}
                                   </p>
                                 </center>
                               </td>

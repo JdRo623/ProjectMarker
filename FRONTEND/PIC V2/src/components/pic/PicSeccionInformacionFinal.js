@@ -28,48 +28,8 @@ import FinalImg from "../../assets/img/ip-final.png";
 import { Picture } from "react-responsive-picture";
 
 export default function PicSeccionInformacionPersonal(props) {
-  const [bottomNavHidden, setBottomNavHidden] = useState(false);
-  const [topNavDisabled, setTopNavDisabled] = useState(false);
+
   const [modal, setModal] = useState(false);
-  const [cargoSeleccionado, setCargoSeleccionado] = useState("");
-  const [seccionalSeleccionada, setSeccionalSeleccionada] = useState("");
-  const [subprocesoSeleccionado, setSubprocesoSeleccionado] = useState("");
-  const [coordinacionSeleccionado, setCoordinacionSeleccionado] = useState("");
-
-
-  const mostrarMensajeError = (tittle, message) => {
-    NotificationManager.error(
-      message,
-      tittle,
-      3000,
-      () => {
-        alert("callback");
-      },
-      null,
-      "filled"
-    );
-  };
-
-  const onClickNext = (goToNext, steps, step) => {
-    step.isDone = true;
-    if (steps.length - 2 <= steps.indexOf(step)) {
-      setBottomNavHidden(true);
-      setTopNavDisabled(true);
-    }
-    if (steps.length - 1 <= steps.indexOf(step)) {
-      return;
-    }
-    goToNext();
-  };
-
-  const onClickPrev = (goToPrev, steps, step) => {
-    if (steps.indexOf(step) <= 0) {
-      return;
-    }
-    goToPrev();
-  };
-
-  const hStyle = { color: "#191b32" };
 
   return (
     <Fragment>
