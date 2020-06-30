@@ -15,6 +15,38 @@ module.exports = {
   estadisticaCurso: estadisticaCurso,
 };
 
+
+function cursoNivel(req,res){
+  try {
+    var dec = tools.decryptJson(req.body.data);
+    var listado = async(req,res)=>{
+      cuestionarioHandler.find({estado_cuestionario:dec.estado_cuestionario},(err,cuestionarios)=>{
+        if (err){
+          return res.status(603).send({
+            estado: "error",
+            message: util.format(err),
+            data: Object.assign({}),
+          });
+        }
+        if(!cuestionarios){
+          return res.status(200).send({
+            estado: "No Hay Cuestionarios Completados",
+            message: util.format("No Hay Cuestionarios Completados"),
+            data: Object.assign({}),
+          });
+        }
+
+        
+      })
+    }
+    listado(req,res);
+  } catch (error) {
+    
+  }
+
+}
+
+
 function generarRutaAprendizaje(req, res) {
   try {
     var cursos = async (req, res) => {

@@ -340,7 +340,7 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"              
-  /cargarUsuarios:
+  /cargarUsuariosExcel:
       x-swagger-router-controller: user_j_controller
       post:
         description: Carga de usuarios de un excel
@@ -354,7 +354,7 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
-  /traerUsuario:
+  /buscarEmpleado:
       x-swagger-router-controller: user_j_controller
       post:
         description: buscarUsuario
@@ -396,7 +396,7 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
-  /obtenerPreguntasNuevas:
+  /traerPreguntas:
       x-swagger-router-controller: preguntas_w_controller
       post:
         description: obtener preguntas
@@ -438,7 +438,7 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
-  /subdireccionSeccional:
+  /obtenerSubdireccionSeccional:
       x-swagger-router-controller: subdireccion.controller
       post:
         description: obtener subdirecciones por seccionales
@@ -452,7 +452,7 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
-  /coordinacionesSeccional:
+  /obtenerCoordinacionesSeccional:
       x-swagger-router-controller: coordinaciones.controller
       post:
         description: obtener coordinaciones por seccionales
@@ -466,7 +466,7 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
-  /cuestionario:
+  /agregarCuestionario:
       x-swagger-router-controller: cuestionario.controller
       post:
         description: agregar cuestionario
@@ -522,7 +522,7 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
-  /completadas:
+  /obtenerCuestionariosRespondidos:
       x-swagger-router-controller: cuestionario.controller
       post:
         description: devuelve encuentas respondidas y n respondidas
@@ -653,6 +653,20 @@ paths:
       post:
         description: Actualizar pregunta iii
         operationId: actualizarPreguntaIII
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /cuestionarioSinCompletar:
+      x-swagger-router-controller: cuestionario.controller
+      post:
+        description: lista de ususarios sin completar formulario
+        operationId: cuestionarioSinCompletar
         responses:
           "200":
             description: Success

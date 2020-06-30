@@ -53,7 +53,10 @@ const cuestionario = Schema({
             } ,
         }
     ],
-    estado_cuestionario: String
+    estado_cuestionario: {
+        type:String,
+        default: 'Pendiente'
+    }
 }
 )
 
