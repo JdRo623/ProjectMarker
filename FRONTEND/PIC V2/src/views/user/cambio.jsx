@@ -63,7 +63,7 @@ export default class Cambio extends Component {
         )
           .then(async () => {
             localStorage.removeItem("cambio");
-            localStorage.removeItem("email");
+            localStorage.setItem("email",this.state.form.email)
             this.setState({ loading: false });
             await this.props.history.push("/app");
           })

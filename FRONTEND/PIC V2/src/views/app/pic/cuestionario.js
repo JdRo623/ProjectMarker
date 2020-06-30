@@ -45,9 +45,10 @@ export default function Cuestionario(props) {
   const [seccionPreguntasIICompleto, setSeccionPreguntasIICompleto] = useState(
     false
   );
-  const [seccionPreguntasIIICompleto, setSeccionPreguntasIIICompleto] = useState(
-    false
-  );
+  const [
+    seccionPreguntasIIICompleto,
+    setSeccionPreguntasIIICompleto,
+  ] = useState(false);
   const [formularioVacio, setFormularioVacio] = useState(false);
   const [modal, setModal] = useState(false);
   const [preguntas, setPreguntas] = useState([]);
@@ -71,14 +72,11 @@ export default function Cuestionario(props) {
       setInformacionPersonalCompleto={setInformacionPersonalCompleto}
       setCuestionario={setCuestionario}
       setEstadoPaso={setInformacionPersonalCompleto}
-      pasoSiguiente={pasoSiguiente}
+      pasoSiguiente={obtenerInformacionCompetencia}
     />
   );
 
-  const InformacionFinalElement = () => (
-    <PicSeccionInformacionPersonal
-    />
-  );
+  const InformacionFinalElement = () => <PicSeccionInformacionFinal />;
 
   const PreguntasSeccionIElement = () => (
     <PicSeccionPreguntasI
@@ -120,22 +118,20 @@ export default function Cuestionario(props) {
             if (response.data.listado_competencias.length == 0) {
               if (response.data.listado_preguntas.length == 0) {
                 if (response.data.listado_preguntas_seccion_iii.length == 0) {
-                  abrirFinal()
-                  //Mostar letrero de Ruta de Aprendizaje
+                  abrirFinal();
                 } else {
-                  setSeccionPreguntasIICompleto(true)
+                  setSeccionPreguntasIICompleto(true);
                   obtenerInformacionPreguntaIII();
                 }
               } else {
-                setSeccionPreguntasICompleto(true)
+                setSeccionPreguntasICompleto(true);
                 obtenerInformacionPregunta();
-
               }
             } else {
-              obtenerInformacionCompetencia()
+              obtenerInformacionCompetencia();
             }
-          }else{
-            setFormularioVacio(true)
+          } else {
+            setFormularioVacio(true);
           }
           setModal(false);
         },
@@ -160,16 +156,17 @@ export default function Cuestionario(props) {
         toggleTab("4");
         break;
       case "4":
+        toggleTab("5");
         break;
       default:
         break;
     }
   };
-  const abrirFinal=()=>{
-    console.log("Abrir Final")
-    setSeccionPreguntasIIICompleto(true)
-
-  }
+  const abrirFinal = () => {
+    console.log("Abrir Final");
+    toggleTab("5");
+    setSeccionPreguntasIIICompleto(true);
+  };
   const obtenerInformacionCompetencia = () => {
     try {
       setModal(true);
@@ -341,9 +338,7 @@ export default function Cuestionario(props) {
               ) : null}
             </TabPane>
             <TabPane tabId="5">
-              {seccionPreguntasIIICompleto ? (
-                <InformacionFinalElement />
-              ) : null}
+              <InformacionFinalElement />
             </TabPane>
           </TabContent>
         </Colxx>

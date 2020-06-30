@@ -36,7 +36,8 @@ const constantes = {
     actualizarEstadoCuestionario: "/actualizarEstadoCuestionario",
     actualizarPreguntaIII: "/actualizarPreguntaIII",
     buscarCuestionarioCorreo: "/buscarCuestionarioCorreo",
-    buscarCompetenciasCuestionario: "/buscarCompetenciasCuestionario"
+    buscarCompetenciasCuestionario: "/buscarCompetenciasCuestionario",
+    traerUsuario: "/traerUsuario"
   },
   mensajes: {
     ERROR: "Error",

@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Row, Card, CardTitle, Label, FormGroup, Button } from "reactstrap";
+import {
+  Row,
+  Card,
+  CardTitle,
+  Label,
+  FormGroup,
+  Button,
+  Table,
+} from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -10,7 +18,10 @@ import { loginUser } from "../../redux/actions";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import IntlMessages from "../../helpers/IntlMessages";
 
-import logo from "../../assets/img/logo_dian.png";
+import logo from "../../assets/img/estudiando-logo.svg";
+import logoDian from "../../assets/img/logo-dian-principal.png";
+import unal from "../../assets/img/unal-logo.png";
+
 import constantes from "../../util/Constantes";
 import HttpService from "../../util/HttpService";
 
@@ -41,14 +52,14 @@ class Login extends Component {
         },
         (response) => {
           if (response.data) {
-            localStorage.clear()
+            localStorage.clear();
             const { token, cambio_pass, email, rol } = response.data;
             cookies.set("token", token, { path: "/" });
             localStorage.setItem("email", email);
-            if(rol){
-              localStorage.setItem('rol', rol);
-            }else{
-              localStorage.setItem('rol', 0);
+            if (rol) {
+              localStorage.setItem("rol", rol);
+            } else {
+              localStorage.setItem("rol", 0);
             }
             if (cambio_pass) {
               localStorage.setItem("cambio", cambio_pass);
@@ -115,74 +126,111 @@ class Login extends Component {
         <Colxx xxs="12" md="8" className="mx-auto my-auto">
           <Card className="auth-card">
             <div className="position-relative image-side ">
-              <center>
-                <img src={logo} width="200" height="200" />
-              </center>
+              <Table style={{ height: "100%" }}>
+                <tbody>
+                  {" "}
+                  <tr>
+                    {" "}
+                    <td className="align-middle">
+                      <center>
+                        {" "}
+                        <img src={logoDian} width="200" height="150" />{" "}
+                      </center>
+                    </td>{" "}
+                  </tr>{" "}
+                  <tr>
+                    {" "}
+                    <td className="align-middle">
+                      <center>
+                        {" "}
+                        <img src={unal} width="180" height="100" />
+                      </center>{" "}
+                    </td>{" "}
+                  </tr>{" "}
+                  <tr>
+                    {" "}
+                    <td className="align-middle">
+                      <center>
+                        {" "}
+                        <img src={logo} width="150" height="150" />
+                      </center>{" "}
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
             </div>
             <div className="form-side">
-              <CardTitle className="mb-4">
-                <IntlMessages id="user.login-title" />
-              </CardTitle>
-              <Formik onSubmit={this.onUserLogin}>
-                {({ errors, touched }) => (
-                  <Form className="av-tooltip tooltip-label-bottom">
-                    <FormGroup className="form-group has-float-label">
-                      <Label>
-                        <IntlMessages id="user.email" />
-                      </Label>
-                      <Field
-                        className="form-control"
-                        name="email"
-                        onChange={this.handleChange}
-                        value={this.state.form.email}
-                      />
-                      {errors.email && touched.email && (
-                        <div className="invalid-feedback d-block">
-                          {errors.email}
-                        </div>
-                      )}
-                    </FormGroup>
-                    <FormGroup className="form-group has-float-label">
-                      <Label>
-                        <IntlMessages id="user.password" />
-                      </Label>
-                      <Field
-                        className="form-control"
-                        type="password"
-                        name="password"
-                        onChange={this.handleChange}
-                        value={this.state.form.password}
-                      />
-                      {errors.password && touched.password && (
-                        <div className="invalid-feedback d-block">
-                          {errors.password}
-                        </div>
-                      )}
-                    </FormGroup>
-                    <div className="d-flex justify-content-between align-items-center">
-                      <NavLink to={`/user/forgot-password`}>
-                        <IntlMessages id="user.forgot-password-question" />
-                      </NavLink>
-                      <Button
-                        color="primary"
-                        className={`btn-shadow btn-multiple-state ${
-                          this.state.loading ? "show-spinner" : ""
-                        }`}
-                        size="lg"
-                      >
-                        <span className="spinner d-inline-block">
-                          <span className="bounce1" />
-                          <span className="bounce2" />
-                          <span className="bounce3" />
-                        </span>
-                        <span className="label">
-                          <IntlMessages id="user.login-button" />
-                        </span>
-                      </Button>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
+              <Table style={{ height: "100%" }}>
+                <tbody>
+                  <tr>
+                    <td className="align-middle">
+                      <CardTitle className="mb-4">
+                        <IntlMessages id="user.login-title" />
+                      </CardTitle>
+                      <Formik onSubmit={this.onUserLogin}>
+                        {({ errors, touched }) => (
+                          <Form className="av-tooltip tooltip-label-bottom">
+                            <FormGroup className="form-group has-float-label">
+                              <Label>
+                                <IntlMessages id="user.email" />
+                              </Label>
+                              <Field
+                                className="form-control"
+                                name="email"
+                                onChange={this.handleChange}
+                                value={this.state.form.email}
+                              />
+                              {errors.email && touched.email && (
+                                <div className="invalid-feedback d-block">
+                                  {errors.email}
+                                </div>
+                              )}
+                            </FormGroup>
+                            <FormGroup className="form-group has-float-label">
+                              <Label>
+                                <IntlMessages id="user.password" />
+                              </Label>
+                              <Field
+                                className="form-control"
+                                type="password"
+                                name="password"
+                                onChange={this.handleChange}
+                                value={this.state.form.password}
+                              />
+                              {errors.password && touched.password && (
+                                <div className="invalid-feedback d-block">
+                                  {errors.password}
+                                </div>
+                              )}
+                            </FormGroup>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <NavLink to={`/user/forgot-password`}>
+                                <IntlMessages id="user.forgot-password-question" />
+                              </NavLink>
+                              <Button
+                                color="primary"
+                                className={`btn-shadow btn-multiple-state ${
+                                  this.state.loading ? "show-spinner" : ""
+                                }`}
+                                size="lg"
+                              >
+                                <span className="spinner d-inline-block">
+                                  <span className="bounce1" />
+                                  <span className="bounce2" />
+                                  <span className="bounce3" />
+                                </span>
+                                <span className="label">
+                                  <IntlMessages id="user.login-button" />
+                                </span>
+                              </Button>
+                            </div>
+                          </Form>
+                        )}
+                      </Formik>
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
             </div>
           </Card>
         </Colxx>

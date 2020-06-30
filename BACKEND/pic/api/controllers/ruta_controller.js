@@ -10,9 +10,11 @@ var tools = require("../utils/tools.js");
 const cuestionarioHandler = require("../../models/Cuestionario.model");
 const PreguntasHandler = require("../../models/preguntas_w.model");
 const cursoHandler = require("../../models/curso.model");
+const rutaHandler = require("../../models/ruta_aprendizaje.model");
 
 module.exports = {
   estadisticaCurso: estadisticaCurso,
+  generarRutaAprendizaje: generarRutaAprendizaje
 };
 
 function generarRutaAprendizaje(req, res) {
@@ -25,6 +27,13 @@ function generarRutaAprendizaje(req, res) {
       var comptetenciasNivel3 = [];
       var comptetenciasNivel2 = [];
       var comptetenciasNivel1 = [];
+      var ruta_aprendizaje = {
+        id_ruta: dec.email,
+        email: dec.email,
+        estado_ruta: "Aprobada",
+        listado_competencias: [],
+      };
+      var listado_competencias_validas = [];
       var listado_cursos_basicos = [];
       var listado_cursos_medios = [];
       var listado_cursos_altos = [];
@@ -49,103 +58,272 @@ function generarRutaAprendizaje(req, res) {
               data: Object.assign({}),
             });
           } else {
+            cuestionarioBuscado.listado_competencias.forEach((competencia) => {
+              if (competencia.valor_respuesta != "0") {
+                ruta_aprendizaje.listado_competencias.push({
+                  nombreCompetencia: competencia.nombreCompetencia,
+                  valor_respuesta: competencia.valor_respuesta,
+                  categorizada: "",
+                  listado_cursos_basicos: [],
+                  listado_cursos_medios: [],
+                  listado_cursos_altos: [],
+                  listado_cursos_superiores: [],
+                });
+                listado_competencias_validas.push(
+                  competencia.nombreCompetencia
+                );
+              }
+            });
             cuestionarioBuscado.listado_preguntas.forEach((pregunta) => {
               listadoPreguntas.push(pregunta.id_pregunta);
             });
-            PreguntasHandler.find(
-              { id_pregunta: { $in: listadoPreguntas } },
-              (err, listadoPreguntas) => {
-                var cursoTemporal = {};
-                cuestionarioBuscado.listado_cursos.forEach((cursoElegido) => {
-                  cursoTemporal = {
-                    nivelElegido: null,
-                    idCurso: cursoElegido.idCurso,
-                  };
-                  listadoPreguntas.forEach((preguntaCompleta) => {
-                    if (cursoElegido.idCurso == preguntaCompleta.codificacion) {
-                      switch (preguntaCompleta.nivel) {
-                        case "BÁSICO":
-                          cuestionarioBuscado.listado_preguntas.forEach(
-                            (pregunta) => {
-                                if(cursoTemporal.nivelElegido==null){
-                                    if(preguntaCompleta.numero_pregunta == pregunta.codificacion){
-                                        if(preguntaCompleta.clave == pregunta.valor_respuesta){
-                                            listado_cursos_basicos.push({
-                                                numero_curso: String,
-                                                nombreCurso: String,
-                                                colorEstado: String,
-                                                estado_curso: {
-                                                    type: String,
-                                                    default: 'Por Cursar' //Por Cursar , Cursando, Cursado
-                                                }
-                                            })
-                                        }
-                                    }
-                                }
-                                
-                            }
-                          );
+            cursoHandler.find(
+              { competencia: { $in: listado_competencias_validas } },
+              (err, cursosEncontrados) => {
+                if (err) {
+                  return res.status(603).send({
+                    estado: "error",
+                    message: util.format(err),
+                    data: Object.assign({}),
+                  });
+                }
+                if (!cursosEncontrados) {
+                  return res.status(603).send({
+                    estado: "Error",
+                    message: "Cursos no encontrado.",
+                    data: Object.assign({}),
+                  });
+                }
 
+                ruta_aprendizaje.listado_competencias.forEach((competencia) => {
+                  cursosEncontrados.forEach((cursoEncontrado) => {
+                    if (
+                      competencia.nombreCompetencia ==
+                      cursoEncontrado.competencia
+                    ) {
+                      switch (cursoEncontrado.nivel_ruta) {
+                        case "BÁSICO":
+                          competencia.listado_cursos_basicos.push({
+                            idCurso: cursoEncontrado.consecutivo,
+                            nombreCurso: cursoEncontrado.nombre_actividad,
+                            colorEstado: "danger",
+                            estado: "Por Cursar",
+                          });
                           break;
                         case "MEDIO":
-                          cursoTemporal.listadoPreguntasMedio.push(
-                            preguntaCompleta
-                          );  
-                          
+                          competencia.listado_cursos_medios.push({
+                            idCurso: cursoEncontrado.consecutivo,
+                            nombreCurso: cursoEncontrado.nombre_actividad,
+                            colorEstado: "danger",
+                            estado: "Por Cursar",
+                          });
                           break;
                         case "ALTO":
-                          cursoTemporal.listadoPreguntasAlto.push(
-                            preguntaCompleta
-                          );
+                          competencia.listado_cursos_altos.push({
+                            idCurso: cursoEncontrado.consecutivo,
+                            nombreCurso: cursoEncontrado.nombre_actividad,
+                            colorEstado: "danger",
+                            estado: "Por Cursar",
+                          });
                           break;
                         case "SUPERIOR":
-                          cursoTemporal.listadoPreguntasSuperior.push(
-                            preguntaCompleta
-                          );
+                          competencia.listado_cursos_superiores.push({
+                            idCurso: cursoEncontrado.consecutivo,
+                            nombreCurso: cursoEncontrado.nombre_actividad,
+                            colorEstado: "danger",
+                            estado: "Por Cursar",
+                          });
                           break;
                       }
                     }
                   });
-                  listadoCursos.push(cursoTemporal);
                 });
-              }
-            );
-            cuestionarioBuscado.listado_competencias.forEach(
-              (competenciaActual) => {
-                switch (competenciaActual.valor_respuesta) {
-                  case "5":
-                    comptetenciasNivel5.push({
-                      nombreCompetencia: competenciaActual.nombreCompetencia,
-                      valor_respuesta: competenciaActual.valor_respuesta,
+
+                PreguntasHandler.find(
+                  { numero_pregunta: { $in: listadoPreguntas } },
+                  (err, preguntasEncontradas) => {
+                    if (err) {
+                      return res.status(603).send({
+                        estado: "error",
+                        message: util.format(err),
+                        data: Object.assign({}),
+                      });
+                    }
+                    if (!preguntasEncontradas) {
+                      return res.status(603).send({
+                        estado: "Error",
+                        message: "Preguntas no encontradas.",
+                        data: Object.assign({}),
+                      });
+                    }
+
+                    listadoPreguntas.forEach((preguntaBasica) => {
+                      preguntasEncontradas.forEach((preguntaCompleta) => {
+                        if (
+                          preguntaBasica.id_pregunta ==
+                          preguntaCompleta.numero_pregunta
+                        ) {
+                          preguntaBasica.competencia =
+                            preguntaCompleta.competencia;
+                          preguntaBasica.nivel = preguntaCompleta.nivel;
+
+                          if (
+                            preguntaBasica.valor_respuesta ==
+                            preguntaCompleta.clave
+                          ) {
+                            preguntaBasica.respuesta = "Correcta";
+                          } else {
+                            preguntaBasica.respuesta = "Incorrecta";
+                          }
+                        }
+                      });
                     });
-                    break;
-                  case "4":
-                    comptetenciasNivel4.push({
-                      nombreCompetencia: competenciaActual.nombreCompetencia,
-                      valor_respuesta: competenciaActual.valor_respuesta,
+
+                    ruta_aprendizaje.listado_competencias.forEach(
+                      (competencia) => {
+                        listadoPreguntas.forEach((preguntaEncontrada) => {
+                          if (
+                            competencia.nombreCompetencia ==
+                            preguntaEncontrada.competencia
+                          ) {
+                            switch (preguntaEncontrada.nivel) {
+                              case "BÁSICO":
+                                if (competencia.categorizada != "") {
+                                  if (
+                                    preguntaEncontrada.respuesta == "Incorrecta"
+                                  ) {
+                                    competencia.categorizada = "Categorizada";
+                                    competencia.listado_cursos_basicos.forEach(
+                                      (cursosCambiar) => {
+                                        cursosCambiar.colorEstado = "danger";
+                                        cursosCambiar.estado = "Por Cursar";
+                                      }
+                                    );
+                                    competencia.listado_cursos_medios.forEach(
+                                      (cursosCambiar) => {
+                                        cursosCambiar.colorEstado = "danger";
+                                        cursosCambiar.estado = "Por Cursar";
+                                      }
+                                    );
+                                    competencia.listado_cursos_altos.forEach(
+                                      (cursosCambiar) => {
+                                        cursosCambiar.colorEstado = "danger";
+                                        cursosCambiar.estado = "Por Cursar";
+                                      }
+                                    );
+                                    competencia.listado_cursos_superiores.forEach(
+                                      (cursosCambiar) => {
+                                        cursosCambiar.colorEstado = "danger";
+                                        cursosCambiar.estado = "Por Cursar";
+                                      }
+                                    );
+                                  } else {
+                                    competencia.listado_cursos_basicos.forEach(
+                                      (cursosCambiar) => {
+                                        cursosCambiar.colorEstado = "success";
+                                        cursosCambiar.estado = "Aprobado";
+                                      }
+                                    );
+                                  }
+                                }
+                                break;
+                              case "MEDIO":
+                                if (competencia.categorizada != "") {
+                                  if (
+                                    preguntaEncontrada.respuesta == "Incorrecta"
+                                  ) {
+                                    competencia.categorizada = "Categorizada";
+                                    competencia.listado_cursos_medios.forEach(
+                                      (cursosCambiar) => {
+                                        cursosCambiar.colorEstado = "danger";
+                                        cursosCambiar.estado = "Por Cursar";
+                                      }
+                                    );
+                                    competencia.listado_cursos_altos.forEach(
+                                      (cursosCambiar) => {
+                                        cursosCambiar.colorEstado = "danger";
+                                        cursosCambiar.estado = "Por Cursar";
+                                      }
+                                    );
+                                    competencia.listado_cursos_superiores.forEach(
+                                      (cursosCambiar) => {
+                                        cursosCambiar.colorEstado = "danger";
+                                        cursosCambiar.estado = "Por Cursar";
+                                      }
+                                    );
+                                  } else {
+                                    competencia.listado_cursos_basicos.forEach(
+                                      (cursosCambiar) => {
+                                        cursosCambiar.colorEstado = "success";
+                                        cursosCambiar.estado = "Aprobado";
+                                      }
+                                    );
+                                  }
+                                }
+                                break;
+                              case "ALTO":
+                                if (competencia.categorizada != "") {
+                                  if (
+                                    preguntaEncontrada.respuesta == "Incorrecta"
+                                  ) {
+                                    competencia.categorizada = "Categorizada";
+                                    competencia.listado_cursos_altos.forEach(
+                                      (cursosCambiar) => {
+                                        cursosCambiar.colorEstado = "danger";
+                                        cursosCambiar.estado = "Por Cursar";
+                                      }
+                                    );
+                                    competencia.listado_cursos_superiores.forEach(
+                                      (cursosCambiar) => {
+                                        cursosCambiar.colorEstado = "danger";
+                                        cursosCambiar.estado = "Por Cursar";
+                                      }
+                                    );
+                                  } else {
+                                    competencia.listado_cursos_basicos.forEach(
+                                      (cursosCambiar) => {
+                                        cursosCambiar.colorEstado = "success";
+                                        cursosCambiar.estado = "Aprobado";
+                                      }
+                                    );
+                                  }
+                                }
+                                break;
+                              case "SUPERIOR":
+                                if (competencia.categorizada != "") {
+                                  if (
+                                    preguntaEncontrada.respuesta == "Incorrecta"
+                                  ) {
+                                    competencia.categorizada = "Categorizada";
+                                    competencia.listado_cursos_superiores.forEach(
+                                      (cursosCambiar) => {
+                                        cursosCambiar.colorEstado = "danger";
+                                        cursosCambiar.estado = "Por Cursar";
+                                      }
+                                    );
+                                  } else {
+                                    competencia.listado_cursos_basicos.forEach(
+                                      (cursosCambiar) => {
+                                        cursosCambiar.colorEstado = "success";
+                                        cursosCambiar.estado = "Aprobado";
+                                      }
+                                    );
+                                  }
+                                }
+                                break;
+                            }
+                          }
+                        });
+                      }
+                    );
+                      console.log(ruta_aprendizaje)
+                    return res.status(200).send({
+                      estado: "Exito",
+                      message: "Ruta generada con Exito",
+                      data: Object.assign({ruta_aprendizaje}),
                     });
-                    break;
-                  case "3":
-                    comptetenciasNivel3.push({
-                      nombreCompetencia: competenciaActual.nombreCompetencia,
-                      valor_respuesta: competenciaActual.valor_respuesta,
-                    });
-                    break;
-                  case "2":
-                    comptetenciasNivel2.push({
-                      nombreCompetencia: competenciaActual.nombreCompetencia,
-                      valor_respuesta: competenciaActual.valor_respuesta,
-                    });
-                    break;
-                  case "1":
-                    comptetenciasNivel1.push({
-                      nombreCompetencia: competenciaActual.nombreCompetencia,
-                      valor_respuesta: competenciaActual.valor_respuesta,
-                    });
-                    break;
-                  default:
-                    break;
-                }
+                  }
+                );
               }
             );
           }

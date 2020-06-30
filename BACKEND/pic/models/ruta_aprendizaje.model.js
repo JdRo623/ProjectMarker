@@ -13,12 +13,13 @@ const ruta = Schema({
         {
             nombreCompetencia: String,
             valor_respuesta: String,
+            categorizada: String,
             listado_cursos_basicos: [
                 {
-                    numero_curso: String,
+                    idCurso: String,
                     nombreCurso: String,
                     colorEstado: String,
-                    estado_curso: {
+                    estado: {
                         type: String,
                         default: 'Por Cursar' //Por Cursar , Cursando, Cursado
                     }
@@ -26,10 +27,10 @@ const ruta = Schema({
             ],
             listado_cursos_medios: [
                 {
-                    numero_curso: String,
+                    idCurso: String,
                     nombreCurso: String,
                     colorEstado: String,
-                    estado_curso: {
+                    estado: {
                         type: String,
                         default: 'Por Cursar' //Por Cursar , Cursando, Cursado
                     }
@@ -37,10 +38,10 @@ const ruta = Schema({
             ],
             listado_cursos_altos: [
                 {
-                    numero_curso: String,
+                    idCurso: String,
                     nombreCurso: String,
                     colorEstado: String,
-                    estado_curso: {
+                    estado: {
                         type: String,
                         default: 'Por Cursar' //Por Cursar , Cursando, Cursado
                     }
@@ -48,10 +49,10 @@ const ruta = Schema({
             ],
             listado_cursos_superiores: [
                 {
-                    numero_curso: String,
+                    idCurso: String,
                     nombreCurso: String,
                     colorEstado: String,
-                    estado_curso: {
+                    estado: {
                         type: String,
                         default: 'Por Cursar' //Por Cursar , Cursando, Cursado
                     }

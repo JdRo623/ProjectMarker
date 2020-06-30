@@ -257,6 +257,7 @@ export default function PicSeccionInformacionPersonal(props) {
     if (steps.length - 2 <= steps.indexOf(step)) {
       setBottomNavHidden(true);
       setTopNavDisabled(true);
+      props.pasoSiguiente()
     }
     if (steps.length - 1 <= steps.indexOf(step)) {
       return;
