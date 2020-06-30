@@ -103,7 +103,7 @@ export default function PicSeccionPreguntasIII(props) {
           constantes.urlServer + constantes.servicios.actualizarPreguntaIII;
         const filtros = {
           data: {
-            email: "",
+            email: localStorage.getItem("email"),
             id_pregunta: preguntaElegida,
             valor_respuesta: respuestaElegida,
             estado_respuesta: "Respondida",

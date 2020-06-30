@@ -305,6 +305,74 @@ function actualizarEstadoCuestionario(req, res) {
     throw boom.boomify(err);
   }
 }
+<<<<<<< HEAD
+=======
+function Cuestionario(req, res) {
+    try {
+        var agregar = async (req, res) => {
+            var newCuestionario;
+            var cues = (tools.decryptJson(req.body.data))
+            var competencias = [];
+            var encontrado = false;
+            var cursos = [];
+            console.log(cues);
+            await cuestionarioHandler.findOne({ email: cues.email }, (err, cuestionario) => {
+                if (err) {
+                    return res.status(640).send({
+                        estado: "error",
+                        message: "error",
+                        data: Object.assign(err),
+                      });
+                }
+                if (!cuestionario) {
+                    newCuestionario = {
+                        id_Cuestionario: cues.email,
+                        email: cues.email,
+                        coordinacion: cues.coordinacion,
+                        rol: cues.rol,
+                        subgrupo: cues.subgrupo,
+                        seccional: cues.seccional,
+                        listado_competencias: [],
+                        listado_cursos: [],
+                        listado_preguntas: [],
+                        listado_preguntas_seccion_iii: [],
+                        estado_cuestionario: "Pendiente"
+                    }
+                    subgrupo.findOne({ nombre: cues.subgrupo }, (err, subgrupoElegido) => {
+
+                        if (err) {
+                            return res.status(640).send({
+                                estado: "error",
+                                message: "error",
+                                data: Object.assign(err),
+                              });
+                        }
+
+                        //console.log(subgrupoElegido)
+                        if(cues.coordinacio){
+                            
+                        }
+                        if (subgrupoElegido.cursos.length != 0) {
+                            subgrupoElegido.cursos.forEach(cursoSubGrupo => {
+                                if (cursoSubGrupo.cargos.length != 0) {
+                                    cursoSubGrupo.cargos.forEach(cargoCurso => {
+                                        if (cargoCurso == cues.rol) {
+                                            //TODO ACTIVAR
+                                            //cursos.push({ idCurso: cursoCoordinacion.idCurso });
+                                        }
+                                    });
+                                }
+                            })
+                        }
+                        coordinacion.findOne({ nombre: cues.coordinacion }, (err, coordinacionObtenida) => {
+                            if (err) {
+                                return res.status(640).send({
+                                    estado: "error",
+                                    message: "error",
+                                    data: Object.assign(err),
+                                  });
+                            }
+>>>>>>> 88e7a0a70e025288d8b7fb4829e41920fd8e96c8
 
 function actualizarPregunta(req, res) {
   try {

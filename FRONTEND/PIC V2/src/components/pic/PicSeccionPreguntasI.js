@@ -84,7 +84,7 @@ export default function PicSeccionPreguntasI(props) {
           constantes.urlServer + constantes.servicios.actualizarCompetencia;
         const filtros = {
           data: {
-            email: "",
+            email: localStorage.getItem("email"),
             competencia: competenciaElegida,
             valor_respuesta: respuestaElegida,
             estado_respuesta: "Respondida",

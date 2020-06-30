@@ -662,11 +662,19 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+<<<<<<< HEAD
   /cuestionarioSinCompletar:
       x-swagger-router-controller: cuestionario.controller
       post:
         description: lista de ususarios sin completar formulario
         operationId: cuestionarioSinCompletar
+=======
+  /buscarCompetenciasCuestionario:
+      x-swagger-router-controller: preguntas_w_controller
+      post:
+        description: Actualizar pregunta iii
+        operationId: buscarCompetenciasCuestionario
+>>>>>>> 88e7a0a70e025288d8b7fb4829e41920fd8e96c8
         responses:
           "200":
             description: Success
