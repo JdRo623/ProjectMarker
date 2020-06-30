@@ -131,6 +131,10 @@ function buscarPreguntasPorIDCuestionario(req, res) {
                         enunciadoRespuesta: preguntaBuscada.respuesta2,
                         id: "B",
                       },
+                      {
+                        enunciadoRespuesta: "No se la respuesta a esta pregunta",
+                        id: "D",
+                      },
                     ],
                   });
                 });
