@@ -12,6 +12,8 @@ const cursoHandler = require("../../models/curso.model");
 const PreguntasHandler = require("../../models/preguntas_w.model");
 const preguntas_seccionIII = require("../utils/preguntasSeccionIII.js");
 const user_jModel = require("../../models/user_j.model");
+const seccionalHandlres = require("../../models/seccionales.model");
+var auth = require("../controllers/auth_controller.js")
 const { ftruncate } = require("fs");
 
 module.exports = {
@@ -26,6 +28,73 @@ module.exports = {
   cuestionarioSinCompletar: cuestionarioSinCompletar,
   listadoHomologacion: listadoHomologacion,
 };
+
+//TODO:Modificar mensajes y varibles a dependencia
+function listadoDependencia(req,res){
+  try {
+    var dec = tools.decryptJson(req.body.data);
+    var ListaDependencias = [];
+    var listadoPorDependencia = async (req, res) => {
+      let dependencias = await seccionalHandlres.find();
+      let cuestionarios = await cuestionarioHandler.find({
+        estado_cuestionario: dec.estado_cuestionario,
+      });
+
+      if (!cuestionarios) {
+        return res.status(200).send({
+          estado: "No hay cuestionarios homologados",
+          message: "No hay cuestionarios homologados",
+          data: Object.assign({}),
+        });
+      }
+
+      let date = new Date();
+
+      for (let cuestionario of cuestionarios) {
+        let datosFaltantes = {
+          fechaReporte:
+            date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay(),
+          horaReporte:
+            date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(),
+          usuario: "",
+        };
+        let encontrado = await usuario.findOne({ email: cuestionario.email });
+
+        let usuarioEncontrado = {};
+        if (!encontrado) {
+          usuarioEncontrado = "Usuario sin identificar";
+        } else {
+          usuarioEncontrado = {
+            nombres: tools.decrypt(encontrado.nombres),
+            apellidos: tools.decrypt(encontrado.apellidos),
+            nombres_jefe: tools.decrypt(encontrado.nombres_jefe),
+            apellidos_jefe: tools.decrypt(encontrado.apellidos_jefe),
+            email: encontrado.email,
+            identificacion: tools.decrypt(encontrado.identificacion),
+            ciudad: tools.decrypt(encontrado.ciudad),
+            cargo: tools.decrypt(encontrado.cargo),
+            descripccion_cargo: tools.decrypt(encontrado.descripccion_cargo),
+          };
+        }
+        datosFaltantes.usuario = usuarioEncontrado;
+        ListaDependencias.push(datosFaltantes);
+      }
+      console.log(ListaDependencias);
+      return res.status(200).send({
+        estado: "lista de cuestionarios Dependencia",
+        message: "lista de cuestionarios Dependencia",
+        data: Object.assign(ListaDependencias),
+      });
+    };
+    listadoPorDependencia(req, res);
+  } catch (err) {
+    return res.status(640).send({
+      estado: "error",
+      message: "error",
+      data: Object.assign(err),
+    });
+  }
+}
 
 function actualizarPreguntaIII(req, res) {
   try {
@@ -312,118 +381,130 @@ function listadoHomologacion(req, res) {
   try {
     var dec = tools.decryptJson(req.body.data);
     var homologados = [];
-    var listado = async (req, res) => {
-      cuestionarioHandler.find(
-        { estado_cuestionario: dec.estado_cuestionario },
-        (err, cuestionarios) => {
-          if (err) {
-            return res.status(640).send({
-              estado: "error",
-              message: "error",
-              data: Object.assign(err),
-            });
-          }
-          if (!cuestionarios) {
-            return res.status(200).send({
-              estado: "No hay cuestionarios sin responder",
-              message: "No hay cuestionarios sin responder",
-              data: Object.assign({}),
-            });
-          }
-          for (let i = 0; i < cuestionarios.length; i++) {
-            let datosFaltantes = {
-              usuario: "",
-            };
-            usuario
-              .findOne({ email: cuestionarios[i].email })
-              .then((usuarioBuscado) => {
-                datosFaltantes.usuario = usuarioBuscado;
-              });
-            homologados.push(datosFaltantes);
-          }
+    var listadoHomologados = async (req, res) => {
+      let cuestionarios = await cuestionarioHandler.find({
+        estado_cuestionario: dec.estado_cuestionario,
+      });
 
-          return res.status(200).send({
-            estado: "lista de homologados",
-            message: "lista de homologados",
-            data: Object.assign(homologados),
-          });
+      if (!cuestionarios) {
+        return res.status(200).send({
+          estado: "No hay cuestionarios homologados",
+          message: "No hay cuestionarios homologados",
+          data: Object.assign({}),
+        });
+      }
+
+      let date = new Date();
+
+      for (let cuestionario of cuestionarios) {
+        let datosFaltantes = {
+          fechaReporte:
+            date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay(),
+          horaReporte:
+            date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(),
+          usuario: "",
+        };
+        let encontrado = await usuario.findOne({ email: cuestionario.email });
+
+        let usuarioEncontrado = {};
+        if (!encontrado) {
+          usuarioEncontrado = "Usuario sin identificar";
+        } else {
+          usuarioEncontrado = {
+            nombres: tools.decrypt(encontrado.nombres),
+            apellidos: tools.decrypt(encontrado.apellidos),
+            nombres_jefe: tools.decrypt(encontrado.nombres_jefe),
+            apellidos_jefe: tools.decrypt(encontrado.apellidos_jefe),
+            email: encontrado.email,
+            identificacion: tools.decrypt(encontrado.identificacion),
+            ciudad: tools.decrypt(encontrado.ciudad),
+            cargo: tools.decrypt(encontrado.cargo),
+            descripccion_cargo: tools.decrypt(encontrado.descripccion_cargo),
+          };
         }
-      );
+        datosFaltantes.usuario = usuarioEncontrado;
+        homologados.push(datosFaltantes);
+      }
+      console.log(homologados);
+      return res.status(200).send({
+        estado: "lista de cuestionarios homologados",
+        message: "lista de cuestionarios homologados",
+        data: Object.assign(homologados),
+      });
     };
-    listado(req, res);
-  } catch (error) {}
+    listadoHomologados(req, res);
+  } catch (err) {
+    return res.status(640).send({
+      estado: "error",
+      message: "error",
+      data: Object.assign(err),
+    });
+  }
 }
 
 function cuestionarioSinCompletar(req, res) {
-  try{
+  try {
     var dec = tools.decryptJson(req.body.data);
     var incompletos = [];
-    var listadoIncompletos= async(req,res)=>{
-      let cuestionarios =  await cuestionarioHandler.find({ estado_cuestionario: dec.estado_cuestionario });
-
-    if(!cuestionarios){
-       return res.status(200).send({
-        estado: "No hay cuestionarios sin responder",
-        message: "No hay cuestionarios sin responder",
-        data: Object.assign({}),
+    var listadoIncompletos = async (req, res) => {
+      let cuestionarios = await cuestionarioHandler.find({
+        estado_cuestionario: dec.estado_cuestionario,
       });
-    }
 
-      let date = new Date();       
+      if (!cuestionarios) {
+        return res.status(200).send({
+          estado: "No hay cuestionarios incompletos",
+          message: "No hay cuestionarios incompletos",
+          data: Object.assign({}),
+        });
+      }
 
-      for(let cuestionario of cuestionarios){       
+      let date = new Date();
+
+      for (let cuestionario of cuestionarios) {
         let datosFaltantes = {
           fechaReporte:
-          date.getFullYear() +
-          "-" +
-          date.getMonth() +
-          "-" +
-          date.getDay(),
-        horaReporte:
-          date.getHours() +
-          ":" +
-          date.getMinutes() +
-          ":" +
-          date.getSeconds(),
-        usuario: '',
-      };  
+            date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay(),
+          horaReporte:
+            date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(),
+          usuario: "",
+        };
         let encontrado = await usuario.findOne({ email: cuestionario.email });
 
-
         let usuarioEncontrado = {};
-              if(!encontrado){
-                  usuarioEncontrado = 'Usuario sin identificar'
-              }else{
-                usuarioEncontrado = {
-                    nombres: tools.decrypt(encontrado.nombres),
-                    apellidos: tools.decrypt(encontrado.apellidos),
-                    nombres_jefe: tools.decrypt(encontrado.nombres_jefe),
-                    apellidos_jefe: tools.decrypt(encontrado.apellidos_jefe),
-                    email: encontrado.email,
-                    identificacion: tools.decrypt(encontrado.identificacion),
-                    ciudad: tools.decrypt(encontrado.ciudad),
-                    cargo: tools.decrypt(encontrado.cargo),
-                    descripccion_cargo: tools.decrypt(encontrado.descripccion_cargo),
-                }
-            }
-              datosFaltantes.usuario = usuarioEncontrado;
-              incompletos.push(datosFaltantes);  
+        if (!encontrado) {
+          usuarioEncontrado = "Usuario sin identificar";
+        } else {
+          usuarioEncontrado = {
+            nombres: tools.decrypt(encontrado.nombres),
+            apellidos: tools.decrypt(encontrado.apellidos),
+            nombres_jefe: tools.decrypt(encontrado.nombres_jefe),
+            apellidos_jefe: tools.decrypt(encontrado.apellidos_jefe),
+            email: encontrado.email,
+            identificacion: tools.decrypt(encontrado.identificacion),
+            ciudad: tools.decrypt(encontrado.ciudad),
+            cargo: tools.decrypt(encontrado.cargo),
+            descripccion_cargo: tools.decrypt(encontrado.descripccion_cargo),
+          };
+        }
+        datosFaltantes.usuario = usuarioEncontrado;
+        incompletos.push(datosFaltantes);
       }
-      console.log(incompletos); 
+      console.log(incompletos);
       return res.status(200).send({
-                estado: "lista de cuestionarios por completar",
-                message: "lista de cuestionarios por completar",
-                data: Object.assign(incompletos),
-              });
-    }
-    listadoIncompletos(req,res);  
-  }catch(err){
-      return res.status(640).send({
-                  estado: "error",
-                  message: "error",
-                  data: Object.assign(err),
-                });
-  }   
+        estado: "lista de cuestionarios incompletos",
+        message: "lista de cuestionarios incompletos",
+        data: Object.assign(incompletos),
+      });
+    };
+    listadoIncompletos(req, res);
+  } catch (err) {
+    return res.status(640).send({
+      estado: "error",
+      message: "error",
+      data: Object.assign(err),
+    });
+  }
 }
 
 function completadas(req, res) {

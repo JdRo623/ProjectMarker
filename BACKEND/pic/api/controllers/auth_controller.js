@@ -14,6 +14,7 @@ module.exports = {
 function logIn(req, res) {
   try {
     var crear = async (req, res) => {
+      
       var dec = tools.decryptJson(req.body.data);
       var filtro = {
         email: dec.email,
@@ -121,7 +122,8 @@ function logIn(req, res) {
 }
 
 function verify(req, res, next) {
-  jwt.verify(req.token, "my-secret", (err, data) => {
+  var dec = decryptJson(req.body.data);
+  jwt.verify(dec.token, "my-secret", (err, data) => {
     if (err) {
       return res.status(601).send({
         estado: "error",

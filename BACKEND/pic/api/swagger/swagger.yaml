@@ -676,6 +676,20 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /listadoHomologacion:
+      x-swagger-router-controller: cuestionario.controller
+      post:
+        description: lista de ususarios que homologaron cursos
+        operationId: listadoHomologacion
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /buscarCompetenciasCuestionario:
       x-swagger-router-controller: preguntas_w_controller
       post:
