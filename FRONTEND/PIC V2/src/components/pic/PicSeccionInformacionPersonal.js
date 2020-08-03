@@ -114,7 +114,7 @@ export default function PicSeccionInformacionPersonal(props) {
         constantes.urlServer + constantes.servicios.coordinacionesSeccional;
       setModal(true);
       const filtros = {
-        seccional: seccionalSeleccionada,
+        seccional: subprocesoSeleccionado,
       };
       console.log(seccionalSeleccionada);
 

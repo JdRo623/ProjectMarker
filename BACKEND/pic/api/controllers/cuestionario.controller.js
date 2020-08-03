@@ -13,6 +13,8 @@ const PreguntasHandler = require("../../models/preguntas_w.model");
 const preguntas_seccionIII = require("../utils/preguntasSeccionIII.js");
 const user_jModel = require("../../models/user_j.model");
 const seccionalHandlres = require("../../models/seccionales.model");
+const NivelHandler = require("../../models/nivel.model");
+
 var auth = require("../controllers/auth_controller.js")
 const { ftruncate } = require("fs");
 

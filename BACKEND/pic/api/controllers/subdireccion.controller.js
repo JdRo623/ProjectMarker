@@ -5,6 +5,7 @@ const boom = require('boom')
 const config = require('../../config.json');
 var tools = require('../utils/tools.js');
 const subdireccion = require('../../models/subdireccion.model')
+const NivelHandler = require("../../models/nivel.model");
 
 module.exports = {
     subdireccionSeccional:subdireccionSeccional
@@ -16,9 +17,10 @@ function subdireccionSeccional(req,res){
         var obtener = async(req,res)=>{            
             const reqDecrypt = (tools.decryptJson(req.body.data))
             const filtro = {
-                seccional: reqDecrypt.seccional
+                predecesor: reqDecrypt.seccional,
+                tipo_nivel: "NIVEL_3"
             }
-            await subdireccion.find(filtro, (err, subdirecciones)=>{
+            await NivelHandler.find(filtro, (err, subdirecciones)=>{
                 if(err){
                     return res.status(601).send({
                         estado: 'error',
@@ -31,6 +33,8 @@ function subdireccionSeccional(req,res){
                         message: util.format('No Hay subdirecciones')                       
                     }); 
                 }
+                subdirecciones.cargos =[]
+
                 return res.status(200).send({
                     estado: 'Exito',
                     message: util.format('Subdirecciones obtenidas con Exito'),

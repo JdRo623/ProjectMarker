@@ -90,7 +90,7 @@ function logIn(req, res) {
               });
             }
           } else {
-            if (tools.decrypt(user.identificacion) == dec.password) {
+            if ((user.identificacion) == dec.password) {
               var send = {
                 cambio_pass: true,
                 email: dec.email,

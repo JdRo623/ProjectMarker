@@ -5,6 +5,7 @@ const boom = require('boom')
 const config = require('../../config.json');
 var tools = require('../utils/tools.js');
 const seccionales = require('../../models/seccionales.model')
+const NivelHandler = require("../../models/nivel.model");
 
 module.exports = {
     darSeccionales:darSeccionales
@@ -13,7 +14,7 @@ module.exports = {
 function darSeccionales(req,res){
     try {
         var obtener = async(req,res)=>{
-            await seccionales.find((err, seccionales)=>{
+            await NivelHandler.find( { tipo_nivel: "NIVEL_2" },(err, seccionales)=>{
                 if(err){
                     return res.status(601).send({
                         estado: 'error',
@@ -28,6 +29,8 @@ function darSeccionales(req,res){
                         data: Object.assign({})
                     }); 
                 }
+                seccionales.cargos =[]
+
                 return res.status(200).send({
                     estado: 'Exito',
                     message: util.format('Seccionales obtenidas con Exito'),
