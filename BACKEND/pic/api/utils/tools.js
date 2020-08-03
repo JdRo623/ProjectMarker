@@ -8,7 +8,10 @@ module.exports = {
   decrypt: decrypt,
   encrypt: encrypt,
   decryptJson: decryptJson,
-  generadorConsecutivo: generadorConsecutivo
+  generadorConsecutivo: generadorConsecutivo,
+  validarVacio: validarVacio,
+  esNivelNuevo: esNivelNuevo
+
 };
 
 function getFechaActual() {
@@ -83,3 +86,41 @@ function generadorConsecutivo() {
   if (dd < 10) dd = '0' + dd;
   return random3 + '' + dd + '' + random1 + '-' + (ss * random2);
 }
+
+function validarVacio(text){
+  if(text == ""){
+    return "N/A"
+  }else{
+    return text
+  }
+}
+
+function validarNivelPredecespor(text){
+  if(text == ""){
+    return "N/A"
+  }else{
+    return text
+  }
+}
+
+function esNivelNuevo(niveles, nivel){
+  if (niveles.includes(nivel)) {
+    return false
+  }else{
+    return true
+  }
+}
+
+async function esNivelNuevo2(niveles, nivel) {
+  await niveles.forEach((element) => {
+    if (element.nombre == nivel.nombre) {
+      if (element.predecesor == nivel.predecesor) {
+       // console.log(element)
+       // console.log(nivel)
+        return false;
+      }
+    }
+  });
+  return true;
+}
+
