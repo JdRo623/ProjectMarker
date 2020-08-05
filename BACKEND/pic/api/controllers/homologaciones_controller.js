@@ -31,11 +31,10 @@ function logIn(req, res) {
             worksheet.eachRow(function (row, rowNumber) {
               if (rowNumber != 1) {
                 var homologacion = {
-                  identificacion= (row.getCell(1).value + "").trim(),
-                  numero_curso= (row.getCell(2).value + "").trim(),
-                  estado= (row.getCell(3).value + "").trim(),
                 };
-
+                homologacion.identificacion = (row.getCell(1).value + "").trim()
+                homologacion.numero_curso =(row.getCell(2).value + "").trim()
+                homologacion.estado = (row.getCell(3).value + "").trim()
                 if(!users.includes((row.getCell(1).value + "").trim())){
                     users.push((row.getCell(1).value + "").trim())
                 }

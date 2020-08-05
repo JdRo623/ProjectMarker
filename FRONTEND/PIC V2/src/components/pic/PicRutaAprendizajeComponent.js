@@ -22,7 +22,6 @@ class PicRutaAprendizajeComponent extends React.Component {
     };
   }
 
-  
   render() {
     return (
       <Fragment>
@@ -31,7 +30,44 @@ class PicRutaAprendizajeComponent extends React.Component {
             <Colxx xxs="12">
               <Card style={{ borderRadius: 10, background: "#191b32" }}>
                 <CardBody>
-                  <Table responsive>
+                  <Table
+                    responsive
+                    style={{ borderRadius: 10, background: "#191b32" }}
+                  >
+                    <thead>
+                      <tr>
+                        <th>
+                          <center>
+                            <p style={{ color: "#FFFFFF" }}>Competencia</p>
+                          </center>
+                        </th>
+                        <th>
+                          <center>
+                            <p style={{ color: "#FFFFFF" }}>Basico</p>
+                          </center>
+                        </th>
+                        <th>
+                          <center>
+                            <p style={{ color: "#FFFFFF" }}>Medio</p>
+                          </center>
+                        </th>
+                        <th>
+                          <center>
+                            <p style={{ color: "#FFFFFF" }}>Alto</p>
+                          </center>
+                        </th>
+                        <th>
+                          <center>
+                            <p style={{ color: "#FFFFFF" }}>Superior</p>
+                          </center>
+                        </th>
+                      </tr>
+                    </thead>
+                  </Table>
+                  <Table
+                    responsive
+                    style={{ borderRadius: 10, background: "#191b32" }}
+                  >
                     <thead>
                       <tr>
                         <th>

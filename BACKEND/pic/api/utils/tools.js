@@ -87,6 +87,18 @@ function generadorConsecutivo() {
   return random3 + '' + dd + '' + random1 + '-' + (ss * random2);
 }
 
+function generadorContrasena() {
+  var today = new Date();
+  var dd = today.getDate();
+  var ss = today.getSeconds() + 1;
+  var random1 = Math.floor((Math.random() * 99) + 1);
+  var random3 = Math.floor((Math.random() * 99) + 1);
+  var random2 = Math.floor((Math.random() * 9) + 1);
+  if (dd < 10) dd = '0' + dd;
+  return random3 + '' + dd + '' + random1 + '-' + (ss * random2);
+}
+
+
 function validarVacio(text){
   if(text == ""){
     return "N/A"
