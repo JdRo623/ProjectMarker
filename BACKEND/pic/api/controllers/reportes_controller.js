@@ -25,9 +25,8 @@ function estado_Cuestionario(req,res){
             for (let element of cuestionarios) {
                 //console.log(element);
                 let usuario = await usuariosHandler.findOne({identificacion: element.id_colaborador});
-                console.log(usuario);
-                
-                let respondidas;
+                if(usuario){
+                    let respondidas;
                 let totales = 0;
                 totales += element.listado_preguntas.lenght;
                 totales += element.listado_preguntas_seccion_iii.lenght;                
@@ -60,6 +59,7 @@ function estado_Cuestionario(req,res){
                     estado:element.estado_cuestionario,
                 }
                 listadoReporte.push(registro);
+                };               
             };
 
             const workbookOut = new Excel.Workbook;
@@ -130,67 +130,69 @@ function preguntas_Usuario(req,res){
         var preguntas_seccion1 = async(req,res) =>{
             let cuestionarios = await cuestionarioHandler.find();
             for (element of cuestionarios){
-                let usuario = await usuariosHandler.findOne({identificacion: element.id_colaborador});   
-                element.listado_competencias.forEach(pregunta =>{                    
-                    let registro = {
-                        codigo_cuestionario:element._id,
-                        identificacion:element.id_colaborador,
-                        apellidos_funcionario:tools.decrypt(usuario.nombres),
-                        nombre_funcionario:tools.decrypt(usuario.apellidos),
-                        cargo:tools.decrypt(usuario.cargo),
-                        nivel1:tools.decrypt(usuario.nivel1),
-                        nivel2:tools.decrypt(usuario.nivel2),
-                        nivel3:tools.decrypt(usuario.nivel3),
-                        correo:tools.decrypt(usuario.email),
-                        seccion: 'seccion 1',
-                        codigo_competencia:pregunta.nombreCompetencia,
-                        situacion: pregunta.descripcionCompetencia,
-                        opcion_respuesta: pregunta.nombreCompetencia,
-                        enunciado_respuesta: pregunta.valor_respuesta,
-                        estado: pregunta.estado_respuesta
-                    };
-                    listado.push(registro);
-                }); 
-                element.listado_preguntas.forEach(pregunta =>{                    
-                    let registro = {
-                        codigo_cuestionario:element._id,
-                        identificacion:element.id_colaborador,
-                        apellidos_funcionario:tools.decrypt(usuario.nombres),
-                        nombre_funcionario:tools.decrypt(usuario.apellidos),
-                        cargo:tools.decrypt(usuario.cargo),
-                        nivel1:tools.decrypt(usuario.nivel1),
-                        nivel2:tools.decrypt(usuario.nivel2),
-                        nivel3:tools.decrypt(usuario.nivel3),
-                        correo:tools.decrypt(usuario.email),
-                        seccion: 'seccion 2',
-                        codigo_competencia:pregunta.id_pregunta,
-                        situacion: '',
-                        opcion_respuesta: pregunta.id_pregunta,
-                        enunciado_respuesta: pregunta.valor_respuesta,
-                        estado: pregunta.estado_respuesta
-                    };
-                    listado.push(registro);
-                });
-                element.listado_preguntas_seccion_iii.forEach(pregunta =>{                    
-                    let registro = {
-                        codigo_cuestionario:element._id,
-                        identificacion:element.id_colaborador,
-                        apellidos_funcionario:tools.decrypt(usuario.nombres),
-                        nombre_funcionario:tools.decrypt(usuario.apellidos),
-                        cargo:tools.decrypt(usuario.cargo),
-                        nivel1:tools.decrypt(usuario.nivel1),
-                        nivel2:tools.decrypt(usuario.nivel2),
-                        nivel3:tools.decrypt(usuario.nivel3),
-                        correo:tools.decrypt(usuario.email),
-                        seccion: 'seccion 3',
-                        codigo_competencia:pregunta.id_pregunta,
-                        situacion: '',
-                        opcion_respuesta: pregunta.id_pregunta,
-                        enunciado_respuesta: pregunta.valor_respuesta,
-                        estado: pregunta.estado_respuesta
-                    };
-                    listado.push(registro);
-                });               
+                let usuario = await usuariosHandler.findOne({identificacion: element.id_colaborador}); 
+                if (usuario){
+                    element.listado_competencias.forEach(pregunta =>{                    
+                        let registro = {
+                            codigo_cuestionario:element._id,
+                            identificacion:element.id_colaborador,
+                            apellidos_funcionario:tools.decrypt(usuario.nombres),
+                            nombre_funcionario:tools.decrypt(usuario.apellidos),
+                            cargo:tools.decrypt(usuario.cargo),
+                            nivel1:tools.decrypt(usuario.nivel1),
+                            nivel2:tools.decrypt(usuario.nivel2),
+                            nivel3:tools.decrypt(usuario.nivel3),
+                            correo:tools.decrypt(usuario.email),
+                            seccion: 'seccion 1',
+                            codigo_competencia:pregunta.nombreCompetencia,
+                            situacion: pregunta.descripcionCompetencia,
+                            opcion_respuesta: pregunta.nombreCompetencia,
+                            enunciado_respuesta: pregunta.valor_respuesta,
+                            estado: pregunta.estado_respuesta
+                        };
+                        listado.push(registro);
+                    }); 
+                    element.listado_preguntas.forEach(pregunta =>{                    
+                        let registro = {
+                            codigo_cuestionario:element._id,
+                            identificacion:element.id_colaborador,
+                            apellidos_funcionario:tools.decrypt(usuario.nombres),
+                            nombre_funcionario:tools.decrypt(usuario.apellidos),
+                            cargo:tools.decrypt(usuario.cargo),
+                            nivel1:tools.decrypt(usuario.nivel1),
+                            nivel2:tools.decrypt(usuario.nivel2),
+                            nivel3:tools.decrypt(usuario.nivel3),
+                            correo:tools.decrypt(usuario.email),
+                            seccion: 'seccion 2',
+                            codigo_competencia:pregunta.id_pregunta,
+                            situacion: '',
+                            opcion_respuesta: pregunta.id_pregunta,
+                            enunciado_respuesta: pregunta.valor_respuesta,
+                            estado: pregunta.estado_respuesta
+                        };
+                        listado.push(registro);
+                    });
+                    element.listado_preguntas_seccion_iii.forEach(pregunta =>{                    
+                        let registro = {
+                            codigo_cuestionario:element._id,
+                            identificacion:element.id_colaborador,
+                            apellidos_funcionario:tools.decrypt(usuario.nombres),
+                            nombre_funcionario:tools.decrypt(usuario.apellidos),
+                            cargo:tools.decrypt(usuario.cargo),
+                            nivel1:tools.decrypt(usuario.nivel1),
+                            nivel2:tools.decrypt(usuario.nivel2),
+                            nivel3:tools.decrypt(usuario.nivel3),
+                            correo:tools.decrypt(usuario.email),
+                            seccion: 'seccion 3',
+                            codigo_competencia:pregunta.id_pregunta,
+                            situacion: '',
+                            opcion_respuesta: pregunta.id_pregunta,
+                            enunciado_respuesta: pregunta.valor_respuesta,
+                            estado: pregunta.estado_respuesta
+                        };
+                        listado.push(registro);
+                    });               
+                };                 
             };
 
             const workbookOut = new Excel.Workbook;
