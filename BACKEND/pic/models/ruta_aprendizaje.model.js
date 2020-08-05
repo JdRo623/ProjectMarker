@@ -7,7 +7,7 @@ const ruta = Schema({
         type: String,
         unique: true
     },
-
+    identificacion: String,
     email: String,
     listado_competencias: [
         {
@@ -21,7 +21,7 @@ const ruta = Schema({
                     colorEstado: String,
                     estado: {
                         type: String,
-                        default: 'Por Cursar' //Por Cursar , Cursando, Cursado
+                        default: 'Por Cursar' //Por Cursar , Cursando, Cursado, Reprobado
                     }
                 }
             ],
@@ -32,7 +32,7 @@ const ruta = Schema({
                     colorEstado: String,
                     estado: {
                         type: String,
-                        default: 'Por Cursar' //Por Cursar , Cursando, Cursado
+                        default: 'Por Cursar' //Por Cursar , Cursando, Cursado, Reprobado
                     }
                 }
             ],
@@ -43,7 +43,7 @@ const ruta = Schema({
                     colorEstado: String,
                     estado: {
                         type: String,
-                        default: 'Por Cursar' //Por Cursar , Cursando, Cursado
+                        default: 'Por Cursar' //Por Cursar , Cursando, Cursado, Reprobado
                     }
                 }
             ],
@@ -54,7 +54,7 @@ const ruta = Schema({
                     colorEstado: String,
                     estado: {
                         type: String,
-                        default: 'Por Cursar' //Por Cursar , Cursando, Cursado
+                        default: 'Por Cursar' //Por Cursar , Cursando, Cursado, Reprobado
                     }
                 }
             ],
@@ -63,7 +63,7 @@ const ruta = Schema({
     ],
     estado_ruta: {
         type: String,
-        default: 'Por Aprobar' //Por Cursar , Cursando, Cursado
+        default: 'Por Aprobar' //Por Cursar , Cursando, Cursado, Reprobado
     }
 }
 )

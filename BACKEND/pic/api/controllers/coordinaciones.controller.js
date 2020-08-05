@@ -5,6 +5,7 @@ const boom = require('boom')
 const config = require('../../config.json');
 var tools = require('../utils/tools.js');
 const coordinacion = require('../../models/coordinacion.model')
+const NivelHandler = require("../../models/nivel.model");
 
 module.exports = {
     coordinacionSecional:coordinacionSecional
@@ -16,9 +17,10 @@ function coordinacionSecional(req,res){
         var obtener = async(req,res)=>{    
             const reqDecrypt = (tools.decryptJson(req.body.data))
             const filtro = {
-                seccional: reqDecrypt.seccional
+                predecesor: reqDecrypt.seccional,
+                tipo_nivel: "NIVEL_4"
             }
-            await coordinacion.find(filtro, (err, coordinaciones)=>{
+            await NivelHandler.find(filtro, (err, coordinaciones)=>{
                 if(err){
                     return res.status(601).send({
                         estado: 'error',
@@ -31,6 +33,7 @@ function coordinacionSecional(req,res){
                         message: util.format('No Hay coordinaciones')                       
                     }); 
                 }
+                coordinaciones.cargos =[]
                 return res.status(200).send({
                     estado: 'Exito',
                     message: util.format('Coordinaciones obtenidas con Exito'),

@@ -6,6 +6,8 @@ const config = require("../../config.json");
 const user_jModel = require("../../models/user_j.model");
 var tools = require("../utils/tools.js");
 var Excel = require("exceljs");
+const NivelHandler = require("../../models/nivel.model");
+const CargosHandler = require("../../models/cargos.model");
 
 module.exports = {
   CargarEmpleado: CargarEmpleado,
@@ -82,14 +84,16 @@ function cambioPassword(req, res) {
             });
           }
 
-          usuarioBuscado.password = (dec.password);
-          user_jModel.updateOne(filtro, {password: usuarioBuscado.password}).then(() => {
-            return res.status(200).send({
-              estado: "Exito",
-              message: util.format("Contraseña Actualizada"),
-              data: Object.assign({}),
+          usuarioBuscado.password = dec.password;
+          user_jModel
+            .updateOne(filtro, { password: usuarioBuscado.password })
+            .then(() => {
+              return res.status(200).send({
+                estado: "Exito",
+                message: util.format("Contraseña Actualizada"),
+                data: Object.assign({}),
+              });
             });
-          });
         });
       } catch (error) {
         throw boom.boomify(error);
@@ -113,47 +117,148 @@ function CargarEmpleado(req, res) {
         workbook.xlsx.load(buff).then(function () {
           try {
             var users = [];
+
+            var cargosDefinitivos = [];
+
+            var nivelDefinitivos = [];
+
+            var nivelTemporales = [];
+
+            var seccionalTemporal = "";
+            var subgruposTemporal = "";
+            var coordinacionesTemporal = "";
+            var cargosTemporales = [];
+            var nivelACargar = {};
+            var flag;
+
             var worksheet = workbook.getWorksheet(1);
 
+            var textTemp = "";
             let aux = true;
             worksheet.eachRow(function (row, rowNumber) {
-              var user_j = {
-                nombres: String,
-                apellidos: String,
-                nombres_jefe: String,
-                apellidos_jefe: String,
-                Fecha_Inicio: String,
-                email: String,
-                identificacion: String,
-                ciudad: String,
-                cargo: String,
-                descripccion_cargo: String,
-                nivel1: String,
-                nivel2: String,
-                nivel3: String,
-                nivel4: String,
-                fecha_registro: String,
-                estado_encuesta: String,
-              };
-              user_j.nombres = tools.encrypt(row.getCell(10).value + "");
-              user_j.apellidos = tools.encrypt(row.getCell(11).value + "");
-              user_j.nombres_jefe = tools.encrypt(row.getCell(15).value + "");
-              user_j.apellidos_jefe = tools.encrypt(row.getCell(16).value + "");
-              user_j.Fecha_Inicio = tools.encrypt(row.getCell(13).value + "");
-              user_j.email = row.getCell(9).value + "";
-              user_j.identificacion = tools.encrypt(row.getCell(8).value + "");
-              user_j.ciudad = row.getCell(7).value + "";
-              user_j.cargo = tools.encrypt(row.getCell(1).value + "");
-              user_j.descripccion_cargo = tools.encrypt(
-                row.getCell(6).value + ""
-              );
-              user_j.nivel1 = tools.encrypt(row.getCell(2).value + "");
-              user_j.nivel2 = tools.encrypt(row.getCell(3).value + "");
-              user_j.nivel3 = tools.encrypt(row.getCell(4).value + "");
-              user_j.nivel4 = tools.encrypt(row.getCell(5).value + "");
-              user_j.fecha_registro = fecha;
-              user_j.estado_encuesta;
-              users.push(user_j);
+              if (rowNumber != 1) {
+                var user_j = {
+                  nombres: String,
+                  apellidos: String,
+                  nombres_jefe: String,
+                  apellidos_jefe: String,
+                  Fecha_Inicio: String,
+                  email: String,
+                  identificacion: String,
+                  ciudad: String,
+                  cargo: String,
+                  descripccion_cargo: String,
+                  nivel1: String,
+                  nivel2: String,
+                  nivel3: String,
+                  nivel4: String,
+                  fecha_registro: String,
+                  estado_encuesta: String,
+                };
+                user_j.nombres = tools.encrypt(row.getCell(10).value + "");
+                user_j.apellidos = tools.encrypt(row.getCell(11).value + "");
+                user_j.nombres_jefe = tools.encrypt(row.getCell(15).value + "");
+                user_j.apellidos_jefe = tools.encrypt(
+                  row.getCell(16).value + ""
+                );
+                user_j.Fecha_Inicio = tools.encrypt(row.getCell(13).value + "");
+                user_j.email = row.getCell(9).value + "";
+                user_j.identificacion = row.getCell(8).value + "";
+                user_j.ciudad = row.getCell(7).value + "";
+                user_j.cargo = tools.encrypt(row.getCell(1).value + "");
+                user_j.descripccion_cargo = tools.encrypt(
+                  row.getCell(6).value + ""
+                );
+                user_j.nivel1 = tools.encrypt(row.getCell(2).value + "");
+                user_j.nivel2 = tools.encrypt(row.getCell(3).value + "");
+                user_j.nivel3 = tools.encrypt(row.getCell(4).value + "");
+                user_j.nivel4 = tools.encrypt(row.getCell(5).value + "");
+                user_j.fecha_registro = fecha;
+                user_j.estado_encuesta;
+                users.push(user_j);
+
+
+                seccionalTemporal = tools.validarVacio(
+                  (row.getCell(3).value + "").trim()
+                );
+
+                nivelACargar = {
+                  nombre: seccionalTemporal,
+                  fecha_registro: fecha,
+                  tipo_nivel: "NIVEL_2",
+                  predecesor: "N/A",
+                };
+
+                flag = true;
+
+                nivelDefinitivos.forEach((element) => {
+                  if (element.nombre == nivelACargar.nombre) {
+                    if (element.predecesor == nivelACargar.predecesor) {
+                      flag = false;
+                    }
+                  }
+                });
+                if (flag) {
+                  nivelDefinitivos.push(nivelACargar);
+                }
+
+                subgruposTemporal = tools.validarVacio(
+                  (row.getCell(4).value + "").trim()
+                );
+                nivelACargar = {
+                  nombre: subgruposTemporal,
+                  fecha_registro: fecha,
+                  tipo_nivel: "NIVEL_3",
+                  predecesor: seccionalTemporal,
+                };
+
+                flag = true;
+
+                nivelDefinitivos.forEach((element) => {
+                  if (element.nombre == nivelACargar.nombre) {
+                    if (element.predecesor == nivelACargar.predecesor) {
+                      flag = false;
+                    }
+                  }
+                });
+                if (flag) {
+                  nivelDefinitivos.push(nivelACargar);
+                }
+
+                coordinacionesTemporal = tools.validarVacio(
+                  (row.getCell(5).value + "").trim()
+                );
+
+                nivelACargar = {
+                  nombre: coordinacionesTemporal,
+                  fecha_registro: fecha,
+                  tipo_nivel: "NIVEL_4",
+                  predecesor: subgruposTemporal,
+                };
+
+
+                flag = true;
+
+                nivelDefinitivos.forEach((element) => {
+                  if (element.nombre == nivelACargar.nombre) {
+                    if (element.predecesor == nivelACargar.predecesor) {
+                      flag = false;
+                    }
+                  }
+                });
+                if (flag) {
+                  nivelDefinitivos.push(nivelACargar);
+                }
+
+                textTemp = (row.getCell(1).value + "").trim();
+                if (!cargosTemporales.includes(textTemp)) {
+                  cargosTemporales.push(textTemp);
+                  cargosDefinitivos.push({
+                    nombre: textTemp,
+                    fecha_registro: fecha,
+                  });
+                }
+              }
             });
 
             //  console.log(users.length);
@@ -180,12 +285,52 @@ function CargarEmpleado(req, res) {
                 });
               }
 
-              return res.status(200).send({
-                estado: "Empleados almacenados",
-                message: util.format(
-                  "Los empleados han sido registrados correctamente en el sistema."
-                ),
-                data: Object.assign({}),
+              NivelHandler.insertMany(nivelDefinitivos, (error, niveles) => {
+                if (error) {
+                  console.log(error);
+                  return res.status(603).send({
+                    estado: "Error",
+                    message: util.format(error),
+                    data: Object.assign({}),
+                  });
+                }
+                if (!niveles) {
+                  console.log(error);
+                  return res.status(604).send({
+                    estado: "Error",
+                    message: util.format(
+                      "No ha sido posible guardar los niveles"
+                    ),
+                    data: Object.assign({}),
+                  });
+                }
+                CargosHandler.insertMany(cargosDefinitivos, (error, cargos) => {
+                  if (error) {
+                    console.log(error);
+                    return res.status(603).send({
+                      estado: "Error",
+                      message: util.format(error),
+                      data: Object.assign({}),
+                    });
+                  }
+                  if (!cargos) {
+                    console.log(error);
+                    return res.status(604).send({
+                      estado: "Error",
+                      message: util.format(
+                        "No ha sido posible guardar los cargos"
+                      ),
+                      data: Object.assign({}),
+                    });
+                  }
+                  return res.status(200).send({
+                    estado: "Empleados almacenados",
+                    message: util.format(
+                      "Los empleados han sido registrados correctamente en el sistema."
+                    ),
+                    data: Object.assign({}),
+                  });
+                });
               });
             });
           } catch (error) {
