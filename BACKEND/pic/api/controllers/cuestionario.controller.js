@@ -362,6 +362,8 @@ function actualizarCompetencia(req, res) {
               element.estado_respuesta = dec.data.estado_respuesta;
             }
           });
+
+          //Sí el valor respuesta == 0 entonces llamar las preguntas con query que tengan en su campo de competencia, y crear una lista de preguntas sección ii nuevas sin esa competenicia 
           cuestionarioHandler
             .updateOne({ email: dec.data.email }, cuestionarioBuscado)
             .then(() => {
