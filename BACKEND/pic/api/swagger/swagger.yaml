@@ -732,6 +732,34 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /reporte_UsuarioC:
+      x-swagger-router-controller: reportes_controller
+      post:
+        description: excel del reporte de usuario y cuestionario
+        operationId: estado_Cuestionario
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /reporte_Cuestionario:
+      x-swagger-router-controller: reportes_controller
+      post:
+        description: Generar reporte de preguntas del cuestionario
+        operationId: preguntas_Usuario
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
