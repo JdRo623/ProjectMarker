@@ -52,6 +52,7 @@ class Login extends Component {
         },
         (response) => {
           if (response.data) {
+            this.setState({ loading: false });
             localStorage.clear();
             const { token, cambio_pass, email, rol } = response.data;
             cookies.set("token", token, { path: "/" });

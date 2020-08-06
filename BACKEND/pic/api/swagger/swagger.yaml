@@ -774,6 +774,20 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /envioCorreo:
+      x-swagger-router-controller: email_controller
+      post:
+        description: Envia correo electronico con info al usuario
+        operationId: envioCorreoRecuperarContrasena
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions

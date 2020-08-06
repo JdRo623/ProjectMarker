@@ -1,6 +1,6 @@
 const constantes = {
-  urlServer: "http://localhost:10010",
-  // urlServer: "https://back-joanapp.herokuapp.com",
+  //urlServer: "http://localhost:10010",
+  urlServer: "https://back-joanapp.herokuapp.com",
 
   servicios: {
     autenticarAgente: "/identificacionUsuario",
@@ -39,7 +39,11 @@ const constantes = {
     buscarCompetenciasCuestionario: "/buscarCompetenciasCuestionario",
     traerUsuario: "/buscarEmpleado",
     generarRutaAprendizaje: "/generarRutaAprendizaje",
-    obtenerRutaAprendizaje: "/obtenerRutaAprendizaje"
+    obtenerRutaAprendizaje: "/obtenerRutaAprendizaje",
+    reporte_Cuestionario: "/reporte_Cuestionario",
+    reporte_UsuarioC: "/reporte_UsuarioC",
+    reporte_Rutas: "/reporte_Rutas",
+    envioCorreo: "/envioCorreo"
   },
   mensajes: {
     ERROR: "Error",

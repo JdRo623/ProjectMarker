@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
-import { Row, Card, CardBody, CardTitle, Table } from "reactstrap";
+import { Row, Card, CardBody, Button, Table, CardHeader } from "reactstrap";
 import { Colxx, Separator } from "../../components/common/CustomBootstrap";
 
 import { servicePath } from "../../constants/defaultValues";
@@ -12,7 +12,6 @@ import logo from "../../assets/img/fondo_ruta_pic.png";
 function collect(props) {
   return { data: props.data };
 }
-const apiUrl = servicePath + "/cakes/paging";
 
 class PicRutaAprendizajeComponent extends React.Component {
   constructor(props) {
@@ -30,6 +29,20 @@ class PicRutaAprendizajeComponent extends React.Component {
             <Colxx xxs="12">
               <Card style={{ borderRadius: 10, background: "#191b32" }}>
                 <CardBody>
+                <h3
+                    style={{
+                      borderRadius: "0.25em",
+                      color: "white",
+                      border: "1px solid white",
+                      padding: "0.5em",
+                    }}
+                  >
+                    Representación de colores
+                    <h4 style={{ color: "#ffff00" }}>Cursando</h4>
+                    <h4 style={{ color: "#ffff00" }}>Reprobado</h4>
+                    <h4 style={{ color: "#dc3545" }}>Por Cursar</h4>
+                    <h4 style={{ color: "#43cc6f" }}>Aprobado</h4>
+                  </h3>
                   <Table
                     responsive
                     style={{ borderRadius: 10, background: "#191b32" }}
@@ -38,61 +51,27 @@ class PicRutaAprendizajeComponent extends React.Component {
                       <tr>
                         <th>
                           <center>
-                            <p style={{ color: "#FFFFFF" }}>Competencia</p>
+                            <h4 style={{ color: "#FFFFFF" }}>Competencia</h4>
                           </center>
                         </th>
                         <th>
                           <center>
-                            <p style={{ color: "#FFFFFF" }}>Basico</p>
+                            <h4 style={{ color: "#FFFFFF" }}>Basico</h4>
                           </center>
                         </th>
                         <th>
                           <center>
-                            <p style={{ color: "#FFFFFF" }}>Medio</p>
+                            <h4 style={{ color: "#FFFFFF" }}>Medio</h4>
                           </center>
                         </th>
                         <th>
                           <center>
-                            <p style={{ color: "#FFFFFF" }}>Alto</p>
+                            <h4 style={{ color: "#FFFFFF" }}>Alto</h4>
                           </center>
                         </th>
                         <th>
                           <center>
-                            <p style={{ color: "#FFFFFF" }}>Superior</p>
-                          </center>
-                        </th>
-                      </tr>
-                    </thead>
-                  </Table>
-                  <Table
-                    responsive
-                    style={{ borderRadius: 10, background: "#191b32" }}
-                  >
-                    <thead>
-                      <tr>
-                        <th>
-                          <center>
-                            <p style={{ color: "#FFFFFF" }}>Competencia</p>
-                          </center>
-                        </th>
-                        <th>
-                          <center>
-                            <p style={{ color: "#FFFFFF" }}>Basico</p>
-                          </center>
-                        </th>
-                        <th>
-                          <center>
-                            <p style={{ color: "#FFFFFF" }}>Medio</p>
-                          </center>
-                        </th>
-                        <th>
-                          <center>
-                            <p style={{ color: "#FFFFFF" }}>Alto</p>
-                          </center>
-                        </th>
-                        <th>
-                          <center>
-                            <p style={{ color: "#FFFFFF" }}>Superior</p>
+                            <h4 style={{ color: "#FFFFFF" }}>Superior</h4>
                           </center>
                         </th>
                       </tr>

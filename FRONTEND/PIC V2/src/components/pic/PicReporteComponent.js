@@ -7,7 +7,9 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
-  CardFooter,
+  Modal,
+  ModalHeader,
+  ModalBody,
   Button,
 } from "reactstrap";
 import DoughnutChart from "../charts/Doughnut";
@@ -18,6 +20,7 @@ import HttpUtil from "../../util/HttpService.js";
 
 export default function PicReporteComponent(props) {
   const [listItems, setListItems] = useState(null);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     console.log(props.respuestas);
@@ -32,8 +35,43 @@ export default function PicReporteComponent(props) {
         ))
       );
   });
+
+  const obtenerPreguntaEspecifica = () => {
+    try {
+      setModal(true);
+
+      HttpUtil.requestPost(
+        props.reporte,
+        props.filtros,
+        (response) => {
+          console.log(response.data);
+          var temp = 'data:application/vnd.ms-excel;base64,'
+    +encodeURIComponent(response.data.documento);  
+          var download = document.createElement("a");
+          download.href = temp;
+          download.download = response.data.nombreArchivo;
+          document.body.appendChild(download);
+          download.click();
+          document.body.removeChild(download);
+          setModal(false);
+        },
+        () => {
+          setModal(false);
+        }
+      );
+    } catch (error) {
+      setModal(false);
+    }
+  };
+
   return (
     <Fragment>
+      <div>
+        <Modal isOpen={modal}>
+          <ModalHeader>Obteniendo información</ModalHeader>
+          <ModalBody>Obteniendo Pregunta del Servidor.</ModalBody>
+        </Modal>
+      </div>
       <Row className="mb-4">
         <Colxx xxs="12">
           <Card style={{ borderRadius: 10 }}>
@@ -44,18 +82,10 @@ export default function PicReporteComponent(props) {
               </CardTitle>
               <Row>
                 <Colxx xxs="12" lg="12" className="mb-5">
-                  <CardSubtitle>
-                    <IntlMessages id=" " />
-                  </CardSubtitle>
-                  <div className="chart-container">
-                    <DoughnutChart data={props.informacion} />
-                  </div>
-                </Colxx>
-              </Row>
-              <Row>
-                <Colxx xxs="12" lg="12" className="mb-5">
                   <center>
-                    <Button color="primary">Descargar Reporte</Button>
+                    <Button color="primary" onClick={obtenerPreguntaEspecifica}>
+                      Descargar Reporte
+                    </Button>
                   </center>
                 </Colxx>
               </Row>

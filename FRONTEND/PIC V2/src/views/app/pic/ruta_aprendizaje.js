@@ -82,9 +82,9 @@ export default function RutaAprendizajeColaborador(props) {
       <Separator className="mb-5" />
 
       <Row>
-        <Colxx xxs="12" lg="12" xl="12" className="mb-3">
+        <Colxx xxs="12" lg="12" xl="12" className="mb-3"  >
           <PicRutaAprendizajeComponent
-            ref={componentRef}
+           ref={componentRef}
             rutaAprendizaje={ruta}
           />
         </Colxx>
