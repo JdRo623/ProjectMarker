@@ -6,14 +6,16 @@ const config = require("../../config.json");
 var tools = require("../utils/tools.js");
 var auth = require("./auth_controller.js")
 const cuestionarioHandler = require("../../models/Cuestionario.model");
-const usuariosHandler = require("../../models/user_j.model")
-const preguntashandler = require("../../models/preguntas_w.model")
+const usuariosHandler = require("../../models/user_j.model");
+const preguntashandler = require("../../models/preguntas_w.model");
+const rutasAprenidisajeHandler = require("../../models/ruta_aprendizaje.model")
 const { ftruncate } = require("fs");
 var Excel = require("exceljs");
 
 module.exports = {
     estado_Cuestionario:estado_Cuestionario,
-    preguntas_Usuario:preguntas_Usuario
+    preguntas_Usuario:preguntas_Usuario,
+    estado_RutaAprendizaje:estado_RutaAprendizaje
 }
 
 function estado_Cuestionario(req,res){
@@ -245,6 +247,144 @@ function preguntas_Usuario(req,res){
             });
         }
         preguntas_seccion1(req,res);
+    } catch (error) {
+        throw boom.boomify(error);
+    }
+}
+
+function estado_RutaAprendizaje(req,res){
+    try {
+        let listadoReporte = [];
+        let documentname = 'reportes usuario ruta aprendizaje';
+        var reporteUsuarios = async (req,res) => {
+            let rutas = await rutasAprenidisajeHandler.find();
+            for (let element of rutas) {
+                //console.log(element);
+                let usuario = await usuariosHandler.findOne({identificacion: element.identificacion});
+                if(usuario){ 
+                    for (competencias of element.listado_competencias){
+                        for (basicos of competencias.listado_cursos_basicos){
+                            let registro = {
+                                codigo_cuestionario:element.id_ruta,
+                                nombre_curso:basicos.nombreCurso,
+                                nombre_ruta:competencias.nombreCompetencia,
+                                nivel_competencia:'basico',
+                                nombre_funcionario: tools.decrypt(usuario.nombres),
+                                apellido_funcionario : tools.decrypt(usuario.apellidos),
+                                cargo:tools.decrypt(usuario.cargo),
+                                nivel1:tools.decrypt(usuario.nivel1),
+                                nivel2:tools.decrypt(usuario.nivel2),
+                                nivel3:tools.decrypt(usuario.nivel3),
+                                correo:tools.decrypt(usuario.email),                                
+                                estado:basicos.estado,
+                            }
+                            listadoReporte.push(registro);
+                        };
+                        for (medios of competencias.listado_cursos_medios){
+                            let registro = {
+                                codigo_cuestionario:element.id_ruta,
+                                nombre_curso:medios.nombreCurso,
+                                nombre_ruta:competencias.nombreCompetencia,
+                                nivel_competencia:'medio',
+                                nombre_funcionario: tools.decrypt(usuario.nombres),
+                                apellido_funcionario : tools.decrypt(usuario.apellidos),
+                                cargo:tools.decrypt(usuario.cargo),
+                                nivel1:tools.decrypt(usuario.nivel1),
+                                nivel2:tools.decrypt(usuario.nivel2),
+                                nivel3:tools.decrypt(usuario.nivel3),
+                                correo:tools.decrypt(usuario.email),                                
+                                estado:medios.estado,
+                            }
+                            listadoReporte.push(registro);
+                        };
+                        for (altos of competencias.listado_cursos_altos){
+                            let registro = {
+                                codigo_cuestionario:element.id_ruta,
+                                nombre_curso:altos.nombreCurso,
+                                nombre_ruta:competencias.nombreCompetencia,
+                                nivel_competencia:'alto',
+                                nombre_funcionario: tools.decrypt(usuario.nombres),
+                                apellido_funcionario : tools.decrypt(usuario.apellidos),
+                                cargo:tools.decrypt(usuario.cargo),
+                                nivel1:tools.decrypt(usuario.nivel1),
+                                nivel2:tools.decrypt(usuario.nivel2),
+                                nivel3:tools.decrypt(usuario.nivel3),
+                                correo:tools.decrypt(usuario.email),                                
+                                estado:altos.estado,
+                            }
+                            listadoReporte.push(registro);
+                        };
+                        for (superiores of competencias.listado_cursos_superiores){
+                            let registro = {
+                                codigo_cuestionario:element.id_ruta,
+                                nombre_curso:superiores.nombreCurso,
+                                nombre_ruta:competencias.nombreCompetencia,
+                                nivel_competencia:'superior',
+                                nombre_funcionario: tools.decrypt(usuario.nombres),
+                                apellido_funcionario : tools.decrypt(usuario.apellidos),
+                                cargo:tools.decrypt(usuario.cargo),
+                                nivel1:tools.decrypt(usuario.nivel1),
+                                nivel2:tools.decrypt(usuario.nivel2),
+                                nivel3:tools.decrypt(usuario.nivel3),
+                                correo:tools.decrypt(usuario.email),                                
+                                estado:superiores.estado,
+                            }
+                            listadoReporte.push(registro);
+                        };
+                    }   
+                };               
+            };
+
+            const workbookOut = new Excel.Workbook;
+            const worksheetOut = workbookOut.addWorksheet('reporte usuario cuestionario');
+            worksheetOut.columns = [
+                {header:'codigo_ruta',key:'codigo_ruta'},
+                {header:'nombre_curso',key:'nombre_curso'},
+                {header:'nombre_ruta',key:'nombre_ruta'},
+                {header:'nivel_competencia',key:'nivel_competencia'},                
+                {header:'Apellidos_del_Funcionario',key:'Apellidos_del_Funcionario'},
+                {header:'Nombres_del_Funcionario',key:'Nombres_del_Funcionario'},
+                {header:'Cargo',key:'Cargo'},
+                {header:'Nivel_1_del_cargo',key:'Nivel_1_del_cargo'},
+                {header:'Nivel_2_del_cargo',key:'Nivel_2_del_cargo'},
+                {header:'Nivel_3_del_cargo',key:'Nivel_3_del_cargo'},
+                {header:'Correo_Electrónico',key:'Correo_Electrónico'},                
+                {header:'Estado',key:'Estado'}
+            ];
+            listadoReporte.forEach(registro =>{
+                worksheetOut.addRow({
+                    codigo_ruta:registro.codigo_cuestionario,
+                    nombre_curso:registro.identificacion,
+                    nombre_ruta: registro.nombre_ruta,
+                    nivel_competencia: registro.nivel_competencia,
+                    Nombres_del_Funcionario: registro.nombre_funcionario,
+                    Apellidos_del_Funcionario:registro.apellidos_funcionario,                    
+                    Cargo : registro.cargo,                      
+                    Nivel_1_del_cargo: registro.nivel1,
+                    Nivel_2_del_cargo : registro.nivel2,            
+                    Nivel_3_del_cargo  : registro.nivel3,           
+                    Correo_Electrónico : registro.email,                                        
+                    Estado: registro.estado  
+                });
+            });
+            workbookOut.xlsx.writeFile(documentname).then(()=>{
+                base64.encode(documentname, function(err,base64String){
+                    let respuesta  = {documento:base64String};
+                    return res.status(200).send({
+                        estado: 'Descargado',
+                        message: util.format("Archivo de ruta de aprendizaje generado exitosamente"),
+                        data: Object.assign(respuesta)
+                    });
+                });
+            }).catch((err)=>{
+                return res.status(200).send({
+                    estado: 'Error',
+                    message: util.format("Error generando el reporte"),
+                    data: Object.assign({"err":err})
+                });
+            });
+        };
+        reporteUsuarios(req,res);
     } catch (error) {
         throw boom.boomify(error);
     }
