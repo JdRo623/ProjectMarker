@@ -760,6 +760,20 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /reporte_Rutas:
+      x-swagger-router-controller: reportes_controller
+      post:
+        description: Generar reporte con informacion de las rutas de aprendizaje
+        operationId: estado_RutaAprendizaje
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
