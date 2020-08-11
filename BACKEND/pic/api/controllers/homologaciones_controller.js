@@ -5,12 +5,13 @@ const boom = require("boom");
 const config = require("../../config.json");
 const rutaHandler = require("../../models/ruta_aprendizaje.model");
 const tools = require("../utils/tools");
+var Excel = require("exceljs");
 
 module.exports = {
-  logIn: logIn,
+  homologacion: homologacion,
 };
 
-function logIn(req, res) {
+function homologacion(req, res) {
   try {
     var carga = async (req, res) => {
       try {
@@ -30,106 +31,153 @@ function logIn(req, res) {
             let aux = true;
             worksheet.eachRow(function (row, rowNumber) {
               if (rowNumber != 1) {
-                var homologacion = {
-                };
-                homologacion.identificacion = (row.getCell(1).value + "").trim()
-                homologacion.numero_curso =(row.getCell(2).value + "").trim()
-                homologacion.estado = (row.getCell(3).value + "").trim()
-                if(!users.includes((row.getCell(1).value + "").trim())){
-                    users.push((row.getCell(1).value + "").trim())
+                var homologacion = {};
+                homologacion.identificacion = (
+                  row.getCell(1).value + ""
+                ).trim();
+                homologacion.numero_curso = (row.getCell(2).value + "").trim();
+                homologacion.estado = (row.getCell(3).value + "").trim();
+                if (!users.includes((row.getCell(1).value + "").trim())) {
+                  users.push((row.getCell(1).value + "").trim());
                 }
 
-                homologaciones.push(homologacion)
+                switch (homologacion.estado) {
+                  case "Por Cursar":
+                    homologacion.colorEstado = "danger";
+                    break;
+                  case "Aprobado":
+                    homologacion.colorEstado = "success";
+                    break;
+                  default:
+                    homologacion.colorEstado = "warning";
+                    break;
+                }
 
-            }
+                homologaciones.push(homologacion);
+              }
             });
 
             rutaHandler.find(
-                { identificacion: { $in: users } },
-                (err, rutasEncontradas) => {
-                    if (err) {
-                        return res.status(603).send({
-                          estado: "error",
-                          message: util.format(err),
-                          data: Object.assign({}),
-                        });
-                      }
-                      if (!rutasEncontradas) {
-                        return res.status(603).send({
-                          estado: "Error",
-                          message: "Rutas no encontrado.",
-                          data: Object.assign({}),
-                        });
-                      }
-                      homologaciones.forEach((homologacionIndependiente) => {
-                        rutasEncontradas.forEach((rutaIndividual) => {
-                            if(homologacionIndependiente.identificacion == rutaIndividual.identificacion){
-                                rutaIndividual.listado_competencias.forEach((competencia) => {
-                                    competencia.listado_cursos_basicos.forEach((cursoBasico) => {
-                                        if(homologacionIndependiente.numero_curso==cursoBasico.idCurso){
-                                            cursoBasico.estado = homologacionIndependiente.estado;
-                                            //TODO: ASIGNAR COLOReESTADO
-                                        }
-                                    })
-                                    competencia.listado_cursos_medios.forEach((cursoMedio) => {
-                                        if(homologacionIndependiente.numero_curso==cursoMedio.idCurso){
-                                            cursoMedio.estado = homologacionIndependiente.estado;
-                                            //TODO: ASIGNAR COLOReESTADO
-                                        }
-                                    })
-                                    competencia.listado_cursos_altos.forEach((cursoAltos) => {
-                                        if(homologacionIndependiente.numero_curso==cursoAltos.idCurso){
-                                            cursoAltos.estado = homologacionIndependiente.estado;
-                                            //TODO: ASIGNAR COLOReESTADO
-                                        }
-                                    })
-                                    competencia.listado_cursos_superiores.forEach((cursoSuperiores) => {
-                                        if(homologacionIndependiente.numero_curso==cursoSuperiores.idCurso){
-                                            cursoSuperiores.estado = homologacionIndependiente.estado;
-                                            //TODO: ASIGNAR COLOReESTADO
-                                        }
-                                    })
-                                })
+              { identificacion: { $in: users } },
+              (err, rutasEncontradas) => {
+                if (err) {
+                  return res.status(603).send({
+                    estado: "error",
+                    message: util.format(err),
+                    data: Object.assign({}),
+                  });
+                }
+                if (!rutasEncontradas) {
+                  return res.status(603).send({
+                    estado: "Error",
+                    message: "Rutas no encontrado.",
+                    data: Object.assign({}),
+                  });
+                }
+                homologaciones.forEach((homologacionIndependiente) => {
+                  rutasEncontradas.forEach((rutaIndividual) => {
+                    if (
+                      homologacionIndependiente.identificacion ==
+                      rutaIndividual.identificacion
+                    ) {
+                      rutaIndividual.listado_competencias.forEach(
+                        (competencia) => {
+                          competencia.listado_cursos_basicos.forEach(
+                            (cursoBasico) => {
+                              if (
+                                homologacionIndependiente.numero_curso ==
+                                cursoBasico.idCurso
+                              ) {
+                                cursoBasico.estado =
+                                  homologacionIndependiente.estado;
+                                cursoBasico.colorEstado =
+                                  homologacionIndependiente.colorEstado;
+                              }
                             }
-                          })
-    
-                      })
-
-                      rutaHandler.bulkWrite(
-                        rutasEncontradas.map((rutaInd) => ({
-                          updateOne: {
-                            filter: { identificacion: rutaInd.identificacion },
-                            update: { $set: { listado_competencias: rutaInd.listado_competencias } },
-                            upsert: true,
-                          },
-                        })),
-                        (err, rutaActualizada) => {
-                            if (err) {
-                                return res.status(603).send({
-                                  estado: "error",
-                                  message: util.format(err),
-                                  data: Object.assign({}),
-                                });
+                          );
+                          competencia.listado_cursos_medios.forEach(
+                            (cursoMedio) => {
+                              if (
+                                homologacionIndependiente.numero_curso ==
+                                cursoMedio.idCurso
+                              ) {
+                                cursoMedio.estado =
+                                  homologacionIndependiente.estado;
+                                cursoMedio.colorEstado =
+                                  homologacionIndependiente.colorEstado;
                               }
-                              if (!rutaActualizada) {
-                                return res.status(603).send({
-                                  estado: "Error",
-                                  message: "Rutas no encontrado.",
-                                  data: Object.assign({}),
-                                });
+                            }
+                          );
+                          competencia.listado_cursos_altos.forEach(
+                            (cursoAltos) => {
+                              if (
+                                homologacionIndependiente.numero_curso ==
+                                cursoAltos.idCurso
+                              ) {
+                                cursoAltos.estado =
+                                  homologacionIndependiente.estado;
+                                cursoAltos.colorEstado =
+                                  homologacionIndependiente.colorEstado;
                               }
-                              return res.status(200).send({
-                                estado: "Exito",
-                                message: util.format(
-                                  "Homologaciones registradas exitosamente"
-                                ),
-                                data: Object.assign(
-                                  cuestionarioCreado
-                                ),
-                              });
-                        })
+                            }
+                          );
+                          competencia.listado_cursos_superiores.forEach(
+                            (cursoSuperiores) => {
+                              if (
+                                homologacionIndependiente.numero_curso ==
+                                cursoSuperiores.idCurso
+                              ) {
+                                cursoSuperiores.estado =
+                                  homologacionIndependiente.estado;
+                                cursoSuperiores.colorEstado =
+                                  homologacionIndependiente.colorEstado;
+                              }
+                            }
+                          );
+                        }
+                      );
+                    }
+                  });
+                });
 
-                })
+                rutaHandler.bulkWrite(
+                  rutasEncontradas.map((rutaInd) => ({
+                    updateOne: {
+                      filter: { identificacion: rutaInd.identificacion },
+                      update: {
+                        $set: {
+                          listado_competencias: rutaInd.listado_competencias,
+                        },
+                      },
+                      upsert: true,
+                    },
+                  })),
+                  (err, rutaActualizada) => {
+                    if (err) {
+                      return res.status(603).send({
+                        estado: "error",
+                        message: util.format(err),
+                        data: Object.assign({}),
+                      });
+                    }
+                    if (!rutaActualizada) {
+                      return res.status(603).send({
+                        estado: "Error",
+                        message: "Rutas no encontrado.",
+                        data: Object.assign({}),
+                      });
+                    }
+                    return res.status(200).send({
+                      estado: "Exito",
+                      message: util.format(
+                        "Homologaciones registradas exitosamente"
+                      ),
+                      data: Object.assign({}),
+                    });
+                  }
+                );
+              }
+            );
           } catch (error) {
             console.log(error);
             return res.status(601).send({

@@ -37,6 +37,10 @@ const cuestionario = Schema({
         {
             id_pregunta: String,
             valor_respuesta: String,
+            competencia:{
+                type:String,
+                default:''
+            } , 
             estado_respuesta:{
                 type:String,
                 default:'No respondida'

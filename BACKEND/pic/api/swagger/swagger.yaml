@@ -788,6 +788,34 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /limpiarPreguntas:
+      x-swagger-router-controller: preguntas_w_controller
+      post: 
+        description: limpia la info de las preguntas
+        operationId: limpiarPreguntas
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /homologacion:
+      x-swagger-router-controller: homologaciones_controller
+      post: 
+        description: homologaciones
+        operationId: homologacion
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions

@@ -12,52 +12,53 @@ module.exports = {
   obtenerPreguntasNuevas: obtenerPreguntasNuevas,
   buscarPreguntasPorID: buscarPreguntasPorID,
   buscarPreguntasPorIDCuestionario: buscarPreguntasPorIDCuestionario,
-  buscarCompetenciasCuestionario:buscarCompetenciasCuestionario
+  buscarCompetenciasCuestionario: buscarCompetenciasCuestionario,
+  limpiarPreguntas: limpiarPreguntas
 };
 
 function buscarCompetenciasCuestionario(req, res) {
-    try {
-      var obtener = async (req, res) => {
-        var dec = tools.decryptJson(req.body.data);
-        console.log(dec.preguntas_obtener);
-        var filtros = [];
-  
-        cuestionarioHandler.findOne(
-          { email: dec.email },
-          (err, cuestionarioBuscado) => {
-            if (err)
-              return res.status(500).send({
-                estado: "Error",
-                message: "Error en la petición",
-                data: Object.assign(err),
-              });
-            if (!cuestionarioBuscado) {
-              return res.status(200).send({
-                estado: "Error",
-                message: "No se encontraron Cuestionarios",
-                data: Object.assign({}),
-              });
-            }
-  
-            cuestionarioBuscado.listado_competencias.forEach((competencia) => {
-              if (competencia.estado_respuesta == "No respondida") {
-                filtros.push(competencia);
-              }
+  try {
+    var obtener = async (req, res) => {
+      var dec = tools.decryptJson(req.body.data);
+      console.log(dec.preguntas_obtener);
+      var filtros = [];
+
+      cuestionarioHandler.findOne(
+        { email: dec.email },
+        (err, cuestionarioBuscado) => {
+          if (err)
+            return res.status(500).send({
+              estado: "Error",
+              message: "Error en la petición",
+              data: Object.assign(err),
             });
-  
+          if (!cuestionarioBuscado) {
             return res.status(200).send({
-                estado: "Exito",
-                message: util.format("Competencias obtenidas"),
-                data: Object.assign(filtros),
-              });
+              estado: "Error",
+              message: "No se encontraron Cuestionarios",
+              data: Object.assign({}),
+            });
           }
-        );
-      };
-      obtener(req, res);
-    } catch (error) {
-      throw boom.boomify(err);
-    }
+
+          cuestionarioBuscado.listado_competencias.forEach((competencia) => {
+            if (competencia.estado_respuesta == "No respondida") {
+              filtros.push(competencia);
+            }
+          });
+
+          return res.status(200).send({
+            estado: "Exito",
+            message: util.format("Competencias obtenidas"),
+            data: Object.assign(filtros),
+          });
+        }
+      );
+    };
+    obtener(req, res);
+  } catch (error) {
+    throw boom.boomify(err);
   }
+}
 
 function buscarPreguntasPorIDCuestionario(req, res) {
   try {
@@ -132,7 +133,8 @@ function buscarPreguntasPorIDCuestionario(req, res) {
                         id: "B",
                       },
                       {
-                        enunciadoRespuesta: "No se la respuesta a esta pregunta",
+                        enunciadoRespuesta:
+                          "No se la respuesta a esta pregunta",
                         id: "D",
                       },
                     ],
@@ -263,6 +265,62 @@ function obtenerPreguntasNuevas(req, res) {
           message: util.format("listado de preguntas"),
           data: Object.assign(preguntas_wo),
         });
+      });
+    };
+    traer(req, res);
+  } catch (error) {
+    throw boom.boomify(error);
+  }
+}
+
+function limpiarPreguntas(req, res) {
+  try {
+    var preguntas_wo = [];
+    var traer = async (req, res) => {
+      await Pregunta_w.find((error, preguntas) => {
+        if (error) {
+          return res.status(603).json(error);
+        }
+        if (!preguntas) {
+          return res.status(603).json(error);
+        }
+
+        preguntas.forEach((pregunta) => {
+          pregunta.competencia = pregunta.competencia.trim();
+          pregunta.situacion_problema = pregunta.situacion_problema.trim();
+          pregunta.encabezado_pregunta = pregunta.encabezado_pregunta.trim();
+          pregunta.nivel = pregunta.nivel.trim();
+          pregunta.curso = pregunta.curso.trim();
+          pregunta.codificacion = pregunta.codificacion.trim();
+          pregunta.clave = pregunta.clave.trim();
+        });
+
+        Pregunta_w.bulkWrite(
+          preguntas.map((preguntaInd) => ({
+            updateOne: {
+              filter: { numero_pregunta: preguntaInd.numero_pregunta },
+              update: {
+                $set: {
+                  competencia: preguntaInd.competencia,
+                  situacion_problema: preguntaInd.situacion_problema,
+                  encabezado_pregunta: preguntaInd.encabezado_pregunta,
+                  nivel: preguntaInd.nivel,
+                  curso: preguntaInd.curso,
+                  codificacion: preguntaInd.codificacion,
+                  clave: preguntaInd.clave,
+                },
+              },
+              upsert: true,
+            },
+          })),
+          (err, rutaActualizada) => {
+            return res.status(200).send({
+              estado: "Exito",
+              message: util.format("Cuestionario Actualizado"),
+              data: Object.assign({}),
+            });
+          }
+        );
       });
     };
     traer(req, res);

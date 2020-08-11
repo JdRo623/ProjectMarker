@@ -362,7 +362,14 @@ function actualizarCompetencia(req, res) {
               element.estado_respuesta = dec.data.estado_respuesta;
             }
           });
-
+          
+          var preguntasFinales =[]
+          cuestionarioBuscado.listado_preguntas.forEach((pregunta) => {
+            if (pregunta.competencia != dec.data.competencia) {
+              preguntasFinales.push(pregunta)
+            }
+          });
+          cuestionarioBuscado.listado_preguntas =preguntasFinales
           //Sí el valor respuesta == 0 entonces llamar las preguntas con query que tengan en su campo de competencia, y crear una lista de preguntas sección ii nuevas sin esa competenicia 
           cuestionarioHandler
             .updateOne({ email: dec.data.email }, cuestionarioBuscado)
@@ -567,6 +574,7 @@ function Cuestionario(req, res) {
 
       var cursos = [];
       console.log(cues);
+      
       await cuestionarioHandler.findOne(
         { email: cues.email },
         (err, cuestionario) => {
@@ -657,7 +665,7 @@ function Cuestionario(req, res) {
                           });
                         }
 
-                        if (coordinacionEncontrada.cargos.length != 0) {
+                        if (coordinacionEncontrada.cargos.length != 0 && coordinacionEncontrada.nombre!="N/A") {
                           coordinacionEncontrada.cargos.forEach((cargo) => {
                             if (cargo.nombreCargo == "GENERAL") {
                               cursosGeneral = cargo.cursos;
@@ -666,7 +674,7 @@ function Cuestionario(req, res) {
                               cursosEspecificos = cargo.cursos;
                             }
                           });
-                        } else if (subgrupoEncontrado.cargos.length != 0) {
+                        } else if (subgrupoEncontrado.cargos.length != 0 && subgrupoEncontrado.nombre!="N/A") {
                           subgrupoEncontrado.cargos.forEach((cargo) => {
                             if (cargo.nombreCargo == "GENERAL") {
                               cursosGeneral = cargo.cursos;
@@ -717,20 +725,20 @@ function Cuestionario(req, res) {
                                   ) {
                                     console.log(
                                       competencias.includes(
-                                        cursoObtenido.competencia
+                                        cursoObtenido.competencia.trim()
                                       )
                                     );
                                     if (
                                       !competencias.includes(
-                                        cursoObtenido.competencia
+                                        cursoObtenido.competencia.trim()
                                       )
                                     ) {
                                       competencias.push(
-                                        cursoObtenido.competencia
+                                        cursoObtenido.competencia.trim()
                                       );
                                       competenciasGuardar.push({
                                         nombreCompetencia:
-                                          cursoObtenido.competencia,
+                                          cursoObtenido.competencia.trim(),
                                         descripcionCompetencia:
                                           cursoObtenido.descripcion_competencia,
                                       });
@@ -758,6 +766,7 @@ function Cuestionario(req, res) {
                                 newCuestionario.listado_preguntas.push({
                                   id_pregunta:
                                     preguntaEspecifica.numero_pregunta,
+                                    competencia: preguntaEspecifica.competencia,
                                 });
                               });
                               console.log(newCuestionario);
@@ -930,8 +939,10 @@ function CuestionarioConsulta(req, res) {
                       data: Object.assign({}),
                     });
                   }
+                  console.log("1 "+coordinacionEncontrada.cargos.length)
+                  console.log("2 "+coordinacionEncontrada.nombre)
 
-                  if (coordinacionEncontrada.cargos.length != 0) {
+                  if (coordinacionEncontrada.cargos.length != 0  && coordinacionEncontrada.nombre!="N/A") {
                     coordinacionEncontrada.cargos.forEach((cargo) => {
                       if (cargo.nombreCargo == "GENERAL") {
                         cursosGeneral = cargo.cursos;
@@ -940,7 +951,10 @@ function CuestionarioConsulta(req, res) {
                         cursosEspecificos = cargo.cursos;
                       }
                     });
-                  } else if (subgrupoEncontrado.cargos.length != 0) {
+                  } else if (subgrupoEncontrado.cargos.length != 0  && subgrupoEncontrado.nombre!="N/A") {
+                    console.log("3 "+subgrupoEncontrado.cargos.length)
+                    console.log("4 "+subgrupoEncontrado.nombre)
+  
                     subgrupoEncontrado.cargos.forEach((cargo) => {
                       if (cargo.nombreCargo == "GENERAL") {
                         cursosGeneral = cargo.cursos;
@@ -950,6 +964,9 @@ function CuestionarioConsulta(req, res) {
                       }
                     });
                   } else if (seccionalesEncontradas.cargos.length != 0) {
+
+                    console.log("5 "+seccionalesEncontradas.cargos.length)
+                    console.log("6 "+seccionalesEncontradas.nombre)
                     seccionalesEncontradas.cargos.forEach((cargo) => {
                       if (cargo.nombreCargo == "GENERAL") {
                         cursosGeneral = cargo.cursos;

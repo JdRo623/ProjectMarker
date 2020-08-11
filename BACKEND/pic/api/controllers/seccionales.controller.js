@@ -30,6 +30,11 @@ function darSeccionales(req,res){
                     }); 
                 }
                 seccionales.cargos =[]
+                seccionales.sort(function(a, b){
+                    if(a.nombre < b.nombre) { return -1; }
+                    if(a.nombre > b.nombre) { return 1; }
+                    return 0;
+                })
 
                 return res.status(200).send({
                     estado: 'Exito',

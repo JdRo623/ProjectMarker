@@ -117,7 +117,7 @@ function registrarActividades(req, res) {
 
             NivelHandler.bulkWrite(
               listadoNiveles.map((nivel) => ({
-                updateOne: {
+                updateMany: {
                   filter: { nombre: nivel.nombre },
                   update: { $set: { cargos: nivel.cargos } },
                   upsert: true,

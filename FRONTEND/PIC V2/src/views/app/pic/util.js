@@ -94,7 +94,7 @@ class Util extends Component {
           <Colxx xxs="12" lg="12" xl="6" className="mb-3">
             <PicCargaDocumentos
               titulo="Cargar Homologaciones"
-              servicio={Constantes.servicios.cargarUsuarios}
+              servicio={Constantes.servicios.homologacion}
             />
           </Colxx>
         </Row>

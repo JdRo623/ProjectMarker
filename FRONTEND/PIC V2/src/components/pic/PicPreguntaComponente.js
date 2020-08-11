@@ -47,7 +47,7 @@ export default function PicPreguntaComponente(props) {
     if (props.respuestas && listItems == null)
       setListItems(
         props.respuestas.map((respuesta) => (
-          <Colxx
+          <Colxx  
             xxs="12"
             lg={props.columna}
             xl={props.columna}
@@ -86,8 +86,14 @@ export default function PicPreguntaComponente(props) {
           <Table>
             <tbody>
               <tr>
-                <h4 dangerouslySetInnerHTML={{ __html: props.encabezado }}></h4>
-                <h5 dangerouslySetInnerHTML={{ __html: props.descriptor }}></h5>
+                <div>
+                  <h4
+                    dangerouslySetInnerHTML={{ __html: props.encabezado }}
+                  ></h4>
+                  <h5
+                    dangerouslySetInnerHTML={{ __html: props.descriptor }}
+                  ></h5>
+                </div>
               </tr>
             </tbody>
           </Table>
