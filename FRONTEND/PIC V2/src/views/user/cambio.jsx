@@ -48,10 +48,11 @@ export default class Cambio extends Component {
   };
   handleChangePassword = async () => {
     this.setState({ loading: true });
-    const { password, confirmPassword } = this.state.form;
+    const { password, confirmPassword, secretPassword } = this.state.form;
     if (
       !this.validatePassword(password) ||
-      !this.validatePassword(confirmPassword)
+      !this.validatePassword(confirmPassword) ||
+      !this.validatePassword(secretPassword)
     ) {
       if (this.state.form.password === this.state.form.confirmPassword) {
         await HttpService.requestPost(
@@ -59,6 +60,7 @@ export default class Cambio extends Component {
           {
             email: this.state.form.email,
             password: cifrar(this.state.form.password),
+            secretPassword: cifrar(this.state.form.secretPassword)
           }
         )
           .then(async () => {
@@ -111,6 +113,23 @@ export default class Cambio extends Component {
                 {({ errors, touched }) => (
                   <Form className="av-tooltip tooltip-label-bottom">
                     <Label>{this.state.form.email}</Label>
+                    <FormGroup className="form-group has-float-label">
+                      <Label>
+                        <IntlMessages id="user.secret-password" />
+                      </Label>
+                      <Field
+                        className="form-control"
+                        type="password"
+                        name="passwordSecret"
+                        onChange={this.handleChange}
+                        value={this.state.form.secretPassword}
+                      />
+                      {errors.password && touched.password && (
+                        <div className="invalid-feedback d-block">
+                          {errors.password}
+                        </div>
+                      )}
+                    </FormGroup>
                     <FormGroup className="form-group has-float-label">
                       <Label>
                         <IntlMessages id="user.password" />

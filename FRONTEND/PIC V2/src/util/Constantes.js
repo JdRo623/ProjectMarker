@@ -1,6 +1,6 @@
 const constantes = {
-  urlServer: "http://localhost:10010",
-  //urlServer: "https://back-joanapp.herokuapp.com",
+  //urlServer: "http://localhost:10010",
+  urlServer: "https://back-joanapp.herokuapp.com",
 
   servicios: {
     autenticarAgente: "/identificacionUsuario",

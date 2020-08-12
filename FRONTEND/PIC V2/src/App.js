@@ -27,7 +27,7 @@ const ViewError = React.lazy(() =>
   import(/* webpackChunkName: "views-error" */ "./views/error")
 );
 const ViewPic = React.lazy(() =>
-  import(/* webpackChunkName: "views-error" */ "./views/user/login")
+  import(/* webpackChunkName: "views-error" */ "./views/user")
 );
 const ViewReset = React.lazy(() => import("./views/user/cambio"));
 

@@ -24,14 +24,13 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
 
-    var menu = menuItems
+    var menu = menuItems;
     if (localStorage.getItem("rol") == 0) {
-      menu = menuItemsFuncionario
-      console.log(menu)
-    }else{
-      menu = menuItemsAdmin
-      console.log(menu)
-
+      menu = menuItemsFuncionario;
+      console.log(menu);
+    } else {
+      menu = menuItemsAdmin;
+      console.log(menu);
     }
 
     this.state = {
@@ -40,8 +39,6 @@ class Sidebar extends Component {
       collapsedMenus: [],
       menuItems: menu,
     };
-
-   
   }
 
   handleWindowResize = (event) => {
@@ -247,7 +244,9 @@ class Sidebar extends Component {
 
   getIsHasSubItem = () => {
     const { selectedParentMenu } = this.state;
-    const menuItem = this.state.menuItems.find((x) => x.id === selectedParentMenu);
+    const menuItem = this.state.menuItems.find(
+      (x) => x.id === selectedParentMenu
+    );
     if (menuItem)
       return menuItem && menuItem.subs && menuItem.subs.length > 0
         ? true
@@ -429,8 +428,10 @@ class Sidebar extends Component {
                                   rel="noopener noreferrer"
                                   target="_blank"
                                 >
-                                  <i className={sub.icon} />{" "}
-                                  <IntlMessages id={sub.label} />
+                                  <h6>
+                                    <i className={sub.icon} />{" "}
+                                    <IntlMessages id={sub.label} />
+                                  </h6>
                                 </a>
                               ) : sub.subs && sub.subs.length > 0 ? (
                                 <Fragment>
@@ -451,8 +452,11 @@ class Sidebar extends Component {
                                       )
                                     }
                                   >
-                                    <i className="simple-icon-arrow-down" />{" "}
-                                    <IntlMessages id={sub.label} />
+                                    <h6>
+                                      {" "}
+                                      <i className="simple-icon-arrow-down" />{" "}
+                                      <IntlMessages id={sub.label} />
+                                    </h6>
                                   </NavLink>
 
                                   <Collapse
@@ -474,17 +478,21 @@ class Sidebar extends Component {
                                                 rel="noopener noreferrer"
                                                 target="_blank"
                                               >
-                                                <i className={thirdSub.icon} />{" "}
-                                                <IntlMessages
-                                                  id={thirdSub.label}
-                                                />
+                                               
+                                                <h6> <i className={thirdSub.icon} />{" "}
+                                                  <IntlMessages
+                                                    id={thirdSub.label}
+                                                  />
+                                                </h6>
                                               </a>
                                             ) : (
                                               <NavLink to={thirdSub.to}>
-                                                <i className={thirdSub.icon} />{" "}
-                                                <IntlMessages
-                                                  id={thirdSub.label}
-                                                />
+                                               
+                                                <h6> <i className={thirdSub.icon} />{" "}
+                                                  <IntlMessages
+                                                    id={thirdSub.label}
+                                                  />
+                                                </h6>
                                               </NavLink>
                                             )}
                                           </NavItem>
@@ -495,8 +503,10 @@ class Sidebar extends Component {
                                 </Fragment>
                               ) : (
                                 <NavLink to={sub.to}>
-                                  <i className={sub.icon} />{" "}
-                                  <IntlMessages id={sub.label} />
+                                
+                                  <h6>  <i className={sub.icon} />{" "}
+                                    <IntlMessages id={sub.label} />
+                                  </h6>
                                 </NavLink>
                               )}
                             </NavItem>

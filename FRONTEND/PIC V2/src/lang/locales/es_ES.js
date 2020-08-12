@@ -19,6 +19,8 @@ module.exports = {
   "user.forgot-password": "Se te olvidó tu contraseña",
   "user.email": "Email",
   "user.password": "Contraseña",
+  'user.secret-password': 'Contraseña Secreta',
+  'user.id-password': 'Documento de Identidad',
   "user.forgot-password-question": "¿Contraseña olvidada?",
   "user.fullname": "Nombre completo",
   "user.login-button": "INICIAR SESIÓN",
@@ -50,7 +52,7 @@ module.exports = {
   "menu.administrador": "Administrador",
   "menu.carga-archivos": "Carga Archivos",
   "menu.cargue-preguntas": "Cargue de Preguntas",
-  "menu.busqueda-preguntas": "Busqueda de Preguntas",
+  "menu.busqueda-preguntas": "Búsqueda de Preguntas",
   "menu.crear-empleado": "Crear Funcionario",
   "menu.reportes": "Realizar Reportes",
   "menu.consultar-cuestionario": "Consultar Cuestionario",
@@ -79,6 +81,13 @@ module.exports = {
   "preguntas.bibliografia": "Bibliografía",
   "preguntas.submit": "Guardar Pregunta",
 
-  /** Empleado */
+  /** EMPLEADO */
+  'empleado.identificacion': 'Identificación de Funcionario',
+  'empleado.nombres': 'Nombres de Funcionario',
+  'empleado.apellidos': 'Apellidos de Funcionario',
+  'empleado.nombresjefe': 'Nombres de Jefe',
+  'empleado.apellidosjefe': 'Apellidos de Jefe',
+  'empleado.email': 'Email de Funcionario',
+  'empleado.ciudad': 'Ciudad de Funcionario',
   'empleado.submit': 'Guardar Funcionario',
 };

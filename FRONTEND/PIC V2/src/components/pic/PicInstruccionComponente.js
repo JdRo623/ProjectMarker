@@ -6,7 +6,8 @@ export default function PicInstruccionComponente(props) {
     <Fragment>
       <div className="wizard-basic-step">
         <center>
-          <h5>{props.encabezado}</h5>
+        
+          <h4 style={{ fontWeight: "bold" }}>{props.encabezado}</h4>
           <h6>{props.descriptor}</h6>
         </center>
       </div>

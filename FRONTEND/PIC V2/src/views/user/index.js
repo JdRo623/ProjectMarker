@@ -6,18 +6,19 @@ const Login = React.lazy(() =>
   import(/* webpackChunkName: "user-login" */ "./login")
 );
 const Register = React.lazy(() =>
-  import(/* webpackChunkName: "user-register" */ "./register")
+  import(/* webpackChunkName: "user-register" */ "./forgot-password")
 );
 const ForgotPassword = React.lazy(() =>
   import(/* webpackChunkName: "user-forgot-password" */ "./forgot-password")
 );
 const ResetPassword = React.lazy(() =>
-  import(/* webpackChunkName: "user-reset-password" */ "./reset-password")
+  import(/* webpackChunkName: "user-reset-password" */ "./forgot-password")
 );
 
 const User = ({ match }) => {
   return (
     <UserLayout>
+      
       <Suspense fallback={<div className="loading" />}>
         <Switch>
           <Redirect exact from={`${match.url}/`} to={`${match.url}/login`} />

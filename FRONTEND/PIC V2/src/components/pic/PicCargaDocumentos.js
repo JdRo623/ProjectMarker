@@ -62,7 +62,7 @@ const PicCargaDocumentos = (props) => {
   return (
     <Card className="mb-4">
       <CardBody>
-        <p className="mb-3">{props.titulo}</p>
+        <h3 className="mb-3">{props.titulo}</h3>
         <InputGroup className="mb-3">
           <Input
             placeholder="Archivo"

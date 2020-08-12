@@ -29,12 +29,9 @@ export default function ConsultarCuestionario(props) {
     setInformacionPersonalCompleto,
   ] = useState(false);
 
-
   useEffect(() => {
-    localStorage.getItem('rol');
-
+    localStorage.getItem("rol");
   }, []);
-
 
   const mostarInfo = () => {};
   return (
@@ -56,52 +53,50 @@ export default function ConsultarCuestionario(props) {
 
       <Card className="mb-4">
         <CardBody>
-          <p className="text-muted text-small mb-2">Coordinación:</p>
+          <h4 style={{ fontWeight: "bold" }}>Coordinación:</h4>
           <p className="mb-3">{cuestionarioUsuario.coordinacion}</p>
-          <p className="text-muted text-small mb-2">Email:</p>
+          <h4 style={{ fontWeight: "bold" }}>Email:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{ __html: cuestionarioUsuario.email }}
           />
-          <p className="text-muted text-small mb-2">Rol:</p>
+          <h4 style={{ fontWeight: "bold" }}>Rol:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{ __html: cuestionarioUsuario.rol }}
           />
-          <p className="text-muted text-small mb-2">Subgrupo:</p>
+          <h4 style={{ fontWeight: "bold" }}>Subgrupo:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{ __html: cuestionarioUsuario.subgrupo }}
           />
-          <p className="text-muted text-small mb-2">Seccional:</p>
+          <h4 style={{ fontWeight: "bold" }}>Seccional:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{ __html: cuestionarioUsuario.seccional }}
           />
-          <p className="text-muted text-small mb-2">Listado Cursos:</p>
+          <h4 style={{ fontWeight: "bold" }}>Listado Cursos:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{
               __html: cuestionarioUsuario.listado_cursos,
             }}
           />
-          <p className="text-muted text-small mb-2">Listado Competencias:</p>
+          <h4 style={{ fontWeight: "bold" }}>Listado Competencias:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{
               __html: cuestionarioUsuario.listado_competencias,
             }}
           />
-          <p className="text-muted text-small mb-2">Listado Preguntas:</p>
+          <h4 style={{ fontWeight: "bold" }}>Listado Preguntas:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{
               __html: cuestionarioUsuario.listado_preguntas,
             }}
           />
-          <p className="text-muted text-small mb-2">
-            Listado Preguntas nivel III:
-          </p>
+          <h4 style={{ fontWeight: "bold" }}>Listado Preguntas nivel III:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{

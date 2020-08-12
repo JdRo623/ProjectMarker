@@ -20,14 +20,14 @@ class Reportes extends Component {
         <Row>
           <Colxx xxs="12" lg="6" xl="6" className="mb-3">
             <PicReporteComponent
-              titulo={"Reporte Rutas Aprendizaje"}
+              titulo={"Listado de personas que han realizado el cuestionario"}
               reporte={ constantes.urlServer + constantes.servicios.reporte_Rutas}
               filtros={{}}
             />
           </Colxx>
           <Colxx xxs="12" lg="6" xl="6" className="mb-3">
           <PicReporteComponent
-              titulo={"Reporte Cuestionarios"}
+              titulo={"Número total de inscrito por curso"}
               reporte={ constantes.urlServer + constantes.servicios.reporte_UsuarioC}
               filtros={{}}
             />
@@ -36,14 +36,14 @@ class Reportes extends Component {
         <Row>
           <Colxx xxs="12" lg="6" xl="6" className="mb-3">
             <PicReporteComponent
-              titulo={"Reporte preguntas sección I"}
+              titulo={"Listado de las Respuestas del cuestionario Sección I"}
               reporte={ constantes.urlServer + constantes.servicios.reporte_Cuestionario}
               filtros={{name : "Reporte preguntas seccion I",seccion: "I"}}            />
           </Colxx>
           <Colxx xxs="12" lg="6" xl="6" className="mb-3">
             <PicReporteComponent
               titulo={
-                "Reporte preguntas sección II"
+                "Listado de las Respuestas del cuestionario Sección II"
               }
               reporte={ constantes.urlServer + constantes.servicios.reporte_Cuestionario}
               filtros={{name :"Reporte preguntas seccion II",seccion: "II"}}            />
@@ -52,7 +52,7 @@ class Reportes extends Component {
         <Row>
           <Colxx xxs="12" lg="6" xl="6" className="mb-3">
             <PicReporteComponent
-              titulo={"Reporte preguntas sección III"}
+              titulo={"Listado de las Respuestas del cuestionario Sección III"}
               reporte={ constantes.urlServer + constantes.servicios.reporte_Cuestionario}
               filtros={{name : "Reporte preguntas seccion III",seccion: "III"}}            />
           </Colxx>

@@ -47,8 +47,8 @@ class ForgotPassword extends Component {
     } else {
       if (!this.props.loading && this.props.forgotUserMail === "success")
         NotificationManager.success(
-          "Please check your email.",
-          "Forgot Password Success",
+          "Por favor revisa tu correo",
+          "Envio de contraseña secreta exitoso",
           3000,
           null,
           null,
@@ -107,9 +107,6 @@ class ForgotPassword extends Component {
                     </FormGroup>
 
                     <div className="d-flex justify-content-between align-items-center">
-                      <NavLink to={`/user/forgot-password`}>
-                        <IntlMessages id="user.forgot-password-question" />
-                      </NavLink>
                       <Button
                         color="primary"
                         className={`btn-shadow btn-multiple-state ${

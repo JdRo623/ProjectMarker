@@ -22,7 +22,7 @@ export default function PicInformacionPersonalColaboradorComponent(props) {
 
   return (
     <Fragment>
-      <h6 className="mb-4">{props.encabezado}</h6>
+      <h4 style={{ fontWeight: "bold" }} className="mb-4">{props.encabezado}</h4>
       <AvForm
         className="av-tooltip tooltip-label-right"
         onChange={manejarEnvio}
