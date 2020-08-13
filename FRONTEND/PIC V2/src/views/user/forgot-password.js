@@ -12,7 +12,7 @@ class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "demo@gogo.com",
+      email: "",
     };
   }
 
@@ -66,10 +66,11 @@ class ForgotPassword extends Component {
         <Colxx xxs="12" md="10" className="mx-auto my-auto">
           <Card className="auth-card">
             <div className="position-relative image-side ">
-              <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
-              <p className="white mb-0">
-                Please use your e-mail to reset your password. <br />
-                If you are not a member, please{" "}
+              <p className="text-default  h2">
+                Olvidó la contraseña! Tranquilo{" "}
+              </p>
+              <p className="text-default  mb-0">
+                Utilice su correo electrónico para restablecer su contraseña{" "}
                 <NavLink to={`/register`} className="white">
                   register
                 </NavLink>
@@ -80,9 +81,9 @@ class ForgotPassword extends Component {
               <NavLink to={`/`} className="white">
                 <span className="logo-single" />
               </NavLink>
-              <CardTitle className="mb-4">
+              {/* <CardTitle className="mb-4">
                 <IntlMessages id="user.forgot-password" />
-              </CardTitle>
+              </CardTitle> */}
 
               <Formik
                 initialValues={initialValues}
@@ -90,13 +91,14 @@ class ForgotPassword extends Component {
               >
                 {({ errors, touched }) => (
                   <Form className="av-tooltip tooltip-label-bottom">
-                    <FormGroup className="form-group has-float-label">
+                    <FormGroup className="form-group">
                       <Label>
                         <IntlMessages id="user.email" />
                       </Label>
                       <Field
                         className="form-control"
                         name="email"
+                        placeholder="funcionario@correo.com"
                         validate={this.validateEmail}
                       />
                       {errors.email && touched.email && (

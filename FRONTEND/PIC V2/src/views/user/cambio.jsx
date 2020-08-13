@@ -60,12 +60,12 @@ export default class Cambio extends Component {
           {
             email: this.state.form.email,
             password: cifrar(this.state.form.password),
-            secretPassword: cifrar(this.state.form.secretPassword)
+            secretPassword: cifrar(this.state.form.secretPassword),
           }
         )
           .then(async () => {
             localStorage.removeItem("cambio");
-            localStorage.setItem("email",this.state.form.email)
+            localStorage.setItem("email", this.state.form.email);
             this.setState({ loading: false });
             await this.props.history.push("/app");
           })
