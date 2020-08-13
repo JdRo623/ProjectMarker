@@ -20,12 +20,12 @@ const Footer = () => {
             </Colxx>
             <Colxx xxs="4" sm="4">
               <center>
-                <img className="mb-0" src={unal} width="150" height="70" />
+                <img className="mb-0" src={unal} width="160" height="70" />
               </center>
             </Colxx>
             <Colxx xxs="4" sm="4">
               <center>
-                <img className="mb-0" src={logoDian} width="150" height="68" />
+                <img className="mb-0" src={logoDian} width="200" height="68" />
               </center>
             </Colxx>
           </Row>

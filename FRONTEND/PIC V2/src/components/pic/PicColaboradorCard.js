@@ -94,7 +94,7 @@ const PicColaboradorCard = (props) => {
                   <tr>
                     <td className="align-middle">
                       <center>
-                        <img src={logo} width="200" height="90" />
+                        <img src={logo} width="205" height="75" />
                       </center>
                     </td>
                   </tr>

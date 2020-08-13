@@ -136,7 +136,7 @@ class Login extends Component {
                     <td className="align-middle">
                       <center>
                         {" "}
-                        <img src={logoDian} width="200" height="90" />{" "}
+                        <img src={logoDian} width="205" height="75" />{" "}
                       </center>
                     </td>{" "}
                   </tr>{" "}

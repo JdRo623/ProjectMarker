@@ -12,7 +12,7 @@ class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "funcionario@correo.dian.com",
+      email: "",
     };
   }
 
@@ -98,6 +98,7 @@ class ForgotPassword extends Component {
                       <Field
                         className="form-control"
                         name="email"
+                        placeholder="funcionario@correo.com"
                         validate={this.validateEmail}
                       />
                       {errors.email && touched.email && (
