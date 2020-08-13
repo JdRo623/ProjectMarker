@@ -213,7 +213,7 @@ function generarRutaAprendizaje(req, res) {
                               competencia.listado_cursos_basicos.push({
                                 idCurso: cursoEncontrado.consecutivo,
                                 nombreCurso: cursoEncontrado.nombre_actividad,
-                                colorEstado: "warning", //success - warning - danger
+                                colorEstado: "#65B1D9", //success - #65B1D9 - #F0D133
                                 estado: "Cursando", // Por Cursar - Cursando - Aprobado
                               });
                               break;
@@ -221,7 +221,7 @@ function generarRutaAprendizaje(req, res) {
                               competencia.listado_cursos_medios.push({
                                 idCurso: cursoEncontrado.consecutivo,
                                 nombreCurso: cursoEncontrado.nombre_actividad,
-                                colorEstado: "danger", //success - warning - danger
+                                colorEstado: "#F0D133", //#63bc5f - #65B1D9 - #F0D133
                                 estado: "Por Cursar", // Por Cursar - Cursando - Aprobado
                               });
                               break;
@@ -229,7 +229,7 @@ function generarRutaAprendizaje(req, res) {
                               competencia.listado_cursos_altos.push({
                                 idCurso: cursoEncontrado.consecutivo,
                                 nombreCurso: cursoEncontrado.nombre_actividad,
-                                colorEstado: "danger",
+                                colorEstado: "#F0D133",
                                 estado: "Por Cursar",
                               });
                               break;
@@ -237,7 +237,7 @@ function generarRutaAprendizaje(req, res) {
                               competencia.listado_cursos_superiores.push({
                                 idCurso: cursoEncontrado.consecutivo,
                                 nombreCurso: cursoEncontrado.nombre_actividad,
-                                colorEstado: "danger",
+                                colorEstado: "#F0D133",
                                 estado: "Por Cursar",
                               });
                               break;
@@ -302,32 +302,32 @@ function generarRutaAprendizaje(req, res) {
                                         competencia.categorizada = "Categorizada";
                                         competencia.listado_cursos_basicos.forEach(
                                           (cursosCambiar) => {
-                                            cursosCambiar.colorEstado = "warning";
+                                            cursosCambiar.colorEstado = "#65B1D9";
                                             cursosCambiar.estado = "Cursando";
                                           }
                                         );
                                         competencia.listado_cursos_medios.forEach(
                                           (cursosCambiar) => {
-                                            cursosCambiar.colorEstado = "danger";
+                                            cursosCambiar.colorEstado = "#F0D133";
                                             cursosCambiar.estado = "Por Cursar";
                                           }
                                         );
                                         competencia.listado_cursos_altos.forEach(
                                           (cursosCambiar) => {
-                                            cursosCambiar.colorEstado = "danger";
+                                            cursosCambiar.colorEstado = "#F0D133";
                                             cursosCambiar.estado = "Por Cursar";
                                           }
                                         );
                                         competencia.listado_cursos_superiores.forEach(
                                           (cursosCambiar) => {
-                                            cursosCambiar.colorEstado = "danger";
+                                            cursosCambiar.colorEstado = "#F0D133";
                                             cursosCambiar.estado = "Por Cursar";
                                           }
                                         );
                                       } else {
                                         competencia.listado_cursos_basicos.forEach(
                                           (cursosCambiar) => {
-                                            cursosCambiar.colorEstado = "success";
+                                            cursosCambiar.colorEstado = "#63bc5f";
                                             cursosCambiar.estado = "Aprobado";
                                           }
                                         );
@@ -342,26 +342,26 @@ function generarRutaAprendizaje(req, res) {
                                         competencia.categorizada = "Categorizada";
                                         competencia.listado_cursos_medios.forEach(
                                           (cursosCambiar) => {
-                                            cursosCambiar.colorEstado = "warning";
+                                            cursosCambiar.colorEstado = "#65B1D9";
                                             cursosCambiar.estado = "Cursando";
                                           }
                                         );
                                         competencia.listado_cursos_altos.forEach(
                                           (cursosCambiar) => {
-                                            cursosCambiar.colorEstado = "danger";
+                                            cursosCambiar.colorEstado = "#F0D133";
                                             cursosCambiar.estado = "Por Cursar";
                                           }
                                         );
                                         competencia.listado_cursos_superiores.forEach(
                                           (cursosCambiar) => {
-                                            cursosCambiar.colorEstado = "danger";
+                                            cursosCambiar.colorEstado = "#F0D133";
                                             cursosCambiar.estado = "Por Cursar";
                                           }
                                         );
                                       } else {
                                         competencia.listado_cursos_basicos.forEach(
                                           (cursosCambiar) => {
-                                            cursosCambiar.colorEstado = "success";
+                                            cursosCambiar.colorEstado = "#63bc5f";
                                             cursosCambiar.estado = "Aprobado";
                                           }
                                         );
@@ -376,20 +376,20 @@ function generarRutaAprendizaje(req, res) {
                                         competencia.categorizada = "Categorizada";
                                         competencia.listado_cursos_altos.forEach(
                                           (cursosCambiar) => {
-                                            cursosCambiar.colorEstado = "warning";
+                                            cursosCambiar.colorEstado = "#65B1D9";
                                             cursosCambiar.estado = "Cursando";
                                           }
                                         );
                                         competencia.listado_cursos_superiores.forEach(
                                           (cursosCambiar) => {
-                                            cursosCambiar.colorEstado = "danger";
+                                            cursosCambiar.colorEstado = "#F0D133";
                                             cursosCambiar.estado = "Por Cursar";
                                           }
                                         );
                                       } else {
                                         competencia.listado_cursos_basicos.forEach(
                                           (cursosCambiar) => {
-                                            cursosCambiar.colorEstado = "success";
+                                            cursosCambiar.colorEstado = "#63bc5f";
                                             cursosCambiar.estado = "Aprobado";
                                           }
                                         );
@@ -404,14 +404,14 @@ function generarRutaAprendizaje(req, res) {
                                         competencia.categorizada = "Categorizada";
                                         competencia.listado_cursos_superiores.forEach(
                                           (cursosCambiar) => {
-                                            cursosCambiar.colorEstado = "warning";
+                                            cursosCambiar.colorEstado = "#65B1D9";
                                             cursosCambiar.estado = "Cursando";
                                           }
                                         );
                                       } else {
                                         competencia.listado_cursos_basicos.forEach(
                                           (cursosCambiar) => {
-                                            cursosCambiar.colorEstado = "success";
+                                            cursosCambiar.colorEstado = "#63bc5f";
                                             cursosCambiar.estado = "Aprobado";
                                           }
                                         );

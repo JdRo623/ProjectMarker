@@ -41,15 +41,18 @@ function homologacion(req, res) {
                   users.push((row.getCell(1).value + "").trim());
                 }
 
-                switch (homologacion.estado) {
+                switch (homologacion.estado.trim()) {
                   case "Por Cursar":
-                    homologacion.colorEstado = "danger";
+                    homologacion.colorEstado = "#F0D133";
                     break;
                   case "Aprobado":
-                    homologacion.colorEstado = "success";
+                    homologacion.colorEstado = "#63bc5f";
                     break;
+                  case "Reprobado":
+                      homologacion.colorEstado = "#F25C54";
+                      break;
                   default:
-                    homologacion.colorEstado = "warning";
+                    homologacion.colorEstado = "#65B1D9";
                     break;
                 }
 

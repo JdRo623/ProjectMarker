@@ -37,7 +37,7 @@ class Reportes extends Component {
           <Colxx xxs="12" lg="6" xl="6" className="mb-3">
             <PicReporteComponent
               titulo={"Listado de las Respuestas del cuestionario Sección I"}
-              reporte={ constantes.urlServer + constantes.servicios.reporte_Cuestionario}
+              reporte={ constantes.urlServer + constantes.servicios.reporte_Cuestionarioi}
               filtros={{name : "Reporte preguntas seccion I",seccion: "I"}}            />
           </Colxx>
           <Colxx xxs="12" lg="6" xl="6" className="mb-3">
@@ -45,7 +45,7 @@ class Reportes extends Component {
               titulo={
                 "Listado de las Respuestas del cuestionario Sección II"
               }
-              reporte={ constantes.urlServer + constantes.servicios.reporte_Cuestionario}
+              reporte={ constantes.urlServer + constantes.servicios.reporte_Cuestionarioii}
               filtros={{name :"Reporte preguntas seccion II",seccion: "II"}}            />
           </Colxx>
         </Row>
@@ -53,7 +53,7 @@ class Reportes extends Component {
           <Colxx xxs="12" lg="6" xl="6" className="mb-3">
             <PicReporteComponent
               titulo={"Listado de las Respuestas del cuestionario Sección III"}
-              reporte={ constantes.urlServer + constantes.servicios.reporte_Cuestionario}
+              reporte={ constantes.urlServer + constantes.servicios.reporte_Cuestionarioiii}
               filtros={{name : "Reporte preguntas seccion III",seccion: "III"}}            />
           </Colxx>
         </Row>
