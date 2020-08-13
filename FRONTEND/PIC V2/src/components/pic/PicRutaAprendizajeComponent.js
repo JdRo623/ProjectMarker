@@ -27,51 +27,89 @@ class PicRutaAprendizajeComponent extends React.Component {
         <div className="disable-text-selection">
           <Row>
             <Colxx xxs="12">
-              <Card style={{ borderRadius: 10, background: "#191b32" }}>
+              <Card style={{ borderRadius: 10, background: "#2b2d45" }}>
                 <CardBody>
-                <h3
+                  <div
                     style={{
                       borderRadius: "0.25em",
-                      color: "white",
                       border: "1px solid white",
                       padding: "0.5em",
                     }}
                   >
-                    Representación de colores
-                    <h4 style={{ color: "#ffff00" }}>Cursando</h4>
-                    <h4 style={{ color: "#ffff00" }}>Reprobado</h4>
-                    <h4 style={{ color: "#dc3545" }}>Por Cursar</h4>
-                    <h4 style={{ color: "#43cc6f" }}>Aprobado</h4>
-                  </h3>
-                  <Table
-                    responsive
-                    style={{ borderRadius: 10, background: "#191b32" }}
-                  >
+                    <h3
+                      style={{
+                        color: "white",
+                        padding: "0.5em",
+                      }}
+                    >
+                      Representación de colores
+                    </h3>
+                    <div className="row">
+                      <h4
+                        style={{
+                          color: "#F25C54",
+                          margin: "auto",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        Reprobado
+                      </h4>
+                      <h4
+                        style={{
+                          color: "#F0D133",
+                          margin: "auto",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        Por Cursar
+                      </h4>
+                      <h4
+                        style={{
+                          color: "#65B1D9",
+                          margin: "auto",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        Cursando
+                      </h4>
+                      <h4
+                        style={{
+                          color: "#63bc5f",
+                          margin: "auto",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        Aprobado
+                      </h4>
+                    </div>
+                  </div>
+
+                  <Table responsive style={{ borderRadius: 1 }}>
                     <thead>
                       <tr>
                         <th>
                           <center>
-                            <h4 style={{ color: "#FFFFFF" }}>Competencia</h4>
+                            <h4 style={{ color: "white" }}>Competencia</h4>
                           </center>
                         </th>
                         <th>
                           <center>
-                            <h4 style={{ color: "#FFFFFF" }}>Basico</h4>
+                            <h4 style={{ color: "white" }}>Basico</h4>
                           </center>
                         </th>
                         <th>
                           <center>
-                            <h4 style={{ color: "#FFFFFF" }}>Medio</h4>
+                            <h4 style={{ color: "white" }}>Medio</h4>
                           </center>
                         </th>
                         <th>
                           <center>
-                            <h4 style={{ color: "#FFFFFF" }}>Alto</h4>
+                            <h4 style={{ color: "white" }}>Alto</h4>
                           </center>
                         </th>
                         <th>
                           <center>
-                            <h4 style={{ color: "#FFFFFF" }}>Superior</h4>
+                            <h4 style={{ color: "white" }}>Superior</h4>
                           </center>
                         </th>
                       </tr>
@@ -83,7 +121,12 @@ class PicRutaAprendizajeComponent extends React.Component {
                             <tr>
                               <td className="align-middle">
                                 <center>
-                                  <p style={{ color: "#FFFFFF" }}>
+                                  <p
+                                    style={{
+                                      color: "white",
+                                      textAlign: "justify",
+                                    }}
+                                  >
                                     {competencia.nombreCompetencia}
                                   </p>
                                 </center>

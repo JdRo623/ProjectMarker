@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useRef , useEffect } from "react";
+import React, { Fragment, useState, useRef, useEffect } from "react";
 import RutaAprendizajeMock from "../../../data/pic/rutaApredizajeMock";
 import ReactToPrint from "react-to-print";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
@@ -24,19 +24,18 @@ import HttpUtil from "../../../util/HttpService.js";
 export default function RutaAprendizajeColaborador(props) {
   const [componentRef, setComponent] = useState(useRef());
   const [modal, setModal] = useState(false);
-  const [ruta, setRuta] =useState({
-    
-    listado_competencias:[]
-  })
+  const [ruta, setRuta] = useState({
+    listado_competencias: [],
+  });
   useEffect(() => {
     obtenerRutaAprendizaje();
   }, []);
 
-
   const obtenerRutaAprendizaje = () => {
     try {
       setModal(true);
-      const url = constantes.urlServer + constantes.servicios.obtenerRutaAprendizaje;
+      const url =
+        constantes.urlServer + constantes.servicios.obtenerRutaAprendizaje;
       const filtros = {
         email: localStorage.getItem("email"),
       };
@@ -46,7 +45,7 @@ export default function RutaAprendizajeColaborador(props) {
         filtros,
         (response) => {
           console.log(response.data);
-          setRuta(response.data)
+          setRuta(response.data);
           setModal(false);
         },
         () => {
@@ -68,10 +67,10 @@ export default function RutaAprendizajeColaborador(props) {
         </Modal>
       </div>
       <Row>
-        <Colxx xxs="8" lg="10" xl="11" className="mb-3">
+        <Colxx xxs="8" lg="9" xl="10" className="mb-3">
           <h1>Ruta de aprendizaje</h1>
         </Colxx>
-        <Colxx xxs="4" lg="2" xl="1" className="mb-3">
+        <Colxx xxs="4" lg="3" xl="2" className="mb-3">
           <ReactToPrint
             trigger={() => <Button color="primary">Imprimir Ruta</Button>}
             content={() => componentRef.current}
@@ -82,9 +81,9 @@ export default function RutaAprendizajeColaborador(props) {
       <Separator className="mb-5" />
 
       <Row>
-        <Colxx xxs="12" lg="12" xl="12" className="mb-3"  >
+        <Colxx xxs="12" lg="12" xl="12" className="mb-3">
           <PicRutaAprendizajeComponent
-           ref={componentRef}
+            ref={componentRef}
             rutaAprendizaje={ruta}
           />
         </Colxx>

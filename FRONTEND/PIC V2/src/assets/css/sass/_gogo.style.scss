@@ -93,8 +93,8 @@ $theme-color-orange: #e2863b;
 $theme-color-red: #880a1f;
 
 $info-color: #2b2d45;
-$success-color: #82d58e;
-$warning-color: #f4ff61;
+$success-color: #63bc5f;
+$warning-color: #F0D133;
 $error-color: #F25C54;
 $dian-blue-color: #2b2d45;
 $dian-green-color: #63bc5f;
@@ -137,7 +137,7 @@ html {
 }
 body {
     font-family: "BrandonTextWeb-Regular", sans-serif;
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     font-weight: 500;
     color: $primary-color;
     background: $background-color;
@@ -163,6 +163,7 @@ body {
 .fixed-background {
     background: url("/assets/img/fondo.png") no-repeat center center fixed;
     background-size: cover;
+    background-color: $dian-blue-color;
     width: 100%;
     height: 100%;
     position: fixed;
@@ -200,7 +201,7 @@ h3 {
 }
 
 h3 {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 
     @include respond-below(sm) {
         font-size: 1.4rem;
@@ -208,7 +209,7 @@ h3 {
 }
 
 h4 {
-    font-size: 1.15rem;
+    font-size: 1.4rem;
 
     @include respond-below(sm) {
         font-size: 0.9rem;
@@ -216,7 +217,7 @@ h4 {
 }
 
 h5 {
-    font-size: 1.15rem;
+    font-size: 1.4rem;
 
     @include respond-below(sm) {
         font-size: 0.9rem;
@@ -434,7 +435,7 @@ p {
 }
 
 .text-semi-muted {
-    color: $secondary-color !important;
+    color: $muted-color !important;
 }
 
 .font-weight-medium {
@@ -605,7 +606,7 @@ button {
     outline: initial !important;
     box-shadow: none !important;
     box-shadow: initial !important;
-    font-size: 0.8rem;
+    font-size: 1.4rem;
     padding: 0.75rem 1.7rem 0.6rem;
     transition: background-color box-shadow 0.1s linear;
 }
@@ -1340,6 +1341,7 @@ button {
 
     &.badge-pill {
         padding-right: 1.25em;
+        font-size: 1.2rem;
         padding-left: 1.25em;
     }
 
@@ -1657,7 +1659,7 @@ button {
         text-align: center;
 
         svg {
-            height: 12px;
+            height: 1.4rem;
         }
 
         .main {
@@ -1766,6 +1768,7 @@ button {
 
         input {
             border: initial;
+
             background: transparent;
             outline: initial !important;
             padding: 0.5rem 1.4rem;
@@ -1862,7 +1865,7 @@ button {
     }
 
     .header-icon {
-        font-size: 16px;
+        font-size: 1.4rem;
         color: $secondary-color;
         padding-left: 0.6rem;
         padding-right: 0.6rem;
@@ -2078,8 +2081,8 @@ button {
             height: calc(100% - #{$navbar-height-xs});
 
             ul li i {
-                font-size: 28px;
-                line-height: 38px;
+                font-size: 1.5rem;
+                line-height: 1.7rem;
             }
 
             ul li a {
@@ -3928,7 +3931,7 @@ div[data-notify="container"] {
 
 .form-control:focus {
     background: $input-background;
-    color: $primary-color;
+    color: $dian-blue-color;
 }
 
 .bootstrap-tagsinput {
@@ -3940,7 +3943,7 @@ div[data-notify="container"] {
 }
 
 .form-control:focus {
-    border-color: rgba($dian-blue-color, 0.6);
+    border-color: rgba($dian-green-color, 0.6);
 }
 
 select.form-control:not([size]):not([multiple]) {
@@ -4810,13 +4813,13 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 .form-control {
-    border-radius: $border-radius;
+    border-radius: 40rem;
     outline: initial !important;
     box-shadow: initial !important;
     font-size: 0.8rem;
     padding: 0.75rem;
     line-height: 1.5;
-    border: 1px solid $separator-color;
+    border: 1px solid $dian-green-color;
     background: $input-background;
     color: $primary-color;
     height: initial;
@@ -5596,7 +5599,7 @@ input:-webkit-autofill {
         margin-bottom: 0.5rem;
 
         @include respond-below(lg) {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             margin-bottom: 0.2rem;
         }
     }
@@ -5633,7 +5636,7 @@ input:-webkit-autofill {
             font-weight: 300;
 
             @include respond-below(lg) {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
                 margin-bottom: 0.2rem;
             }
         }
@@ -5875,6 +5878,8 @@ input:-webkit-autofill {
 /* 31.Authorization */
 .auth-card {
     display: flex;
+    border-radius: 5rem;
+    box-shadow: inset;
     flex-direction: row;
     @include depth(1);
 
@@ -6819,7 +6824,7 @@ input:-webkit-autofill {
 
         a {
             color: $secondary-color;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
 
             &:hover,
             &:active {
@@ -7414,6 +7419,8 @@ i.large-icon {
     }
 
     .dropdown-menu-right {
+        border-radius: 1px;
+        border-color: pink;
         right: initial !important;
         left: 0 !important;
     }
@@ -8683,8 +8690,8 @@ footer.page-footer {
 
     @include respond-below(xs) {
         height: 60px;
-        padding-top: 1.2rem;
-        padding-bottom: 1.2rem;
+        padding-top: 1.4rem;
+        padding-bottom: 1.4rem;
     }
 
     .breadcrumb-item + .breadcrumb-item::before {

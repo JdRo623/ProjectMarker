@@ -478,8 +478,11 @@ class Sidebar extends Component {
                                                 rel="noopener noreferrer"
                                                 target="_blank"
                                               >
-                                               
-                                                <h6> <i className={thirdSub.icon} />{" "}
+                                                <h6>
+                                                  {" "}
+                                                  <i
+                                                    className={thirdSub.icon}
+                                                  />{" "}
                                                   <IntlMessages
                                                     id={thirdSub.label}
                                                   />
@@ -487,8 +490,11 @@ class Sidebar extends Component {
                                               </a>
                                             ) : (
                                               <NavLink to={thirdSub.to}>
-                                               
-                                                <h6> <i className={thirdSub.icon} />{" "}
+                                                <h6>
+                                                  {" "}
+                                                  <i
+                                                    className={thirdSub.icon}
+                                                  />{" "}
                                                   <IntlMessages
                                                     id={thirdSub.label}
                                                   />
@@ -503,8 +509,9 @@ class Sidebar extends Component {
                                 </Fragment>
                               ) : (
                                 <NavLink to={sub.to}>
-                                
-                                  <h6>  <i className={sub.icon} />{" "}
+                                  <h6>
+                                    {" "}
+                                    <i className={sub.icon} />{" "}
                                     <IntlMessages id={sub.label} />
                                   </h6>
                                 </NavLink>

@@ -5,13 +5,11 @@ import {
   DropdownItem,
   DropdownToggle,
   DropdownMenu,
-  Input,
 } from "reactstrap";
 
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 
-import IntlMessages from "../../helpers/IntlMessages";
 import {
   setContainerClassnames,
   clickOnMobileMenu,
@@ -22,14 +20,9 @@ import {
 import {
   menuHiddenBreakpoint,
   searchPath,
-  localeOptions,
-  isDarkSwitchActive,
 } from "../../constants/defaultValues";
 
 import { MobileMenuIcon, MenuIcon } from "../../components/svg";
-import TopnavEasyAccess from "./Topnav.EasyAccess";
-import TopnavNotifications from "./Topnav.Notifications";
-import TopnavDarkSwitch from "./Topnav.DarkSwitch";
 
 import { getDirection, setDirection } from "../../helpers/Utils";
 
@@ -40,7 +33,10 @@ class TopNav extends Component {
     this.state = {
       isInFullScreen: false,
       searchKeyword: "",
-      hStyle: { color: "white" },
+      hStyle: {
+        color: "white",
+        fontSize: "1.2rem",
+      },
     };
   }
 
@@ -264,7 +260,7 @@ class TopNav extends Component {
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>
                 <DropdownItem onClick={() => this.handleLogout()}>
-                  Cerrar Sesión
+                  <h2 className="text-one">Cerrar Sesión</h2>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

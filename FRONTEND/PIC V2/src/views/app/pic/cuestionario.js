@@ -258,7 +258,8 @@ export default function Cuestionario(props) {
   const crearRutaAprendizaje = () => {
     try {
       setModal(true);
-      const url = constantes.urlServer + constantes.servicios.generarRutaAprendizaje;
+      const url =
+        constantes.urlServer + constantes.servicios.generarRutaAprendizaje;
       const filtros = {
         email: localStorage.getItem("email"),
       };

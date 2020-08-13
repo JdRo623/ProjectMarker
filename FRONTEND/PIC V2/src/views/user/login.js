@@ -145,7 +145,7 @@ class Login extends Component {
                     <td className="align-middle">
                       <center>
                         {" "}
-                        <img src={unal} width="200" height="100" />
+                        <img src={unal} width="200" height="90" />
                       </center>{" "}
                     </td>{" "}
                   </tr>{" "}
@@ -193,7 +193,6 @@ class Login extends Component {
                                 <IntlMessages id="user.password" />
                               </Label>
                               <Field
-                                round
                                 className="form-control"
                                 type="password"
                                 name="password"
@@ -210,7 +209,7 @@ class Login extends Component {
                               <NavLink to={`/user/forgot-password`}>
                                 <IntlMessages
                                   id="user.forgot-password-question"
-                                  className="text-semi-muted"
+                                  className="text-muted"
                                 />
                               </NavLink>
                               <Button

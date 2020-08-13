@@ -94,21 +94,21 @@ const PicColaboradorCard = (props) => {
                   <tr>
                     <td className="align-middle">
                       <center>
-                        <img src={logo} width="200" height="100" />
+                        <img src={logo} width="200" height="90" />
                       </center>
                     </td>
                   </tr>
                   <tr>
                     <td className="align-middle">
                       <center>
-                        <img src={unal} width="195" height="100" />
+                        <img src={unal} width="200" height="90" />
                       </center>
                     </td>
                   </tr>
                   <tr>
                     <td className="align-middle">
                       <center>
-                        <img src={estudiando} width="170" height="170" />
+                        <img src={estudiando} width="150" height="150" />
                       </center>
                     </td>
                   </tr>
@@ -121,24 +121,22 @@ const PicColaboradorCard = (props) => {
                   <tr>
                     <td className="align-middle">
                       <h2 className="text-left">{nombres + " " + apellidos}</h2>
-                      <p className="text-muted text-small mb-2">Cedula:</p>
+                      <p className="text-muted  mb-2">Cedula:</p>
                       <p className="mb-3">{Cedula}</p>
                       <p className="text-muted mb-2">Dirección o Seccional:</p>
                       <p className="mb-3">{nivel2}</p>
-                      <p className="text-muted text-small mb-2">
+                      <p className="text-muted  mb-2">
                         Subdirección o División:
                       </p>
                       <p className="mb-3">{nivel3}</p>
-                      <p className="text-muted text-small mb-2">
+                      <p className="text-muted  mb-2">
                         Grupo interno de trabajo, Coordinación o Punto de
                         contacto:
                       </p>
                       <p className="mb-3">{nivel4}</p>
-                      <p className="text-muted text-small mb-2">Cargo:</p>
+                      <p className="text-muted mb-2">Cargo:</p>
                       <p className="mb-3">{cargo}</p>
-                      <p className="text-muted text-small mb-2">
-                        Estado Cuestionario:
-                      </p>
+                      <p className="text-muted  mb-2">Estado Cuestionario:</p>
                       <p className="mb-3">
                         <Badge
                           color="outline-secondary"
