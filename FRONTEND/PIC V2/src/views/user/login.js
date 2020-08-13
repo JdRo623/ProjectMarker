@@ -7,6 +7,7 @@ import {
   FormGroup,
   Button,
   Table,
+  Col,
 } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
@@ -19,7 +20,7 @@ import { Colxx } from "../../components/common/CustomBootstrap";
 import IntlMessages from "../../helpers/IntlMessages";
 
 import logo from "../../assets/img/estudiando-logo.svg";
-import logoDian from "../../assets/img/logo-dian-principal.png";
+import logoDian from "../../assets/img/logo-dian-principal_recortado.png";
 import unal from "../../assets/img/unal-logo.png";
 
 import constantes from "../../util/Constantes";
@@ -124,7 +125,7 @@ class Login extends Component {
   render() {
     return (
       <Row className="h-100">
-        <Colxx xxs="12" md="8" className="mx-auto my-auto">
+        <Colxx xxs="15" md="10" className="mx-auto my-auto ">
           <Card className="auth-card">
             <div className="position-relative image-side ">
               <Table style={{ height: "100%" }}>
@@ -135,7 +136,7 @@ class Login extends Component {
                     <td className="align-middle">
                       <center>
                         {" "}
-                        <img src={logoDian} width="200" height="150" />{" "}
+                        <img src={logoDian} width="200" height="90" />{" "}
                       </center>
                     </td>{" "}
                   </tr>{" "}
@@ -144,7 +145,7 @@ class Login extends Component {
                     <td className="align-middle">
                       <center>
                         {" "}
-                        <img src={unal} width="180" height="100" />
+                        <img src={unal} width="200" height="100" />
                       </center>{" "}
                     </td>{" "}
                   </tr>{" "}
@@ -165,13 +166,13 @@ class Login extends Component {
                 <tbody>
                   <tr>
                     <td className="align-middle">
-                      <CardTitle className="mb-4">
+                      {/* <CardTitle className="mb-4">
                         <IntlMessages id="user.login-title" />
-                      </CardTitle>
+                      </CardTitle> */}
                       <Formik onSubmit={this.onUserLogin}>
                         {({ errors, touched }) => (
                           <Form className="av-tooltip tooltip-label-bottom">
-                            <FormGroup className="form-group has-float-label">
+                            <FormGroup className="form-group">
                               <Label>
                                 <IntlMessages id="user.email" />
                               </Label>
@@ -187,11 +188,12 @@ class Login extends Component {
                                 </div>
                               )}
                             </FormGroup>
-                            <FormGroup className="form-group has-float-label">
+                            <FormGroup className="form-group">
                               <Label>
                                 <IntlMessages id="user.password" />
                               </Label>
                               <Field
+                                round
                                 className="form-control"
                                 type="password"
                                 name="password"
@@ -206,7 +208,10 @@ class Login extends Component {
                             </FormGroup>
                             <div className="d-flex justify-content-between align-items-center">
                               <NavLink to={`/user/forgot-password`}>
-                                <IntlMessages id="user.forgot-password-question" />
+                                <IntlMessages
+                                  id="user.forgot-password-question"
+                                  className="text-semi-muted"
+                                />
                               </NavLink>
                               <Button
                                 color="primary"

@@ -18,7 +18,7 @@ import {
 import { Colxx } from "../../components/common/CustomBootstrap";
 
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/img/logo-dian-principal.png";
+import logo from "../../assets/img/logo-dian-principal_recortado.png";
 import estudiando from "../../assets/img/estudiando-logo.png";
 import unal from "../../assets/img/unal-logo.png";
 
@@ -94,21 +94,21 @@ const PicColaboradorCard = (props) => {
                   <tr>
                     <td className="align-middle">
                       <center>
-                        <img src={logo} width="200" height="150" />
+                        <img src={logo} width="200" height="100" />
                       </center>
                     </td>
                   </tr>
                   <tr>
                     <td className="align-middle">
                       <center>
-                        <img src={unal} width="180" height="100" />
+                        <img src={unal} width="195" height="100" />
                       </center>
                     </td>
                   </tr>
                   <tr>
                     <td className="align-middle">
                       <center>
-                        <img src={estudiando} width="150" height="150" />
+                        <img src={estudiando} width="170" height="170" />
                       </center>
                     </td>
                   </tr>
@@ -123,9 +123,7 @@ const PicColaboradorCard = (props) => {
                       <h2 className="text-left">{nombres + " " + apellidos}</h2>
                       <p className="text-muted text-small mb-2">Cedula:</p>
                       <p className="mb-3">{Cedula}</p>
-                      <p className="text-muted text-small mb-2">
-                        Dirección o Seccional:
-                      </p>
+                      <p className="text-muted mb-2">Dirección o Seccional:</p>
                       <p className="mb-3">{nivel2}</p>
                       <p className="text-muted text-small mb-2">
                         Subdirección o División:
