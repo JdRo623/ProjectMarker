@@ -450,6 +450,8 @@ const preguntasMock = [
 
 
 ]
+
+
 module.exports = {
     preguntasMock:preguntasMock
-  };
+};

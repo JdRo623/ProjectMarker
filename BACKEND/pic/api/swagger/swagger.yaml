@@ -746,11 +746,39 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
-  /reporte_Cuestionario:
+  /reporte_Cuestionarioi:
       x-swagger-router-controller: reportes_controller
       post:
         description: Generar reporte de preguntas del cuestionario
-        operationId: preguntas_Usuario
+        operationId: preguntas_Usuarioi
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /reporte_Cuestionarioii:
+      x-swagger-router-controller: reportes_controller
+      post:
+        description: Generar reporte de preguntas del cuestionario
+        operationId: preguntas_Usuarioii
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /reporte_Cuestionarioiii:
+      x-swagger-router-controller: reportes_controller
+      post:
+        description: Generar reporte de preguntas del cuestionario
+        operationId: preguntas_Usuarioiii
         responses:
           "200":
             description: Success
