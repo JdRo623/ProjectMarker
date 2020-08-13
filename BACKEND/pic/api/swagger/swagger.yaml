@@ -782,6 +782,12 @@ paths:
         responses:
           "200":
             description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /reporte_Rutas:
       x-swagger-router-controller: reportes_controller
       post:
