@@ -394,25 +394,27 @@ function preguntas_Usuarioiii(req, res) {
               for (let usuario of usuarios) {
                 if (usuario) {                  
                     for (let pregunta of  element.listado_preguntas){ 
-                      let preguntaBus = await preguntashandler.findOne({numero_pregunta:pregunta.id_pregunta});                                                                              
-                      let registro = {
-                        codigo_cuestionario: element._id,
-                        identificacion: usuario.id_colaborador,
-                        apellidos_funcionario: tools.decrypt(usuario.nombres),
-                        nombre_funcionario: tools.decrypt(usuario.apellidos),
-                        cargo: tools.decrypt(usuario.cargo),
-                        nivel1: tools.decrypt(usuario.nivel1),
-                        nivel2: tools.decrypt(usuario.nivel2),
-                        nivel3: tools.decrypt(usuario.nivel3),
-                        correo: (usuario.email),
-                        seccion: "seccion III",                        
-                        codigo_pregunta: pregunta.id_pregunta, 
-                        situacion:  preguntaBus.situacionProblema, 
-                        enunciado: preguntaBus.encabezadoPregunta,                      
-                        enunciado_respuesta: pregunta.valor_respuesta,
-                        estado: pregunta.estado_respuesta,
-                      };
-                      listado.push(registro);                     
+                      preguntashandler.findOne({numero_pregunta:pregunta.id_pregunta},(err,preguntaBus)=>{
+                        let registro = {
+                          codigo_cuestionario: element._id,
+                          identificacion: usuario.id_colaborador,
+                          apellidos_funcionario: tools.decrypt(usuario.nombres),
+                          nombre_funcionario: tools.decrypt(usuario.apellidos),
+                          cargo: tools.decrypt(usuario.cargo),
+                          nivel1: tools.decrypt(usuario.nivel1),
+                          nivel2: tools.decrypt(usuario.nivel2),
+                          nivel3: tools.decrypt(usuario.nivel3),
+                          correo: (usuario.email),
+                          seccion: "seccion III",                        
+                          codigo_pregunta: pregunta.id_pregunta, 
+                          situacion:  preguntaBus.situacionProblema, 
+                          enunciado: preguntaBus.encabezadoPregunta,                      
+                          enunciado_respuesta: pregunta.valor_respuesta,
+                          estado: pregunta.estado_respuesta,
+                        };
+                        listado.push(registro); 
+                      });                                                           
+                                          
                     };
                     for (let pregunta of  element.listado_preguntas_seccion_iii){ 
                       for (let preguntam of preguntasiiihandler.preguntasMock){
