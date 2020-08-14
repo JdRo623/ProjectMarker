@@ -102,7 +102,7 @@ function actualizarPreguntaIII(req, res) {
   try {
     var actu = async (req, res) => {
       var dec = tools.decryptJson(req.body.data);
-      var fecha = tools.getFechaActual()
+      var fecha = tools.getFechaActual();
       cuestionarioHandler.findOne(
         { email: dec.data.email },
         (err, cuestionarioBuscado) => {
@@ -128,9 +128,9 @@ function actualizarPreguntaIII(req, res) {
               }
             }
           );
-          if(dec.data.id_pregunta == "3.16"){
-            cuestionarioBuscado.estado_cuestionario = "Terminado"
-            fecha_Finalizacion = fecha
+          if (dec.data.id_pregunta == "3.16") {
+            cuestionarioBuscado.estado_cuestionario = "Terminado";
+            cuestionarioBuscado.fecha_Finalizacion = fecha;
           }
           cuestionarioHandler
             .updateOne({ email: dec.data.email }, cuestionarioBuscado)
@@ -1029,7 +1029,10 @@ function CuestionarioConsulta(req, res) {
                           newCuestionario
                         );
                         var temp = "";
-                        newCuestionario.listado_competencias.sort(function (a, b) {
+                        newCuestionario.listado_competencias.sort(function (
+                          a,
+                          b
+                        ) {
                           if (a.nombreCompetencia < b.nombreCompetencia) {
                             return -1;
                           }
@@ -1039,64 +1042,66 @@ function CuestionarioConsulta(req, res) {
                           return 0;
                         });
                         newCuestionario.listado_competencias.forEach(
-                              (cursoObtenido) => {
-                                temp +=
-                                  "" + cursoObtenido.nombreCompetencia + " - ";
-                              }
-                            );
-                            newCuestionario.listado_competencias = temp;
+                          (cursoObtenido) => {
+                            temp +=
+                              "" + cursoObtenido.nombreCompetencia + " - ";
+                          }
+                        );
+                        newCuestionario.listado_competencias = temp;
 
-                            temp = "";
-                            newCuestionario.listado_cursos.sort(function (a, b) {
-                              if (a.idCurso < b.idCurso) {
-                                return -1;
-                              }
-                              if (a.idCurso > b.idCurso) {
-                                return 1;
-                              }
-                              return 0;
-                            });
-                            newCuestionario.listado_cursos.forEach(
-                              (cursoObtenido) => {
-                                temp += "" + cursoObtenido.idCurso + " - ";
-                              }
-                            );
-                            newCuestionario.listado_cursos = temp;
+                        temp = "";
+                        newCuestionario.listado_cursos.sort(function (a, b) {
+                          if (a.idCurso < b.idCurso) {
+                            return -1;
+                          }
+                          if (a.idCurso > b.idCurso) {
+                            return 1;
+                          }
+                          return 0;
+                        });
+                        newCuestionario.listado_cursos.forEach(
+                          (cursoObtenido) => {
+                            temp += "" + cursoObtenido.idCurso + " - ";
+                          }
+                        );
+                        newCuestionario.listado_cursos = temp;
 
-                            temp = "";
-                            newCuestionario.listado_preguntas.sort(function (a, b) {
-                              if (a.id_pregunta < b.id_pregunta) {
-                                return -1;
-                              }
-                              if (a.id_pregunta > b.id_pregunta) {
-                                return 1;
-                              }
-                              return 0;
-                            });
-                            newCuestionario.listado_preguntas.forEach(
-                              (cursoObtenido) => {
-                                temp += "" + cursoObtenido.id_pregunta + " - ";
-                              }
-                            );
-                            newCuestionario.listado_preguntas = temp;
+                        temp = "";
+                        newCuestionario.listado_preguntas.sort(function (a, b) {
+                          if (a.id_pregunta < b.id_pregunta) {
+                            return -1;
+                          }
+                          if (a.id_pregunta > b.id_pregunta) {
+                            return 1;
+                          }
+                          return 0;
+                        });
+                        newCuestionario.listado_preguntas.forEach(
+                          (cursoObtenido) => {
+                            temp += "" + cursoObtenido.id_pregunta + " - ";
+                          }
+                        );
+                        newCuestionario.listado_preguntas = temp;
 
-                            temp = "";
-                            newCuestionario.listado_preguntas_seccion_iii.sort(function (a, b) {
-                              if (a.id_pregunta < b.id_pregunta) {
-                                return -1;
-                              }
-                              if (a.id_pregunta > b.id_pregunta) {
-                                return 1;
-                              }
-                              return 0;
-                            });
-                            newCuestionario.listado_preguntas_seccion_iii.forEach(
-                              (cursoObtenido) => {
-                                temp += "" + cursoObtenido.id_pregunta + " - ";
-                              }
-                            );
+                        temp = "";
+                        newCuestionario.listado_preguntas_seccion_iii.sort(
+                          function (a, b) {
+                            if (a.id_pregunta < b.id_pregunta) {
+                              return -1;
+                            }
+                            if (a.id_pregunta > b.id_pregunta) {
+                              return 1;
+                            }
+                            return 0;
+                          }
+                        );
+                        newCuestionario.listado_preguntas_seccion_iii.forEach(
+                          (cursoObtenido) => {
+                            temp += "" + cursoObtenido.id_pregunta + " - ";
+                          }
+                        );
 
-                            newCuestionario.listado_preguntas_seccion_iii = temp;
+                        newCuestionario.listado_preguntas_seccion_iii = temp;
 
                         return res.status(200).send({
                           estado: "Exito",
