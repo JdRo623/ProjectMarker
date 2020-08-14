@@ -6,9 +6,7 @@ import { Formik, Form, Field } from "formik";
 const PicEncriptar = (props) => {
   const [textoProcesado, setTextoProcesado] = useState("");
 
-  useEffect(() => {
-    console.log(props.respuestas);
-  });
+  useEffect(() => {});
 
   return (
     <Card>

@@ -56,7 +56,7 @@ export default function PicSeccionPreguntasI(props) {
     if (topNavDisabled) {
       return;
     }
-    console.log(stepItem.id);
+
     push(stepItem.id);
   };
 
@@ -132,8 +132,6 @@ export default function PicSeccionPreguntasI(props) {
     onClickNext(goToNext, steps, step);
   };
   const handleSubmit = (event, errors, values) => {
-    console.log(errors);
-    console.log(values);
     if (errors.length === 0) {
       //submit
     }
@@ -174,7 +172,7 @@ export default function PicSeccionPreguntasI(props) {
                   encabezado="Instrucciones - Sección I"
                   descriptor={
                     <div>
-                      <p>
+                      <p style={{ fontSize: "1.1rem" }}>
                         ¡Haz un reconocimiento de lo que necesitas para hacer un
                         mejor trabajo en la Entidad!{" "}
                       </p>
@@ -190,7 +188,7 @@ export default function PicSeccionPreguntasI(props) {
                   encabezado="Finalización - Sección I"
                   descriptor={
                     <div>
-                      <p>
+                      <p style={{ fontSize: "1.1rem" }}>
                         ¡Ya tienes tu mapa en la mano, ahora vas a sentir la
                         adrenalina de las preguntas para la formulación del PIC!
                       </p>

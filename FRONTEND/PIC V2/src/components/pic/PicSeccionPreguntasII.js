@@ -21,17 +21,21 @@ export default function PicSeccionPreguntasII(props) {
   const [preguntaElegida, setPreguntaElegida] = useState("");
   var contadorPasos = 1;
 
-  const [preguntasCards, setPreguntasCards] = useState(preguntas.map((pregunta) =>
-    <Step id={"" + contadorPasos++} desc="" >
-      <PicPreguntaComponente
-        columna="12"
-        pregunta={pregunta.encabezadoPregunta}
-        descriptor={pregunta.situacionProblema}
-        setElegido={setRespuestaElegida}
-        setIdElegido={setPreguntaElegida}
-        idPregunta={pregunta.idPregunta}
-        respuestas={pregunta.opcionesRespuestas} />
-    </Step>));
+  const [preguntasCards, setPreguntasCards] = useState(
+    preguntas.map((pregunta) => (
+      <Step id={"" + contadorPasos++} desc="">
+        <PicPreguntaComponente
+          columna="12"
+          pregunta={pregunta.encabezadoPregunta}
+          descriptor={pregunta.situacionProblema}
+          setElegido={setRespuestaElegida}
+          setIdElegido={setPreguntaElegida}
+          idPregunta={pregunta.idPregunta}
+          respuestas={pregunta.opcionesRespuestas}
+        />
+      </Step>
+    ))
+  );
 
   const [bottomNavHidden, setBottomNavHidden] = useState(false);
   const [topNavDisabled, setTopNavDisabled] = useState(false);
@@ -65,7 +69,6 @@ export default function PicSeccionPreguntasII(props) {
         url,
         filtros,
         (response) => {
-          console.log(response.data);
           setPreguntas(response.data);
           setPreguntasCards(
             preguntas.map((pregunta) => (
@@ -158,13 +161,6 @@ export default function PicSeccionPreguntasII(props) {
     }
     goToPrev();
   };
-  // const handleSubmit = (event, errors, values) => {
-  //   console.log(errors);
-  //   console.log(values);
-  //   if (errors.length === 0) {
-  //     //submit
-  //   }
-  // };
 
   const mostrarMensajeError = (tittle, message) => {
     NotificationManager.error(
@@ -201,7 +197,7 @@ export default function PicSeccionPreguntasII(props) {
                   encabezado="Instrucciones - II"
                   descriptor={
                     <div>
-                      <p>
+                      <p style={{ fontSize: "1.1rem" }}>
                         ¿Te das cuenta? ¡Con tu ayuda avanzaremos en la
                         estrategia de transformación organizacional!
                       </p>
@@ -218,7 +214,9 @@ export default function PicSeccionPreguntasII(props) {
                   pasoSiguiente={props.pasoSiguiente}
                   descriptor={
                     <div>
-                      <p>¡Ahora te acercas cada vez más a la cima!</p>
+                      <p style={{ fontSize: "1.1rem" }}>
+                        ¡Ahora te acercas cada vez más a la cima!
+                      </p>
                       <img src={FinalImg} width="850" height="540" />
                     </div>
                   }

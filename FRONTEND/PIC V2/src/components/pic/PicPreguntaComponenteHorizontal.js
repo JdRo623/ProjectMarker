@@ -68,7 +68,6 @@ export default function PicPreguntaComponente(props) {
   const tiempoAcabado = (getTimerState) => {
     if (getTimerState() == "STOPPED") {
       setEstadoOpciones(true);
-      console.log(estadoOpciones);
       props.setElegido("Tiempo Vencido");
       return "";
     }

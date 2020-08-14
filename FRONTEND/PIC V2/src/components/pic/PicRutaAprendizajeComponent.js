@@ -52,7 +52,7 @@ class PicRutaAprendizajeComponent extends React.Component {
                           textTransform: "uppercase",
                         }}
                       >
-                        Reprobado
+                        No Aprobado
                       </h4>
                       <h4
                         style={{
@@ -61,7 +61,7 @@ class PicRutaAprendizajeComponent extends React.Component {
                           textTransform: "uppercase",
                         }}
                       >
-                        Por Cursar
+                        Por cursar
                       </h4>
                       <h4
                         style={{
@@ -70,7 +70,7 @@ class PicRutaAprendizajeComponent extends React.Component {
                           textTransform: "uppercase",
                         }}
                       >
-                        Cursando
+                        Inscritos
                       </h4>
                       <h4
                         style={{
@@ -125,6 +125,7 @@ class PicRutaAprendizajeComponent extends React.Component {
                                     style={{
                                       color: "white",
                                       textAlign: "justify",
+                                      fontSize: "1.3rem",
                                     }}
                                   >
                                     {competencia.nombreCompetencia}

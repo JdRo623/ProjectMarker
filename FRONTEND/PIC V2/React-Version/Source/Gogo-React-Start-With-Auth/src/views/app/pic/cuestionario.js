@@ -28,14 +28,13 @@ import PicSeccionPreguntasIII from "../../../components/pic/PicSeccionPreguntasI
 class Cuestionario extends Component {
   state = {
     activeTab: "1",
-    totalPasos: "4"
+    totalPasos: "4",
   };
 
   toggleTab(tab) {
-    console.log(tab)
     if (this.state.activeTab !== tab) {
       this.setState({
-        activeTab: tab
+        activeTab: tab,
       });
     }
   }
@@ -43,20 +42,20 @@ class Cuestionario extends Component {
   pasoSiguiente = () => {
     switch (this.state.activeTab) {
       case "1":
-        this.toggleTab("2")
+        this.toggleTab("2");
         break;
       case "2":
-        this.toggleTab("3")
+        this.toggleTab("3");
         break;
       case "3":
-        this.toggleTab("4")
+        this.toggleTab("4");
         break;
       case "4":
         break;
       default:
         break;
     }
-  }
+  };
 
   render() {
     return (
@@ -66,35 +65,62 @@ class Cuestionario extends Component {
             <PicColaboradorCard />
           </Colxx>
           <Colxx xxs="12" lg="12" xl="8" className="mb-3">
-
-
             <Nav tabs className="separator-tabs ml-0 mb-5">
+              <NavItem></NavItem>
               <NavItem>
-              </NavItem>
-              <NavItem>
-                <NavLink className={classnames({ active: this.state.activeTab === "1", "nav-link": true })}
-                  onClick={() => { this.toggleTab("1"); }} to="#" location={{}}>
+                <NavLink
+                  className={classnames({
+                    active: this.state.activeTab === "1",
+                    "nav-link": true,
+                  })}
+                  onClick={() => {
+                    this.toggleTab("1");
+                  }}
+                  to="#"
+                  location={{}}
+                >
                   Información Personal
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className={classnames({ active: this.state.activeTab === "2", "nav-link": true })}
-                  onClick={() => { this.toggleTab("2"); }} to="#" location={{}}>
+                <NavLink
+                  className={classnames({
+                    active: this.state.activeTab === "2",
+                    "nav-link": true,
+                  })}
+                  onClick={() => {
+                    this.toggleTab("2");
+                  }}
+                  to="#"
+                  location={{}}
+                >
                   Sección I
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
-                  className={classnames({ active: this.state.activeTab === "3", "nav-link": true })}
-                  onClick={() => { this.toggleTab("3"); }}
-                  to="#" location={{}}>
+                  className={classnames({
+                    active: this.state.activeTab === "3",
+                    "nav-link": true,
+                  })}
+                  onClick={() => {
+                    this.toggleTab("3");
+                  }}
+                  to="#"
+                  location={{}}
+                >
                   Sección II
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
-                  className={classnames({ active: this.state.activeTab === "4", "nav-link": true })}
-                  to="#" location={{}}>
+                  className={classnames({
+                    active: this.state.activeTab === "4",
+                    "nav-link": true,
+                  })}
+                  to="#"
+                  location={{}}
+                >
                   Sección III
                 </NavLink>
               </NavItem>
@@ -102,7 +128,9 @@ class Cuestionario extends Component {
 
             <TabContent activeTab={this.state.activeTab}>
               <TabPane tabId="1">
-                <PicSeccionInformacionPersonal pasoSiguiente={this.pasoSiguiente} />
+                <PicSeccionInformacionPersonal
+                  pasoSiguiente={this.pasoSiguiente}
+                />
               </TabPane>
               <TabPane tabId="2">
                 <PicSeccionPreguntasI pasoSiguiente={this.pasoSiguiente} />
@@ -114,12 +142,10 @@ class Cuestionario extends Component {
                 <PicSeccionPreguntasIII pasoSiguiente={this.pasoSiguiente} />
               </TabPane>
             </TabContent>
-
           </Colxx>
         </Row>
       </Fragment>
-    )
+    );
   }
 }
 export default injectIntl(Cuestionario);
-

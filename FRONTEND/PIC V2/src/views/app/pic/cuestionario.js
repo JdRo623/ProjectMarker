@@ -112,7 +112,6 @@ export default function Cuestionario(props) {
         url,
         filtros,
         (response) => {
-          console.log(response.data);
           setCuestionario(response.data);
           if (response.data.email) {
             if (response.data.listado_competencias.length == 0) {
@@ -181,7 +180,6 @@ export default function Cuestionario(props) {
         url,
         filtros,
         (response) => {
-          console.log(response.data);
           setCompetencias(response.data);
           toggleTab("2");
           setInformacionPersonalCompleto(true);
@@ -210,7 +208,6 @@ export default function Cuestionario(props) {
         url,
         filtros,
         (response) => {
-          console.log(response.data);
           setPreguntas(response.data);
           toggleTab("3");
           setSeccionPreguntasICompleto(true);
@@ -228,7 +225,6 @@ export default function Cuestionario(props) {
   const obtenerInformacionPreguntaIII = () => {
     try {
       setModal(true);
-      console.log(cuestionarioUsuario);
 
       const url =
         constantes.urlServer + constantes.servicios.obtenerPreguntasSeccionIII;
@@ -240,7 +236,6 @@ export default function Cuestionario(props) {
         url,
         filtros,
         (response) => {
-          console.log(response.data);
           setPreguntasIII(response.data);
           toggleTab("4");
           setSeccionPreguntasIICompleto(true);
@@ -268,7 +263,6 @@ export default function Cuestionario(props) {
         url,
         filtros,
         (response) => {
-          console.log(response.data);
           setModal(false);
         },
         () => {

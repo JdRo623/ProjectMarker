@@ -21,17 +21,21 @@ export default function PicSeccionPreguntasIII(props) {
 
   var contadorPasos = 1;
 
-  const [preguntasCards, setPreguntasCards] = useState(preguntas.map((pregunta) =>
-    <Step id={"" + contadorPasos++} name="" desc="" >
-      <PicPreguntaComponente
-        columna="2"
-        setIdElegido={setPreguntaElegida}
-        idPregunta={pregunta.idPregunta}
-        pregunta={pregunta.encabezadoPregunta}
-        setElegido={setRespuestaElegida}
-        descriptor={pregunta.situacionProblema}
-        respuestas={pregunta.opcionesRespuestas} />
-    </Step>));
+  const [preguntasCards, setPreguntasCards] = useState(
+    preguntas.map((pregunta) => (
+      <Step id={"" + contadorPasos++} name="" desc="">
+        <PicPreguntaComponente
+          columna="2"
+          setIdElegido={setPreguntaElegida}
+          idPregunta={pregunta.idPregunta}
+          pregunta={pregunta.encabezadoPregunta}
+          setElegido={setRespuestaElegida}
+          descriptor={pregunta.situacionProblema}
+          respuestas={pregunta.opcionesRespuestas}
+        />
+      </Step>
+    ))
+  );
 
   const [bottomNavHidden, setBottomNavHidden] = useState(false);
   const [topNavDisabled, setTopNavDisabled] = useState(false);
@@ -46,9 +50,6 @@ export default function PicSeccionPreguntasIII(props) {
 
   const onClickNext = (goToNext, steps, step) => {
     step.isDone = true;
-    console.log(steps);
-    console.log(step);
-
     if (steps.length - 2 <= steps.indexOf(step)) {
       setBottomNavHidden(true);
       setTopNavDisabled(true);
@@ -151,7 +152,7 @@ export default function PicSeccionPreguntasIII(props) {
                   encabezado="Instrucciones - Sección III"
                   descriptor={
                     <div>
-                      <p>
+                      <p style={{ fontSize: "1.1rem" }}>
                         ¡El paisaje es hermoso en este punto de la montaña y
                         aprender de tu experiencia es lo más importante para
                         nosotros!
@@ -169,7 +170,7 @@ export default function PicSeccionPreguntasIII(props) {
                   pasoSiguiente={props.pasoSiguiente}
                   descriptor={
                     <div>
-                      <p>
+                      <p style={{ fontSize: "1.1rem" }}>
                         ¡Qué bien siente el aire puro que recorre la cima de las
                         montañas y la satisfacción del trabajo realizado!
                       </p>

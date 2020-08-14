@@ -47,7 +47,7 @@ export default function PicPreguntaComponente(props) {
     if (props.respuestas && listItems == null)
       setListItems(
         props.respuestas.map((respuesta) => (
-          <Colxx  
+          <Colxx
             xxs="12"
             lg={props.columna}
             xl={props.columna}
@@ -73,7 +73,7 @@ export default function PicPreguntaComponente(props) {
   const tiempoAcabado = (getTimerState) => {
     if (getTimerState() == "STOPPED") {
       setEstadoOpciones(true);
-      console.log(estadoOpciones);
+
       props.setElegido("Tiempo Vencido");
       return "";
     }

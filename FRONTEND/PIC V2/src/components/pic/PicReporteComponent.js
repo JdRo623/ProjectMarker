@@ -23,7 +23,6 @@ export default function PicReporteComponent(props) {
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
-    console.log(props.respuestas);
     if (props.respuestas && listItems == null)
       setListItems(
         props.respuestas.map((respuesta) => (
@@ -44,9 +43,9 @@ export default function PicReporteComponent(props) {
         props.reporte,
         props.filtros,
         (response) => {
-          console.log(response.data);
-          var temp = 'data:application/vnd.ms-excel;base64,'
-    +encodeURIComponent(response.data.documento);  
+          var temp =
+            "data:application/vnd.ms-excel;base64," +
+            encodeURIComponent(response.data.documento);
           var download = document.createElement("a");
           download.href = temp;
           download.download = response.data.nombreArchivo;

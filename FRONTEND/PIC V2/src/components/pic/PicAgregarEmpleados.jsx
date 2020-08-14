@@ -61,7 +61,6 @@ export function PicAgregarEmpleado(props) {
       ) {
         HttpUtil.requestPost(url, form, (response) => {
           if (response) {
-            console.log("response", response);
             identificacion.value = "";
             nombres.value = "";
             apellidos.value = "";
@@ -71,7 +70,6 @@ export function PicAgregarEmpleado(props) {
             ciudad.value = "";
             setLoading(false);
           } else {
-            console.log("no hay respuesta");
             setLoading(false);
             NotificationManager.error(
               "Ha ocurrido un error al crear el empleado",

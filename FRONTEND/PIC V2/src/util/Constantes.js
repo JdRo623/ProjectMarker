@@ -17,7 +17,6 @@ const constantes = {
     registrarActividades: "/registrarActividades",
     obtenerEmpleado: "/obtenerEmpleado",
     cargarUsuarios: "/cargarUsuariosExcel",
-    traerUsuario: "/traerUsuario",
     agregarPregunta: "/agregarPregunta",
     obtenerCargosPic: "/obtenerCargosPic",
     obtenerSeccionales: "/obtenerSeccionales",
@@ -46,7 +45,7 @@ const constantes = {
     reporte_UsuarioC: "/reporte_UsuarioC",
     reporte_Rutas: "/reporte_Rutas",
     envioCorreo: "/envioCorreo",
-    homologacion: "/homologacion"
+    homologacion: "/homologacion",
   },
   mensajes: {
     ERROR: "Error",

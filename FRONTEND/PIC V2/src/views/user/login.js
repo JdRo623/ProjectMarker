@@ -145,7 +145,7 @@ class Login extends Component {
                     <td className="align-middle">
                       <center>
                         {" "}
-                        <img src={unal} width="200" height="90" />
+                        <img src={unal} width="200" height="85" />
                       </center>{" "}
                     </td>{" "}
                   </tr>{" "}
@@ -154,7 +154,7 @@ class Login extends Component {
                     <td className="align-middle">
                       <center>
                         {" "}
-                        <img src={logo} width="150" height="150" />
+                        <img src={logo} width="120" height="120" />
                       </center>{" "}
                     </td>
                   </tr>

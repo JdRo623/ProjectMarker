@@ -27,10 +27,8 @@ class Sidebar extends Component {
     var menu = menuItems;
     if (localStorage.getItem("rol") == 0) {
       menu = menuItemsFuncionario;
-      console.log(menu);
     } else {
       menu = menuItemsAdmin;
-      console.log(menu);
     }
 
     this.state = {

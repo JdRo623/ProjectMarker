@@ -79,13 +79,13 @@ class Util extends Component {
         <Row>
           <Colxx xxs="12" lg="12" xl="6" className="mb-3">
             <PicCargaDocumentos
-              titulo="Cargar Usuarios Excel"
+              titulo="Usuarios Excel"
               servicio={Constantes.servicios.cargarUsuarios}
             />
           </Colxx>
           <Colxx xxs="12" lg="12" xl="6" className="mb-3">
             <PicCargaDocumentos
-              titulo="Cargar PIC"
+              titulo="PIC"
               servicio={Constantes.servicios.registrarActividades}
             />
           </Colxx>
@@ -93,7 +93,7 @@ class Util extends Component {
         <Row>
           <Colxx xxs="12" lg="12" xl="6" className="mb-3">
             <PicCargaDocumentos
-              titulo="Cargar Homologaciones"
+              titulo="Homologaciones"
               servicio={Constantes.servicios.homologacion}
             />
           </Colxx>
