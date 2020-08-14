@@ -398,7 +398,7 @@ function buscarEmpleado(req, res) {
           user_decript.estado_encuesta = tools.decrypt(user.estado_encuesta);
 
           
-          user_decript.estado_cuestionario = "NO EXISTE";
+          user_decript.estado_cuestionario = "No ha iniciado el cuestionario";
           user_decript.boton = 0;
           CuestionarioHandler.findOne(filtro, (err, Cuestionario) => {
             if (Cuestionario) {

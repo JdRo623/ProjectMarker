@@ -88,29 +88,84 @@ class PicRutaAprendizajeComponent extends React.Component {
                     <thead>
                       <tr>
                         <th>
-                          <center>
-                            <h4 style={{ color: "white" }}>Competencia</h4>
-                          </center>
+                          <Card
+                            style={{
+                              borderRadius: 10,
+                              background: "#2b2d45",
+                            }}
+                            className="mr-1 mb-2"
+                            color="#2b2d45"
+                          >
+                            <CardBody style={{ color: "white" }}>
+                              <center>
+                                <h4 style={{ color: "white" }}>Competencia</h4>
+                              </center>
+                            </CardBody>
+                          </Card>
                         </th>
                         <th>
-                          <center>
-                            <h4 style={{ color: "white" }}>Basico</h4>
-                          </center>
+                          <Card
+                            style={{
+                              borderRadius: 10,
+                              background: "#2b2d45",
+                            }}
+                            className="mr-1 mb-2"
+                            color="#2b2d45"
+                          >
+                            <CardBody style={{ color: "white" }}>
+                              <center>
+                                <h4 style={{ color: "white" }}>Basico</h4>
+                              </center>
+                            </CardBody>
+                          </Card>
                         </th>
                         <th>
-                          <center>
-                            <h4 style={{ color: "white" }}>Medio</h4>
-                          </center>
+                          <Card
+                            style={{
+                              borderRadius: 10,
+                              background: "#2b2d45",
+                            }}
+                            className="mr-1 mb-2"
+                            color="#2b2d45"
+                          >
+                            <CardBody style={{ color: "white" }}>
+                              <center>
+                                <h4 style={{ color: "white" }}>Medio</h4>
+                              </center>
+                            </CardBody>
+                          </Card>
                         </th>
                         <th>
-                          <center>
-                            <h4 style={{ color: "white" }}>Alto</h4>
-                          </center>
+                          <Card
+                            style={{
+                              borderRadius: 10,
+                              background: "#2b2d45",
+                            }}
+                            className="mr-1 mb-2"
+                            color="#2b2d45"
+                          >
+                            <CardBody style={{ color: "white" }}>
+                              <center>
+                                <h4 style={{ color: "white" }}>Alto</h4>
+                              </center>
+                            </CardBody>
+                          </Card>
                         </th>
                         <th>
-                          <center>
-                            <h4 style={{ color: "white" }}>Superior</h4>
-                          </center>
+                          <Card
+                            style={{
+                              borderRadius: 10,
+                              background: "#2b2d45",
+                            }}
+                            className="mr-1 mb-2"
+                            color="#2b2d45"
+                          >
+                            <CardBody style={{ color: "white" }}>
+                              <center>
+                                <h4 style={{ color: "white" }}>Superior</h4>
+                              </center>
+                            </CardBody>
+                          </Card>
                         </th>
                       </tr>
                     </thead>
@@ -120,17 +175,28 @@ class PicRutaAprendizajeComponent extends React.Component {
                           return (
                             <tr>
                               <td className="align-middle">
-                                <center>
-                                  <p
-                                    style={{
-                                      color: "white",
-                                      textAlign: "justify",
-                                      fontSize: "1.3rem",
-                                    }}
-                                  >
-                                    {competencia.nombreCompetencia}
-                                  </p>
-                                </center>
+                                <Card
+                                  style={{
+                                    borderRadius: 10,
+                                    background: "#2b2d45",
+                                  }}
+                                  className="mr-1 mb-2"
+                                  color="#2b2d45"
+                                >
+                                  <CardBody style={{ color: "white" }}>
+                                    <center>
+                                      <p
+                                        style={{
+                                          color: "white",
+                                          textAlign: "justify",
+                                          fontSize: "1.3rem",
+                                        }}
+                                      >
+                                        {competencia.nombreCompetencia}
+                                      </p>
+                                    </center>
+                                  </CardBody>
+                                </Card>
                               </td>
                               <td className="align-middle">
                                 <center>
