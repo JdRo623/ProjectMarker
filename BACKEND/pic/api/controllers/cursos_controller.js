@@ -518,7 +518,6 @@ function informePIC(req, res) {
                                                      });*/
                         });
                       });
-                      console.log(seccionales.length + 2, columnaCarrier);
                       if (columnaCarrier == seccionales.length + 2) {
                         workbook.xlsx
                           .writeFile(documentName)

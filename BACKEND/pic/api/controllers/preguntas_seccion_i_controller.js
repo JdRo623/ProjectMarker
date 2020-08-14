@@ -53,7 +53,6 @@ function registrarPreguntas_i(req, res) {
                     fecha = fecha.replace(' ','');*/
                 var documentName = 'C:/archivos_preguntas/preguntas' + fecha + ".xlsx";
                 var data = reqDecrypt.archivo;
-                console.log(data);
                 data = data.replace(/^data:image\/png;base64,/, "");
                 let buff = new Buffer(data, 'base64');
 
@@ -121,11 +120,9 @@ function registrarPreguntas_i(req, res) {
 
                                     });
                                 } else {
-                                    console.log('Formato del documento no es valido');
                                     return res.status(200).send({ estado: 'Error', message: 'Formato del documento no es valido', data: Object.assign({}) });                                   // listaMiembrosInvalidos.push(a);
                                 }
                             } else {
-                                console.log('Formato del documento no es valido');
                                 return res.status(200).send({ estado: 'Error', message: 'Formato del documento no es valido', data: Object.assign({}) });                                   // listaMiembrosInvalidos.push(a);
                             }
 

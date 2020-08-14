@@ -152,11 +152,6 @@ function registrarEmpleados(req, res) {
                   });
                 }
               } while (rowCount <= 10700);
-
-              console.log(seccionalDefinitivos);
-              console.log(subgruposDefinitivos);
-              console.log(coordinacionesDefinitivos);
-
               var old = JSON.stringify(empleadosDefinitivos).replace(
                 /null/g,
                 "N/A"
@@ -186,7 +181,6 @@ function registrarEmpleados(req, res) {
                 });
               });
             } else {
-              console.log("Formato del documento no es valido");
               return res
                 .status(200)
                 .send({

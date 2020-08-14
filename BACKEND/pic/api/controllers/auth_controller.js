@@ -27,13 +27,10 @@ function logIn(req, res) {
             data: Object.assign(err),
           });
         }
-        console.log(user);
-        console.log(user == null);
         if (user == null) {
           filtro = {
             correo: dec.email,
           };
-          console.log(filtro);
 
           userAdmin.findOne(filtro, (err, adminEncontrado) => {
             if (err) {

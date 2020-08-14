@@ -12,7 +12,6 @@ module.exports = {
 };
 
 function subdireccionSeccional(req, res) {
-  console.log(req.body.data);
   try {
     var obtener = async (req, res) => {
       const reqDecrypt = tools.decryptJson(req.body.data);

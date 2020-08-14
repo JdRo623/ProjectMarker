@@ -16,7 +16,6 @@ function encriptar(req, res) {
   try {
     var creacion = async (req, res) => {
       var reqDecrypt = (tools.encrypt(req.body.data))
-      console.log(reqDecrypt)
 
       return res.status(200).send({
         estado: 'Encriptado',
@@ -34,7 +33,6 @@ function desencriptar(req, res) {
   try {
     var creacion = async (req, res) => {
       var reqDecrypt = (tools.decrypt(req.body.data))
-      console.log(reqDecrypt)
 
       return res.status(200).send({
         estado: 'Desencriptado',

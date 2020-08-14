@@ -104,7 +104,6 @@ function obtenerRutaAprendizaje(req,res){
 function generarRutaAprendizaje(req, res) {
   try {
     var cursos = async (req, res) => {
-      console.log(req.body);
       var dec = tools.decryptJson(req.body.data);
 
       var ruta_aprendizaje = {

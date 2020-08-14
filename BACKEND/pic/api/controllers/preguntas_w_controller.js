@@ -20,7 +20,6 @@ function buscarCompetenciasCuestionario(req, res) {
   try {
     var obtener = async (req, res) => {
       var dec = tools.decryptJson(req.body.data);
-      console.log(dec.preguntas_obtener);
       var filtros = [];
 
       cuestionarioHandler.findOne(
@@ -64,7 +63,6 @@ function buscarPreguntasPorIDCuestionario(req, res) {
   try {
     var obtener = async (req, res) => {
       var dec = tools.decryptJson(req.body.data);
-      console.log(dec.preguntas_obtener);
       var filtros = [];
 
       cuestionarioHandler.findOne(
@@ -203,7 +201,6 @@ function agregarPregunta(req, res) {
       try {
         var obtener = tools.decryptJson(req.body.data);
         var pregunta = obtener.pregunta;
-        console.log(pregunta);
 
         Pregunta_w.insertMany(pregunta, (error, pregunta) => {
           if (error) {

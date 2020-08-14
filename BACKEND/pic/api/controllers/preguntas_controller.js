@@ -24,7 +24,6 @@ function registrarPreguntaWord(req, res) {
             var extractor = new WordExtractor();
             var extracted = extractor.extract("file.doc");
             extracted.then(function (doc) {
-                console.log(doc.getBody());
                 return res.status(200).send({
                     estado: 'Registrada',
                     message: util.format("Pregunta registrada exitosamente"),
@@ -169,11 +168,9 @@ function registrarPreguntas(req, res) {
 
                                     });
                                 } else {
-                                    console.log('Formato del documento no es valido');
                                     return res.status(200).send({ estado: 'Error', message: 'Formato del documento no es valido', data: Object.assign({}) });                                   // listaMiembrosInvalidos.push(a);
                                 }
                             } else {
-                                console.log('Formato del documento no es valido');
                                 return res.status(200).send({ estado: 'Error', message: 'Formato del documento no es valido', data: Object.assign({}) });                                   // listaMiembrosInvalidos.push(a);
                             }
 

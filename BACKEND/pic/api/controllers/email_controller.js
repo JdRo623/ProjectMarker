@@ -18,15 +18,15 @@ function envioCorreoRecuperarContrasena(req, res) {
         var transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-                user: 'alphabeto623@gmail.com',
-                pass: 'DeadStar0341'
+                user: '',
+                pass: ''
             }
         });
         var correoDestinatario = obtener.destino
         var randomstring = Math.random().toString(36).slice(-8);
         var mailOptions = {
             from: 'Remitente',
-            to: 'jdrodriguez623@outlook.com',
+            to: '',
             subject: 'Contraseña Sistema PIC',
             text: 'Tu nueva contraseña para ingresar al Sistema PIC es: \n'+randomstring+'\n'
         };
@@ -35,10 +35,8 @@ function envioCorreoRecuperarContrasena(req, res) {
 
         transporter.sendMail(mailOptions, function(error, info){
             if (error){
-                console.log(error);
                 res.send(500, err.message);
             } else {
-                console.log("Email sent");
                 res.status(200).jsonp(req.body);
             }
         });

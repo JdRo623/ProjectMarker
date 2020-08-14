@@ -25,7 +25,6 @@ function registrarPreguntas_iii_i(req, res) {
                     fecha = fecha.replace(' ','');*/
         var documentName = "C:/archivos_preguntas/preguntas" + fecha + ".xlsx";
         var data = reqDecrypt.archivo;
-        console.log(data);
         data = data.replace(/^data:image\/png;base64,/, "");
         let buff = new Buffer(data, "base64");
 
@@ -176,10 +175,6 @@ function obtenerPreguntas_iii_i(req, res) {
           cuestionarioBuscado.listado_preguntas_seccion_iii.forEach(
             (pregunta) => {
               preguntas_seccionIII.preguntasMock.forEach((preguntaMock) => {
-                console.log(preguntaMock.idPregunta == pregunta.id_pregunta);
-                console.log(pregunta.id_pregunta);
-                console.log(preguntaMock.idPregunta);
-
                 if (preguntaMock.idPregunta == pregunta.id_pregunta) {
                   if (pregunta.estado_preguntas == "No respondida") {
                     preguntasEnviar.push(preguntaMock);
@@ -188,7 +183,6 @@ function obtenerPreguntas_iii_i(req, res) {
               });
             }
           );
-          console.log(preguntasEnviar);
 
           return res.status(200).send({
             estado: "Obtenidas",

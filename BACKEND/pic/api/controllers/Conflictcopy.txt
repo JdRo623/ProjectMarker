@@ -101,13 +101,11 @@ try {
                       descripccion_cargo: tools.decrypt(usuariobuscado.descripccion_cargo),
                   }
               }                
-              console.log(usuarioEncontrado,'usuario');
               datosFaltantes.usuario = usuarioEncontrado;
           })            
           incompletos.push(datosFaltantes);
             
       }      
-        console.log(incompletos);
         return res.status(200).send({
           estado: "lista de cuestionarios por completar",
           message: "lista de cuestionarios por completar",
@@ -169,7 +167,6 @@ try {
 function buscarCuestionarioCorreo(req, res) {
 try {
   var buscar = async (req, res) => {
-    console.log(req.body);
     var dec = tools.decryptJson(req.body.data);
 
     cuestionarioHandler.findOne(

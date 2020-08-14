@@ -8,6 +8,7 @@ var tools = require("../utils/tools.js");
 var Excel = require("exceljs");
 const NivelHandler = require("../../models/nivel.model");
 const CargosHandler = require("../../models/cargos.model");
+const CuestionarioHandler = require("../../models/Cuestionario.model");
 
 module.exports = {
   CargarEmpleado: CargarEmpleado,
@@ -39,7 +40,6 @@ function crearNuevoUsuario(req, res) {
             identificacion: tools.encrypt(dec.identificacion),
             ciudad: tools.encrypt(dec.ciudad),
           };
-          console.log("creando usuario");
           user_jModel.create(usuarioNuevo);
           return res.status(200).send({
             estado: "Usuario creado",
@@ -177,7 +177,6 @@ function CargarEmpleado(req, res) {
                 user_j.estado_encuesta;
                 users.push(user_j);
 
-
                 seccionalTemporal = tools.validarVacio(
                   (row.getCell(3).value + "").trim()
                 );
@@ -235,7 +234,6 @@ function CargarEmpleado(req, res) {
                   tipo_nivel: "NIVEL_4",
                   predecesor: subgruposTemporal,
                 };
-
 
                 flag = true;
 
@@ -399,10 +397,28 @@ function buscarEmpleado(req, res) {
           user_decript.nivel4 = tools.decrypt(user.nivel4);
           user_decript.estado_encuesta = tools.decrypt(user.estado_encuesta);
 
-          return res.status(200).send({
-            estado: "Empleado Encontrado",
-            message: util.format("Información Obtenida"),
-            data: Object.assign(user_decript),
+          
+          user_decript.estado_cuestionario = "NO EXISTE";
+          user_decript.boton = 0;
+          CuestionarioHandler.findOne(filtro, (err, Cuestionario) => {
+            if (Cuestionario) {
+              switch (Cuestionario.estado_cuestionario.trim()) {
+                case "Pendiente":
+                  user_decript.estado_cuestionario =
+                    "No ha finalizado el Cuestianario";
+                  break;
+                default:
+                  user_decript.boton = 1;
+                  user_decript.estado_cuestionario = "Cuestionario finalizado";
+                  break;
+              }
+            }
+
+            return res.status(200).send({
+              estado: "Empleado Encontrado",
+              message: util.format("Información Obtenida"),
+              data: Object.assign(user_decript),
+            });
           });
         }
       });
