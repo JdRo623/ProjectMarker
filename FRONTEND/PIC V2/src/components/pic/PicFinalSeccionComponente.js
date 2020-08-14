@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { Button, Label, Card, CardBody } from "reactstrap";
+import { Link } from "react-router-dom";
 
 export default function PicInstruccionComponente(props) {
   useEffect(() => {});
@@ -10,7 +11,11 @@ export default function PicInstruccionComponente(props) {
           <h5>{props.encabezado}</h5>
           <h6>{props.descriptor}</h6>
           <br />
-          <Button color="primary" onClick={props.pasoSiguiente}>
+          <Button
+            color="primary"
+            tag={Link}
+            to={"/app/pic/principal_colaborador"}
+          >
             Finalizar
           </Button>
         </center>

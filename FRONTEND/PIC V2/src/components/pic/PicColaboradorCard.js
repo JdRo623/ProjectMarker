@@ -8,15 +8,13 @@ import {
   ModalBody,
   Badge,
   Table,
+  Button,
 } from "reactstrap";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import logo from "../../assets/img/logo-dian-principal_recortado.png";
 import estudiando from "../../assets/img/estudiando-logo.png";
 import unal from "../../assets/img/unal-logo.png";
 
-import IntlMessages from "../../helpers/IntlMessages";
-import SingleLightbox from "../../components/pages/SingleLightbox";
-import userDummy from "../../data/pic/dummyUser";
 import constantes from "../../util/Constantes.js";
 import HttpUtil from "../../util/HttpService.js";
 
@@ -27,6 +25,7 @@ const PicColaboradorCard = (props) => {
   const [nivel2, setNivel2] = useState(false);
   const [nivel3, setNivel3] = useState(false);
   const [nivel4, setNivel4] = useState(false);
+  const [estado_cuestionario, setEstado] = useState(false);
   const [cargo, setCargo] = useState(false);
   const [nombres, setNombres] = useState(false);
   const [apellidos, setApellidos] = useState(false);
@@ -56,6 +55,7 @@ const PicColaboradorCard = (props) => {
           setNivel3(response.data.nivel3);
           setNivel4(response.data.nivel4);
           setCargo(response.data.cargo);
+          setEstado(response.data.estado_cuestionario);
           setModal(false);
         },
         () => {
@@ -78,7 +78,7 @@ const PicColaboradorCard = (props) => {
         </Modal>
       </div>
       <Row className="h-100">
-        <Colxx xxs="12" md="8" className="mx-auto my-auto">
+        <Colxx xxs="12" md="10" className="mx-auto my-auto">
           <Card className="auth-card" style={{ borderRadius: 10 }}>
             <div className="position-relative image-side ">
               <Table style={{ height: "100%" }}>
@@ -133,9 +133,10 @@ const PicColaboradorCard = (props) => {
                         <Badge
                           color="outline-secondary"
                           className="mb-1 mr-1"
+                          style={{ textTransform: "uppercase" }}
                           pill
                         >
-                          {userDummy.estado_cuestionario}
+                          {estado_cuestionario}
                         </Badge>
                       </p>
                     </td>

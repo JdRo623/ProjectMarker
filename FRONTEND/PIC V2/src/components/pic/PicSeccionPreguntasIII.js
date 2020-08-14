@@ -173,7 +173,7 @@ export default function PicSeccionPreguntasIII(props) {
                   pasoSiguiente={props.pasoSiguiente}
                   descriptor={
                     <div>
-                      <p>
+                      <p style={{ fontSize: "1.1rem" }}>
                         ¡Qué bien siente el aire puro que recorre la cima de las
                         montañas y la satisfacción del trabajo realizado!
                       </p>

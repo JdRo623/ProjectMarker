@@ -222,7 +222,9 @@ export default function PicSeccionPreguntasII(props) {
                   pasoSiguiente={props.pasoSiguiente}
                   descriptor={
                     <div>
-                      <p>¡Ahora te acercas cada vez más a la cima!</p>
+                      <p style={{ fontSize: "1.1rem" }}>
+                        ¡Ahora te acercas cada vez más a la cima!
+                      </p>
                       <img src={FinalImg} width="850" height="540" />
                     </div>
                   }

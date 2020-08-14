@@ -190,7 +190,7 @@ export default function PicSeccionPreguntasI(props) {
                   encabezado="Finalización - Sección I"
                   descriptor={
                     <div>
-                      <p>
+                      <p style={{ fontSize: "1.1rem" }}>
                         ¡Ya tienes tu mapa en la mano, ahora vas a sentir la
                         adrenalina de las preguntas para la formulación del PIC!
                       </p>
