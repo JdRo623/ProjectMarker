@@ -50,7 +50,7 @@ export default function PicSeccionInformacionPersonal(props) {
             <Steps>
             <Step id="-1" name="Final de Sección" desc="">
                 <PicFinalSeccionComponente
-                  encabezado="Finalización - Sección III"
+                  encabezado="Finalización"
                   descriptor="Contenido de final de sección"
                   pasoSiguiente={props.pasoSiguiente}
                   descriptor={

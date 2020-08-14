@@ -11,10 +11,10 @@ export default function PicInstruccionComponente(props) {
           <h5>{props.encabezado}</h5>
           <h6>{props.descriptor}</h6>
           <br />
+
           <Button
             color="primary"
-            tag={Link}
-            to={"/app/pic/principal_colaborador"}
+            onClick={props.pasoSiguiente}
           >
             Finalizar
           </Button>

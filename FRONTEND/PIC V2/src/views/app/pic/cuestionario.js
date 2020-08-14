@@ -20,6 +20,7 @@ import { injectIntl } from "react-intl";
 import PicColaboradorCard from "../../../components/pic/PicColaboradorCard";
 import PicSeccionInformacionPersonal from "../../../components/pic/PicSeccionInformacionPersonal";
 import PicSeccionInformacionFinal from "../../../components/pic/PicSeccionInformacionFinal";
+import {Redirect} from 'react-router-dom';
 
 import PicSeccionPreguntasI from "../../../components/pic/PicSeccionPreguntasI";
 import PicSeccionPreguntasII from "../../../components/pic/PicSeccionPreguntasII";
@@ -76,7 +77,11 @@ export default function Cuestionario(props) {
     />
   );
 
-  const InformacionFinalElement = () => <PicSeccionInformacionFinal />;
+  const IrMenuPrincipal = () => {
+    props.history.push('/app/pic/principal_colaborador');
+  }
+
+  const InformacionFinalElement = () => <PicSeccionInformacionFinal  pasoSiguiente={IrMenuPrincipal}/>;
 
   const PreguntasSeccionIElement = () => (
     <PicSeccionPreguntasI
