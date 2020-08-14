@@ -36,8 +36,9 @@ function estado_Cuestionario(req, res) {
           usuariosId.push(element.email);
         }
 
-        usuariosHandler
-          .find({ email: { $in: usuariosId } }, (err, usuarios) => {
+        usuariosHandler.find(
+          { email: { $in: usuariosId } },
+          (err, usuarios) => {
             for (var element of cuestionarios) {
               var registro = {};
               for (var usuario of usuarios) {
@@ -147,7 +148,8 @@ function estado_Cuestionario(req, res) {
                 });
               });
             });
-          })
+          }
+        );
       });
     };
     reporteUsuarios(req, res);
@@ -539,144 +541,154 @@ function estado_RutaAprendizaje(req, res) {
             for (let element of rutas) {
               for (let usuario of usuarios) {
                 if (usuario) {
-                  for (let competencias of element.listado_competencias) {
-                    for (let basicos of competencias.listado_cursos_basicos) {
-                      let registro = {
-                        codigo_cuestionario: element._id,
-                        identificacion: usuario.identificacion,
-                        nombre_curso: basicos.nombreCurso,
-                        nombre_ruta: competencias.nombreCompetencia,
-                        nivel_competencia: "basico",
-                        nombre_funcionario: tools.decrypt(usuario.nombres),
-                        apellido_funcionario: tools.decrypt(usuario.apellidos),
-                        cargo: tools.decrypt(usuario.cargo),
-                        nivel1: tools.decrypt(usuario.nivel1),
-                        nivel2: tools.decrypt(usuario.nivel2),
-                        nivel3: tools.decrypt(usuario.nivel3),
-                        correo: usuario.email,
-                        estado: basicos.estado,
-                      };
-                      listadoReporte.push(registro);
-                    }
-                    for (let medios of competencias.listado_cursos_medios) {
-                      let registro = {
-                        codigo_cuestionario: element._id,
-                        identificacion: usuario.identificacion,
-                        nombre_curso: medios.nombreCurso,
-                        nombre_ruta: competencias.nombreCompetencia,
-                        nivel_competencia: "medio",
-                        nombre_funcionario: tools.decrypt(usuario.nombres),
-                        apellido_funcionario: tools.decrypt(usuario.apellidos),
-                        cargo: tools.decrypt(usuario.cargo),
-                        nivel1: tools.decrypt(usuario.nivel1),
-                        nivel2: tools.decrypt(usuario.nivel2),
-                        nivel3: tools.decrypt(usuario.nivel3),
-                        correo: usuario.email,
-                        estado: medios.estado,
-                      };
-                      listadoReporte.push(registro);
-                    }
-                    for (let altos of competencias.listado_cursos_altos) {
-                      let registro = {
-                        codigo_cuestionario: element._id,
-                        identificacion: usuario.identificacion,
-                        nombre_curso: altos.nombreCurso,
-                        nombre_ruta: competencias.nombreCompetencia,
-                        nivel_competencia: "alto",
-                        nombre_funcionario: tools.decrypt(usuario.nombres),
-                        apellido_funcionario: tools.decrypt(usuario.apellidos),
-                        cargo: tools.decrypt(usuario.cargo),
-                        nivel1: tools.decrypt(usuario.nivel1),
-                        nivel2: tools.decrypt(usuario.nivel2),
-                        nivel3: tools.decrypt(usuario.nivel3),
-                        correo: usuario.email,
-                        estado: altos.estado,
-                      };
-                      listadoReporte.push(registro);
-                    }
-                    for (let superiores of competencias.listado_cursos_superiores) {
-                      let registro = {
-                        codigo_cuestionario: element._id,
-                        identificacion: usuario.identificacion,
-                        nombre_curso: superiores.nombreCurso,
-                        nombre_ruta: competencias.nombreCompetencia,
-                        nivel_competencia: "superior",
-                        nombre_funcionario: tools.decrypt(usuario.nombres),
-                        apellido_funcionario: tools.decrypt(usuario.apellidos),
-                        cargo: tools.decrypt(usuario.cargo),
-                        nivel1: tools.decrypt(usuario.nivel1),
-                        nivel2: tools.decrypt(usuario.nivel2),
-                        nivel3: tools.decrypt(usuario.nivel3),
-                        correo: usuario.email,
-                        estado: superiores.estado,
-                      };
-                      listadoReporte.push(registro);
+                  if (usuario.email == element.email) {
+                    for (let competencias of element.listado_competencias) {
+                      for (let basicos of competencias.listado_cursos_basicos) {
+                        let registro = {
+                          codigo_cuestionario: element._id,
+                          identificacion: usuario.identificacion,
+                          nombre_curso: basicos.nombreCurso,
+                          nombre_ruta: competencias.nombreCompetencia,
+                          nivel_competencia: "basico",
+                          nombre_funcionario: tools.decrypt(usuario.nombres),
+                          apellido_funcionario: tools.decrypt(
+                            usuario.apellidos
+                          ),
+                          cargo: tools.decrypt(usuario.cargo),
+                          nivel1: tools.decrypt(usuario.nivel1),
+                          nivel2: tools.decrypt(usuario.nivel2),
+                          nivel3: tools.decrypt(usuario.nivel3),
+                          correo: usuario.email,
+                          estado: basicos.estado,
+                        };
+                        listadoReporte.push(registro);
+                      }
+                      for (let medios of competencias.listado_cursos_medios) {
+                        let registro = {
+                          codigo_cuestionario: element._id,
+                          identificacion: usuario.identificacion,
+                          nombre_curso: medios.nombreCurso,
+                          nombre_ruta: competencias.nombreCompetencia,
+                          nivel_competencia: "medio",
+                          nombre_funcionario: tools.decrypt(usuario.nombres),
+                          apellido_funcionario: tools.decrypt(
+                            usuario.apellidos
+                          ),
+                          cargo: tools.decrypt(usuario.cargo),
+                          nivel1: tools.decrypt(usuario.nivel1),
+                          nivel2: tools.decrypt(usuario.nivel2),
+                          nivel3: tools.decrypt(usuario.nivel3),
+                          correo: usuario.email,
+                          estado: medios.estado,
+                        };
+                        listadoReporte.push(registro);
+                      }
+                      for (let altos of competencias.listado_cursos_altos) {
+                        let registro = {
+                          codigo_cuestionario: element._id,
+                          identificacion: usuario.identificacion,
+                          nombre_curso: altos.nombreCurso,
+                          nombre_ruta: competencias.nombreCompetencia,
+                          nivel_competencia: "alto",
+                          nombre_funcionario: tools.decrypt(usuario.nombres),
+                          apellido_funcionario: tools.decrypt(
+                            usuario.apellidos
+                          ),
+                          cargo: tools.decrypt(usuario.cargo),
+                          nivel1: tools.decrypt(usuario.nivel1),
+                          nivel2: tools.decrypt(usuario.nivel2),
+                          nivel3: tools.decrypt(usuario.nivel3),
+                          correo: usuario.email,
+                          estado: altos.estado,
+                        };
+                        listadoReporte.push(registro);
+                      }
+                      for (let superiores of competencias.listado_cursos_superiores) {
+                        let registro = {
+                          codigo_cuestionario: element._id,
+                          identificacion: usuario.identificacion,
+                          nombre_curso: superiores.nombreCurso,
+                          nombre_ruta: competencias.nombreCompetencia,
+                          nivel_competencia: "superior",
+                          nombre_funcionario: tools.decrypt(usuario.nombres),
+                          apellido_funcionario: tools.decrypt(
+                            usuario.apellidos
+                          ),
+                          cargo: tools.decrypt(usuario.cargo),
+                          nivel1: tools.decrypt(usuario.nivel1),
+                          nivel2: tools.decrypt(usuario.nivel2),
+                          nivel3: tools.decrypt(usuario.nivel3),
+                          correo: usuario.email,
+                          estado: superiores.estado,
+                        };
+                        listadoReporte.push(registro);
+                      }
                     }
                   }
                 }
               }
-
-              const workbookOut = new Excel.Workbook();
-              const worksheetOut = workbookOut.addWorksheet(
-                "reporte usuario cuestionario"
-              );
-              worksheetOut.columns = [
-                { header: "codigo_ruta", key: "codigo_ruta" },
-                {
-                  header: "Identificacion",
-                  key: "identificacion",
-                },
-                {
-                  header: "Apellidos_del_Funcionario",
-                  key: "Apellidos_del_Funcionario",
-                },
-                {
-                  header: "Nombres_del_Funcionario",
-                  key: "Nombres_del_Funcionario",
-                },
-                { header: "Cargo", key: "Cargo" },
-                { header: "Nivel_1_del_cargo", key: "Nivel_1_del_cargo" },
-                { header: "Nivel_2_del_cargo", key: "Nivel_2_del_cargo" },
-                { header: "Nivel_3_del_cargo", key: "Nivel_3_del_cargo" },
-                { header: "Correo_Electrónico", key: "Correo_Electrónico" },
-                { header: "nombre_curso", key: "nombre_curso" },
-                { header: "nombre_ruta", key: "nombre_ruta" },
-                { header: "nivel_competencia", key: "nivel_competencia" },
-                { header: "Estado", key: "Estado" },
-              ];
-              listadoReporte.forEach((registro) => {
-                worksheetOut.addRow({
-                  codigo_ruta: registro.codigo_cuestionario,
-                  nombre_curso: registro.nombre_curso,
-                  nombre_ruta: registro.nombre_ruta,
-                  nivel_competencia: registro.nivel_competencia,
-                  Nombres_del_Funcionario: registro.nombre_funcionario,
-                  Apellidos_del_Funcionario: registro.apellido_funcionario,
-                  Cargo: registro.cargo,
-                  Nivel_1_del_cargo: registro.nivel1,
-                  Nivel_2_del_cargo: registro.nivel2,
-                  Nivel_3_del_cargo: registro.nivel3,
-                  Correo_Electrónico: registro.correo,
-                  Estado: registro.estado,
-                  identificacion: registro.identificacion,
-                });
-              });
-              workbookOut.xlsx.writeFile(documentname).then(() => {
-                base64.encode(documentname, function (err, base64String) {
-                  let respuesta = {
-                    documento: base64String,
-                    nombreArchivo: "Reporte Ruta.xlsx",
-                  };
-                  return res.status(200).send({
-                    estado: "Descargado",
-                    message: util.format(
-                      "Archivo de ruta de aprendizaje generado exitosamente"
-                    ),
-                    data: Object.assign(respuesta),
-                  });
-                });
-              });
             }
+
+            const workbookOut = new Excel.Workbook();
+            const worksheetOut = workbookOut.addWorksheet(
+              "reporte usuario cuestionario"
+            );
+            worksheetOut.columns = [
+              { header: "codigo_ruta", key: "codigo_ruta" },
+              {
+                header: "Identificacion",
+                key: "identificacion",
+              },
+              {
+                header: "Apellidos_del_Funcionario",
+                key: "Apellidos_del_Funcionario",
+              },
+              {
+                header: "Nombres_del_Funcionario",
+                key: "Nombres_del_Funcionario",
+              },
+              { header: "Cargo", key: "Cargo" },
+              { header: "Nivel_1_del_cargo", key: "Nivel_1_del_cargo" },
+              { header: "Nivel_2_del_cargo", key: "Nivel_2_del_cargo" },
+              { header: "Nivel_3_del_cargo", key: "Nivel_3_del_cargo" },
+              { header: "Correo_Electrónico", key: "Correo_Electrónico" },
+              { header: "nombre_curso", key: "nombre_curso" },
+              { header: "nombre_ruta", key: "nombre_ruta" },
+              { header: "nivel_competencia", key: "nivel_competencia" },
+              { header: "Estado", key: "Estado" },
+            ];
+            listadoReporte.forEach((registro) => {
+              worksheetOut.addRow({
+                codigo_ruta: registro.codigo_cuestionario,
+                nombre_curso: registro.nombre_curso,
+                nombre_ruta: registro.nombre_ruta,
+                nivel_competencia: registro.nivel_competencia,
+                Nombres_del_Funcionario: registro.nombre_funcionario,
+                Apellidos_del_Funcionario: registro.apellido_funcionario,
+                Cargo: registro.cargo,
+                Nivel_1_del_cargo: registro.nivel1,
+                Nivel_2_del_cargo: registro.nivel2,
+                Nivel_3_del_cargo: registro.nivel3,
+                Correo_Electrónico: registro.correo,
+                Estado: registro.estado,
+                identificacion: registro.identificacion,
+              });
+            });
+            workbookOut.xlsx.writeFile(documentname).then(() => {
+              base64.encode(documentname, function (err, base64String) {
+                let respuesta = {
+                  documento: base64String,
+                  nombreArchivo: "Reporte Ruta.xlsx",
+                };
+                return res.status(200).send({
+                  estado: "Descargado",
+                  message: util.format(
+                    "Archivo de ruta de aprendizaje generado exitosamente"
+                  ),
+                  data: Object.assign(respuesta),
+                });
+              });
+            });
           }
         );
       });
