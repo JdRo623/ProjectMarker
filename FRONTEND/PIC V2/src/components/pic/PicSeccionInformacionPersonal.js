@@ -156,7 +156,7 @@ export default function PicSeccionInformacionPersonal(props) {
 
       HttpUtil.requestPost(
         url,
-        filtros, 
+        filtros,
         (response) => {
           console.log(response);
           props.setEstadoPaso(true);
@@ -257,7 +257,7 @@ export default function PicSeccionInformacionPersonal(props) {
     if (steps.length - 2 <= steps.indexOf(step)) {
       setBottomNavHidden(true);
       setTopNavDisabled(true);
-      props.pasoSiguiente()
+      props.pasoSiguiente();
     }
     if (steps.length - 1 <= steps.indexOf(step)) {
       return;
@@ -296,7 +296,7 @@ export default function PicSeccionInformacionPersonal(props) {
                   encabezado="Instrucciones"
                   descriptor={
                     <div>
-                      <p>
+                      <p style={{ fontSize: "1.1rem" }}>
                         ¡Es el momento de calentar los músculos para iniciar el
                         camino a la construcción de tu rumbo y el de tu país!
                       </p>
@@ -310,7 +310,7 @@ export default function PicSeccionInformacionPersonal(props) {
                   encabezado="Bienvenidos"
                   descriptor={
                     <div>
-                      <p>
+                      <p style={{ fontSize: "1.1rem" }}>
                         Gracias, ¡Con tu valioso compromiso somos una mejor
                         Dirección de Impuestos y Aduanas Nacionales!
                       </p>

@@ -59,7 +59,7 @@ $main-menu-width-lg: 110px;
 $main-menu-width-md: 100px;
 $main-menu-width-xs: 90px;
 
-$sub-menu-width: 230px;
+$sub-menu-width: 280px;
 $sub-menu-width-lg: 230px;
 $sub-menu-width-md: 230px;
 $sub-menu-width-xs: 230px;
@@ -217,7 +217,7 @@ h4 {
 }
 
 h5 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
 
     @include respond-below(sm) {
         font-size: 0.9rem;
@@ -225,7 +225,7 @@ h5 {
 }
 
 h6 {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
 
     @include respond-below(sm) {
         font-size: 0.85rem;
@@ -2015,6 +2015,7 @@ button {
             span {
                 text-align: center;
                 padding: 0 10px;
+                font-size: 1.1rem;
                 line-height: 14px;
             }
 

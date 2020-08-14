@@ -25,7 +25,9 @@ export class PopoverItem extends React.Component {
           id={"Popover-" + this.props.idCurso}
           onClick={this.toggle}
         >
-          <CardBody  style={{ color: "#FFFFFF" }}>{this.props.nombreCurso}</CardBody>
+          <CardBody style={{ color: "black" }}>
+            {this.props.nombreCurso}
+          </CardBody>
         </Card>
         <Popover
           placement="top"

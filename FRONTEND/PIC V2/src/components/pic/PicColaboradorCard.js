@@ -3,21 +3,13 @@ import React, { Fragment, useState, useEffect } from "react";
 import {
   Row,
   Card,
-  CardBody,
-  NavItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownItem,
   Modal,
   ModalHeader,
   ModalBody,
   Badge,
-  CardTitle,
   Table,
 } from "reactstrap";
 import { Colxx } from "../../components/common/CustomBootstrap";
-
-import { NavLink } from "react-router-dom";
 import logo from "../../assets/img/logo-dian-principal_recortado.png";
 import estudiando from "../../assets/img/estudiando-logo.png";
 import unal from "../../assets/img/unal-logo.png";
@@ -101,14 +93,14 @@ const PicColaboradorCard = (props) => {
                   <tr>
                     <td className="align-middle">
                       <center>
-                        <img src={unal} width="200" height="90" />
+                        <img src={unal} width="200" height="85" />
                       </center>
                     </td>
                   </tr>
                   <tr>
                     <td className="align-middle">
                       <center>
-                        <img src={estudiando} width="150" height="150" />
+                        <img src={estudiando} width="120" height="120" />
                       </center>
                     </td>
                   </tr>

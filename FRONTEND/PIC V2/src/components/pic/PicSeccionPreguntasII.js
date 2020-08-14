@@ -21,17 +21,21 @@ export default function PicSeccionPreguntasII(props) {
   const [preguntaElegida, setPreguntaElegida] = useState("");
   var contadorPasos = 1;
 
-  const [preguntasCards, setPreguntasCards] = useState(preguntas.map((pregunta) =>
-    <Step id={"" + contadorPasos++} desc="" >
-      <PicPreguntaComponente
-        columna="12"
-        pregunta={pregunta.encabezadoPregunta}
-        descriptor={pregunta.situacionProblema}
-        setElegido={setRespuestaElegida}
-        setIdElegido={setPreguntaElegida}
-        idPregunta={pregunta.idPregunta}
-        respuestas={pregunta.opcionesRespuestas} />
-    </Step>));
+  const [preguntasCards, setPreguntasCards] = useState(
+    preguntas.map((pregunta) => (
+      <Step id={"" + contadorPasos++} desc="">
+        <PicPreguntaComponente
+          columna="12"
+          pregunta={pregunta.encabezadoPregunta}
+          descriptor={pregunta.situacionProblema}
+          setElegido={setRespuestaElegida}
+          setIdElegido={setPreguntaElegida}
+          idPregunta={pregunta.idPregunta}
+          respuestas={pregunta.opcionesRespuestas}
+        />
+      </Step>
+    ))
+  );
 
   const [bottomNavHidden, setBottomNavHidden] = useState(false);
   const [topNavDisabled, setTopNavDisabled] = useState(false);
@@ -201,7 +205,7 @@ export default function PicSeccionPreguntasII(props) {
                   encabezado="Instrucciones - II"
                   descriptor={
                     <div>
-                      <p>
+                      <p style={{ fontSize: "1.1rem" }}>
                         ¿Te das cuenta? ¡Con tu ayuda avanzaremos en la
                         estrategia de transformación organizacional!
                       </p>

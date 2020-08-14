@@ -174,7 +174,7 @@ export default function PicSeccionPreguntasI(props) {
                   encabezado="Instrucciones - Sección I"
                   descriptor={
                     <div>
-                      <p>
+                      <p style={{ fontSize: "1.1rem" }}>
                         ¡Haz un reconocimiento de lo que necesitas para hacer un
                         mejor trabajo en la Entidad!{" "}
                       </p>

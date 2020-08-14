@@ -21,17 +21,21 @@ export default function PicSeccionPreguntasIII(props) {
 
   var contadorPasos = 1;
 
-  const [preguntasCards, setPreguntasCards] = useState(preguntas.map((pregunta) =>
-    <Step id={"" + contadorPasos++} name="" desc="" >
-      <PicPreguntaComponente
-        columna="2"
-        setIdElegido={setPreguntaElegida}
-        idPregunta={pregunta.idPregunta}
-        pregunta={pregunta.encabezadoPregunta}
-        setElegido={setRespuestaElegida}
-        descriptor={pregunta.situacionProblema}
-        respuestas={pregunta.opcionesRespuestas} />
-    </Step>));
+  const [preguntasCards, setPreguntasCards] = useState(
+    preguntas.map((pregunta) => (
+      <Step id={"" + contadorPasos++} name="" desc="">
+        <PicPreguntaComponente
+          columna="2"
+          setIdElegido={setPreguntaElegida}
+          idPregunta={pregunta.idPregunta}
+          pregunta={pregunta.encabezadoPregunta}
+          setElegido={setRespuestaElegida}
+          descriptor={pregunta.situacionProblema}
+          respuestas={pregunta.opcionesRespuestas}
+        />
+      </Step>
+    ))
+  );
 
   const [bottomNavHidden, setBottomNavHidden] = useState(false);
   const [topNavDisabled, setTopNavDisabled] = useState(false);
@@ -151,7 +155,7 @@ export default function PicSeccionPreguntasIII(props) {
                   encabezado="Instrucciones - Sección III"
                   descriptor={
                     <div>
-                      <p>
+                      <p style={{ fontSize: "1.1rem" }}>
                         ¡El paisaje es hermoso en este punto de la montaña y
                         aprender de tu experiencia es lo más importante para
                         nosotros!

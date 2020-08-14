@@ -15,17 +15,18 @@ const Footer = () => {
           <Row>
             <Colxx xxs="4" sm="4">
               <center>
-                <img className="mb-0" src={logo} width="70" height="70" />
-              </center>
-            </Colxx>
-            <Colxx xxs="4" sm="4">
-              <center>
-                <img className="mb-0" src={unal} width="160" height="70" />
-              </center>
-            </Colxx>
-            <Colxx xxs="4" sm="4">
-              <center>
                 <img className="mb-0" src={logoDian} width="200" height="68" />
+              </center>
+            </Colxx>
+            <Colxx xxs="4" sm="4">
+              <center>
+                <img className="mb-0" src={unal} width="160" height="74" />
+              </center>
+            </Colxx>
+
+            <Colxx xxs="4" sm="4">
+              <center>
+                <img className="mb-0" src={logo} width="60" height="60" />
               </center>
             </Colxx>
           </Row>
