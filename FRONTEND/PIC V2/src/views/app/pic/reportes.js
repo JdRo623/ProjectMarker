@@ -14,7 +14,7 @@ class Reportes extends Component {
         <Row>
           <Colxx xxs="12" lg="6" xl="6" className="mb-3">
             <PicReporteComponent
-              titulo={"Número total de inscritos por curso"}
+              titulo={"Resultado sobre el estado de las rutas de aprendizaje"}
               reporte={
                 constantes.urlServer + constantes.servicios.reporte_Rutas
               }
@@ -23,7 +23,7 @@ class Reportes extends Component {
           </Colxx>
           <Colxx xxs="12" lg="6" xl="6" className="mb-3">
             <PicReporteComponent
-              titulo={"Listado de personas que han realizado el cuestionario"}
+              titulo={"Resultados sobre estado de la aplicación del cuestionario"}
               reporte={
                 constantes.urlServer + constantes.servicios.reporte_UsuarioC
               }

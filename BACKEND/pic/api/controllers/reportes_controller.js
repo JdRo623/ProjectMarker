@@ -130,7 +130,7 @@ function estado_Cuestionario(req, res) {
               base64.encode(documentname, function (err, base64String) {
                 let respuesta = {
                   documento: base64String,
-                  nombreArchivo: "Reporte Cuestionario.xlsx",
+                  nombreArchivo: "Estado de la aplicación del Cuestionario.xlsx",
                 };
                 return res.status(200).send({
                   estado: "Descargado",
@@ -671,7 +671,7 @@ function estado_RutaAprendizaje(req, res) {
               base64.encode(documentname, function (err, base64String) {
                 let respuesta = {
                   documento: base64String,
-                  nombreArchivo: "Reporte Ruta.xlsx",
+                  nombreArchivo: "Estado de las rutas de aprendizaje.xlsx",
                 };
                 return res.status(200).send({
                   estado: "Descargado",
