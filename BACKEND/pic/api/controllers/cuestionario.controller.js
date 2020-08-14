@@ -129,8 +129,8 @@ function actualizarPreguntaIII(req, res) {
             }
           );
           if (dec.data.id_pregunta == "3.16") {
-            cuestionarioBuscado.estado_cuestionario = "Terminado";
-            cuestionarioBuscado.fecha_Finalizacion = fecha;
+          //  cuestionarioBuscado.estado_cuestionario = "Terminado";
+          //  cuestionarioBuscado.fecha_Finalizacion = fecha;
           }
           cuestionarioHandler
             .updateOne({ email: dec.data.email }, cuestionarioBuscado)
