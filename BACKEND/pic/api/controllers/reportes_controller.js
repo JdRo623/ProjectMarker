@@ -58,11 +58,10 @@ function estado_Cuestionario(req, res) {
                     }
                   });
                   var avanceActual = (respondidas * 100) / totales;
-                  if(element.estado_cuestionario=="Terminado"){
+                  if (element.estado_cuestionario == "Terminado") {
                     avanceActual = 100;
                   }
                   registro = {
-
                     codigo_cuestionario: element._id,
                     identificacion: usuario.identificacion,
                     apellidos_funcionario: tools.decrypt(usuario.apellidos),
@@ -149,13 +148,6 @@ function estado_Cuestionario(req, res) {
               });
             });
           })
-          .catch((err) => {
-            return res.status(603).send({
-              estado: "Error",
-              message: util.format("Error generando el reporte"),
-              data: Object.assign({ err: err }),
-            });
-          });
       });
     };
     reporteUsuarios(req, res);
@@ -289,43 +281,42 @@ function preguntas_Usuarioii(req, res) {
               var registro = {};
               for (let element of cuestionarios) {
                 for (let usuario of usuarios) {
-                    if (usuario.email == element.email) {
-                      for (var preguntaCuestionario of element.listado_preguntas) {
-                        for (var pregunta of preguntaBus) {
-                          if (
-                            pregunta.numero_pregunta ==
-                            preguntaCuestionario.id_pregunta
-                          ) {
-                            registro = {
-                              codigo_cuestionario: element._id,
-                              identificacion: usuario.identificacion,
-                              apellidos_funcionario: tools.decrypt(
-                                usuario.nombres
-                              ),
-                              nombre_funcionario: tools.decrypt(
-                                usuario.apellidos
-                              ),
-                              cargo: tools.decrypt(usuario.cargo),
-                              nivel1: tools.decrypt(usuario.nivel1),
-                              nivel2: tools.decrypt(usuario.nivel2),
-                              nivel3: tools.decrypt(usuario.nivel3),
-                              correo: usuario.email,
-                              seccion: "Seccion II",
-                              codigo: pregunta.numero_pregunta,
-                              codigo_curso: pregunta.codificacion,
-                              nombre_curso: pregunta.curso,
-                              opcion_respuesta: pregunta.clave,
-                              competencia: pregunta.competencia,
-                              nivel: pregunta.nivel,
-                              respuesta: preguntaCuestionario.valor_respuesta,
-                              estado: preguntaCuestionario.estado_respuesta,
-                            };
-                            listado.push(registro);
-                          }
+                  if (usuario.email == element.email) {
+                    for (var preguntaCuestionario of element.listado_preguntas) {
+                      for (var pregunta of preguntaBus) {
+                        if (
+                          pregunta.numero_pregunta ==
+                          preguntaCuestionario.id_pregunta
+                        ) {
+                          registro = {
+                            codigo_cuestionario: element._id,
+                            identificacion: usuario.identificacion,
+                            apellidos_funcionario: tools.decrypt(
+                              usuario.nombres
+                            ),
+                            nombre_funcionario: tools.decrypt(
+                              usuario.apellidos
+                            ),
+                            cargo: tools.decrypt(usuario.cargo),
+                            nivel1: tools.decrypt(usuario.nivel1),
+                            nivel2: tools.decrypt(usuario.nivel2),
+                            nivel3: tools.decrypt(usuario.nivel3),
+                            correo: usuario.email,
+                            seccion: "Seccion II",
+                            codigo: pregunta.numero_pregunta,
+                            codigo_curso: pregunta.codificacion,
+                            nombre_curso: pregunta.curso,
+                            opcion_respuesta: pregunta.clave,
+                            competencia: pregunta.competencia,
+                            nivel: pregunta.nivel,
+                            respuesta: preguntaCuestionario.valor_respuesta,
+                            estado: preguntaCuestionario.estado_respuesta,
+                          };
+                          listado.push(registro);
                         }
                       }
                     }
-                
+                  }
                 }
               }
 
@@ -670,30 +661,21 @@ function estado_RutaAprendizaje(req, res) {
                   identificacion: registro.identificacion,
                 });
               });
-              workbookOut.xlsx
-                .writeFile(documentname)
-                .then(() => {
-                  base64.encode(documentname, function (err, base64String) {
-                    let respuesta = {
-                      documento: base64String,
-                      nombreArchivo: "Reporte Ruta.xlsx",
-                    };
-                    return res.status(200).send({
-                      estado: "Descargado",
-                      message: util.format(
-                        "Archivo de ruta de aprendizaje generado exitosamente"
-                      ),
-                      data: Object.assign(respuesta),
-                    });
-                  });
-                })
-                .catch((err) => {
-                  return res.status(603).send({
-                    estado: "Error",
-                    message: util.format("Error generando el reporte"),
-                    data: Object.assign({ err: err }),
+              workbookOut.xlsx.writeFile(documentname).then(() => {
+                base64.encode(documentname, function (err, base64String) {
+                  let respuesta = {
+                    documento: base64String,
+                    nombreArchivo: "Reporte Ruta.xlsx",
+                  };
+                  return res.status(200).send({
+                    estado: "Descargado",
+                    message: util.format(
+                      "Archivo de ruta de aprendizaje generado exitosamente"
+                    ),
+                    data: Object.assign(respuesta),
                   });
                 });
+              });
             }
           }
         );
