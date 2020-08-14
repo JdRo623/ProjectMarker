@@ -44,7 +44,6 @@ export default function RutaAprendizajeColaborador(props) {
         url,
         filtros,
         (response) => {
-          console.log(response.data);
           setRuta(response.data);
           setModal(false);
         },

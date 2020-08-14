@@ -46,7 +46,6 @@ const PicColaboradorCard = (props) => {
         url,
         filtros,
         (response) => {
-          console.log(response.data);
           setNombres(response.data.nombres);
           setApellidos(response.data.apellidos);
           setCedula(response.data.identificacion);

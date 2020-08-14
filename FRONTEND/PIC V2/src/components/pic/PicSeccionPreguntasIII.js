@@ -50,9 +50,6 @@ export default function PicSeccionPreguntasIII(props) {
 
   const onClickNext = (goToNext, steps, step) => {
     step.isDone = true;
-    console.log(steps);
-    console.log(step);
-
     if (steps.length - 2 <= steps.indexOf(step)) {
       setBottomNavHidden(true);
       setTopNavDisabled(true);

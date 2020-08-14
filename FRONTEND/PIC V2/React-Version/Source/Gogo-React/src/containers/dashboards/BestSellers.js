@@ -7,14 +7,13 @@ import IntlMessages from "../../helpers/IntlMessages";
 
 import data from "../../data/products";
 
-
 class BestSellers extends Component {
   constructor() {
     super();
     this.state = {
       selectAll: false,
       data: [],
-      checked: []
+      checked: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSingleCheckboxChange = this.handleSingleCheckboxChange.bind(
@@ -29,25 +28,30 @@ class BestSellers extends Component {
     this.state.data.forEach(function (e, index) {
       checkedCopy.push(selectAll);
     });
-    this.setState({
-      checked: checkedCopy
-    }, () => {
-      console.log(this.state.checked);
-    });
+    this.setState(
+      {
+        checked: checkedCopy,
+      },
+      () => {
+        console.log(this.state.checked);
+      }
+    );
   };
 
-  handleSingleCheckboxChange = index => {
-    console.log(index);
+  handleSingleCheckboxChange = (index) => {
     var checkedCopy = this.state.checked;
     checkedCopy[index] = !this.state.checked[index];
     if (checkedCopy[index] === false) {
       this.setState({ selectAll: false });
     }
-    this.setState({
-      checked: checkedCopy
-    }, () => {
-      console.log(this.state.checked);
-    });
+    this.setState(
+      {
+        checked: checkedCopy,
+      },
+      () => {
+        console.log(this.state.checked);
+      }
+    );
   };
 
   componentDidMount() {
@@ -60,7 +64,7 @@ class BestSellers extends Component {
     this.setState({
       data: dataEdited,
       checked: checkedCopy,
-      selectAll: selectAll
+      selectAll: selectAll,
     });
   }
 
@@ -71,52 +75,52 @@ class BestSellers extends Component {
           <CardTitle>
             <IntlMessages id={"dashboards.best-sellers"} />
           </CardTitle>
-            <ReactTable
-              data={this.state.data}
-              defaultPageSize={6}
-              showPageJump={false}
-              showPageSizeOptions={false}
-              PaginationComponent={Pagination}
-              columns={[
-                {
-                  sortable: false,
-                  Header: (
-                    <CustomInput
-                      type="checkbox"
-                      id="checkAll"
-                      label="All"
-                      onChange={this.handleChange}
-                      checked={this.state.selectAll}
-                    />
-                  ),
-                  Cell: row => (
-                    <CustomInput
-                      type="checkbox"
-                      id={"check"+row.index}
-                      label=""
-                      checked={this.state.checked[row.index]}
-                      onChange={() => this.handleSingleCheckboxChange(row.index)}
-                    />
-                  ),
-                  filterable: false
-                },
-                {
-                  Header: "Name",
-                  accessor: "title",
-                  Cell: props => <p className="text-muted">{props.value}</p>
-                },
-                {
-                  Header: "Sales",
-                  accessor: "sales",
-                  Cell: props => <p className="text-muted">{props.value}</p>
-                },
-                {
-                  Header: "Stock",
-                  accessor: "stock",
-                  Cell: props => <p className="text-muted">{props.value}</p>
-                }
-              ]}
-            />
+          <ReactTable
+            data={this.state.data}
+            defaultPageSize={6}
+            showPageJump={false}
+            showPageSizeOptions={false}
+            PaginationComponent={Pagination}
+            columns={[
+              {
+                sortable: false,
+                Header: (
+                  <CustomInput
+                    type="checkbox"
+                    id="checkAll"
+                    label="All"
+                    onChange={this.handleChange}
+                    checked={this.state.selectAll}
+                  />
+                ),
+                Cell: (row) => (
+                  <CustomInput
+                    type="checkbox"
+                    id={"check" + row.index}
+                    label=""
+                    checked={this.state.checked[row.index]}
+                    onChange={() => this.handleSingleCheckboxChange(row.index)}
+                  />
+                ),
+                filterable: false,
+              },
+              {
+                Header: "Name",
+                accessor: "title",
+                Cell: (props) => <p className="text-muted">{props.value}</p>,
+              },
+              {
+                Header: "Sales",
+                accessor: "sales",
+                Cell: (props) => <p className="text-muted">{props.value}</p>,
+              },
+              {
+                Header: "Stock",
+                accessor: "stock",
+                Cell: (props) => <p className="text-muted">{props.value}</p>,
+              },
+            ]}
+          />
         </CardBody>
       </Card>
     );

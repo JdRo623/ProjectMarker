@@ -69,7 +69,6 @@ export default function PicSeccionPreguntasII(props) {
         url,
         filtros,
         (response) => {
-          console.log(response.data);
           setPreguntas(response.data);
           setPreguntasCards(
             preguntas.map((pregunta) => (
@@ -162,13 +161,6 @@ export default function PicSeccionPreguntasII(props) {
     }
     goToPrev();
   };
-  // const handleSubmit = (event, errors, values) => {
-  //   console.log(errors);
-  //   console.log(values);
-  //   if (errors.length === 0) {
-  //     //submit
-  //   }
-  // };
 
   const mostrarMensajeError = (tittle, message) => {
     NotificationManager.error(

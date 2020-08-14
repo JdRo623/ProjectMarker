@@ -25,7 +25,6 @@ export default function PicPreguntaCompleta(props) {
   const [numeroPregunta, setNumeroPregunta] = useState(0);
 
   const keyPressed = (event) => {
-    console.log(event.key);
     if (event.key === "Enter") {
       obtenerPreguntaEspecifica();
     }
@@ -43,8 +42,6 @@ export default function PicPreguntaCompleta(props) {
         url,
         filtros,
         (response) => {
-          console.log(response.data);
-
           setPregunta(response.data);
           setModal(false);
         },
@@ -71,7 +68,6 @@ export default function PicPreguntaCompleta(props) {
           <CardTitle>Ingrese el numero de la pregunta</CardTitle>
           <h4>Número de la pregunta</h4>
           <Label className="form-group has-float-label">
-  
             <Input
               type="text"
               onKeyPress={keyPressed}
@@ -86,22 +82,20 @@ export default function PicPreguntaCompleta(props) {
       </Card>
       <Card className="mb-4">
         <CardBody>
-          <h4 style= {{ fontWeight: 'bold' }}>Número Pregunta:</h4>
+          <h4 style={{ fontWeight: "bold" }}>Número Pregunta:</h4>
           <p className="mb-3">{pregunta.numero_pregunta}</p>
 
           <Table responsive>
             <tbody>
               <tr>
-              <h4 style= {{ fontWeight: 'bold' }}>
-                  Situación problema:
-                </h4>
+                <h4 style={{ fontWeight: "bold" }}>Situación problema:</h4>
                 <p
                   className="mb-3"
                   dangerouslySetInnerHTML={{
                     __html: pregunta.situacion_problema,
                   }}
                 />
-                <h4 style= {{ fontWeight: 'bold' }}>
+                <h4 style={{ fontWeight: "bold" }}>
                   Encabezado de la pregunta:
                 </h4>
                 <p
@@ -117,21 +111,21 @@ export default function PicPreguntaCompleta(props) {
           <Table responsive>
             <tbody>
               <tr>
-                <h4 style= {{ fontWeight: 'bold' }}>
+                <h4 style={{ fontWeight: "bold" }}>
                   Opciones de respuesta: A:
                 </h4>
                 <p
                   className="mb-3"
                   dangerouslySetInnerHTML={{ __html: pregunta.respuesta1 }}
                 />
-               <h4 style= {{ fontWeight: 'bold' }}>
+                <h4 style={{ fontWeight: "bold" }}>
                   Opciones de respuesta: B:
                 </h4>
                 <p
                   className="mb-3"
                   dangerouslySetInnerHTML={{ __html: pregunta.respuesta2 }}
                 />
-              <h4 style= {{ fontWeight: 'bold' }}>
+                <h4 style={{ fontWeight: "bold" }}>
                   Opciones de respuesta: C:
                 </h4>
                 <p
@@ -142,41 +136,39 @@ export default function PicPreguntaCompleta(props) {
             </tbody>
           </Table>
 
-          <h4 style= {{ fontWeight: 'bold' }}>Competencia:</h4>
+          <h4 style={{ fontWeight: "bold" }}>Competencia:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{ __html: pregunta.competencia }}
           />
-          <h4 style= {{ fontWeight: 'bold' }}>Nivel:</h4>
+          <h4 style={{ fontWeight: "bold" }}>Nivel:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{ __html: pregunta.nivel }}
           />
-          <h4 style= {{ fontWeight: 'bold' }}>Curso:</h4>
+          <h4 style={{ fontWeight: "bold" }}>Curso:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{ __html: pregunta.curso }}
           />
-          <h4 style= {{ fontWeight: 'bold' }}>Codificación:</h4>
+          <h4 style={{ fontWeight: "bold" }}>Codificación:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{ __html: pregunta.codificacion }}
           />
-          <h4  style= {{ fontWeight: 'bold' }} >Clave:</h4>
+          <h4 style={{ fontWeight: "bold" }}>Clave:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{ __html: pregunta.clave }}
           />
-          <h4  style= {{ fontWeight: 'bold' }}>
-            Justificación respuesta clave:
-          </h4>
+          <h4 style={{ fontWeight: "bold" }}>Justificación respuesta clave:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{
               __html: pregunta.justificacion_respuesta_clave,
             }}
           />
-          <h4 style= {{ fontWeight: 'bold' }}>
+          <h4 style={{ fontWeight: "bold" }}>
             Justificación respuestas incorrectas:
           </h4>
           <p
@@ -185,7 +177,7 @@ export default function PicPreguntaCompleta(props) {
               __html: pregunta.justificacion_incorrectas,
             }}
           />
-          <h4 style= {{ fontWeight: 'bold' }}>Bibliografía:</h4>
+          <h4 style={{ fontWeight: "bold" }}>Bibliografía:</h4>
           <p
             className="mb-3"
             dangerouslySetInnerHTML={{ __html: pregunta.bibliografia }}

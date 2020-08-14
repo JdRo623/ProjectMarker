@@ -56,7 +56,7 @@ export default function PicSeccionPreguntasI(props) {
     if (topNavDisabled) {
       return;
     }
-    console.log(stepItem.id);
+
     push(stepItem.id);
   };
 
@@ -132,8 +132,6 @@ export default function PicSeccionPreguntasI(props) {
     onClickNext(goToNext, steps, step);
   };
   const handleSubmit = (event, errors, values) => {
-    console.log(errors);
-    console.log(values);
     if (errors.length === 0) {
       //submit
     }

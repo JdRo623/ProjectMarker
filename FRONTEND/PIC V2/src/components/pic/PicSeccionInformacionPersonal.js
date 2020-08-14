@@ -90,7 +90,6 @@ export default function PicSeccionInformacionPersonal(props) {
       const filtros = {
         seccional: seccionalSeleccionada,
       };
-      console.log(seccionalSeleccionada);
 
       HttpUtil.requestPost(
         url,
@@ -116,13 +115,11 @@ export default function PicSeccionInformacionPersonal(props) {
       const filtros = {
         seccional: subprocesoSeleccionado,
       };
-      console.log(seccionalSeleccionada);
 
       HttpUtil.requestPost(
         url,
         filtros,
         (response) => {
-          console.log(response);
           setCoordinacionesListado(response.data);
           onClickNext(goToNext, steps, step);
           setModal(false);
@@ -152,13 +149,11 @@ export default function PicSeccionInformacionPersonal(props) {
         rol: cargoSeleccionado,
         subgrupo: subprocesoSeleccionado,
       };
-      console.log(seccionalSeleccionada);
 
       HttpUtil.requestPost(
         url,
         filtros,
         (response) => {
-          console.log(response);
           props.setEstadoPaso(true);
           props.setCuestionario(response.data);
           onClickNext(goToNext, steps, step);

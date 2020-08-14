@@ -73,7 +73,6 @@ export default function PicCargaPreguntas(props) {
 
   const enviarPregunta = () => {
     try {
-      console.log(numero_pregunta);
       setModal(true);
       const url = constantes.urlServer + constantes.servicios.agregarPregunta;
 
@@ -117,7 +116,6 @@ export default function PicCargaPreguntas(props) {
           setJustificacionIncorrectas("");
           setBibliografia("");
 
-          console.log("Cargado");
           /*if (['Aprobado', 'Aprobada'].indexOf(response.estado) > -1) {
                         localStorage.setItem('userInfo', JSON.stringify(response.data));
                         props.history.push("/admin");

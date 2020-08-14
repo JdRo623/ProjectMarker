@@ -5,7 +5,6 @@ import { Row } from "reactstrap";
 import PicReporteComponent from "../../../components/pic/PicReporteComponent";
 import constantes from "../../../util/Constantes.js";
 
-import { doughnutChartData } from "../../../data/charts";
 import { Colxx } from "../../../components/common/CustomBootstrap";
 
 class Reportes extends Component {
@@ -15,7 +14,7 @@ class Reportes extends Component {
         <Row>
           <Colxx xxs="12" lg="6" xl="6" className="mb-3">
             <PicReporteComponent
-              titulo={"Listado de personas que han realizado el cuestionario"}
+              titulo={"Número total de inscritos por curso"}
               reporte={
                 constantes.urlServer + constantes.servicios.reporte_Rutas
               }
@@ -24,7 +23,7 @@ class Reportes extends Component {
           </Colxx>
           <Colxx xxs="12" lg="6" xl="6" className="mb-3">
             <PicReporteComponent
-              titulo={"Número total de inscritos por curso"}
+              titulo={"Listado de personas que han realizado el cuestionario"}
               reporte={
                 constantes.urlServer + constantes.servicios.reporte_UsuarioC
               }
