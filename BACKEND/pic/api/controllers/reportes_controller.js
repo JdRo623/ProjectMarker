@@ -68,9 +68,9 @@ function estado_Cuestionario(req, res) {
                     apellidos_funcionario: tools.decrypt(usuario.apellidos),
                     nombre_funcionario: tools.decrypt(usuario.nombres),
                     cargo: tools.decrypt(usuario.cargo),
-                    nivel1: tools.decrypt(usuario.nivel1),
-                    nivel2: tools.decrypt(usuario.nivel2),
-                    nivel3: tools.decrypt(usuario.nivel3),
+                    nivel1: tools.decrypt(usuario.nivel2),
+                    nivel2: tools.decrypt(usuario.nivel3),
+                    nivel3: tools.decrypt(usuario.nivel4),
                     correo: usuario.email,
                     personas_acargo: element.personasACargo,
                     directivo: element.personasACargo,
@@ -120,8 +120,8 @@ function estado_Cuestionario(req, res) {
                 Nivel_2_del_cargo: registro.nivel2,
                 Nivel_3_del_cargo: registro.nivel3,
                 Correo_Electrónico: registro.correo,
-                Fecha_de_Inicio: registro.fecha_inicio,
-                Fecha_de_Terminación: registro.fecha_terminacion,
+                Fecha_de_Inicio: tools.getFechaActual(),
+                Fecha_de_Terminación:tools.getFechaActual(),
                 Avance: registro.avance,
                 Estado: registro.estado,
               });
@@ -174,12 +174,12 @@ function preguntas_Usuarioi(req, res) {
                       registro = {
                         codigo_cuestionario: element._id,
                         identificacion: usuario.identificacion,
-                        apellidos_funcionario: tools.decrypt(usuario.nombres),
-                        nombre_funcionario: tools.decrypt(usuario.apellidos),
+                        apellidos_funcionario: tools.decrypt(usuario.apellidos),
+                        nombre_funcionario: tools.decrypt(usuario.nombres),
                         cargo: tools.decrypt(usuario.cargo),
-                        nivel1: tools.decrypt(usuario.nivel1),
-                        nivel2: tools.decrypt(usuario.nivel2),
-                        nivel3: tools.decrypt(usuario.nivel3),
+                        nivel1: tools.decrypt(usuario.nivel2),
+                        nivel2: tools.decrypt(usuario.nivel3),
+                        nivel3: tools.decrypt(usuario.nivel4),
                         correo: usuario.email,
                         seccion: "Seccion I",
                         codigo_competencia: pregunta.nombreCompetencia,
@@ -213,7 +213,7 @@ function preguntas_Usuarioi(req, res) {
               { header: "Nivel_3_del_cargo", key: "Nivel_3_del_cargo" },
               { header: "Correo_Electrónico", key: "Correo_Electrónico" },
               { header: "seccion", key: "seccion" },
-              { header: "Codigo", key: "Codigo" },
+              { header: "Nombre Competencia", key: "Codigo" },
               { header: "respuesta_funcionario", key: "enunciado_respuesta" },
               { header: "estado", key: "estado" },
             ];
@@ -231,7 +231,7 @@ function preguntas_Usuarioi(req, res) {
                 seccion: registro.seccion,
                 Codigo: registro.codigo_competencia,
                 enunciado_respuesta: registro.enunciado_respuesta,
-                Estado: registro.estado,
+                estado: registro.estado,
               });
             });
             workbookOut.xlsx.writeFile(filename).then(() => {
@@ -287,15 +287,15 @@ function preguntas_Usuarioii(req, res) {
                             codigo_cuestionario: element._id,
                             identificacion: usuario.identificacion,
                             apellidos_funcionario: tools.decrypt(
-                              usuario.nombres
-                            ),
-                            nombre_funcionario: tools.decrypt(
                               usuario.apellidos
                             ),
+                            nombre_funcionario: tools.decrypt(
+                              usuario.nombres
+                            ),
                             cargo: tools.decrypt(usuario.cargo),
-                            nivel1: tools.decrypt(usuario.nivel1),
-                            nivel2: tools.decrypt(usuario.nivel2),
-                            nivel3: tools.decrypt(usuario.nivel3),
+                            nivel1: tools.decrypt(usuario.nivel2),
+                            nivel2: tools.decrypt(usuario.nivel3),
+                            nivel3: tools.decrypt(usuario.nivel4),
                             correo: usuario.email,
                             seccion: "Seccion II",
                             codigo: pregunta.numero_pregunta,
@@ -421,15 +421,15 @@ function preguntas_Usuarioiii(req, res) {
                             codigo_cuestionario: element._id,
                             identificacion: usuario.identificacion,
                             apellidos_funcionario: tools.decrypt(
-                              usuario.nombres
-                            ),
-                            nombre_funcionario: tools.decrypt(
                               usuario.apellidos
                             ),
+                            nombre_funcionario: tools.decrypt(
+                              usuario.nombres
+                            ),
                             cargo: tools.decrypt(usuario.cargo),
-                            nivel1: tools.decrypt(usuario.nivel1),
-                            nivel2: tools.decrypt(usuario.nivel2),
-                            nivel3: tools.decrypt(usuario.nivel3),
+                            nivel1: tools.decrypt(usuario.nivel2),
+                            nivel2: tools.decrypt(usuario.nivel3),
+                            nivel3: tools.decrypt(usuario.nivel4),
                             correo: usuario.email,
                             seccion: "Seccion III",
                             codigo: pregunta.idPregunta,
@@ -548,9 +548,9 @@ function estado_RutaAprendizaje(req, res) {
                             usuario.apellidos
                           ),
                           cargo: tools.decrypt(usuario.cargo),
-                          nivel1: tools.decrypt(usuario.nivel1),
-                          nivel2: tools.decrypt(usuario.nivel2),
-                          nivel3: tools.decrypt(usuario.nivel3),
+                          nivel1: tools.decrypt(usuario.nivel2),
+                          nivel2: tools.decrypt(usuario.nivel3),
+                          nivel3: tools.decrypt(usuario.nivel4),
                           correo: usuario.email,
                           estado: basicos.estado,
                         };
@@ -568,9 +568,9 @@ function estado_RutaAprendizaje(req, res) {
                             usuario.apellidos
                           ),
                           cargo: tools.decrypt(usuario.cargo),
-                          nivel1: tools.decrypt(usuario.nivel1),
-                          nivel2: tools.decrypt(usuario.nivel2),
-                          nivel3: tools.decrypt(usuario.nivel3),
+                          nivel1: tools.decrypt(usuario.nivel2),
+                          nivel2: tools.decrypt(usuario.nivel3),
+                          nivel3: tools.decrypt(usuario.nivel4),
                           correo: usuario.email,
                           estado: medios.estado,
                         };
@@ -588,9 +588,9 @@ function estado_RutaAprendizaje(req, res) {
                             usuario.apellidos
                           ),
                           cargo: tools.decrypt(usuario.cargo),
-                          nivel1: tools.decrypt(usuario.nivel1),
-                          nivel2: tools.decrypt(usuario.nivel2),
-                          nivel3: tools.decrypt(usuario.nivel3),
+                          nivel1: tools.decrypt(usuario.nivel2),
+                          nivel2: tools.decrypt(usuario.nivel3),
+                          nivel3: tools.decrypt(usuario.nivel4),
                           correo: usuario.email,
                           estado: altos.estado,
                         };
@@ -608,9 +608,9 @@ function estado_RutaAprendizaje(req, res) {
                             usuario.apellidos
                           ),
                           cargo: tools.decrypt(usuario.cargo),
-                          nivel1: tools.decrypt(usuario.nivel1),
-                          nivel2: tools.decrypt(usuario.nivel2),
-                          nivel3: tools.decrypt(usuario.nivel3),
+                          nivel1: tools.decrypt(usuario.nivel2),
+                          nivel2: tools.decrypt(usuario.nivel3),
+                          nivel3: tools.decrypt(usuario.nivel4),
                           correo: usuario.email,
                           estado: superiores.estado,
                         };
@@ -646,7 +646,7 @@ function estado_RutaAprendizaje(req, res) {
               { header: "Nivel_3_del_cargo", key: "Nivel_3_del_cargo" },
               { header: "Correo_Electrónico", key: "Correo_Electrónico" },
               { header: "nombre_curso", key: "nombre_curso" },
-              { header: "nombre_ruta", key: "nombre_ruta" },
+              { header: "Nombre Competencia", key: "nombre_ruta" },
               { header: "nivel_competencia", key: "nivel_competencia" },
               { header: "Estado", key: "Estado" },
             ];
