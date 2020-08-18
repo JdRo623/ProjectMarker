@@ -130,7 +130,7 @@ function actualizarPreguntaIII(req, res) {
           );
           if (dec.data.id_pregunta == "3.16") {
             cuestionarioBuscado.estado_cuestionario = "Terminado";
-          //  cuestionarioBuscado.fecha_Finalizacion = fecha;
+            //  cuestionarioBuscado.fecha_Finalizacion = fecha;
           }
           cuestionarioHandler
             .updateOne({ email: dec.data.email }, cuestionarioBuscado)
@@ -367,23 +367,45 @@ function actualizarCompetencia(req, res) {
             }
           });
 
-          var preguntasFinales = [];
+          var buscarPreguntas = [];
+
           cuestionarioBuscado.listado_preguntas.forEach((pregunta) => {
-            if (pregunta.competencia != dec.data.competencia) {
-              preguntasFinales.push(pregunta);
-            }
+            buscarPreguntas.push(pregunta.id_pregunta);
           });
-          cuestionarioBuscado.listado_preguntas = preguntasFinales;
-          //Sí el valor respuesta == 0 entonces llamar las preguntas con query que tengan en su campo de competencia, y crear una lista de preguntas sección ii nuevas sin esa competenicia
-          cuestionarioHandler
-            .updateOne({ email: dec.data.email }, cuestionarioBuscado)
-            .then(() => {
-              return res.status(200).send({
-                estado: "Exito",
-                message: util.format("Cuestionario Actualizado"),
-                data: Object.assign(cuestionarioBuscado),
+
+          PreguntasHandler.find(
+            { numero_pregunta: { $in: buscarPreguntas } },
+            (err, listadoPreguntas) => {
+              var preguntasFinales = [];
+
+              listadoPreguntas.forEach((preguntaE) => {
+                if (dec.data.valor_respuesta == "0") {
+                  if (preguntaE.competencia != dec.data.competencia) {
+                    preguntasFinales.push({
+                      id_pregunta: preguntaE.numero_pregunta,
+                    });
+                  }
+                } else {
+                  preguntasFinales.push({
+                    id_pregunta: preguntaE.numero_pregunta,
+                  });
+                }
               });
-            });
+
+              cuestionarioBuscado.listado_preguntas = preguntasFinales;
+
+              //Sí el valor respuesta == 0 entonces llamar las preguntas con query que tengan en su campo de competencia, y crear una lista de preguntas sección ii nuevas sin esa competenicia
+              cuestionarioHandler
+                .updateOne({ email: dec.data.email }, cuestionarioBuscado)
+                .then(() => {
+                  return res.status(200).send({
+                    estado: "Exito",
+                    message: util.format("Cuestionario Actualizado"),
+                    data: Object.assign(cuestionarioBuscado),
+                  });
+                });
+            }
+          );
         }
       );
     };
