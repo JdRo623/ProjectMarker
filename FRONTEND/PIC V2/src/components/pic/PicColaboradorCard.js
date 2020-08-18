@@ -14,6 +14,7 @@ import { Colxx } from "../../components/common/CustomBootstrap";
 import logo from "../../assets/img/logo-dian-principal_recortado.png";
 import estudiando from "../../assets/img/estudiando-logo.png";
 import unal from "../../assets/img/unal-logo.png";
+import { NavLink } from "react-router-dom";
 
 import constantes from "../../util/Constantes.js";
 import HttpUtil from "../../util/HttpService.js";
@@ -31,7 +32,19 @@ const PicColaboradorCard = (props) => {
   const [apellidos, setApellidos] = useState(false);
 
   useEffect(() => {
-    obtenerInformacionFuncionario();
+    if (localStorage.getItem("rol") == "1") {
+      setNombres("Administrador");
+      setApellidos("");
+      setCedula("N/A");
+      setNivel1("N/A");
+      setNivel2("N/A");
+      setNivel3("N/A");
+      setNivel4("N/A");
+      setCargo("N/A");
+      setEstado("N/A");
+    } else {
+      obtenerInformacionFuncionario();
+    }
   }, []);
 
   const obtenerInformacionFuncionario = () => {
@@ -64,6 +77,23 @@ const PicColaboradorCard = (props) => {
     } catch (error) {
       setModal(false);
     }
+  };
+
+  const renderAuthButton = () => {
+    if (estado_cuestionario == "No ha iniciado el cuestionario") {
+      // return <Button onClick={IrAlCuestionario}>Realizar el Cuestionario</Button>
+      return (
+        <NavLink activeClassName="active" to="/app/pic/cuestionario">
+          <Button >Realizar el Cuestionario</Button>
+        </NavLink>
+      );
+    } else {
+      return <div></div>;
+    }
+  };
+
+  const IrAlCuestionario = () => {
+    props.history.push("/app/pic/cuestionario");
   };
 
   return (
@@ -138,6 +168,7 @@ const PicColaboradorCard = (props) => {
                           {estado_cuestionario}
                         </Badge>
                       </p>
+                      {renderAuthButton()}
                     </td>
                   </tr>
                 </tbody>

@@ -1,25 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
-import {
-  AvForm,
-  AvField,
-  AvGroup,
-  AvInput,
-  AvFeedback,
-  AvRadioGroup,
-  AvRadio,
-  AvCheckboxGroup,
-  AvCheckbox,
-} from "availity-reactstrap-validation";
-import { Wizard, Steps, Step } from "react-albus";
-import {
-  Card,
-  CardBody,
-  Table,
-  FormGroup,
-  Input,
-  Label,
-  Row,
-} from "reactstrap";
+import { AvForm, AvRadioGroup, AvRadio } from "availity-reactstrap-validation";
+import { Table, FormGroup, Row } from "reactstrap";
 import Timer from "react-compound-timer";
 import { Colxx } from "../../components/common/CustomBootstrap";
 
@@ -57,7 +38,7 @@ export default function PicPreguntaComponente(props) {
               customInput
               label={
                 <p
-                  className="mb-3"
+                  //className="mb-3"
                   dangerouslySetInnerHTML={{
                     __html: respuesta.enunciadoRespuesta,
                   }}
@@ -83,16 +64,22 @@ export default function PicPreguntaComponente(props) {
     <Fragment>
       <div className="wizard-basic-step">
         <FormGroup>
-          <Table>
+          <Table responsive>
             <tbody>
               <tr>
                 <div>
-                  <h4
-                    dangerouslySetInnerHTML={{ __html: props.encabezado }}
-                  ></h4>
-                  <h5
-                    dangerouslySetInnerHTML={{ __html: props.descriptor }}
-                  ></h5>
+                  <p
+                    className="mb-3"
+                    dangerouslySetInnerHTML={{
+                      __html: props.encabezado,
+                    }}
+                  />
+                  <p
+                    className="mb-3"
+                    dangerouslySetInnerHTML={{
+                      __html: props.descriptor,
+                    }}
+                  />
                 </div>
               </tr>
             </tbody>
@@ -110,7 +97,7 @@ export default function PicPreguntaComponente(props) {
             >
               <h5 dangerouslySetInnerHTML={{ __html: props.pregunta }}></h5>
               <div>
-                <Table>
+                <Table responsive>
                   <tbody>
                     <Row>{listItems}</Row>
                   </tbody>

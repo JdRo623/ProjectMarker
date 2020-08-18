@@ -182,7 +182,6 @@ function homologacion(req, res) {
               }
             );
           } catch (error) {
-            console.log(error);
             return res.status(601).send({
               estado: "Homologaciones vacias",
               message: util.format("No hay registros"),
@@ -191,7 +190,6 @@ function homologacion(req, res) {
           }
         });
       } catch (error) {
-        console.log(error);
         return res.status(602).send({
           estado: "demoro",
           message: util.format("Error procesando el archivo"),

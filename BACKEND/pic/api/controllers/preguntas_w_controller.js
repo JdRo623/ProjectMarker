@@ -204,7 +204,6 @@ function agregarPregunta(req, res) {
 
         Pregunta_w.insertMany(pregunta, (error, pregunta) => {
           if (error) {
-            console.log(error);
             return res.status(603).send({
               estado: "Pregunta no registrada",
               message: util.format(
@@ -214,7 +213,6 @@ function agregarPregunta(req, res) {
             });
           }
           if (!pregunta) {
-            console.log(error);
             return res.status(604).send({
               estado: "Pregunta no registrada",
               message: util.format(
@@ -231,7 +229,6 @@ function agregarPregunta(req, res) {
           });
         });
       } catch (error) {
-        console.log(error);
         return res.status(602).send({
           estado: "Pregunta no registrada",
           message: util.format("Se presentó un error registrando la pregunta"),

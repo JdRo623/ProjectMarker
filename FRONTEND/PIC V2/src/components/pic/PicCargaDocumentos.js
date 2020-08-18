@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-import { Row, Card, CardBody, InputGroup, Input, Button } from "reactstrap";
+import { Row, Card, CardBody, InputGroup, Input, Modal,
+  ModalHeader,
+  ModalBody,Button } from "reactstrap";
 import constantes from "../../util/Constantes.js";
 import HttpUtil from "../../util/HttpService.js";
 
@@ -31,27 +33,15 @@ const PicCargaDocumentos = (props) => {
         const infoPreguntas = {
           archivo: archivoB64,
         };
-        console.warn("data aaaa mostrar ", archivoB64);
         HttpUtil.requestPost(
           url,
           infoPreguntas,
           (response) => {
             setModal(false);
-            /*  if( ['Aprobado', 'Aprobada'].indexOf(response.estado) > -1){
-                              localStorage.setItem('userInfo', JSON.stringify(response.data));
-                              props.history.push("/admin");
-                         //     history.push("/admin");
-                           //   this.setState({redirect : true, showLoader : false, user : response.data});*/
-          },
+               },
           () => {
             setModal(false);
-            /* this.setState({
-                             alertTitle : 'Error!',
-                             alertMessage : 'Ocurrio un error al autenticarce, por favor intenta de nuevo',
-                             alertType : 'error', 
-                             showLoader : false
-                         });*/
-          }
+        }
         );
       };
     } catch (error) {
@@ -59,8 +49,43 @@ const PicCargaDocumentos = (props) => {
     }
   };
 
+  const obtenerArchivoPrueba = () => {
+    try {
+      setModal(true);
+      const url = constantes.urlServer + props.ejemplo;
+
+      HttpUtil.requestPost(
+        url,
+        {},
+        (response) => {
+          var temp =
+            "data:application/vnd.ms-excel;base64," +
+            encodeURIComponent(response.data.documento);
+          var download = document.createElement("a");
+          download.href = temp;
+          download.download = response.data.nombreArchivo;
+          document.body.appendChild(download);
+          download.click();
+          document.body.removeChild(download);
+          setModal(false);
+        },
+        () => {
+          setModal(false);
+        }
+      );
+    } catch (error) {
+      setModal(false);
+    }
+  };
+
   return (
     <Card className="mb-4">
+      <div>
+        <Modal isOpen={modal}>
+          <ModalHeader>Obteniendo información</ModalHeader>
+          <ModalBody>Obteniendo información del Servidor.</ModalBody>
+        </Modal>
+      </div>
       <CardBody>
         <h3 className="mb-3">{props.titulo}</h3>
         <InputGroup className="mb-3">
@@ -79,6 +104,9 @@ const PicCargaDocumentos = (props) => {
         </InputGroup>
         <Button color="primary" onClick={enviarArchivo}>
           Cargar
+        </Button>
+        <Button color="primary" onClick={obtenerArchivoPrueba}>
+          Descargar Plantilla
         </Button>
       </CardBody>
     </Card>

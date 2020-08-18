@@ -6,7 +6,6 @@ import {
   Card,
   CardBody,
   CardTitle,
-  CardSubtitle,
   Modal,
   ModalHeader,
   ModalBody,
@@ -68,7 +67,7 @@ export default function PicReporteComponent(props) {
       <div>
         <Modal isOpen={modal}>
           <ModalHeader>Obteniendo información</ModalHeader>
-          <ModalBody>Obteniendo Pregunta del Servidor.</ModalBody>
+          <ModalBody>Obteniendo Reporte del Servidor.</ModalBody>
         </Modal>
       </div>
       <Row className="mb-4">

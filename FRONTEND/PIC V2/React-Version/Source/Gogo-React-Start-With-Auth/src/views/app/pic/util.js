@@ -28,17 +28,6 @@ class Util extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(values) {
-    console.log(Utils.encryptText(values.name));
-  }
-
-  encriptarInformacion(values) {
-    console.log(Utils.encryptText(values.name));
-  }
-  desencriptarInformacion(values) {
-    console.log(Utils.decryptText(values.name));
-  }
-
   validateEmail(value) {
     let error;
     if (!value) {

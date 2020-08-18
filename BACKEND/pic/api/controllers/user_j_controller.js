@@ -265,7 +265,6 @@ function CargarEmpleado(req, res) {
             var newArray = JSON.parse(old);
             user_jModel.insertMany(newArray, (error, usuarios) => {
               if (error) {
-                console.log(error);
                 return res.status(603).send({
                   estado: "Error",
                   message: util.format(error),
@@ -273,7 +272,6 @@ function CargarEmpleado(req, res) {
                 });
               }
               if (!usuarios) {
-                console.log(error);
                 return res.status(604).send({
                   estado: "Error",
                   message: util.format(
@@ -285,7 +283,6 @@ function CargarEmpleado(req, res) {
 
               NivelHandler.insertMany(nivelDefinitivos, (error, niveles) => {
                 if (error) {
-                  console.log(error);
                   return res.status(603).send({
                     estado: "Error",
                     message: util.format(error),
@@ -293,7 +290,6 @@ function CargarEmpleado(req, res) {
                   });
                 }
                 if (!niveles) {
-                  console.log(error);
                   return res.status(604).send({
                     estado: "Error",
                     message: util.format(
@@ -304,7 +300,6 @@ function CargarEmpleado(req, res) {
                 }
                 CargosHandler.insertMany(cargosDefinitivos, (error, cargos) => {
                   if (error) {
-                    console.log(error);
                     return res.status(603).send({
                       estado: "Error",
                       message: util.format(error),
@@ -312,7 +307,6 @@ function CargarEmpleado(req, res) {
                     });
                   }
                   if (!cargos) {
-                    console.log(error);
                     return res.status(604).send({
                       estado: "Error",
                       message: util.format(
@@ -332,7 +326,6 @@ function CargarEmpleado(req, res) {
               });
             });
           } catch (error) {
-            console.log(error);
             return res.status(601).send({
               estado: "Empleados vacios",
               message: util.format("No hay registros"),
@@ -341,7 +334,6 @@ function CargarEmpleado(req, res) {
           }
         });
       } catch (error) {
-        console.log(error);
         return res.status(602).send({
           estado: "demoro",
           message: util.format("Error procesando el archivo"),
@@ -377,7 +369,6 @@ function buscarEmpleado(req, res) {
             //data: Object.assign(user)
           });
         } else {
-          console.log(user);
           var user_decript = {};
           user_decript.nombres = tools.decrypt(user.nombres);
           user_decript.apellidos = tools.decrypt(user.apellidos);
@@ -385,7 +376,7 @@ function buscarEmpleado(req, res) {
           user_decript.apellidos_jefe = tools.decrypt(user.apellidos_jefe);
           user_decript.Fecha_Inicio = tools.decrypt(user.Fecha_Inicio);
           user_decript.email = user.email;
-          user_decript.identificacion = tools.decrypt(user.identificacion);
+          user_decript.identificacion = (user.identificacion);
           user_decript.ciudad = user.ciudad;
           user_decript.cargo = tools.decrypt(user.cargo);
           user_decript.descripccion_cargo = tools.decrypt(
@@ -425,7 +416,6 @@ function buscarEmpleado(req, res) {
     };
     traer(req, res);
   } catch (error) {
-    console.log(error);
   }
 }
 

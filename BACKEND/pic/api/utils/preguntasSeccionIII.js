@@ -8,27 +8,27 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "1",
-                id: "1.1"
+                id: "1"
             },
             {
                 enunciadoRespuesta: "2",
-                id: "1.2"
+                id: "2"
             },
             {
                 enunciadoRespuesta: "3",
-                id: "1.3"
+                id: "3"
             },
             {
                 enunciadoRespuesta: "4",
-                id: "1.4"
+                id: "4"
             },
             {
                 enunciadoRespuesta: "5",
-                id: "1.5"
+                id: "5"
             },
             {
                 enunciadoRespuesta: "6",
-                id: "1.6"
+                id: "6"
             }
         ]
     },
@@ -41,27 +41,27 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "1",
-                id: "1.1"
+                id: "1"
             },
             {
                 enunciadoRespuesta: "2",
-                id: "1.2"
+                id: "2"
             },
             {
                 enunciadoRespuesta: "3",
-                id: "1.3"
+                id: "3"
             },
             {
                 enunciadoRespuesta: "4",
-                id: "1.4"
+                id: "4"
             },
             {
                 enunciadoRespuesta: "5",
-                id: "1.5"
+                id: "5"
             },
             {
                 enunciadoRespuesta: "6",
-                id: "1.6"
+                id: "6"
             }
         ]
     },
@@ -74,27 +74,27 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "1",
-                id: "1.1"
+                id: "1"
             },
             {
                 enunciadoRespuesta: "2",
-                id: "1.2"
+                id: "2"
             },
             {
                 enunciadoRespuesta: "3",
-                id: "1.3"
+                id: "3"
             },
             {
                 enunciadoRespuesta: "4",
-                id: "1.4"
+                id: "4"
             },
             {
                 enunciadoRespuesta: "5",
-                id: "1.5"
+                id: "5"
             },
             {
                 enunciadoRespuesta: "6",
-                id: "1.6"
+                id: "6"
             }
         ]
     },
@@ -107,27 +107,27 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "1",
-                id: "1.1"
+                id: "1"
             },
             {
                 enunciadoRespuesta: "2",
-                id: "1.2"
+                id: "2"
             },
             {
                 enunciadoRespuesta: "3",
-                id: "1.3"
+                id: "3"
             },
             {
                 enunciadoRespuesta: "4",
-                id: "1.4"
+                id: "4"
             },
             {
                 enunciadoRespuesta: "5",
-                id: "1.5"
+                id: "5"
             },
             {
                 enunciadoRespuesta: "6",
-                id: "1.6"
+                id: "6"
             }
         ]
     },
@@ -140,27 +140,27 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "1",
-                id: "1.1"
+                id: "1"
             },
             {
                 enunciadoRespuesta: "2",
-                id: "1.2"
+                id: "2"
             },
             {
                 enunciadoRespuesta: "3",
-                id: "1.3"
+                id: "3"
             },
             {
                 enunciadoRespuesta: "4",
-                id: "1.4"
+                id: "4"
             },
             {
                 enunciadoRespuesta: "5",
-                id: "1.5"
+                id: "5"
             },
             {
                 enunciadoRespuesta: "6",
-                id: "1.6"
+                id: "6"
             }
         ]
     },
@@ -173,27 +173,27 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "1",
-                id: "1.1"
+                id: "1"
             },
             {
                 enunciadoRespuesta: "2",
-                id: "1.2"
+                id: "2"
             },
             {
                 enunciadoRespuesta: "3",
-                id: "1.3"
+                id: "3"
             },
             {
                 enunciadoRespuesta: "4",
-                id: "1.4"
+                id: "4"
             },
             {
                 enunciadoRespuesta: "5",
-                id: "1.5"
+                id: "5"
             },
             {
                 enunciadoRespuesta: "6",
-                id: "1.6"
+                id: "6"
             }
         ]
     },
@@ -206,27 +206,27 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "1",
-                id: "1.1"
+                id: "1"
             },
             {
                 enunciadoRespuesta: "2",
-                id: "1.2"
+                id: "2"
             },
             {
                 enunciadoRespuesta: "3",
-                id: "1.3"
+                id: "3"
             },
             {
                 enunciadoRespuesta: "4",
-                id: "1.4"
+                id: "4"
             },
             {
                 enunciadoRespuesta: "5",
-                id: "1.5"
+                id: "5"
             },
             {
                 enunciadoRespuesta: "6",
-                id: "1.6"
+                id: "6"
             }
         ]
     },
@@ -239,19 +239,19 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "Total acuerdo",
-                id: "1.1"
+                id: "Total acuerdo"
             },
             {
                 enunciadoRespuesta: "Acuerdo",
-                id: "1.2"
+                id: "Acuerdo"
             },
             {
                 enunciadoRespuesta: "Desacuerdo",
-                id: "1.3"
+                id: "Desacuerdo"
             },
             {
                 enunciadoRespuesta: "Total desacuerdo",
-                id: "1.4"
+                id: "Total desacuerdo"
             }
         ]
     },
@@ -264,19 +264,19 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "Total acuerdo",
-                id: "1.1"
+                id: "Total acuerdo"
             },
             {
                 enunciadoRespuesta: "Acuerdo",
-                id: "1.2"
+                id: "Acuerdo"
             },
             {
                 enunciadoRespuesta: "Desacuerdo",
-                id: "1.3"
+                id: "Desacuerdo"
             },
             {
                 enunciadoRespuesta: "Total desacuerdo",
-                id: "1.4"
+                id: "Total desacuerdo"
             }
         ]
     },
@@ -289,19 +289,19 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "Total acuerdo",
-                id: "1.1"
+                id: "Total acuerdo"
             },
             {
                 enunciadoRespuesta: "Acuerdo",
-                id: "1.2"
+                id: "Acuerdo"
             },
             {
                 enunciadoRespuesta: "Desacuerdo",
-                id: "1.3"
+                id: "Desacuerdo"
             },
             {
                 enunciadoRespuesta: "Total desacuerdo",
-                id: "1.4"
+                id: "Total desacuerdo"
             }
         ]
     },
@@ -314,19 +314,19 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "Total acuerdo",
-                id: "1.1"
+                id: "Total acuerdo"
             },
             {
                 enunciadoRespuesta: "Acuerdo",
-                id: "1.2"
+                id: "Acuerdo"
             },
             {
                 enunciadoRespuesta: "Desacuerdo",
-                id: "1.3"
+                id: "Desacuerdo"
             },
             {
                 enunciadoRespuesta: "Total desacuerdo",
-                id: "1.4"
+                id: "Total desacuerdo"
             }
         ]
     },
@@ -339,19 +339,19 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "Total acuerdo",
-                id: "1.1"
+                id: "Total acuerdo"
             },
             {
                 enunciadoRespuesta: "Acuerdo",
-                id: "1.2"
+                id: "Acuerdo"
             },
             {
                 enunciadoRespuesta: "Desacuerdo",
-                id: "1.3"
+                id: "Desacuerdo"
             },
             {
                 enunciadoRespuesta: "Total desacuerdo",
-                id: "1.4"
+                id: "Total desacuerdo"
             }
         ]
     },
@@ -362,19 +362,19 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "Total acuerdo",
-                id: "1.1"
+                id: "Total acuerdo"
             },
             {
                 enunciadoRespuesta: "Acuerdo",
-                id: "1.2"
+                id: "Acuerdo"
             },
             {
                 enunciadoRespuesta: "Desacuerdo",
-                id: "1.3"
+                id: "Desacuerdo"
             },
             {
                 enunciadoRespuesta: "Total desacuerdo",
-                id: "1.4"
+                id: "Total desacuerdo"
             }
         ]
     },
@@ -385,19 +385,19 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "Total acuerdo",
-                id: "1.1"
+                id: "Total acuerdo"
             },
             {
                 enunciadoRespuesta: "Acuerdo",
-                id: "1.2"
+                id: "Acuerdo"
             },
             {
                 enunciadoRespuesta: "Desacuerdo",
-                id: "1.3"
+                id: "Desacuerdo"
             },
             {
                 enunciadoRespuesta: "Total desacuerdo",
-                id: "1.4"
+                id: "Total desacuerdo"
             }
         ]
     },
@@ -408,19 +408,19 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "Total acuerdo",
-                id: "1.1"
+                id: "Total acuerdo"
             },
             {
                 enunciadoRespuesta: "Acuerdo",
-                id: "1.2"
+                id: "Acuerdo"
             },
             {
                 enunciadoRespuesta: "Desacuerdo",
-                id: "1.3"
+                id: "Desacuerdo"
             },
             {
                 enunciadoRespuesta: "Total desacuerdo",
-                id: "1.4"
+                id: "Total desacuerdo"
             }
         ]
     },
@@ -431,19 +431,19 @@ const preguntasMock = [
         opcionesRespuestas: [
             {
                 enunciadoRespuesta: "Total acuerdo",
-                id: "1.1"
+                id: "Total acuerdo"
             },
             {
                 enunciadoRespuesta: "Acuerdo",
-                id: "1.2"
+                id: "Acuerdo"
             },
             {
                 enunciadoRespuesta: "Desacuerdo",
-                id: "1.3"
+                id: "Desacuerdo"
             },
             {
                 enunciadoRespuesta: "Total desacuerdo",
-                id: "1.4"
+                id: "Total desacuerdo"
             }
         ]
     }

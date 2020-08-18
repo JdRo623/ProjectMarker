@@ -4,20 +4,13 @@ import {
   Row,
   Card,
   CardBody,
-  Nav,
-  NavItem,
   Modal,
   ModalHeader,
   ModalBody,
-  TabContent,
-  TabPane,
-  Badge,
-  CardTitle,
+
 } from "reactstrap";
-import PicPreguntaCompleta from "../../../components/pic/PicPreguntaCompleta";
-import constantes from "../../../util/Constantes.js";
-import HttpUtil from "../../../util/HttpService.js";
-import PicSeccionInformacionPersonal from "../../../components/pic/PicSeccionInformacionPersonal";
+
+import PicSeccionInformacionPersonal from "../../../components/pic/PicSeccionInformacionPersonalValidacion";
 
 export default function ConsultarCuestionario(props) {
   const [modal, setModal] = useState(false);

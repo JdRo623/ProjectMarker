@@ -32,7 +32,7 @@ const PicEncriptar = (props) => {
               </div>
 
               <Button color="primary" type="submit">
-                Submit
+                Enviar
               </Button>
             </Form>
           )}

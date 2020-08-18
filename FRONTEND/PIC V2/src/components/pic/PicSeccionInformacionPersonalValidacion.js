@@ -8,14 +8,14 @@ import {
 
 } from "reactstrap";
 import { Wizard, Steps, Step } from "react-albus";
-import { BottomNavigation } from "../../components/wizard/BottomNavigation";
+import { BottomNavigation } from "../wizard/BottomNavigation";
 import PicInformacionPersonalColaboradorFormUltimate from "./PicInformacionPersonalColaboradorFormUltimate";
 import PicColaboradorConfirmacionCard from "./PicColaboradorConfirmacionCard";
-import PicInstruccionComponente from "../../components/pic/PicInstruccionComponente";
-import PicFinalSeccionComponente from "../../components/pic/PicFinalSeccionComponente";
+import PicInstruccionComponente from "./PicInstruccionComponente";
+import PicFinalSeccionComponente from "./PicFinalSeccionComponente";
 import constantes from "../../util/Constantes.js";
 import HttpUtil from "../../util/HttpService.js";
-import { NotificationManager } from "../../components/common/react-notifications";
+import { NotificationManager } from "../common/react-notifications";
 import InstruccionImg from "../../assets/img/instrucciones-i.png";
 import BienvenidosImg from "../../assets/img/bienvenidos-i.png";
 import AntesImg from "../../assets/img/antes.png";
@@ -177,8 +177,8 @@ export default function PicSeccionInformacionPersonal(props) {
         (response) => {
           props.setEstadoPaso(true);
           props.setCuestionario(response.data);
-         // onClickNext(goToNext, steps, step);
-          window.location.reload();
+          onClickNext(goToNext, steps, step);
+          //window.location.reload();
           setModal(false);
         },
         () => {
@@ -223,21 +223,7 @@ export default function PicSeccionInformacionPersonal(props) {
       case "3":
         obtenerCargos(goToNext, steps, step);
         break;
-      case "4":
-        if (infoValidada == null) {
-          mostrarMensajeError(
-            "Error",
-            "Por favor valide su información personal"
-          );
-        } else {
-          if (infoValidada == "true") {
-            enviarInformacionPersonal(goToNext, steps, step);
-          } else {
-            obtenerCargos(goToNext, steps, step);
-          }
-        }
-        break;
-      case "5":          
+      case "4":          
         if (cargoSeleccionado == "") {
           mostrarMensajeError(
             "Error",
@@ -367,16 +353,6 @@ export default function PicSeccionInformacionPersonal(props) {
                 />
               </Step>
               <Step id="4" name="" desc="">
-                <PicColaboradorConfirmacionCard
-                  setCargoElegido={setCargoSeleccionado}
-                  setSeccionalElegido={setSeccionalSeleccionada}
-                  setSubdireccionElegido={setSubprocesoSeleccionado}
-                  setGITElegido={setCoordinacionSeleccionado}
-                  SetInfoValidada={SetInfoValidada}
-                />
-              </Step>
-
-              <Step id="5" name="" desc="">
                 <PicInformacionPersonalColaboradorFormUltimate
                   encabezado="Indique su información personal"
                   elegido={cargoSeleccionado}
@@ -394,7 +370,7 @@ export default function PicSeccionInformacionPersonal(props) {
                   listados={listados}
                 />
               </Step>
-              <Step id="6" name="Final de Sección" desc="">
+              <Step id="5" name="Final de Sección" desc="">
                 <PicFinalSeccionComponente
                   encabezado="Finalización - Información Personal"
                   descriptor={

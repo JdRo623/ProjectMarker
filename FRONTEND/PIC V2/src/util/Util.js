@@ -39,7 +39,6 @@ function decryptJson(text) {
     var bytes = CryptoJS.AES.decrypt(text, cryptoKeys);
     response = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
   } catch (err) {
-    console.log(err);
   } finally {
     return response;
   }

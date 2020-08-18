@@ -844,6 +844,48 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /envioPlantillaHomologaciones:
+      x-swagger-router-controller: ejemplos.controller
+      post:
+        description: Envio plantilla para ejemplos
+        operationId: envioPlantillaHomologaciones
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /envioPlantillaPic:
+      x-swagger-router-controller: ejemplos.controller
+      post: 
+        description: Envio plantilla para ejemplos
+        operationId: envioPlantillaPic
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
+  /envioPlantillaPlanta:
+      x-swagger-router-controller: ejemplos.controller
+      post: 
+        description: Envio plantilla para ejemplos
+        operationId: envioPlantillaPlanta
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions

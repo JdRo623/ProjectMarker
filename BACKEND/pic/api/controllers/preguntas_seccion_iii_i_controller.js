@@ -154,7 +154,6 @@ function obtenerPreguntas_iii_i(req, res) {
     var obtener = async (req, res) => {
       var reqDecrypt = tools.decryptJson(req.body.data);
       var preguntasEnviar = [];
-      console.log(reqDecrypt.preguntas_obtener);
 
       cuestionarioHandler.findOne(
         { email: reqDecrypt.email },

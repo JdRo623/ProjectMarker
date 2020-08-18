@@ -34,7 +34,6 @@ class HttpUtil extends React.Component {
       .post(url, dataRequest)
       .then(function (response) {
         const dataDecrypt = JSON.parse(decifrar(response.data.respuesta));
-        console.log(dataDecrypt);
         NotificationManager.success(
           dataDecrypt.message,
           dataDecrypt.estado,
@@ -47,7 +46,6 @@ class HttpUtil extends React.Component {
           sucessCallBack(dataDecrypt);
       })
       .catch(function (error) {
-        console.log(error);
         if (error.response) {
           const dataDecrypt = JSON.parse(
             decifrar(error.response.data.respuesta)
@@ -74,7 +72,6 @@ class HttpUtil extends React.Component {
             "filled"
           );
         }
-        // console.log(dataDecrypt);
         if (errorCallBack != null && errorCallBack !== undefined)
           errorCallBack(error.response);
       });
@@ -84,12 +81,10 @@ class HttpUtil extends React.Component {
     axios
       .get(url)
       .then(function (response) {
-        console.log(response);
         if (sucessCallBack != null && sucessCallBack !== undefined)
           sucessCallBack(response.data);
       })
       .catch(function (error) {
-        console.log(error);
         if (errorCallBack != null && errorCallBack !== undefined)
           errorCallBack(error);
       });

@@ -1,5 +1,5 @@
 const constantes = {
-  //urlServer: "http://localhost:10010",
+  //urlServer: "http://localhost:5000",
   urlServer: "https://back-joanapp.herokuapp.com",
 
   servicios: {
@@ -46,6 +46,9 @@ const constantes = {
     reporte_Rutas: "/reporte_Rutas",
     envioCorreo: "/envioCorreo",
     homologacion: "/homologacion",
+    envioPlantillaHomologaciones: "/envioPlantillaHomologaciones",
+    envioPlantillaPic: "/envioPlantillaPic",
+    envioPlantillaPlanta: "/envioPlantillaPlanta",
   },
   mensajes: {
     ERROR: "Error",

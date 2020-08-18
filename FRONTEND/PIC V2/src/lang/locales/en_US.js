@@ -50,7 +50,7 @@ module.exports = {
   "menu.ruta-aprendizaje": "Ruta de Aprendizaje",
   "menu.colaborador": "Funcionario",
   "menu.administrador": "Administrador",
-  "menu.carga-archivos": "Carga Archivos",
+  "menu.carga-archivos": "Cargar Archivos",
   "menu.cargue-preguntas": "Cargue de Preguntas",
   "menu.busqueda-preguntas": "Búsqueda de Preguntas",
   "menu.crear-empleado": "Crear Funcionario",

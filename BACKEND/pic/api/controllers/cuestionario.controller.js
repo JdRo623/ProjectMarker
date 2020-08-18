@@ -271,7 +271,7 @@ function actualizarEstadoCuestionario(req, res) {
               .then(() => {
                 return res.status(200).send({
                   estado: "Exito",
-                  message: util.format("cuestionario actualizado"),
+                  message: util.format("Cuestionario Actualizado"),
                   data: Object.assign(cuestionarioBuscado),
                 });
               });
@@ -324,7 +324,7 @@ function actualizarPregunta(req, res) {
             .then(() => {
               return res.status(200).send({
                 estado: "Exito",
-                message: util.format("cuestionario actualizado"),
+                message: util.format("Cuestionario Actualizado"),
                 data: Object.assign(cuestionarioBuscado),
               });
             });

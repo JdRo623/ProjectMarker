@@ -28,17 +28,6 @@ class Util extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(values) {
-    console.log(Utils.encryptText(values.name));
-  }
-
-  encriptarInformacion(values) {
-    console.log(Utils.encryptText(values.name));
-  }
-  desencriptarInformacion(values) {
-    console.log(Utils.decryptText(values.name));
-  }
-
   validateEmail(value) {
     let error;
     if (!value) {
@@ -80,11 +69,13 @@ class Util extends Component {
           <Colxx xxs="12" lg="12" xl="6" className="mb-3">
             <PicCargaDocumentos
               titulo="Usuarios Excel"
+              ejemplo={Constantes.servicios.envioPlantillaPlanta}
               servicio={Constantes.servicios.cargarUsuarios}
             />
           </Colxx>
           <Colxx xxs="12" lg="12" xl="6" className="mb-3">
             <PicCargaDocumentos
+              ejemplo={Constantes.servicios.envioPlantillaPic}
               titulo="PIC"
               servicio={Constantes.servicios.registrarActividades}
             />
@@ -93,6 +84,7 @@ class Util extends Component {
         <Row>
           <Colxx xxs="12" lg="12" xl="6" className="mb-3">
             <PicCargaDocumentos
+              ejemplo={Constantes.servicios.envioPlantillaHomologaciones}
               titulo="Homologaciones"
               servicio={Constantes.servicios.homologacion}
             />

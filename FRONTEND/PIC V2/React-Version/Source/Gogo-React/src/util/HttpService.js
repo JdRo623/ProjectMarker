@@ -60,7 +60,6 @@ class HttpUtil extends React.Component {
           sucessCallBack(dataDecrypt);
       })
       .catch(function (error) {
-        console.log(error.response);
         if (errorCallBack != null && errorCallBack !== undefined)
           errorCallBack(error.response);
       });
@@ -74,7 +73,6 @@ class HttpUtil extends React.Component {
           sucessCallBack(response.data);
       })
       .catch(function (error) {
-        console.log(error);
         if (errorCallBack != null && errorCallBack !== undefined)
           errorCallBack(error);
       });

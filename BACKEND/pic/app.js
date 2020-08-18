@@ -45,7 +45,7 @@ SwaggerExpress.create(config, function (err, swaggerExpress) {
   app.use(cors());
   // install middleware
   swaggerExpress.register(app);
-  var port = process.env.PORT || 10010;
+  var port = process.env.PORT || 5000;
   app.listen(port);
 
   if (swaggerExpress.runner.swagger.paths['/hello']) {
