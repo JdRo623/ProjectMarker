@@ -156,6 +156,7 @@ function preguntas_Usuarioi(req, res) {
     var preguntas_seccion1 = async (req, res) => {
       let listado = [];
       let filename = "Respuestas del cuestionario Sección I";
+      var varTempEstado = "Pendiente"
       cuestionarioHandler.find((err, cuestionarios) => {
         let usuariosId = [];
         for (let element of cuestionarios) {
@@ -171,6 +172,10 @@ function preguntas_Usuarioi(req, res) {
                 if (usuario) {
                   if (usuario.email == element.email) {
                     element.listado_competencias.forEach((pregunta) => {
+                       varTempEstado = "Pendiente"
+                      if(pregunta.estado_respuesta == "Respondida"){
+                        varTempEstado = "Terminado"
+                      }
                       registro = {
                         codigo_cuestionario: element._id,
                         identificacion: usuario.identificacion,
@@ -184,7 +189,7 @@ function preguntas_Usuarioi(req, res) {
                         seccion: "Seccion I",
                         codigo_competencia: pregunta.nombreCompetencia,
                         enunciado_respuesta: pregunta.valor_respuesta,
-                        estado: pregunta.estado_respuesta,
+                        estado: varTempEstado,
                       };
                       listado.push(registro);
                     });
@@ -264,6 +269,7 @@ function preguntas_Usuarioii(req, res) {
     var preguntas_seccion1 = async (req, res) => {
       let listado = [];
       let filename = "Respuestas del cuestionario Sección II";
+      var varTempEstado = "Pendiente"
       cuestionarioHandler.find((err, cuestionarios) => {
         let usuariosId = [];
         for (let element of cuestionarios) {
@@ -283,6 +289,10 @@ function preguntas_Usuarioii(req, res) {
                           pregunta.numero_pregunta ==
                           preguntaCuestionario.id_pregunta
                         ) {
+                          varTempEstado = "Pendiente"
+                          if(preguntaCuestionario.estado_respuesta == "Respondida"){
+                            varTempEstado = "Terminado"
+                          }
                           registro = {
                             codigo_cuestionario: element._id,
                             identificacion: usuario.identificacion,
@@ -305,7 +315,7 @@ function preguntas_Usuarioii(req, res) {
                             competencia: pregunta.competencia,
                             nivel: pregunta.nivel,
                             respuesta: preguntaCuestionario.valor_respuesta,
-                            estado: preguntaCuestionario.estado_respuesta,
+                            estado: varTempEstado,
                           };
                           listado.push(registro);
                         }
@@ -398,6 +408,7 @@ function preguntas_Usuarioiii(req, res) {
     var preguntas_seccion1 = async (req, res) => {
       let listado = [];
       let filename = "Respuestas del cuestionario Sección III";
+      var varTempEstado = "Pendiente"
       cuestionarioHandler.find((err, cuestionarios) => {
         let usuariosId = [];
         for (let element of cuestionarios) {
@@ -417,6 +428,10 @@ function preguntas_Usuarioiii(req, res) {
                           pregunta.idPregunta ==
                           preguntaCuestionario.id_pregunta
                         ) {
+                          varTempEstado = "Pendiente"
+                          if(preguntaCuestionario.estado_respuesta == "Respondida"){
+                            varTempEstado = "Terminado"
+                          }
                           registro = {
                             codigo_cuestionario: element._id,
                             identificacion: usuario.identificacion,
@@ -436,7 +451,7 @@ function preguntas_Usuarioiii(req, res) {
                             situacion: pregunta.situacionProblema,
                             enunciado: pregunta.encabezadoPregunta,
                             respuesta: preguntaCuestionario.valor_respuesta,
-                            estado: preguntaCuestionario.estado_preguntas,
+                            estado: varTempEstado,
                           };
                           listado.push(registro);
                         }

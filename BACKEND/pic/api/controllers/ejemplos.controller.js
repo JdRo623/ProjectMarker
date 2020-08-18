@@ -49,7 +49,7 @@ function envioPlantillaPlanta(req, res) {
           };
           return res.status(200).send({
             estado: "Descargado",
-            message: util.format("Plantilla de homologaciones descargada"),
+            message: util.format("Plantilla de Planta descargada"),
             data: Object.assign(respuesta),
           });
         } catch (error) {
@@ -76,7 +76,7 @@ function envioPlantillaPlanta(req, res) {
           };
           return res.status(200).send({
             estado: "Descargado",
-            message: util.format("Plantilla de homologaciones descargada"),
+            message: util.format("Plantilla de Matriz de Roles descargada"),
             data: Object.assign(respuesta),
           });
         } catch (error) {
