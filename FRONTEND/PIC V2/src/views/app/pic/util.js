@@ -23,8 +23,16 @@ import Utils from "../../../util/Util";
 class Util extends Component {
   constructor(props) {
     super(props);
+    this.encriptarInformacion = this.encriptarInformacion.bind(this);
+    this.desencriptarInformacion = this.desencriptarInformacion.bind(this);
   }
 
+  encriptarInformacion(values) {
+    console.log(Utils.encryptText(values.name));
+  }
+  desencriptarInformacion(values) {
+    console.log(Utils.decryptText(values.name));
+  }
 
   render() {
     return (

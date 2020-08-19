@@ -313,21 +313,36 @@ function actualizarPregunta(req, res) {
               data: Object.assign({}),
             });
           }
-          cuestionarioBuscado.listado_preguntas.forEach((element) => {
-            if (element.id_pregunta == dec.data.id_pregunta) {
-              element.valor_respuesta = dec.data.valor_respuesta;
-              element.estado_respuesta = dec.data.estado_respuesta;
-            }
-          });
-          cuestionarioHandler
-            .updateOne({ email: dec.data.email }, cuestionarioBuscado)
-            .then(() => {
-              return res.status(200).send({
-                estado: "Exito",
-                message: util.format("Cuestionario Actualizado"),
-                data: Object.assign(cuestionarioBuscado),
+
+          PreguntasHandler.findOne(
+            { numero_pregunta: dec.data.id_pregunta},
+            (err, pregunta) => {
+
+              cuestionarioBuscado.listado_preguntas.forEach((element) => {
+                if (element.id_pregunta == dec.data.id_pregunta) {
+                  element.valor_respuesta = dec.data.valor_respuesta;
+                  element.estado_respuesta = dec.data.estado_respuesta;
+                  element.competencia = pregunta.competencia;
+                  element.nivel = pregunta.nivel;
+                  element.codificacion = pregunta.codificacion;
+                  element.competencia = pregunta.competencia;
+                  if(dec.data.valor_respuesta == pregunta.clave){
+                    element.valor_validacion = "CORRECTO"
+                  }
+                }
               });
-            });
+    
+              cuestionarioHandler
+                .updateOne({ email: dec.data.email }, cuestionarioBuscado)
+                .then(() => {
+                  return res.status(200).send({
+                    estado: "Exito",
+                    message: util.format("Cuestionario Actualizado"),
+                    data: Object.assign(cuestionarioBuscado),
+                  });
+              });
+            }
+          );
         }
       );
     };

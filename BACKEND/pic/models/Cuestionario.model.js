@@ -40,7 +40,19 @@ const cuestionario = Schema({
             competencia:{
                 type:String,
                 default:''
-            } , 
+            }, 
+            nivel:{
+                type:String,
+                default:''
+            }, 
+            valor_validacion:{
+                type:String,
+                default:'INCORRECTA'
+            }, 
+            codificacion:{
+                type:String,
+                default:''
+            }, 
             estado_respuesta:{
                 type:String,
                 default:'No respondida'
