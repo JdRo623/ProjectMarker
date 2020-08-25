@@ -46,15 +46,21 @@ function estado_Cuestionario(req, res) {
                   var respondidas = 0;
                   var totales = 0;
 
+                  totales += element.listado_competencias.length;
                   totales += element.listado_preguntas.length;
                   totales += element.listado_preguntas_seccion_iii.length;
+                  element.listado_competencias.forEach((preguntas) => {
+                    if (preguntas.estado_respuesta != "No respondida") {
+                      respondidas++;
+                    }
+                  });
                   element.listado_preguntas.forEach((preguntas) => {
                     if (preguntas.estado_respuesta != "No respondida") {
                       respondidas++;
                     }
                   });
                   element.listado_preguntas_seccion_iii.forEach((preguntas) => {
-                    if (preguntas.estado_preguntas != "Respondida") {
+                    if (preguntas.estado_preguntas != "No respondida") {
                       respondidas++;
                     }
                   });
@@ -72,9 +78,7 @@ function estado_Cuestionario(req, res) {
                     nivel2: tools.decrypt(usuario.nivel3),
                     nivel3: tools.decrypt(usuario.nivel4),
                     correo: usuario.email,
-                    personas_acargo: element.personasACargo,
-                    directivo: element.personasACargo,
-                    fecha_inicio: tools.decrypt(usuario.Fecha_Inicio),
+                    fecha_inicio: element.fecha_Inicio,
                     fecha_terminacion: element.fecha_Finalizacion,
                     avance: avanceActual,
                     estado: element.estado_cuestionario,
@@ -89,23 +93,23 @@ function estado_Cuestionario(req, res) {
               "reporte usuario cuestionario"
             );
             worksheetOut.columns = [
-              { header: "Código_Cuestionario", key: "Código_Cuestionario" },
+              { header: "Código Cuestionario", key: "Código_Cuestionario" },
               { header: "Identificación", key: "Identificación" },
               {
-                header: "Apellidos_del_Funcionario",
-                key: "Apellidos_del_Funcionario",
+                header: "Apellidos del Funcionario",
+                key: "Apellidos",
               },
               {
-                header: "Nombres_del_Funcionario",
-                key: "Nombres_del_Funcionario",
+                header: "Nombres del Funcionario",
+                key: "Nombres",
               },
               { header: "Cargo", key: "Cargo" },
-              { header: "Nivel_1_del_cargo", key: "Nivel_1_del_cargo" },
-              { header: "Nivel_2_del_cargo", key: "Nivel_2_del_cargo" },
-              { header: "Nivel_3_del_cargo", key: "Nivel_3_del_cargo" },
-              { header: "Correo_Electrónico", key: "Correo_Electrónico" },
+              { header: "Nivel 1 del cargo", key: "Nivel_1_del_cargo" },
+              { header: "Nivel 2 del cargo", key: "Nivel_2_del_cargo" },
+              { header: "Nivel 3 del cargo", key: "Nivel_3_del_cargo" },
+              { header: "Correo Electrónico", key: "Correo_Electrónico" },
               { header: "Fecha de Inicio", key: "Fecha_de_Inicio" },
-              { header: "Fecha_de_Terminación", key: "Fecha_de_Terminación" },
+              { header: "Fecha de Terminación", key: "Fecha_de_Terminación" },
               { header: "Avance", key: "Avance" },
               { header: "Estado", key: "Estado" },
             ];
@@ -113,15 +117,15 @@ function estado_Cuestionario(req, res) {
               worksheetOut.addRow({
                 Código_Cuestionario: registro.codigo_cuestionario,
                 Identificación: registro.identificacion,
-                Apellidos_del_Funcionario: registro.apellidos_funcionario,
-                Nombres_del_Funcionario: registro.nombre_funcionario,
+                Apellidos: registro.apellidos_funcionario,
+                Nombres: registro.nombre_funcionario,
                 Cargo: registro.cargo,
                 Nivel_1_del_cargo: registro.nivel1,
                 Nivel_2_del_cargo: registro.nivel2,
                 Nivel_3_del_cargo: registro.nivel3,
                 Correo_Electrónico: registro.correo,
-                Fecha_de_Inicio: tools.getFechaActual(),
-                Fecha_de_Terminación:tools.getFechaActual(),
+                Fecha_de_Inicio:registro.fecha_inicio,
+                Fecha_de_Terminación: registro.fecha_terminacion,
                 Avance: registro.avance,
                 Estado: registro.estado,
               });
@@ -130,7 +134,8 @@ function estado_Cuestionario(req, res) {
               base64.encode(documentname, function (err, base64String) {
                 let respuesta = {
                   documento: base64String,
-                  nombreArchivo: "Estado de la aplicación del Cuestionario.xlsx",
+                  nombreArchivo:
+                    "Estado de la aplicación del Cuestionario.xlsx",
                 };
                 return res.status(200).send({
                   estado: "Descargado",
@@ -156,7 +161,7 @@ function preguntas_Usuarioi(req, res) {
     var preguntas_seccion1 = async (req, res) => {
       let listado = [];
       let filename = "Respuestas del cuestionario Sección I";
-      var varTempEstado = "Pendiente"
+      var varTempEstado = "Pendiente";
       cuestionarioHandler.find((err, cuestionarios) => {
         let usuariosId = [];
         for (let element of cuestionarios) {
@@ -172,9 +177,9 @@ function preguntas_Usuarioi(req, res) {
                 if (usuario) {
                   if (usuario.email == element.email) {
                     element.listado_competencias.forEach((pregunta) => {
-                       varTempEstado = "Pendiente"
-                      if(pregunta.estado_respuesta == "Respondida"){
-                        varTempEstado = "Terminado"
+                      varTempEstado = "Pendiente";
+                      if (pregunta.estado_respuesta == "Respondida") {
+                        varTempEstado = "Terminado";
                       }
                       registro = {
                         codigo_cuestionario: element._id,
@@ -202,25 +207,25 @@ function preguntas_Usuarioi(req, res) {
               "reporte usuario cuestionario"
             );
             worksheetOut.columns = [
-              { header: "Código_Cuestionario", key: "Código_Cuestionario" },
+              { header: "Código Cuestionario", key: "Código_Cuestionario" },
               { header: "Identificación", key: "Identificación" },
               {
-                header: "Apellidos_del_Funcionario",
+                header: "Apellidos del Funcionario",
                 key: "Apellidos_del_Funcionario",
               },
               {
-                header: "Nombres_del_Funcionario",
+                header: "Nombres del Funcionario",
                 key: "Nombres_del_Funcionario",
               },
               { header: "Cargo", key: "Cargo" },
-              { header: "Nivel_1_del_cargo", key: "Nivel_1_del_cargo" },
-              { header: "Nivel_2_del_cargo", key: "Nivel_2_del_cargo" },
-              { header: "Nivel_3_del_cargo", key: "Nivel_3_del_cargo" },
-              { header: "Correo_Electrónico", key: "Correo_Electrónico" },
-              { header: "seccion", key: "seccion" },
+              { header: "Nivel 1 del cargo", key: "Nivel_1_del_cargo" },
+              { header: "Nivel 2 del cargo", key: "Nivel_2_del_cargo" },
+              { header: "Nivel 3 del cargo", key: "Nivel_3_del_cargo" },
+              { header: "Correo Electrónico", key: "Correo_Electrónico" },
+              { header: "Sección", key: "seccion" },
               { header: "Nombre Competencia", key: "Codigo" },
-              { header: "respuesta_funcionario", key: "enunciado_respuesta" },
-              { header: "estado", key: "estado" },
+              { header: "Opción Respuesta", key: "enunciado_respuesta" },
+              { header: "Estado", key: "estado" },
             ];
             listado.forEach((registro) => {
               worksheetOut.addRow({
@@ -269,7 +274,7 @@ function preguntas_Usuarioii(req, res) {
     var preguntas_seccion1 = async (req, res) => {
       let listado = [];
       let filename = "Respuestas del cuestionario Sección II";
-      var varTempEstado = "Pendiente"
+      var varTempEstado = "Pendiente";
       cuestionarioHandler.find((err, cuestionarios) => {
         let usuariosId = [];
         for (let element of cuestionarios) {
@@ -289,9 +294,12 @@ function preguntas_Usuarioii(req, res) {
                           pregunta.numero_pregunta ==
                           preguntaCuestionario.id_pregunta
                         ) {
-                          varTempEstado = "Pendiente"
-                          if(preguntaCuestionario.estado_respuesta == "Respondida"){
-                            varTempEstado = "Terminado"
+                          varTempEstado = "Pendiente";
+                          if (
+                            preguntaCuestionario.estado_respuesta ==
+                            "Respondida"
+                          ) {
+                            varTempEstado = "Terminado";
                           }
                           registro = {
                             codigo_cuestionario: element._id,
@@ -299,9 +307,7 @@ function preguntas_Usuarioii(req, res) {
                             apellidos_funcionario: tools.decrypt(
                               usuario.apellidos
                             ),
-                            nombre_funcionario: tools.decrypt(
-                              usuario.nombres
-                            ),
+                            nombre_funcionario: tools.decrypt(usuario.nombres),
                             cargo: tools.decrypt(usuario.cargo),
                             nivel1: tools.decrypt(usuario.nivel2),
                             nivel2: tools.decrypt(usuario.nivel3),
@@ -330,7 +336,7 @@ function preguntas_Usuarioii(req, res) {
                 "reporte usuario cuestionario"
               );
               worksheetOut.columns = [
-                { header: "Código_Cuestionario", key: "Código_Cuestionario" },
+                { header: "Código Cuestionario", key: "Código_Cuestionario" },
                 { header: "Identificación", key: "Identificación" },
                 {
                   header: "Apellidos_del_Funcionario",
@@ -352,7 +358,7 @@ function preguntas_Usuarioii(req, res) {
                 { header: "Nombre del Curso", key: "nombre_curso" },
                 { header: "Código de la Pregunta", key: "codigo" },
                 { header: "Opción Respuesta", key: "opcion_respuesta" },
-                { header: "Enunciado Respuesta", key: "respuesta" },
+                { header: "Respuesta Correcta", key: "respuesta" },
                 { header: "Estado", key: "estado" },
               ];
               listado.forEach((registro) => {
@@ -372,8 +378,8 @@ function preguntas_Usuarioii(req, res) {
                   codigo: registro.codigo,
                   competencia: registro.competencia,
                   nivel: registro.nivel,
-                  opcion_respuesta: registro.opcion_respuesta,
-                  respuesta: registro.respuesta,
+                  opcion_respuesta: registro.respuesta,
+                  respuesta: registro.opcion_respuesta,
                   estado: registro.estado,
                 });
               });
@@ -408,7 +414,7 @@ function preguntas_Usuarioiii(req, res) {
     var preguntas_seccion1 = async (req, res) => {
       let listado = [];
       let filename = "Respuestas del cuestionario Sección III";
-      var varTempEstado = "Pendiente"
+      var varTempEstado = "Pendiente";
       cuestionarioHandler.find((err, cuestionarios) => {
         let usuariosId = [];
         for (let element of cuestionarios) {
@@ -428,9 +434,12 @@ function preguntas_Usuarioiii(req, res) {
                           pregunta.idPregunta ==
                           preguntaCuestionario.id_pregunta
                         ) {
-                          varTempEstado = "Pendiente"
-                          if(preguntaCuestionario.estado_respuesta == "Respondida"){
-                            varTempEstado = "Terminado"
+                          varTempEstado = "Pendiente";
+                          if (
+                            preguntaCuestionario.estado_respuesta ==
+                            "Respondida"
+                          ) {
+                            varTempEstado = "Terminado";
                           }
                           registro = {
                             codigo_cuestionario: element._id,
@@ -438,9 +447,7 @@ function preguntas_Usuarioiii(req, res) {
                             apellidos_funcionario: tools.decrypt(
                               usuario.apellidos
                             ),
-                            nombre_funcionario: tools.decrypt(
-                              usuario.nombres
-                            ),
+                            nombre_funcionario: tools.decrypt(usuario.nombres),
                             cargo: tools.decrypt(usuario.cargo),
                             nivel1: tools.decrypt(usuario.nivel2),
                             nivel2: tools.decrypt(usuario.nivel3),
@@ -467,26 +474,26 @@ function preguntas_Usuarioiii(req, res) {
               "reporte usuario cuestionario"
             );
             worksheetOut.columns = [
-              { header: "Código_Cuestionario", key: "Código_Cuestionario" },
+              { header: "Código Cuestionario", key: "Código_Cuestionario" },
               { header: "Identificación", key: "Identificación" },
               {
-                header: "Apellidos_del_Funcionario",
+                header: "Apellidos del Funcionario",
                 key: "Apellidos_del_Funcionario",
               },
               {
-                header: "Nombres_del_Funcionario",
+                header: "Nombres del Funcionario",
                 key: "Nombres_del_Funcionario",
               },
               { header: "Cargo", key: "Cargo" },
-              { header: "Nivel_1_del_cargo", key: "Nivel_1_del_cargo" },
-              { header: "Nivel_2_del_cargo", key: "Nivel_2_del_cargo" },
-              { header: "Nivel_3_del_cargo", key: "Nivel_3_del_cargo" },
-              { header: "Correo_Electrónico", key: "Correo_Electrónico" },
+              { header: "Nivel 1 del cargo", key: "Nivel_1_del_cargo" },
+              { header: "Nivel 2 del cargo", key: "Nivel_2_del_cargo" },
+              { header: "Nivel 3 del cargo", key: "Nivel_3_del_cargo" },
+              { header: "Correo Electrónico", key: "Correo_Electrónico" },
               { header: "Sección", key: "seccion" },
               { header: "Código de la Pregunta", key: "codigo" },
               { header: "Situación", key: "situacion" },
               { header: "Enunciado", key: "enunciado" },
-              { header: "Respuesta", key: "respuesta" },
+              { header: "Opción Respuesta", key: "respuesta" },
               { header: "Estado", key: "estado" },
             ];
             listado.forEach((registro) => {
@@ -537,6 +544,9 @@ function estado_RutaAprendizaje(req, res) {
   try {
     var reporteUsuarios = async (req, res) => {
       let listadoReporte = [];
+      let listadoReporteCompetencia = [];
+
+      var aprobado = false;
       let documentname = "reportes usuario ruta aprendizaje";
       rutasAprenidisajeHandler.find((err, rutas) => {
         let usuariosId = [];
@@ -551,11 +561,15 @@ function estado_RutaAprendizaje(req, res) {
                 if (usuario) {
                   if (usuario.email == element.email) {
                     for (let competencias of element.listado_competencias) {
+                      aprobado = true;
+                      listadoReporteCompetencia = []
                       for (let basicos of competencias.listado_cursos_basicos) {
                         let registro = {
-                          codigo_cuestionario: element._id,
+                          codigo_cuestionario: basicos.idCurso,
                           identificacion: usuario.identificacion,
                           nombre_curso: basicos.nombreCurso,
+                          proceso: basicos.proceso,
+                          certificado: "NO",
                           nombre_ruta: competencias.nombreCompetencia,
                           nivel_competencia: "basico",
                           nombre_funcionario: tools.decrypt(usuario.nombres),
@@ -569,13 +583,18 @@ function estado_RutaAprendizaje(req, res) {
                           correo: usuario.email,
                           estado: basicos.estado,
                         };
-                        listadoReporte.push(registro);
+                        listadoReporteCompetencia.push(registro);
+                        if(basicos.estado != "Aprobado"){
+                          aprobado = false
+                        }
                       }
                       for (let medios of competencias.listado_cursos_medios) {
                         let registro = {
-                          codigo_cuestionario: element._id,
+                          codigo_cuestionario: medios.idCurso,
                           identificacion: usuario.identificacion,
                           nombre_curso: medios.nombreCurso,
+                          proceso: medios.proceso,
+                          certificado: "NO",
                           nombre_ruta: competencias.nombreCompetencia,
                           nivel_competencia: "medio",
                           nombre_funcionario: tools.decrypt(usuario.nombres),
@@ -589,13 +608,18 @@ function estado_RutaAprendizaje(req, res) {
                           correo: usuario.email,
                           estado: medios.estado,
                         };
-                        listadoReporte.push(registro);
+                        listadoReporteCompetencia.push(registro);
+                        if(medios.estado != "Aprobado"){
+                          aprobado = false
+                        }
                       }
                       for (let altos of competencias.listado_cursos_altos) {
                         let registro = {
-                          codigo_cuestionario: element._id,
+                          codigo_cuestionario: altos.idCurso,
                           identificacion: usuario.identificacion,
                           nombre_curso: altos.nombreCurso,
+                          proceso: altos.proceso,
+                          certificado: "NO",
                           nombre_ruta: competencias.nombreCompetencia,
                           nivel_competencia: "alto",
                           nombre_funcionario: tools.decrypt(usuario.nombres),
@@ -609,13 +633,18 @@ function estado_RutaAprendizaje(req, res) {
                           correo: usuario.email,
                           estado: altos.estado,
                         };
-                        listadoReporte.push(registro);
+                        listadoReporteCompetencia.push(registro);
+                        if(altos.estado != "Aprobado"){
+                          aprobado = false
+                        }
                       }
                       for (let superiores of competencias.listado_cursos_superiores) {
                         let registro = {
-                          codigo_cuestionario: element._id,
+                          codigo_cuestionario: superiores.idCurso,
                           identificacion: usuario.identificacion,
                           nombre_curso: superiores.nombreCurso,
+                          proceso: superiores.proceso,
+                          certificado: "NO",
                           nombre_ruta: competencias.nombreCompetencia,
                           nivel_competencia: "superior",
                           nombre_funcionario: tools.decrypt(usuario.nombres),
@@ -629,7 +658,20 @@ function estado_RutaAprendizaje(req, res) {
                           correo: usuario.email,
                           estado: superiores.estado,
                         };
-                        listadoReporte.push(registro);
+                        listadoReporteCompetencia.push(registro);
+                        if(superiores.estado != "Aprobado"){
+                          aprobado = false
+                        }
+                      }
+                      if(aprobado){
+                        for(let cursosCompetencia of listadoReporteCompetencia){
+                          cursosCompetencia.certificado = "SI"
+                          listadoReporte.push(cursosCompetencia)
+                        }
+                      }else{
+                        for(let cursosCompetencia of listadoReporteCompetencia){
+                          listadoReporte.push(cursosCompetencia)
+                        }
                       }
                     }
                   }
@@ -642,28 +684,31 @@ function estado_RutaAprendizaje(req, res) {
               "reporte usuario cuestionario"
             );
             worksheetOut.columns = [
-              { header: "codigo_ruta", key: "codigo_ruta" },
+              { header: "Código", key: "codigo_ruta" },
+              { header: "Nombre del Curso", key: "nombre_curso" },
+              { header: "Nombre de la Ruta", key: "nombre_ruta" },
+              { header: "Nivel de Competencia", key: "nivel_competencia" },
+              { header: "Proceso", key: "proceso" },
               {
-                header: "Identificacion",
+                header: "Identificación",
                 key: "identificacion",
               },
               {
-                header: "Apellidos_del_Funcionario",
+                header: "Apellidos del Funcionario",
                 key: "Apellidos_del_Funcionario",
               },
               {
-                header: "Nombres_del_Funcionario",
+                header: "Nombres del Funcionario",
                 key: "Nombres_del_Funcionario",
               },
               { header: "Cargo", key: "Cargo" },
-              { header: "Nivel_1_del_cargo", key: "Nivel_1_del_cargo" },
-              { header: "Nivel_2_del_cargo", key: "Nivel_2_del_cargo" },
-              { header: "Nivel_3_del_cargo", key: "Nivel_3_del_cargo" },
+              { header: "Nivel 1 del cargo", key: "Nivel_1_del_cargo" },
+              { header: "Nivel 2 del cargo", key: "Nivel_2_del_cargo" },
+              { header: "Nivel 3 del cargo", key: "Nivel_3_del_cargo" },
               { header: "Correo_Electrónico", key: "Correo_Electrónico" },
-              { header: "nombre_curso", key: "nombre_curso" },
-              { header: "Nombre Competencia", key: "nombre_ruta" },
-              { header: "nivel_competencia", key: "nivel_competencia" },
               { header: "Estado", key: "Estado" },
+              { header: "Certificado", key: "certificado" },
+
             ];
             listadoReporte.forEach((registro) => {
               worksheetOut.addRow({
@@ -680,6 +725,8 @@ function estado_RutaAprendizaje(req, res) {
                 Correo_Electrónico: registro.correo,
                 Estado: registro.estado,
                 identificacion: registro.identificacion,
+                proceso: registro.proceso,
+                certificado: registro.certificado,
               });
             });
             workbookOut.xlsx.writeFile(documentname).then(() => {

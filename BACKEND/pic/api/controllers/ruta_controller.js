@@ -246,6 +246,7 @@ function generarRutaAprendizajeUltimate(req, res) {
                                 competencia.listado_cursos_basicos.push({
                                   idCurso: cursoEncontrado.consecutivo,
                                   nombreCurso: cursoEncontrado.nombre_actividad,
+                                  proceso: cursoEncontrado.proceso,
                                   colorEstado: colorCursando, //success - #65B1D9 - #F0D133
                                   estado: "Cursando", // Por Cursar - Cursando - Aprobado
                                 });
@@ -254,6 +255,7 @@ function generarRutaAprendizajeUltimate(req, res) {
                                 competencia.listado_cursos_medios.push({
                                   idCurso: cursoEncontrado.consecutivo,
                                   nombreCurso: cursoEncontrado.nombre_actividad,
+                                  proceso: cursoEncontrado.proceso,
                                   colorEstado: colorPorCursar, //#63bc5f - #65B1D9 - #F0D133
                                   estado: "Por Cursar", // Por Cursar - Cursando - Aprobado
                                 });
@@ -262,6 +264,7 @@ function generarRutaAprendizajeUltimate(req, res) {
                                 competencia.listado_cursos_altos.push({
                                   idCurso: cursoEncontrado.consecutivo,
                                   nombreCurso: cursoEncontrado.nombre_actividad,
+                                  proceso: cursoEncontrado.proceso,
                                   colorEstado: colorPorCursar,
                                   estado: "Por Cursar",
                                 });
@@ -270,6 +273,7 @@ function generarRutaAprendizajeUltimate(req, res) {
                                 competencia.listado_cursos_superiores.push({
                                   idCurso: cursoEncontrado.consecutivo,
                                   nombreCurso: cursoEncontrado.nombre_actividad,
+                                  proceso: cursoEncontrado.proceso,
                                   colorEstado: colorPorCursar,
                                   estado: "Por Cursar",
                                 });

@@ -74,6 +74,7 @@ const cuestionario = Schema({
         default: 'Pendiente'
     },
     fecha_Finalizacion: String,
+    fecha_Inicio: String,
     personasACargo: Boolean
 }
 )

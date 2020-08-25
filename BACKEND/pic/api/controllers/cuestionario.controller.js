@@ -102,7 +102,6 @@ function actualizarPreguntaIII(req, res) {
   try {
     var actu = async (req, res) => {
       var dec = tools.decryptJson(req.body.data);
-      var fecha = tools.getFechaActual();
       cuestionarioHandler.findOne(
         { email: dec.data.email },
         (err, cuestionarioBuscado) => {
@@ -130,7 +129,7 @@ function actualizarPreguntaIII(req, res) {
           );
           if (dec.data.id_pregunta == "3.16") {
             cuestionarioBuscado.estado_cuestionario = "Terminado";
-            //  cuestionarioBuscado.fecha_Finalizacion = fecha;
+            cuestionarioBuscado.fecha_Finalizacion = tools.getFechaActual();
           }
           cuestionarioHandler
             .updateOne({ email: dec.data.email }, cuestionarioBuscado)
@@ -803,6 +802,7 @@ function Cuestionario(req, res) {
                                     preguntaEspecifica.numero_pregunta,
                                 });
                               });
+                              newCuestionario.fecha_Inicio = tools.getFechaActual()
                               var CuestionarioGuardar = new cuestionarioHandler(
                                 newCuestionario
                               );

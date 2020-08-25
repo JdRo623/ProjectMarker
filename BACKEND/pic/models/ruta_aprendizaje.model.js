@@ -18,6 +18,7 @@ const ruta = Schema({
                 {
                     idCurso: String,
                     nombreCurso: String,
+                    proceso: String,
                     colorEstado: String,
                     estado: {
                         type: String,
@@ -29,6 +30,7 @@ const ruta = Schema({
                 {
                     idCurso: String,
                     nombreCurso: String,
+                    proceso: String,
                     colorEstado: String,
                     estado: {
                         type: String,
@@ -40,6 +42,7 @@ const ruta = Schema({
                 {
                     idCurso: String,
                     nombreCurso: String,
+                    proceso: String,
                     colorEstado: String,
                     estado: {
                         type: String,
@@ -51,6 +54,7 @@ const ruta = Schema({
                 {
                     idCurso: String,
                     nombreCurso: String,
+                    proceso: String,
                     colorEstado: String,
                     estado: {
                         type: String,
