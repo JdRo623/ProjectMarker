@@ -9,6 +9,7 @@ var Excel = require("exceljs");
 const NivelHandler = require("../../models/nivel.model");
 const CargosHandler = require("../../models/cargos.model");
 const CuestionarioHandler = require("../../models/Cuestionario.model");
+const variablesHandler = require("../../models/variables.model");
 
 module.exports = {
   CargarEmpleado: CargarEmpleado,
@@ -201,9 +202,10 @@ function CargarEmpleado(req, res) {
                   nivelDefinitivos.push(nivelACargar);
                 }
 
-                subgruposTemporal = tools.validarVacio(
+                subgruposTemporal = tools.validarVacioNivel3(
                   (row.getCell(4).value + "").trim()
                 );
+                console.log(subgruposTemporal)
                 nivelACargar = {
                   nombre: subgruposTemporal,
                   fecha_registro: fecha,
@@ -224,10 +226,9 @@ function CargarEmpleado(req, res) {
                   nivelDefinitivos.push(nivelACargar);
                 }
 
-                coordinacionesTemporal = tools.validarVacio(
+                coordinacionesTemporal = tools.validarVacioNivel4(
                   (row.getCell(5).value + "").trim()
                 );
-
                 nivelACargar = {
                   nombre: coordinacionesTemporal,
                   fecha_registro: fecha,
@@ -263,7 +264,7 @@ function CargarEmpleado(req, res) {
 
             var old = JSON.stringify(users).replace(/null/g, "N/A"); //convert to JSON string
             var newArray = JSON.parse(old);
-            user_jModel.insertMany(newArray, (error, usuarios) => {
+            user_jModel.remove({}, (error) => {
               if (error) {
                 return res.status(603).send({
                   estado: "Error",
@@ -271,17 +272,7 @@ function CargarEmpleado(req, res) {
                   data: Object.assign({}),
                 });
               }
-              if (!usuarios) {
-                return res.status(604).send({
-                  estado: "Error",
-                  message: util.format(
-                    "No ha sido posible almacenar los empleados"
-                  ),
-                  data: Object.assign({}),
-                });
-              }
-
-              NivelHandler.insertMany(nivelDefinitivos, (error, niveles) => {
+              NivelHandler.remove({}, (error) => {
                 if (error) {
                   return res.status(603).send({
                     estado: "Error",
@@ -289,16 +280,7 @@ function CargarEmpleado(req, res) {
                     data: Object.assign({}),
                   });
                 }
-                if (!niveles) {
-                  return res.status(604).send({
-                    estado: "Error",
-                    message: util.format(
-                      "No ha sido posible guardar los niveles"
-                    ),
-                    data: Object.assign({}),
-                  });
-                }
-                CargosHandler.insertMany(cargosDefinitivos, (error, cargos) => {
+                CargosHandler.remove({}, (error) => {
                   if (error) {
                     return res.status(603).send({
                       estado: "Error",
@@ -306,21 +288,74 @@ function CargarEmpleado(req, res) {
                       data: Object.assign({}),
                     });
                   }
-                  if (!cargos) {
-                    return res.status(604).send({
-                      estado: "Error",
-                      message: util.format(
-                        "No ha sido posible guardar los cargos"
-                      ),
-                      data: Object.assign({}),
-                    });
-                  }
-                  return res.status(200).send({
-                    estado: "Empleados almacenados",
-                    message: util.format(
-                      "Los empleados han sido registrados correctamente en el sistema."
-                    ),
-                    data: Object.assign({}),
+
+                  user_jModel.insertMany(newArray, (error, usuarios) => {
+                    if (error) {
+                      return res.status(603).send({
+                        estado: "Error",
+                        message: util.format(error),
+                        data: Object.assign({}),
+                      });
+                    }
+                    if (!usuarios) {
+                      return res.status(604).send({
+                        estado: "Error",
+                        message: util.format(
+                          "No ha sido posible almacenar los empleados"
+                        ),
+                        data: Object.assign({}),
+                      });
+                    }
+
+                    NivelHandler.insertMany(
+                      nivelDefinitivos,
+                      (error, niveles) => {
+                        if (error) {
+                          return res.status(603).send({
+                            estado: "Error",
+                            message: util.format(error),
+                            data: Object.assign({}),
+                          });
+                        }
+                        if (!niveles) {
+                          return res.status(604).send({
+                            estado: "Error",
+                            message: util.format(
+                              "No ha sido posible guardar los niveles"
+                            ),
+                            data: Object.assign({}),
+                          });
+                        }
+                        CargosHandler.insertMany(
+                          cargosDefinitivos,
+                          (error, cargos) => {
+                            if (error) {
+                              return res.status(603).send({
+                                estado: "Error",
+                                message: util.format(error),
+                                data: Object.assign({}),
+                              });
+                            }
+                            if (!cargos) {
+                              return res.status(604).send({
+                                estado: "Error",
+                                message: util.format(
+                                  "No ha sido posible guardar los cargos"
+                                ),
+                                data: Object.assign({}),
+                              });
+                            }
+                            return res.status(200).send({
+                              estado: "Empleados almacenados",
+                              message: util.format(
+                                "Los empleados han sido registrados correctamente en el sistema."
+                              ),
+                              data: Object.assign({}),
+                            });
+                          }
+                        );
+                      }
+                    );
                   });
                 });
               });
@@ -376,7 +411,7 @@ function buscarEmpleado(req, res) {
           user_decript.apellidos_jefe = tools.decrypt(user.apellidos_jefe);
           user_decript.Fecha_Inicio = tools.decrypt(user.Fecha_Inicio);
           user_decript.email = user.email;
-          user_decript.identificacion = (user.identificacion);
+          user_decript.identificacion = user.identificacion;
           user_decript.ciudad = user.ciudad;
           user_decript.cargo = tools.decrypt(user.cargo);
           user_decript.descripccion_cargo = tools.decrypt(
@@ -388,7 +423,6 @@ function buscarEmpleado(req, res) {
           user_decript.nivel4 = tools.decrypt(user.nivel4);
           user_decript.estado_encuesta = tools.decrypt(user.estado_encuesta);
 
-          
           user_decript.estado_cuestionario = "No ha iniciado el cuestionario";
           user_decript.boton = 0;
           CuestionarioHandler.findOne(filtro, (err, Cuestionario) => {
@@ -396,27 +430,39 @@ function buscarEmpleado(req, res) {
               switch (Cuestionario.estado_cuestionario.trim()) {
                 case "Pendiente":
                   user_decript.estado_cuestionario =
-                    "No ha finalizado el Cuestianario";
+                    "No ha finalizado el Cuestionario";
                   break;
                 default:
                   user_decript.boton = 1;
                   user_decript.estado_cuestionario = "Cuestionario finalizado";
                   break;
               }
+            } else {
+              user_decript.estado_cuestionario =
+                "No ha iniciado el cuestionario";
             }
 
-            return res.status(200).send({
-              estado: "Empleado Encontrado",
-              message: util.format("Información Obtenida"),
-              data: Object.assign(user_decript),
-            });
+            variablesHandler.findOne(
+              { nombre: "estado_rutas" },
+              (err, variable) => {
+                if (variable) {
+                  user_decript.estado_ruta = variable.valor;
+                } else {
+                  user_decript.estado_ruta = 0;
+                }
+                return res.status(200).send({
+                  estado: "Empleado Encontrado",
+                  message: util.format("Información Obtenida"),
+                  data: Object.assign(user_decript),
+                });
+              }
+            );
           });
         }
       });
     };
     traer(req, res);
-  } catch (error) {
-  }
+  } catch (error) {}
 }
 
 function listaNiveles(req, res) {

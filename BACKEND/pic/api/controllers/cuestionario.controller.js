@@ -294,7 +294,6 @@ function actualizarPregunta(req, res) {
   try {
     var actualizando = async (req, res) => {
       var dec = tools.decryptJson(req.body.data);
-
       cuestionarioHandler.findOne(
         { email: dec.data.email },
         (err, cuestionarioBuscado) => {
@@ -314,23 +313,35 @@ function actualizarPregunta(req, res) {
           }
 
           PreguntasHandler.findOne(
-            { numero_pregunta: dec.data.id_pregunta},
+            { numero_pregunta: dec.data.id_pregunta },
             (err, pregunta) => {
-
               cuestionarioBuscado.listado_preguntas.forEach((element) => {
                 if (element.id_pregunta == dec.data.id_pregunta) {
-                  element.valor_respuesta = dec.data.valor_respuesta;
-                  element.estado_respuesta = dec.data.estado_respuesta;
-                  element.competencia = pregunta.competencia;
-                  element.nivel = pregunta.nivel;
-                  element.codificacion = pregunta.codificacion;
-                  element.competencia = pregunta.competencia;
-                  if(dec.data.valor_respuesta == pregunta.clave){
-                    element.valor_validacion = "CORRECTO"
+                  if (element.estado_respuesta == "No respondida") {
+
+                    if(tools.obtenerDiferenciaFechas(element.hora_inicio) > 119999){
+
+                    }
+                    element.valor_respuesta = dec.data.valor_respuesta;
+                    element.estado_respuesta = dec.data.estado_respuesta;
+                    element.competencia = pregunta.competencia;
+                    element.nivel = pregunta.nivel;
+                    element.codificacion = pregunta.codificacion;
+                    element.competencia = pregunta.competencia;
+                    if(tools.obtenerDiferenciaFechas(element.hora_inicio) > 119999){
+                      element.valor_respuesta = "Tiempo Vencido";
+                    }else{
+                      if (dec.data.valor_respuesta == pregunta.clave) {
+                        element.valor_validacion = "CORRECTO";
+                      }
+                    }
+
                   }
+                } else {
+                  element.hora_inicio = tools.getFechaActualPreguntas();
                 }
               });
-    
+
               cuestionarioHandler
                 .updateOne({ email: dec.data.email }, cuestionarioBuscado)
                 .then(() => {
@@ -339,7 +350,7 @@ function actualizarPregunta(req, res) {
                     message: util.format("Cuestionario Actualizado"),
                     data: Object.assign(cuestionarioBuscado),
                   });
-              });
+                });
             }
           );
         }
@@ -802,7 +813,7 @@ function Cuestionario(req, res) {
                                     preguntaEspecifica.numero_pregunta,
                                 });
                               });
-                              newCuestionario.fecha_Inicio = tools.getFechaActual()
+                              newCuestionario.fecha_Inicio = tools.getFechaActual();
                               var CuestionarioGuardar = new cuestionarioHandler(
                                 newCuestionario
                               );

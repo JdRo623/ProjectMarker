@@ -27,6 +27,10 @@ const cuestionario = Schema({
             nombreCompetencia: String,
             descripcionCompetencia:String,
             valor_respuesta:String,
+            hora_inicio:{
+                type:String,
+                default:''
+            }, 
             estado_respuesta: {
                 type:String,
                 default:'No respondida'
@@ -37,6 +41,10 @@ const cuestionario = Schema({
         {
             id_pregunta: String,
             valor_respuesta: String,
+            hora_inicio:{
+                type:String,
+                default:''
+            }, 
             competencia:{
                 type:String,
                 default:''
@@ -63,6 +71,10 @@ const cuestionario = Schema({
         {
             id_pregunta: String,
             valor_respuesta: String,
+            hora_inicio:{
+                type:String,
+                default:''
+            }, 
             estado_preguntas: {
                 type:String,
                 default:'No respondida'

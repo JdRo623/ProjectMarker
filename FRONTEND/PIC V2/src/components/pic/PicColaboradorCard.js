@@ -27,6 +27,7 @@ const PicColaboradorCard = (props) => {
   const [nivel3, setNivel3] = useState(false);
   const [nivel4, setNivel4] = useState(false);
   const [estado_cuestionario, setEstado] = useState(false);
+  const [estado_ruta, setEstadoRuta] = useState(false);
   const [cargo, setCargo] = useState(false);
   const [nombres, setNombres] = useState(false);
   const [apellidos, setApellidos] = useState(false);
@@ -42,6 +43,7 @@ const PicColaboradorCard = (props) => {
       setNivel4("N/A");
       setCargo("N/A");
       setEstado("N/A");
+      setEstadoRuta("N/A");
     } else {
       obtenerInformacionFuncionario();
     }
@@ -68,6 +70,7 @@ const PicColaboradorCard = (props) => {
           setNivel4(response.data.nivel4);
           setCargo(response.data.cargo);
           setEstado(response.data.estado_cuestionario);
+          setEstadoRuta(response.data.estado_ruta);
           setModal(false);
         },
         () => {
@@ -84,11 +87,26 @@ const PicColaboradorCard = (props) => {
       // return <Button onClick={IrAlCuestionario}>Realizar el Cuestionario</Button>
       return (
         <NavLink activeClassName="active" to="/app/pic/cuestionario">
-          <Button >Realizar el Cuestionario</Button>
+          <Button>Realizar el Cuestionario</Button>
         </NavLink>
       );
-    } else {
-      return <div></div>;
+    } else if(estado_cuestionario == "No ha finalizado el Cuestionario"){
+      return (
+        <NavLink activeClassName="active" to="/app/pic/cuestionario">
+          <Button>Realizar el Cuestionario</Button>
+        </NavLink>
+      );
+    }
+    else {
+      if (estado_ruta == 1) {
+        return (
+          <NavLink activeClassName="active" to="/app/pic/rutaAprendizaje">
+            <Button>Ver Ruta de Aprendizaje</Button>
+          </NavLink>
+        );
+      } else {
+        return <div></div>;
+      }
     }
   };
 

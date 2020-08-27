@@ -26,37 +26,49 @@ function homologacion(req, res) {
             var homologaciones = [];
 
             var worksheet = workbook.getWorksheet(1);
-
+            var estadoCurso = "";
             var textTemp = "";
             let aux = true;
             worksheet.eachRow(function (row, rowNumber) {
               if (rowNumber != 1) {
-                var homologacion = {};
-                homologacion.identificacion = (
-                  row.getCell(1).value + ""
-                ).trim();
-                homologacion.numero_curso = (row.getCell(2).value + "").trim();
-                homologacion.estado = (row.getCell(3).value + "").trim();
-                if (!users.includes((row.getCell(1).value + "").trim())) {
-                  users.push((row.getCell(1).value + "").trim());
-                }
+                estadoCurso = (row.getCell(3).value + "").trim();
+                if (
+                  estadoCurso.toUpperCase() == ("Por Cursar").toUpperCase() ||
+                  estadoCurso.toUpperCase() == ("Aprobado").toUpperCase() ||
+                  estadoCurso.toUpperCase() == ("Reprobado").toUpperCase() ||
+                  estadoCurso.toUpperCase() == ("Cursando").toUpperCase() ||
+                  estadoCurso.toUpperCase() == ("Eliminar").toUpperCase() ||
+                  estadoCurso.toUpperCase() == ("Pendientes de Cupo").toUpperCase()
+                ) {
 
-                switch (homologacion.estado.trim()) {
-                  case "Por Cursar":
-                    homologacion.colorEstado = "#F0D133";
-                    break;
-                  case "Aprobado":
-                    homologacion.colorEstado = "#63bc5f";
-                    break;
-                  case "Reprobado":
+                  var homologacion = {};
+                  homologacion.identificacion = (
+                    row.getCell(1).value + ""
+                  ).trim();
+                  homologacion.numero_curso = (
+                    row.getCell(2).value + ""
+                  ).trim();
+                  homologacion.estado = estadoCurso;
+                  if (!users.includes((row.getCell(1).value + "").trim())) {
+                    users.push((row.getCell(1).value + "").trim());
+                  }
+
+                  switch (homologacion.estado.trim()) {
+                    case "Por Cursar":
+                      homologacion.colorEstado = "#F0D133";
+                      break;
+                    case "Aprobado":
+                      homologacion.colorEstado = "#63bc5f";
+                      break;
+                    case "Reprobado":
                       homologacion.colorEstado = "#F25C54";
                       break;
-                  default:
-                    homologacion.colorEstado = "#65B1D9";
-                    break;
+                    default:
+                      homologacion.colorEstado = "#65B1D9";
+                      break;
+                  }
+                  homologaciones.push(homologacion);
                 }
-
-                homologaciones.push(homologacion);
               }
             });
 

@@ -49,6 +49,7 @@ const constantes = {
     envioPlantillaHomologaciones: "/envioPlantillaHomologaciones",
     envioPlantillaPic: "/envioPlantillaPic",
     envioPlantillaPlanta: "/envioPlantillaPlanta",
+    cambiarEstadoRutas: "/cambiarEstadoRutas"
   },
   mensajes: {
     ERROR: "Error",

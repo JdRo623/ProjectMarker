@@ -27,6 +27,9 @@ export default function RutaAprendizajeColaborador(props) {
   const [ruta, setRuta] = useState({
     listado_competencias: [],
   });
+
+  const [estado_ruta, setEstadoRuta] = useState(false);
+
   useEffect(() => {
     obtenerRutaAprendizaje();
   }, []);
@@ -45,6 +48,7 @@ export default function RutaAprendizajeColaborador(props) {
         filtros,
         (response) => {
           setRuta(response.data);
+          setEstadoRuta(response.data.estado_ruta);
           setModal(false);
         },
         () => {
@@ -55,14 +59,43 @@ export default function RutaAprendizajeColaborador(props) {
       setModal(false);
     }
   };
+
+  const renderRuta = () => {
+    if (estado_ruta == 1) {
+      return (
+        <PicRutaAprendizajeComponent
+          ref={componentRef}
+          rutaAprendizaje={ruta}
+        />
+      );
+    } else {
+      return (
+        <div>
+          Tu ruta de aprendizaje actualmente se encuentra en proceso de
+          evaluación
+        </div>
+      );
+    }
+  };
+
+  const renderBotonImprimirRuta = () => {
+    if (estado_ruta == 1) {
+      return (
+        <ReactToPrint
+          trigger={() => <Button color="primary">Imprimir Ruta</Button>}
+          content={() => componentRef.current}
+        />
+      );
+    } else {
+      return <div></div>;
+    }
+  };
   return (
     <Fragment>
       <div>
         <Modal isOpen={modal}>
           <ModalHeader>Obteniendo información</ModalHeader>
-          <ModalBody>
-            Obteniendo opciones de información personal del servidor
-          </ModalBody>
+          <ModalBody>Obteniendo ruta de aprendizaje</ModalBody>
         </Modal>
       </div>
       <Row>
@@ -70,10 +103,7 @@ export default function RutaAprendizajeColaborador(props) {
           <h1>Ruta de aprendizaje</h1>
         </Colxx>
         <Colxx xxs="4" lg="3" xl="2" className="mb-3">
-          <ReactToPrint
-            trigger={() => <Button color="primary">Imprimir Ruta</Button>}
-            content={() => componentRef.current}
-          />
+          {renderBotonImprimirRuta()}
         </Colxx>
       </Row>
 
@@ -81,10 +111,7 @@ export default function RutaAprendizajeColaborador(props) {
 
       <Row>
         <Colxx xxs="12" lg="12" xl="12" className="mb-3">
-          <PicRutaAprendizajeComponent
-            ref={componentRef}
-            rutaAprendizaje={ruta}
-          />
+          {renderRuta()}
         </Colxx>
       </Row>
     </Fragment>

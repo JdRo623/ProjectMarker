@@ -57,6 +57,7 @@ module.exports = {
   "menu.reportes": "Realizar Reportes",
   "menu.consultar-cuestionario": "Consultar Cuestionario",
   "menu.principal_empleado": "Inicio",
+  'menu.modificar-ruta': 'Rutas de Aprendizaje',
 
   /* 04.Error  */
   "pages.error-title": "Vaya, parece que ha ocurrido un error!",

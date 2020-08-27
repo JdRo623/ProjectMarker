@@ -11,40 +11,33 @@ const cuestionarioHandler = require("../../models/Cuestionario.model");
 const PreguntasHandler = require("../../models/preguntas_w.model");
 const cursoHandler = require("../../models/curso.model");
 const rutaHandler = require("../../models/ruta_aprendizaje.model");
+const variablesHandler = require("../../models/variables.model");
 
 module.exports = {
   estadisticaCurso: estadisticaCurso,
   generarRutaAprendizaje: generarRutaAprendizajeUltimate,
   obtenerRutaAprendizaje: obtenerRutaAprendizaje,
+  cambiarEstadoRutas:cambiarEstadoRutas
 };
 
-function cursoNivel(req, res) {
+function cambiarEstadoRutas(req, res) {
   try {
     var dec = tools.decryptJson(req.body.data);
     var listado = async (req, res) => {
-      cuestionarioHandler.find(
-        { estado_cuestionario: dec.estado_cuestionario },
-        (err, cuestionarios) => {
-          if (err) {
-            return res.status(603).send({
-              estado: "error",
-              message: util.format(err),
-              data: Object.assign({}),
-            });
-          }
-          if (!cuestionarios) {
-            return res.status(200).send({
-              estado: "No Hay Cuestionarios Completados",
-              message: util.format("No Hay Cuestionarios Completados"),
-              data: Object.assign({}),
-            });
-          }
+      variablesHandler.updateOne({ nombre: "estado_rutas" }, {valor: dec.valor})
+      .then(() => {
+          return res.status(200).send({
+            estado: "Variable Modificada",
+            message: util.format("Estado de visualización de Rutas de Aprendizaje Modificado."),
+            data: Object.assign({}),
+          });
         }
       );
     };
     listado(req, res);
   } catch (error) {}
 }
+
 
 function obtenerRutaAprendizaje(req, res) {
   try {
@@ -69,9 +62,41 @@ function obtenerRutaAprendizaje(req, res) {
           });
         }
         var rutaUltimate = [];
+        var cursosUltimate = [];
 
         ruta.listado_competencias.forEach((competencia) => {
           if (competencia.valor_respuesta != "0") {
+            cursosUltimate =[]
+            competencia.listado_cursos_basicos.forEach((curso) => {
+              if (curso.estado != "Eliminar" && curso.estado != "Pendientes de Cupo"){
+                cursosUltimate.push(curso)
+              }
+            });
+            competencia.listado_cursos_basicos = cursosUltimate
+            
+            cursosUltimate =[]
+            competencia.listado_cursos_medios.forEach((curso) => {
+              if (curso.estado != "Eliminar" && curso.estado != "Pendientes de Cupo"){
+                cursosUltimate.push(curso)
+              }
+            });
+            competencia.listado_cursos_medios = cursosUltimate
+
+            cursosUltimate =[]
+            competencia.listado_cursos_altos.forEach((curso) => {
+              if (curso.estado != "Eliminar" && curso.estado != "Pendientes de Cupo"){
+                cursosUltimate.push(curso)
+              }
+            });
+            competencia.listado_cursos_altos = cursosUltimate
+
+            cursosUltimate =[]
+            competencia.listado_cursos_superiores.forEach((curso) => {
+              if (curso.estado != "Eliminar" && curso.estado != "Pendientes de Cupo"){
+                cursosUltimate.push(curso)
+              }
+            });
+            competencia.listado_cursos_superiores = cursosUltimate
             rutaUltimate.push(competencia);
           }
         });
@@ -86,11 +111,20 @@ function obtenerRutaAprendizaje(req, res) {
           return 0;
         });
 
-        return res.status(200).send({
-          estado: "Exito",
-          message: util.format("Ruta Obtenida"),
-          data: Object.assign(ruta),
+        variablesHandler.findOne({nombre:"estado_rutas"}, (err, variable) => {
+          if (variable) {
+            ruta.estado_ruta = variable.valor
+          }else{
+            ruta.estado_ruta = 0
+          }
+
+          return res.status(200).send({
+            estado: "Exito",
+            message: util.format("Ruta Obtenida"),
+            data: Object.assign(ruta),
+          });
         });
+
       });
     };
     listado(req, res);

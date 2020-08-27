@@ -13,7 +13,7 @@ module.exports = {
   buscarPreguntasPorID: buscarPreguntasPorID,
   buscarPreguntasPorIDCuestionario: buscarPreguntasPorIDCuestionario,
   buscarCompetenciasCuestionario: buscarCompetenciasCuestionario,
-  limpiarPreguntas: limpiarPreguntas
+  limpiarPreguntas: limpiarPreguntas,
 };
 
 function buscarCompetenciasCuestionario(req, res) {
@@ -64,7 +64,6 @@ function buscarPreguntasPorIDCuestionario(req, res) {
     var obtener = async (req, res) => {
       var dec = tools.decryptJson(req.body.data);
       var filtros = [];
-
       cuestionarioHandler.findOne(
         { email: dec.email },
         (err, cuestionarioBuscado) => {
@@ -84,7 +83,10 @@ function buscarPreguntasPorIDCuestionario(req, res) {
 
           cuestionarioBuscado.listado_preguntas.forEach((preguntaBuscada) => {
             if (preguntaBuscada.estado_respuesta == "No respondida") {
-              filtros.push(preguntaBuscada.id_pregunta);
+              filtros.push(preguntaBuscada.id_pregunta);    
+            }
+            if(preguntaBuscada.hora_inicio == ""){
+              preguntaBuscada.hora_inicio = tools.getFechaActualPreguntas();
             }
           });
 
@@ -111,38 +113,42 @@ function buscarPreguntasPorIDCuestionario(req, res) {
                   data: Object.assign({}),
                 });
               } else {
-                var estructuraPregunta = [];
-                preguntasBuscadas.forEach((preguntaBuscada) => {
-                  estructuraPregunta.push({
-                    idPregunta: preguntaBuscada.numero_pregunta,
-                    situacionProblema: preguntaBuscada.situacion_problema,
-                    encabezadoPregunta: preguntaBuscada.encabezado_pregunta,
-                    opcionesRespuestas: [
-                      {
-                        enunciadoRespuesta: preguntaBuscada.respuesta3,
-                        id: "C",
-                      },
-                      {
-                        enunciadoRespuesta: preguntaBuscada.respuesta1,
-                        id: "A",
-                      },
-                      {
-                        enunciadoRespuesta: preguntaBuscada.respuesta2,
-                        id: "B",
-                      },
-                      {
-                        enunciadoRespuesta:
-                          "No se la respuesta a esta pregunta",
-                        id: "D",
-                      },
-                    ],
+                cuestionarioHandler
+                  .updateOne({ email: dec.email }, cuestionarioBuscado)
+                  .then(() => {
+                    var estructuraPregunta = [];
+                    preguntasBuscadas.forEach((preguntaBuscada) => {
+                      estructuraPregunta.push({
+                        idPregunta: preguntaBuscada.numero_pregunta,
+                        situacionProblema: preguntaBuscada.situacion_problema,
+                        encabezadoPregunta: preguntaBuscada.encabezado_pregunta,
+                        opcionesRespuestas: [
+                          {
+                            enunciadoRespuesta: preguntaBuscada.respuesta3,
+                            id: "C",
+                          },
+                          {
+                            enunciadoRespuesta: preguntaBuscada.respuesta1,
+                            id: "A",
+                          },
+                          {
+                            enunciadoRespuesta: preguntaBuscada.respuesta2,
+                            id: "B",
+                          },
+                          {
+                            enunciadoRespuesta:
+                              "No se la respuesta a esta pregunta",
+                            id: "D",
+                          },
+                        ],
+                      });
+                    });
+                    return res.status(200).send({
+                      estado: "Exito",
+                      message: util.format("Pregunta obtenida"),
+                      data: Object.assign(estructuraPregunta),
+                    });
                   });
-                });
-                return res.status(200).send({
-                  estado: "Exito",
-                  message: util.format("Preguntas obtenidas"),
-                  data: Object.assign(estructuraPregunta),
-                });
               }
             }
           );

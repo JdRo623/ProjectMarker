@@ -98,7 +98,7 @@ class PicRutaAprendizajeComponent extends React.Component {
                           >
                             <CardBody style={{ color: "white" }}>
                               <center>
-                                <h4 style={{ color: "white" }}>Competencia</h4>
+                                <h4 style={{ color: "white" }}>Ruta de Aprendizaje</h4>
                               </center>
                             </CardBody>
                           </Card>

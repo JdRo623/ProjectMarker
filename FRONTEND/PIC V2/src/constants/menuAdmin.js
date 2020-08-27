@@ -26,9 +26,14 @@ const data = [
         to: "/app/pic/util",
       },
       {
-        icon: "iconsminds-upload",
+        icon: "simple-icon-cloud-download",
         label: "menu.reportes",
         to: "/app/pic/reportes",
+      },
+      {
+        icon: "iconsminds-arrow-outside-gap-45",
+        label: "menu.modificar-ruta",
+        to: "/app/pic/modificacion-rutas",
       },
       {
         icon: "simple-icon-question",

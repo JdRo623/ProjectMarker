@@ -51,6 +51,8 @@ module.exports = {
   'menu.colaborador': 'Funcionario',
   'menu.administrador': 'Administrador',
   'menu.carga-archivos': 'Cargar Archivos',
+  'menu.modificar-ruta': 'Modificación Rutas de Aprendizaje',
+
   /* 04.Error  */
   'pages.error-title': 'Vaya, parece que ha ocurrido un error!',
   'pages.error-code': 'Código de error',
