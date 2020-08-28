@@ -9,6 +9,8 @@ export default function PicPreguntaComponente(props) {
   const [estadoOpciones, setEstadoOpciones] = useState(false);
   const [idPregunta, setIdPregunta] = useState(props.idPregunta);
   const [columna, setColumna] = useState(props.columa);
+  const [contador, setContador] = useState(119999);
+
   const RespuestaAdicional = () => (
     <Colxx xxs="3" lg="3" xl="3" className="mb-3">
       <AvRadio
@@ -25,6 +27,8 @@ export default function PicPreguntaComponente(props) {
   };
 
   useEffect(() => {
+    //USAR ESTE USE EFFECT O CREAR UNO NUEVO PARA EL CONTADOR DE LA PREGUNTA, SOLO PARA LAS PREGUNTAS SECCIÓN II... POR AHORA
+    console.log("Entro en pregunta "+idPregunta)
     if (props.respuestas && listItems == null)
       setListItems(
         props.respuestas.map((respuesta) => (
@@ -107,7 +111,7 @@ export default function PicPreguntaComponente(props) {
           </AvForm>
         </FormGroup>
         <Timer
-          initialTime={119999}
+          initialTime={contador}
           direction="backward"
           startImmediately={true}
           onStart={() => console.log("onStart hook")}
