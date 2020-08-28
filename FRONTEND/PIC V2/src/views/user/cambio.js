@@ -8,6 +8,7 @@ import { Formik, Form, Field } from "formik";
 
 import { Colxx } from "../../components/common/CustomBootstrap";
 import IntlMessages from "../../helpers/IntlMessages";
+import { loginUser } from "../../redux/actions";
 
 import logo from "../../assets/img/logo_dian.png";
 import constantes from "../../util/Constantes";
@@ -15,7 +16,7 @@ import HttpService, { cifrar } from "../../util/HttpService";
 
 import Cookies from "universal-cookie";
 
-export default class Cambio extends Component {
+class Cambio extends Component {
   constructor(props) {
     super(props);
     this.cookies = new Cookies();
@@ -28,6 +29,7 @@ export default class Cambio extends Component {
       },
     };
   }
+
   handleChange = (e) => {
     this.setState({
       ...this.state,
@@ -49,6 +51,7 @@ export default class Cambio extends Component {
   handleChangePassword = async () => {
     this.setState({ loading: true });
     const { password, confirmPassword, secretPassword } = this.state.form;
+
     if (
       !this.validatePassword(password) ||
       !this.validatePassword(confirmPassword) ||
@@ -60,16 +63,32 @@ export default class Cambio extends Component {
           {
             email: this.state.form.email,
             password: cifrar(this.state.form.password),
-            secretPassword: cifrar(this.state.form.secretPassword),
+            contrasena_maestra: cifrar(this.state.form.secretPassword),
+          },
+          (response) => {
+            if (response.data) {
+              if (response.data.correcto) {
+                localStorage.removeItem("cambio");
+                localStorage.setItem("email", this.state.form.email);
+                this.setState({ loading: false });
+                this.props.loginUser(
+                  { email: "demo@gogo.com", password: "gogo123" },
+                  this.props.history
+                );
+                this.props.history.push("/app");
+              }
+              this.setState({ loading: false });
+            } else {
+              this.setState({ loading: false });
+            }
           }
         )
-          .then(async () => {
-            localStorage.removeItem("cambio");
-            localStorage.setItem("email", this.state.form.email);
-            this.setState({ loading: false });
-            await this.props.history.push("/app");
+          .then(async (response) => {
+
           })
           .catch(() => {
+            console.log("Error");
+
             this.setState({ loading: false });
           });
       } else {
@@ -120,7 +139,7 @@ export default class Cambio extends Component {
                       <Field
                         className="form-control"
                         type="password"
-                        name="passwordSecret"
+                        name="secretPassword"
                         onChange={this.handleChange}
                         value={this.state.form.secretPassword}
                       />
@@ -193,3 +212,11 @@ export default class Cambio extends Component {
     );
   }
 }
+const mapStateToProps = ({ authUser }) => {
+  const { user, loading, error } = authUser;
+  return { user, loading, error };
+};
+
+export default connect(mapStateToProps, {
+  loginUser,
+})(Cambio);

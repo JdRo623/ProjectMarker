@@ -84,17 +84,28 @@ function cambioPassword(req, res) {
               data: Object.assign({}),
             });
           }
+          console.log(tools.decrypt(dec.contrasena_maestra))
+          console.log(usuarioBuscado.contrasena_maestra)
+          console.log(usuarioBuscado.contrasena_maestra)
 
-          usuarioBuscado.password = dec.password;
-          user_jModel
-            .updateOne(filtro, { password: usuarioBuscado.password })
-            .then(() => {
-              return res.status(200).send({
-                estado: "Exito",
-                message: util.format("Contraseña Actualizada"),
-                data: Object.assign({}),
+          if (usuarioBuscado.contrasena_maestra == tools.decrypt(dec.contrasena_maestra)) {
+            usuarioBuscado.password = dec.password;
+            user_jModel
+              .updateOne(filtro, { password: usuarioBuscado.password })
+              .then(() => {
+                return res.status(200).send({
+                  estado: "Exito",
+                  message: util.format("Contraseña Actualizada"),
+                  data: Object.assign({correcto: true}),
+                });
               });
+          }else{
+            return res.status(602).send({
+              estado: "Error",
+              message: util.format("La Contraseña Maestra es incorrecta"),
+              data: Object.assign({}),
             });
+          }
         });
       } catch (error) {
         throw boom.boomify(error);
@@ -205,7 +216,7 @@ function CargarEmpleado(req, res) {
                 subgruposTemporal = tools.validarVacioNivel3(
                   (row.getCell(4).value + "").trim()
                 );
-                console.log(subgruposTemporal)
+                console.log(subgruposTemporal);
                 nivelACargar = {
                   nombre: subgruposTemporal,
                   fecha_registro: fecha,

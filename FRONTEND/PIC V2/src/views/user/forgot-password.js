@@ -7,6 +7,15 @@ import IntlMessages from "../../helpers/IntlMessages";
 import { forgotPassword } from "../../redux/actions";
 import { NotificationManager } from "../../components/common/react-notifications";
 import { connect } from "react-redux";
+import logo from "../../assets/img/estudiando-logo.svg";
+import logoDian from "../../assets/img/logo-dian-principal_recortado.png";
+import unal from "../../assets/img/unal-logo.png";
+import Cookies from "universal-cookie";
+
+import constantes from "../../util/Constantes";
+import HttpService from "../../util/HttpService";
+
+const cookies = new Cookies();
 
 class ForgotPassword extends Component {
   constructor(props) {
@@ -17,19 +26,49 @@ class ForgotPassword extends Component {
   }
 
   onForgotPassword = (values) => {
-    if (!this.props.loading) {
-      if (values.email !== "") {
-        this.props.forgotPassword(values, this.props.history);
-      }
+    const email = values.email;
+    if (!this.validateEmail(email)) {
+      this.setState({ loading: true });
+      HttpService.requestPost(
+        constantes.urlServer + constantes.servicios.envioCorreo,
+        {
+          email
+        },
+        (response) => {
+          if (response.data) {
+            this.setState({ loading: false });
+            localStorage.clear();
+            console.log(response.data)
+
+            const cambio_pass = response.data.cambio_pass;
+            const email = response.data.email;
+            localStorage.setItem("email", email);
+            console.log(cambio_pass)
+            console.log(email)
+
+            if (cambio_pass) {
+              localStorage.setItem("cambio", cambio_pass);
+              this.props.history.push('/user/reset');
+            }
+            /*this.props.loginUser(
+              { email: "demo@gogo.com", password: "gogo123" },
+              this.props.history
+            );*/
+            this.setState({ loading: false });
+          } else {
+            this.setState({ loading: false });
+          }
+        }
+      );
     }
   };
 
   validateEmail = (value) => {
     let error;
     if (!value) {
-      error = "Please enter your email address";
+      error = "Por favor, ingrese su correo electronico";
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-      error = "Invalid email address";
+      error = "Correo Electronico invalido";
     }
     return error;
   };
@@ -67,14 +106,10 @@ class ForgotPassword extends Component {
           <Card className="auth-card">
             <div className="position-relative image-side ">
               <p className="text-default  h2">
-                Olvidó la contraseña! Tranquilo{" "}
+              ¿Necesitas cambiar tu contraseña? Tranquilo{" "}
               </p>
               <p className="text-default  mb-0">
                 Utilice su correo electrónico para restablecer su contraseña{" "}
-                <NavLink to={`/register`} className="white">
-                  register
-                </NavLink>
-                .
               </p>
             </div>
             <div className="form-side">

@@ -27,6 +27,10 @@ const user_j = Schema({
         type: String,
         default: "No completado"
     },
+    contrasena_maestra: {
+        type: String,
+        require: ''
+    },
     password:{
         type: String,
         default: this.identificacion,

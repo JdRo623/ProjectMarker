@@ -56,7 +56,6 @@ class Login extends Component {
             this.setState({ loading: false });
             localStorage.clear();
             const { token, cambio_pass, email, rol } = response.data;
-            cookies.set("token", token, { path: "/" });
             localStorage.setItem("email", email);
             if (rol) {
               localStorage.setItem("rol", rol);
@@ -65,11 +64,15 @@ class Login extends Component {
             }
             if (cambio_pass) {
               localStorage.setItem("cambio", cambio_pass);
+              this.props.history.push('/user/forgot-password');
+            }else{
+              cookies.set("token", token, { path: "/" });
+              this.props.loginUser(
+                { email: "demo@gogo.com", password: "gogo123" },
+                this.props.history
+              );
             }
-            this.props.loginUser(
-              { email: "demo@gogo.com", password: "gogo123" },
-              this.props.history
-            );
+
             this.setState({ loading: false });
           } else {
             this.setState({ loading: false });

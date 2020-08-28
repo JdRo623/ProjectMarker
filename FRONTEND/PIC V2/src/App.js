@@ -85,10 +85,6 @@ class App extends Component {
                     component={ViewApp}
                   />
                   <Route
-                    path="/user/reset"
-                    render={(props) => <ViewReset {...props} />}
-                  />
-                  <Route
                     path="/user"
                     render={(props) => <ViewPic {...props} />}
                   />
