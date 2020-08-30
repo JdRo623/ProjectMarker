@@ -979,7 +979,7 @@ function CuestionarioConsulta(req, res) {
 
                   if (
                     coordinacionEncontrada.cargos.length != 0 &&
-                    coordinacionEncontrada.nombre != "N/A"
+                    coordinacionEncontrada.nombre != "NINGUNO"
                   ) {
                     coordinacionEncontrada.cargos.forEach((cargo) => {
                       if (cargo.nombreCargo == "GENERAL") {
@@ -991,7 +991,7 @@ function CuestionarioConsulta(req, res) {
                     });
                   } else if (
                     subgrupoEncontrado.cargos.length != 0 &&
-                    subgrupoEncontrado.nombre != "N/A"
+                    subgrupoEncontrado.nombre != "OTRO"
                   ) {
                     subgrupoEncontrado.cargos.forEach((cargo) => {
                       if (cargo.nombreCargo == "GENERAL") {

@@ -83,9 +83,10 @@ function registrarActividades(req, res) {
 
             const worksheet = workbook.getWorksheet("Hoja1");
             worksheet.eachRow(function (row, rowNumber) {
-              if (rowNumber >= 5 && rowNumber<=2055) {
+              if (rowNumber >= 5) {
                 if ((row.getCell(1).value+"").trim().toUpperCase()  == "x".toUpperCase() ) {
                   listadoNiveles.push(nivelTemporal);
+
                   nivelTemporal = {
                       cargos: []
                   };
@@ -95,10 +96,12 @@ function registrarActividades(req, res) {
                     cursos: [],
                   };
                   for (var i = 3; i <= 186; i++) {
+
                     if ((row.getCell(i).value+"").trim().toUpperCase()  == "x".toUpperCase() ) {
                       cargoTemporal.cursos.push(i - 2 + "");
                     }
                   }
+
                   nivelTemporal.cargos.push(cargoTemporal);
                 } else {
                   cargoTemporal = {
@@ -112,8 +115,10 @@ function registrarActividades(req, res) {
                   }
                   nivelTemporal.cargos.push(cargoTemporal);
                 }
+
               }
             });
+            listadoNiveles.push(nivelTemporal);
 
             NivelHandler.bulkWrite(
               listadoNiveles.map((nivel) => ({
