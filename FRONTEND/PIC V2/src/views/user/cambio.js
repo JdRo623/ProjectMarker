@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Row, Card, CardTitle, Label, FormGroup, Button } from "reactstrap";
+import { Row, Card, CardTitle, Label, FormGroup, Button,   Table
+} from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -10,9 +11,12 @@ import { Colxx } from "../../components/common/CustomBootstrap";
 import IntlMessages from "../../helpers/IntlMessages";
 import { loginUser } from "../../redux/actions";
 
-import logo from "../../assets/img/logo_dian.png";
 import constantes from "../../util/Constantes";
 import HttpService, { cifrar } from "../../util/HttpService";
+
+import logo from "../../assets/img/estudiando-logo.svg";
+import logoDian from "../../assets/img/logo-dian-principal_recortado.png";
+import unal from "../../assets/img/unal-logo.png";
 
 import Cookies from "universal-cookie";
 
@@ -83,9 +87,7 @@ class Cambio extends Component {
             }
           }
         )
-          .then(async (response) => {
-
-          })
+          .then(async (response) => {})
           .catch(() => {
             console.log("Error");
 
@@ -120,9 +122,38 @@ class Cambio extends Component {
         <Colxx xxs="12" md="8" className="mx-auto my-auto">
           <Card className="auth-card">
             <div className="position-relative image-side ">
-              <center>
-                <img src={logo} width="200" height="200" />
-              </center>
+              <Table style={{ height: "100%" }}>
+                <tbody>
+                  {" "}
+                  <tr>
+                    {" "}
+                    <td className="align-middle">
+                      <center>
+                        {" "}
+                        <img src={logoDian} width="205" height="75" />{" "}
+                      </center>
+                    </td>{" "}
+                  </tr>{" "}
+                  <tr>
+                    {" "}
+                    <td className="align-middle">
+                      <center>
+                        {" "}
+                        <img src={unal} width="200" height="85" />
+                      </center>{" "}
+                    </td>{" "}
+                  </tr>{" "}
+                  <tr>
+                    {" "}
+                    <td className="align-middle">
+                      <center>
+                        {" "}
+                        <img src={logo} width="120" height="120" />
+                      </center>{" "}
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
             </div>
             <div className="form-side">
               <CardTitle className="mb-4">
@@ -132,7 +163,7 @@ class Cambio extends Component {
                 {({ errors, touched }) => (
                   <Form className="av-tooltip tooltip-label-bottom">
                     <Label>{this.state.form.email}</Label>
-                    <FormGroup className="form-group has-float-label">
+                    <FormGroup className="form-group">
                       <Label>
                         <IntlMessages id="user.secret-password" />
                       </Label>
@@ -149,7 +180,7 @@ class Cambio extends Component {
                         </div>
                       )}
                     </FormGroup>
-                    <FormGroup className="form-group has-float-label">
+                    <FormGroup className="form-group">
                       <Label>
                         <IntlMessages id="user.password" />
                       </Label>
@@ -166,7 +197,7 @@ class Cambio extends Component {
                         </div>
                       )}
                     </FormGroup>
-                    <FormGroup className="form-group has-float-label">
+                    <FormGroup className="form-group">
                       <Label>
                         <IntlMessages id="user.repeat-password" />
                       </Label>

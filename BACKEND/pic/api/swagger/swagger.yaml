@@ -900,6 +900,20 @@ paths:
             description: Error
             schema:
               $ref: "#/definitions/ErrorResponse"
+  /obtenerTemporizadorPreguntas:
+      x-swagger-router-controller: preguntas_w_controller
+      post: 
+        description: Obtener el Temporizador de una pregunta
+        operationId: obtenerTemporizadorPreguntas
+        responses:
+          "200":
+            description: Success
+            schema:
+              $ref: "#/definitions/GenericResponse"
+          default:
+            description: Error
+            schema:
+              $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions

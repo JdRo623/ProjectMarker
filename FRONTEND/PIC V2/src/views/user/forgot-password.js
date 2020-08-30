@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Row, Card, CardTitle, Label, FormGroup, Button } from "reactstrap";
+import { Row, Card, CardTitle, Label, FormGroup, Button,
+  Table } from "reactstrap";
 import { NavLink } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { Colxx } from "../../components/common/CustomBootstrap";
@@ -32,23 +33,23 @@ class ForgotPassword extends Component {
       HttpService.requestPost(
         constantes.urlServer + constantes.servicios.envioCorreo,
         {
-          email
+          email,
         },
         (response) => {
           if (response.data) {
             this.setState({ loading: false });
             localStorage.clear();
-            console.log(response.data)
+            console.log(response.data);
 
             const cambio_pass = response.data.cambio_pass;
             const email = response.data.email;
             localStorage.setItem("email", email);
-            console.log(cambio_pass)
-            console.log(email)
+            console.log(cambio_pass);
+            console.log(email);
 
             if (cambio_pass) {
               localStorage.setItem("cambio", cambio_pass);
-              this.props.history.push('/user/reset');
+              this.props.history.push("/user/reset");
             }
             /*this.props.loginUser(
               { email: "demo@gogo.com", password: "gogo123" },
@@ -87,7 +88,7 @@ class ForgotPassword extends Component {
       if (!this.props.loading && this.props.forgotUserMail === "success")
         NotificationManager.success(
           "Por favor revisa tu correo",
-          "Envio de contraseña secreta exitoso",
+          "Envio de contraseña maestra exitoso",
           3000,
           null,
           null,
@@ -105,17 +106,48 @@ class ForgotPassword extends Component {
         <Colxx xxs="12" md="10" className="mx-auto my-auto">
           <Card className="auth-card">
             <div className="position-relative image-side ">
-              <p className="text-default  h2">
-              ¿Necesitas cambiar tu contraseña? Tranquilo{" "}
-              </p>
-              <p className="text-default  mb-0">
-                Utilice su correo electrónico para restablecer su contraseña{" "}
-              </p>
+              <Table style={{ height: "100%" }}>
+                <tbody>
+                  {" "}
+                  <tr>
+                    {" "}
+                    <td className="align-middle">
+                      <center>
+                        {" "}
+                        <img src={logoDian} width="205" height="75" />{" "}
+                      </center>
+                    </td>{" "}
+                  </tr>{" "}
+                  <tr>
+                    {" "}
+                    <td className="align-middle">
+                      <center>
+                        {" "}
+                        <img src={unal} width="200" height="85" />
+                      </center>{" "}
+                    </td>{" "}
+                  </tr>{" "}
+                  <tr>
+                    {" "}
+                    <td className="align-middle">
+                      <center>
+                        {" "}
+                        <img src={logo} width="120" height="120" />
+                      </center>{" "}
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
             </div>
             <div className="form-side">
-              <NavLink to={`/`} className="white">
-                <span className="logo-single" />
-              </NavLink>
+              <div >
+                <p className="text-default  h2">
+                  ¿Necesitas cambiar tu contraseña? Tranquilo{" "}
+                </p>
+                <p className="text-default  mb-0">
+                  Utilice su correo electrónico para restablecer su contraseña{" "}
+                </p>
+              </div>
               {/* <CardTitle className="mb-4">
                 <IntlMessages id="user.forgot-password" />
               </CardTitle> */}

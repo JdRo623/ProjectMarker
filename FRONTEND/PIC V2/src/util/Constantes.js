@@ -1,6 +1,6 @@
 const constantes = {
-  urlServer: "http://localhost:5000",
-  //urlServer: "https://back-joanapp.herokuapp.com",
+  //urlServer: "http://localhost:5000",
+  urlServer: "https://back-joanapp.herokuapp.com",
 
   servicios: {
     autenticarAgente: "/identificacionUsuario",
@@ -49,7 +49,8 @@ const constantes = {
     envioPlantillaHomologaciones: "/envioPlantillaHomologaciones",
     envioPlantillaPic: "/envioPlantillaPic",
     envioPlantillaPlanta: "/envioPlantillaPlanta",
-    cambiarEstadoRutas: "/cambiarEstadoRutas"
+    cambiarEstadoRutas: "/cambiarEstadoRutas",
+    obtenerTemporizadorPreguntas: "/obtenerTemporizadorPreguntas",
   },
   mensajes: {
     ERROR: "Error",
@@ -58,14 +59,14 @@ const constantes = {
     recaptchaKey: "6Lf7X7wUAAAAAHAr0mw3Ioojfme2ZvLMzwgLPDpb",
   },
   tiposArchivos: {
-    "1": "Certificado Existencia o equivalente",
-    "2": "Estatuto o equivalente",
-    "3": "Fuente de Financiación de Recursos o equivalente",
-    "4": "Manifiesto de Voluntad de Acatamiento o equivalente",
-    "5": "Acto Administrativo Organización",
-    "6": "Acto Administrativo Observadores",
-    "7": "Acreditación de Organización",
-    "0": "Plantilla para el cargue de Miembros Observadores",
+    1: "Certificado Existencia o equivalente",
+    2: "Estatuto o equivalente",
+    3: "Fuente de Financiación de Recursos o equivalente",
+    4: "Manifiesto de Voluntad de Acatamiento o equivalente",
+    5: "Acto Administrativo Organización",
+    6: "Acto Administrativo Observadores",
+    7: "Acreditación de Organización",
+    0: "Plantilla para el cargue de Miembros Observadores",
   },
   labels: {
     nameFileObservadores: "Archivo de Observadores",

@@ -18,7 +18,7 @@ module.exports = {
   "user.forgot-password": "Se te olvidó tu contraseña",
   "user.email": "Email",
   "user.password": "Contraseña",
-  'user.secret-password': 'Contraseña Secreta',
+  'user.secret-password': 'Contraseña Maestra',
   'user.id-password': 'Documento de Identidad',
   "user.forgot-password-question": "¿Contraseña olvidada?",
   "user.fullname": "Nombre completo",

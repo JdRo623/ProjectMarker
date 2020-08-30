@@ -3,7 +3,7 @@ import { Card, CardBody, Modal, ModalHeader, ModalBody } from "reactstrap";
 import { Wizard, Steps, Step } from "react-albus";
 import { BottomNavigation } from "../wizard/BottomNavigation";
 import { TopNavigation } from "../wizard/TopNavigation";
-import PicPreguntaComponente from "./PicPreguntaComponenteHorizontal";
+import PicPreguntaComponente from "./PicPreguntaComponente";
 import preguntasSeccionIII from "../../data/pic/preguntasSeccionIII";
 import PicInstruccionComponente from "../../components/pic/PicInstruccionComponente";
 import PicFinalSeccionComponente from "../../components/pic/PicFinalSeccionComponente";
@@ -25,6 +25,7 @@ export default function PicSeccionPreguntasIII(props) {
     preguntas.map((pregunta) => (
       <Step id={"" + contadorPasos++} name="" desc="">
         <PicPreguntaComponente
+          seccion= "3"
           columna="2"
           setIdElegido={setPreguntaElegida}
           idPregunta={pregunta.idPregunta}

@@ -25,6 +25,7 @@ export default function PicSeccionPreguntasII(props) {
     preguntas.map((pregunta) => (
       <Step id={"" + contadorPasos++} desc="">
         <PicPreguntaComponente
+          seccion= "2"
           columna="12"
           pregunta={pregunta.encabezadoPregunta}
           descriptor={pregunta.situacionProblema}

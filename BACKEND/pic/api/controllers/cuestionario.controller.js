@@ -30,6 +30,7 @@ module.exports = {
   actualizarPreguntaIII: actualizarPreguntaIII,
   cuestionarioSinCompletar: cuestionarioSinCompletar,
   listadoHomologacion: listadoHomologacion,
+
 };
 
 //TODO:Modificar mensajes y varibles a dependencia
@@ -318,10 +319,6 @@ function actualizarPregunta(req, res) {
               cuestionarioBuscado.listado_preguntas.forEach((element) => {
                 if (element.id_pregunta == dec.data.id_pregunta) {
                   if (element.estado_respuesta == "No respondida") {
-
-                    if(tools.obtenerDiferenciaFechas(element.hora_inicio) > 119999){
-
-                    }
                     element.valor_respuesta = dec.data.valor_respuesta;
                     element.estado_respuesta = dec.data.estado_respuesta;
                     element.competencia = pregunta.competencia;

@@ -3,32 +3,23 @@ import { AvForm, AvRadioGroup, AvRadio } from "availity-reactstrap-validation";
 import { Table, FormGroup, Row } from "reactstrap";
 import Timer from "react-compound-timer";
 import { Colxx } from "../../components/common/CustomBootstrap";
+import constantes from "../../util/Constantes.js";
+import HttpUtil from "../../util/HttpService.js";
 
 export default function PicPreguntaComponente(props) {
   const [listItems, setListItems] = useState(null);
   const [estadoOpciones, setEstadoOpciones] = useState(false);
   const [idPregunta, setIdPregunta] = useState(props.idPregunta);
   const [columna, setColumna] = useState(props.columa);
-  const [contador, setContador] = useState(119999);
-
-  const RespuestaAdicional = () => (
-    <Colxx xxs="3" lg="3" xl="3" className="mb-3">
-      <AvRadio
-        customInput
-        label={<p className="mb-3">No se la respuesta a esta pregunta</p>}
-        value={"NS"}
-      />
-    </Colxx>
-  );
-
+  const [contador, setContador] = useState("Obteniendo..."); //119999
+  var contadorReloj = 0;
   const manejarEnvio = (e) => {
     props.setElegido(e.target.value);
     props.setIdElegido(idPregunta);
   };
 
   useEffect(() => {
-    //USAR ESTE USE EFFECT O CREAR UNO NUEVO PARA EL CONTADOR DE LA PREGUNTA, SOLO PARA LAS PREGUNTAS SECCIÓN II... POR AHORA
-    console.log("Entro en pregunta "+idPregunta)
+    obtenerCuestionario();
     if (props.respuestas && listItems == null)
       setListItems(
         props.respuestas.map((respuesta) => (
@@ -53,7 +44,39 @@ export default function PicPreguntaComponente(props) {
           </Colxx>
         ))
       );
-  });
+  }, []);
+
+  const obtenerCuestionario = () => {
+    try {
+      // setModal(true);
+      const url =
+        constantes.urlServer +
+        constantes.servicios.obtenerTemporizadorPreguntas;
+      const filtros = {
+        email: localStorage.getItem("email"),
+        codigo_pregunta: idPregunta,
+        seccion: props.seccion,
+      };
+
+      HttpUtil.requestPost(
+        url,
+        filtros,
+        (response) => {
+          //  setContador(response.data);
+          contadorReloj = response.data;
+          if(contadorReloj == 0)
+          setContador("00:00");
+
+          //  setModal(false);
+        },
+        () => {
+          //   setModal(false);
+        }
+      );
+    } catch (error) {
+      //  setModal(false);
+    }
+  };
 
   const tiempoAcabado = (getTimerState) => {
     if (getTimerState() == "STOPPED") {
@@ -64,6 +87,32 @@ export default function PicPreguntaComponente(props) {
     }
     return "";
   };
+
+  const tick = () => {
+    var minutes = Math.floor((contadorReloj % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((contadorReloj % (1000 * 60)) / 1000);
+    if (minutes < 10) minutes = "0" + minutes;
+    if (seconds < 10) seconds = "0" + seconds;
+    contadorReloj -= 1000;
+
+    if (contadorReloj > -1000) {
+      setContador(minutes + ":" + seconds);
+    }
+    if (contador == "00:00") {
+      setEstadoOpciones(true);
+      props.setIdElegido(idPregunta);
+      switch (props.seccion) {
+        case "1":
+          props.setElegido("1");
+          break;
+        default:
+          props.setElegido("Tiempo Vencido");
+          break;
+      }
+    }
+  };
+
+  setInterval(tick, 1000);
   return (
     <Fragment>
       <div className="wizard-basic-step">
@@ -110,29 +159,9 @@ export default function PicPreguntaComponente(props) {
             </AvRadioGroup>
           </AvForm>
         </FormGroup>
-        <Timer
-          initialTime={contador}
-          direction="backward"
-          startImmediately={true}
-          onStart={() => console.log("onStart hook")}
-          onResume={() => console.log("onResume hook")}
-          onPause={() => console.log("onPause hook")}
-          onStop={() => console.log("onStop hook")}
-          onReset={() => console.log("onReset hook")}
-        >
-          {({ start, resume, pause, stop, reset, getTimerState, getTime }) => (
-            <React.Fragment>
-              <center>
-                <h5>
-                  Tiempo restante: 0
-                  <Timer.Minutes />:
-                  <Timer.Seconds />
-                </h5>
-                <div>{tiempoAcabado(getTimerState)}</div>
-              </center>
-            </React.Fragment>
-          )}
-        </Timer>
+        <center>
+          <h5>Tiempo restante: {contador}</h5>
+        </center>
       </div>
     </Fragment>
   );

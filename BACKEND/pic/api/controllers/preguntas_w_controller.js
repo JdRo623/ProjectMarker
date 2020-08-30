@@ -14,7 +14,101 @@ module.exports = {
   buscarPreguntasPorIDCuestionario: buscarPreguntasPorIDCuestionario,
   buscarCompetenciasCuestionario: buscarCompetenciasCuestionario,
   limpiarPreguntas: limpiarPreguntas,
+  obtenerTemporizadorPreguntas: obtenerTemporizadorPreguntas,
 };
+
+function obtenerTemporizadorPreguntas(req, res) {
+  try {
+    var obtener = async (req, res) => {
+      var dec = tools.decryptJson(req.body.data);
+      var preguntaActiva ;
+      var diferencia = 119999;
+      cuestionarioHandler.findOne(
+        { email: dec.email },
+        (err, cuestionarioBuscado) => {
+          if (err)
+            return res.status(500).send({
+              estado: "Error",
+              message: "Error en la petición",
+              data: Object.assign(err),
+            });
+          if (!cuestionarioBuscado) {
+            return res.status(200).send({
+              estado: "Error",
+              message: "No se encontraron Cuestionarios",
+              data: Object.assign({}),
+            });
+          }
+
+          switch (dec.seccion) {
+            case "1":
+              cuestionarioBuscado.listado_competencias.forEach((pregunta) => {
+                if (dec.codigo_pregunta == pregunta.nombreCompetencia) {
+                  preguntaActiva = pregunta.hora_inicio;
+                  if (pregunta.hora_inicio == "")
+                    pregunta.hora_inicio = tools.getFechaActualPreguntas();
+                }
+              });
+
+              break;
+            case "2":
+              cuestionarioBuscado.listado_preguntas.forEach((pregunta) => {
+                if (dec.codigo_pregunta == pregunta.id_pregunta) {
+                  preguntaActiva = pregunta.hora_inicio;
+                  if (pregunta.hora_inicio == "")
+                    pregunta.hora_inicio = tools.getFechaActualPreguntas();
+                }
+              });
+
+              break;
+            case "3":
+              cuestionarioBuscado.listado_preguntas_seccion_iii.forEach(
+                (pregunta) => {
+                  if (dec.codigo_pregunta == pregunta.id_pregunta) {
+                    preguntaActiva = pregunta.hora_inicio;
+
+                    if (pregunta.hora_inicio == "")
+                      pregunta.hora_inicio = tools.getFechaActualPreguntas();
+
+                  }
+                }
+              );
+              break;
+          }
+
+          if (preguntaActiva!= "") {
+            diferencia = tools.obtenerDiferenciaFechas(
+              preguntaActiva
+            );
+            diferencia = 119999 - diferencia;
+            if (diferencia <= 0) {
+              diferencia = 0;
+            }
+            return res.status(200).send({
+              estado: "Exito",
+              message: util.format("Temporizador encontrado"),
+              data: Object.assign(diferencia),
+            });
+          } else {
+            cuestionarioHandler
+              .updateOne({ email: dec.email }, cuestionarioBuscado)
+              .then(() => {
+                return res.status(200).send({
+                  estado: "Exito",
+                  message: util.format("Temporizador iniciado"),
+                  data: Object.assign(diferencia),
+                });
+              });
+          }
+
+        }
+      );
+    };
+    obtener(req, res);
+  } catch (error) {
+    throw boom.boomify(err);
+  }
+}
 
 function buscarCompetenciasCuestionario(req, res) {
   try {
@@ -83,10 +177,7 @@ function buscarPreguntasPorIDCuestionario(req, res) {
 
           cuestionarioBuscado.listado_preguntas.forEach((preguntaBuscada) => {
             if (preguntaBuscada.estado_respuesta == "No respondida") {
-              filtros.push(preguntaBuscada.id_pregunta);    
-            }
-            if(preguntaBuscada.hora_inicio == ""){
-              preguntaBuscada.hora_inicio = tools.getFechaActualPreguntas();
+              filtros.push(preguntaBuscada.id_pregunta);
             }
           });
 

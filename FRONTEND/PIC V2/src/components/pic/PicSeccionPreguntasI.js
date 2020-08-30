@@ -39,6 +39,7 @@ export default function PicSeccionPreguntasI(props) {
     competencias.map((competencia) => (
       <Step id={"" + contadorPasos++} desc="">
         <PicPreguntaComponente
+          seccion= "1"
           columna="2"
           encabezado={competencia.nombreCompetencia}
           pregunta="Importancia para mi rol"
