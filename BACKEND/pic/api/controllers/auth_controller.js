@@ -17,7 +17,7 @@ function logIn(req, res) {
       
       var dec = tools.decryptJson(req.body.data);
       var filtro = {
-        email: dec.email,
+        email: dec.email.toLowerCase(),
       };
       userHandler.findOne(filtro, (err, user) => {
         if (err) {
