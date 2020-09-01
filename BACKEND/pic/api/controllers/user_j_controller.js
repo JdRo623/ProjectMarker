@@ -84,22 +84,31 @@ function cambioPassword(req, res) {
               data: Object.assign({}),
             });
           }
-          console.log(tools.decrypt(dec.contrasena_maestra))
-          console.log(usuarioBuscado.contrasena_maestra)
-          console.log(usuarioBuscado.contrasena_maestra)
 
-          if (usuarioBuscado.contrasena_maestra == tools.decrypt(dec.contrasena_maestra)) {
+          if (
+            usuarioBuscado.contrasena_maestra ==
+            tools.decrypt(dec.contrasena_maestra)
+          ) {
             usuarioBuscado.password = dec.password;
-            user_jModel
-              .updateOne(filtro, { password: usuarioBuscado.password })
-              .then(() => {
+            user_jModel.findOneAndUpdate(
+              filtro,
+              { password: usuarioBuscado.password },
+              (err, usuarioActualzado) => {
+                if (err) {
+                  return res.status(640).send({
+                    estado: "Error",
+                    message: "Error",
+                    data: Object.assign(err),
+                  });
+                }
                 return res.status(200).send({
                   estado: "Exito",
                   message: util.format("Contraseña Actualizada"),
-                  data: Object.assign({correcto: true}),
+                  data: Object.assign({ correcto: true }),
                 });
-              });
-          }else{
+              }
+            );
+          } else {
             return res.status(602).send({
               estado: "Error",
               message: util.format("La Contraseña Maestra es incorrecta"),

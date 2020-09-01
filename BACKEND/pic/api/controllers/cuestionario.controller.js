@@ -30,7 +30,6 @@ module.exports = {
   actualizarPreguntaIII: actualizarPreguntaIII,
   cuestionarioSinCompletar: cuestionarioSinCompletar,
   listadoHomologacion: listadoHomologacion,
-
 };
 
 //TODO:Modificar mensajes y varibles a dependencia
@@ -132,15 +131,33 @@ function actualizarPreguntaIII(req, res) {
             cuestionarioBuscado.estado_cuestionario = "Terminado";
             cuestionarioBuscado.fecha_Finalizacion = tools.getFechaActual();
           }
-          cuestionarioHandler
-            .updateOne({ email: dec.data.email }, cuestionarioBuscado)
-            .then(() => {
+
+          cuestionarioHandler.findOneAndUpdate(
+            { id_Cuestionario: cuestionarioBuscado.id_Cuestionario },
+            cuestionarioBuscado,
+            (err, cuestionarioActualizado) => {
+              if (err) {
+                return res.status(640).send({
+                  estado: "Error",
+                  message: "Error",
+                  data: Object.assign(err),
+                });
+              }
+              if (!cuestionarioActualizado) {
+                return res.status(640).send({
+                  estado: "Error",
+                  message: util.format("Error actualizando el Cuestionario"),
+                  data: Object.assign({}),
+                });
+              }
+
               return res.status(200).send({
-                estado: "Pregunta III Actualizada",
-                message: util.format("Pregunta III Actualizada"),
-                data: Object.assign(cuestionarioBuscado),
+                estado: "Exito",
+                message: util.format("Cuestionario Actualizado"),
+                data: Object.assign(cuestionarioActualizado),
               });
-            });
+            }
+          );
         }
       );
     };
@@ -266,19 +283,40 @@ function actualizarEstadoCuestionario(req, res) {
 
           if (respondido) {
             cuestionarioBuscado.estado_cuestionario = "Respondido";
-            cuestionarioHandler
-              .updateOne({ email: dec.data.email }, cuestionarioBuscado)
-              .then(() => {
+
+            var cuestionarioBuscados = [];
+            cuestionarioBuscados.push(cuestionarioBuscado);
+
+            cuestionarioHandler.findOneAndUpdate(
+              { id_Cuestionario: cuestionarioBuscado.id_Cuestionario },
+              cuestionarioBuscado,
+              (err, cuestionarioActualizado) => {
+                if (err) {
+                  return res.status(640).send({
+                    estado: "Error",
+                    message: "Error",
+                    data: Object.assign(err),
+                  });
+                }
+                if (!cuestionarioActualizado) {
+                  return res.status(640).send({
+                    estado: "Error",
+                    message: util.format("Error actualizando el Cuestionario"),
+                    data: Object.assign({}),
+                  });
+                }
+
                 return res.status(200).send({
                   estado: "Exito",
                   message: util.format("Cuestionario Actualizado"),
-                  data: Object.assign(cuestionarioBuscado),
+                  data: Object.assign(cuestionarioActualizado),
                 });
-              });
+              }
+            );
           } else {
             return res.status(200).send({
-              estado: "no se actualizo cuestionario",
-              message: util.format("no se han respondido todos los campos"),
+              estado: "No se actualizo cuestionario",
+              message: util.format("No se han respondido todos los campos"),
               data: Object.assign(cuestionarioBuscado),
             });
           }
@@ -325,29 +363,49 @@ function actualizarPregunta(req, res) {
                     element.nivel = pregunta.nivel;
                     element.codificacion = pregunta.codificacion;
                     element.competencia = pregunta.competencia;
-                    if(tools.obtenerDiferenciaFechas(element.hora_inicio) > 119999){
+                    if (
+                      tools.obtenerDiferenciaFechas(element.hora_inicio) >
+                      119999
+                    ) {
                       element.valor_respuesta = "Tiempo Vencido";
-                    }else{
+                    } else {
                       if (dec.data.valor_respuesta == pregunta.clave) {
                         element.valor_validacion = "CORRECTO";
                       }
                     }
-
                   }
                 } else {
                   element.hora_inicio = tools.getFechaActualPreguntas();
                 }
               });
 
-              cuestionarioHandler
-                .updateOne({ email: dec.data.email }, cuestionarioBuscado)
-                .then(() => {
+              cuestionarioHandler.findOneAndUpdate(
+                { id_Cuestionario: cuestionarioBuscado.id_Cuestionario },
+                cuestionarioBuscado,
+                (err, cuestionarioActualizado) => {
+                  if (err) {
+                    return res.status(640).send({
+                      estado: "Error",
+                      message: "Error",
+                      data: Object.assign(err),
+                    });
+                  }
+                  if (!cuestionarioActualizado) {
+                    return res.status(640).send({
+                      estado: "Error",
+                      message: util.format(
+                        "Error actualizando el Cuestionario"
+                      ),
+                      data: Object.assign({}),
+                    });
+                  }
                   return res.status(200).send({
                     estado: "Exito",
                     message: util.format("Cuestionario Actualizado"),
-                    data: Object.assign(cuestionarioBuscado),
+                    data: Object.assign(cuestionarioActualizado),
                   });
-                });
+                }
+              );
             }
           );
         }
@@ -417,15 +475,34 @@ function actualizarCompetencia(req, res) {
               cuestionarioBuscado.listado_preguntas = preguntasFinales;
 
               //Sí el valor respuesta == 0 entonces llamar las preguntas con query que tengan en su campo de competencia, y crear una lista de preguntas sección ii nuevas sin esa competenicia
-              cuestionarioHandler
-                .updateOne({ email: dec.data.email }, cuestionarioBuscado)
-                .then(() => {
+
+              cuestionarioHandler.findOneAndUpdate(
+                { id_Cuestionario: cuestionarioBuscado.id_Cuestionario },
+                cuestionarioBuscado,
+                (err, cuestionarioActualizado) => {
+                  if (err) {
+                    return res.status(640).send({
+                      estado: "Error",
+                      message: "Error",
+                      data: Object.assign(err),
+                    });
+                  }
+                  if (!cuestionarioActualizado) {
+                    return res.status(640).send({
+                      estado: "Error",
+                      message: util.format(
+                        "Error actualizando el Cuestionario"
+                      ),
+                      data: Object.assign({}),
+                    });
+                  }
                   return res.status(200).send({
                     estado: "Exito",
                     message: util.format("Cuestionario Actualizado"),
-                    data: Object.assign(cuestionarioBuscado),
+                    data: Object.assign(cuestionarioActualizado),
                   });
-                });
+                }
+              );
             }
           );
         }
@@ -629,6 +706,15 @@ function Cuestionario(req, res) {
               data: Object.assign(err),
             });
           }
+
+          if (cues.subgrupo == "") {
+            cues.subgrupo = "OTRO";
+          }
+
+          if (cues.coordinacion == "") {
+            cues.coordinacion = "NINGUNO";
+          }
+
           if (!cuestionario) {
             newCuestionario = {
               id_Cuestionario: cues.email,
@@ -962,6 +1048,7 @@ function CuestionarioConsulta(req, res) {
                 },
                 (err, seccionalesEncontradas) => {
                   if (err) {
+                    console.log(err);
                     return res.status(640).send({
                       estado: "error",
                       message: "error",

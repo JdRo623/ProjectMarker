@@ -84,10 +84,11 @@ function envioCorreoRecuperarContrasena(req, res) {
                   email: obtener.email,
                 };
 
-                user_jModel
-                  .updateOne(filtro, { contrasena_maestra: UsuarioBuscado.contrasena_maestra })
-                  .then(() => {
-                    var correoDestinatario = obtener.email
+                user_jModel.findByIdAndUpdate(
+                  filtro,
+                  { contrasena_maestra: UsuarioBuscado.contrasena_maestra },
+                  function (err, result) {
+                    var correoDestinatario = obtener.email;
                     //var correoDestinatario = "JdRodriguez623@outlook.com";
                     var mailOptions = {
                       from: "Remitente",
@@ -145,7 +146,8 @@ function envioCorreoRecuperarContrasena(req, res) {
                         );
                       }
                     });
-                  });
+                  }
+                );
               }
             );
           }

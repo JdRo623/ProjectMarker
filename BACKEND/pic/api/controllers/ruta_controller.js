@@ -17,18 +17,29 @@ module.exports = {
   estadisticaCurso: estadisticaCurso,
   generarRutaAprendizaje: generarRutaAprendizajeUltimate,
   obtenerRutaAprendizaje: obtenerRutaAprendizaje,
-  cambiarEstadoRutas:cambiarEstadoRutas
+  cambiarEstadoRutas: cambiarEstadoRutas,
 };
 
 function cambiarEstadoRutas(req, res) {
   try {
     var dec = tools.decryptJson(req.body.data);
     var listado = async (req, res) => {
-      variablesHandler.updateOne({ nombre: "estado_rutas" }, {valor: dec.valor})
-      .then(() => {
+      variablesHandler.findOneAndUpdate(
+        { nombre: "estado_rutas" },
+        { valor: dec.valor },
+        (err, cuestionarioActualizado) => {
+          if (err) {
+            return res.status(640).send({
+              estado: "Error",
+              message: "Error",
+              data: Object.assign(err),
+            });
+          }
           return res.status(200).send({
             estado: "Variable Modificada",
-            message: util.format("Estado de visualización de Rutas de Aprendizaje Modificado."),
+            message: util.format(
+              "Estado de visualización de Rutas de Aprendizaje Modificado."
+            ),
             data: Object.assign({}),
           });
         }
@@ -37,7 +48,6 @@ function cambiarEstadoRutas(req, res) {
     listado(req, res);
   } catch (error) {}
 }
-
 
 function obtenerRutaAprendizaje(req, res) {
   try {
@@ -66,37 +76,49 @@ function obtenerRutaAprendizaje(req, res) {
 
         ruta.listado_competencias.forEach((competencia) => {
           if (competencia.valor_respuesta != "0") {
-            cursosUltimate =[]
+            cursosUltimate = [];
             competencia.listado_cursos_basicos.forEach((curso) => {
-              if (curso.estado != "Eliminar" && curso.estado != "Pendientes de Cupo"){
-                cursosUltimate.push(curso)
+              if (
+                curso.estado != "Eliminar" &&
+                curso.estado != "Pendientes de Cupo"
+              ) {
+                cursosUltimate.push(curso);
               }
             });
-            competencia.listado_cursos_basicos = cursosUltimate
-            
-            cursosUltimate =[]
+            competencia.listado_cursos_basicos = cursosUltimate;
+
+            cursosUltimate = [];
             competencia.listado_cursos_medios.forEach((curso) => {
-              if (curso.estado != "Eliminar" && curso.estado != "Pendientes de Cupo"){
-                cursosUltimate.push(curso)
+              if (
+                curso.estado != "Eliminar" &&
+                curso.estado != "Pendientes de Cupo"
+              ) {
+                cursosUltimate.push(curso);
               }
             });
-            competencia.listado_cursos_medios = cursosUltimate
+            competencia.listado_cursos_medios = cursosUltimate;
 
-            cursosUltimate =[]
+            cursosUltimate = [];
             competencia.listado_cursos_altos.forEach((curso) => {
-              if (curso.estado != "Eliminar" && curso.estado != "Pendientes de Cupo"){
-                cursosUltimate.push(curso)
+              if (
+                curso.estado != "Eliminar" &&
+                curso.estado != "Pendientes de Cupo"
+              ) {
+                cursosUltimate.push(curso);
               }
             });
-            competencia.listado_cursos_altos = cursosUltimate
+            competencia.listado_cursos_altos = cursosUltimate;
 
-            cursosUltimate =[]
+            cursosUltimate = [];
             competencia.listado_cursos_superiores.forEach((curso) => {
-              if (curso.estado != "Eliminar" && curso.estado != "Pendientes de Cupo"){
-                cursosUltimate.push(curso)
+              if (
+                curso.estado != "Eliminar" &&
+                curso.estado != "Pendientes de Cupo"
+              ) {
+                cursosUltimate.push(curso);
               }
             });
-            competencia.listado_cursos_superiores = cursosUltimate
+            competencia.listado_cursos_superiores = cursosUltimate;
             rutaUltimate.push(competencia);
           }
         });
@@ -111,20 +133,22 @@ function obtenerRutaAprendizaje(req, res) {
           return 0;
         });
 
-        variablesHandler.findOne({nombre:"estado_rutas"}, (err, variable) => {
-          if (variable) {
-            ruta.estado_ruta = variable.valor
-          }else{
-            ruta.estado_ruta = 0
+        variablesHandler.findOne(
+          { nombre: "estado_rutas" },
+          (err, variable) => {
+            if (variable) {
+              ruta.estado_ruta = variable.valor;
+            } else {
+              ruta.estado_ruta = 0;
+            }
+
+            return res.status(200).send({
+              estado: "Exito",
+              message: util.format("Ruta Obtenida"),
+              data: Object.assign(ruta),
+            });
           }
-
-          return res.status(200).send({
-            estado: "Exito",
-            message: util.format("Ruta Obtenida"),
-            data: Object.assign(ruta),
-          });
-        });
-
+        );
       });
     };
     listado(req, res);

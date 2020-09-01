@@ -21,7 +21,7 @@ function obtenerTemporizadorPreguntas(req, res) {
   try {
     var obtener = async (req, res) => {
       var dec = tools.decryptJson(req.body.data);
-      var preguntaActiva ;
+      var preguntaActiva;
       var diferencia = 119999;
       cuestionarioHandler.findOne(
         { email: dec.email },
@@ -69,17 +69,14 @@ function obtenerTemporizadorPreguntas(req, res) {
 
                     if (pregunta.hora_inicio == "")
                       pregunta.hora_inicio = tools.getFechaActualPreguntas();
-
                   }
                 }
               );
               break;
           }
 
-          if (preguntaActiva!= "") {
-            diferencia = tools.obtenerDiferenciaFechas(
-              preguntaActiva
-            );
+          if (preguntaActiva != "") {
+            diferencia = tools.obtenerDiferenciaFechas(preguntaActiva);
             diferencia = 119999 - diferencia;
             if (diferencia <= 0) {
               diferencia = 0;
@@ -90,17 +87,25 @@ function obtenerTemporizadorPreguntas(req, res) {
               data: Object.assign(diferencia),
             });
           } else {
-            cuestionarioHandler
-              .updateOne({ email: dec.email }, cuestionarioBuscado)
-              .then(() => {
+            cuestionarioHandler.findOneAndUpdate(
+              { email: dec.email },
+              cuestionarioBuscado,
+              (err, cuestionarioActualizado) => {
+                if (err) {
+                  return res.status(640).send({
+                    estado: "Error",
+                    message: "Error",
+                    data: Object.assign(err),
+                  });
+                }
                 return res.status(200).send({
                   estado: "Exito",
                   message: util.format("Temporizador iniciado"),
                   data: Object.assign(diferencia),
                 });
-              });
+              }
+            );
           }
-
         }
       );
     };
@@ -204,9 +209,17 @@ function buscarPreguntasPorIDCuestionario(req, res) {
                   data: Object.assign({}),
                 });
               } else {
-                cuestionarioHandler
-                  .updateOne({ email: dec.email }, cuestionarioBuscado)
-                  .then(() => {
+                cuestionarioHandler.findOneAndUpdate(
+                  { email: dec.email },
+                  cuestionarioBuscado,
+                  (err, cuestionarioActualizado) => {
+                    if (err) {
+                      return res.status(640).send({
+                        estado: "Error",
+                        message: "Error",
+                        data: Object.assign(err),
+                      });
+                    }
                     var estructuraPregunta = [];
                     preguntasBuscadas.forEach((preguntaBuscada) => {
                       estructuraPregunta.push({
@@ -239,7 +252,8 @@ function buscarPreguntasPorIDCuestionario(req, res) {
                       message: util.format("Pregunta obtenida"),
                       data: Object.assign(estructuraPregunta),
                     });
-                  });
+                  }
+                );
               }
             }
           );
