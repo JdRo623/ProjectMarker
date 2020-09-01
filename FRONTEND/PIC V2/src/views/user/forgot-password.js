@@ -39,13 +39,10 @@ class ForgotPassword extends Component {
           if (response.data) {
             this.setState({ loading: false });
             localStorage.clear();
-            console.log(response.data);
 
             const cambio_pass = response.data.cambio_pass;
             const email = response.data.email;
             localStorage.setItem("email", email);
-            console.log(cambio_pass);
-            console.log(email);
 
             if (cambio_pass) {
               localStorage.setItem("cambio", cambio_pass);

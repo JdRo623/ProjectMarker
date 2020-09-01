@@ -74,6 +74,7 @@ class Cambio extends Component {
               if (response.data.correcto) {
                 localStorage.removeItem("cambio");
                 localStorage.setItem("email", this.state.form.email);
+                localStorage.setItem("rol", 0);
                 this.setState({ loading: false });
                 this.props.loginUser(
                   { email: "demo@gogo.com", password: "gogo123" },
