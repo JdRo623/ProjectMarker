@@ -5,7 +5,6 @@ const variables = Schema({
     nombre: String,
     valor: String,
     valor_2: String,
-
     }
 )
 

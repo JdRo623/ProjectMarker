@@ -38,7 +38,7 @@ function crearNuevoUsuario(req, res) {
             nombres_jefe: tools.encrypt(dec.nombres_jefe),
             apellidos_jefe: tools.encrypt(dec.apellidos_jefe),
             email: dec.email,
-            identificacion: tools.encrypt(dec.identificacion),
+            identificacion: (dec.identificacion),
             ciudad: tools.encrypt(dec.ciudad),
           };
           user_jModel.create(usuarioNuevo);
