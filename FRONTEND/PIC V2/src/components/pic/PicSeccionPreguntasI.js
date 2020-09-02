@@ -62,6 +62,7 @@ export default function PicSeccionPreguntasI(props) {
   };
 
   const validarSiguiente = (goToNext, steps, step) => {
+
     if (respuestaElegida == "") {
       switch (step.id) {
         case "0":
@@ -110,6 +111,7 @@ export default function PicSeccionPreguntasI(props) {
       }
     }
   };
+
   const onClickNext = (goToNext, steps, step) => {
     step.isDone = true;
     if (steps.length - 2 <= steps.indexOf(step)) {

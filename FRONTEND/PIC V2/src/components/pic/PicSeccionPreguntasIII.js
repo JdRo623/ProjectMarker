@@ -99,6 +99,7 @@ export default function PicSeccionPreguntasIII(props) {
       }
     } else {
       //actualizarCompetencia
+
       try {
         setModal(true);
         const url =
