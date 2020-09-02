@@ -12,14 +12,17 @@ export default function PicPreguntaComponente(props) {
   const [idPregunta, setIdPregunta] = useState(props.idPregunta);
   const [columna, setColumna] = useState(props.columa);
   const [contador, setContador] = useState("Obteniendo..."); //119999
+  const [contadoEstado, setContadorEstado] = useState(false); //119999
+
   var contadorReloj = 0;
+  var componenteActivado = false;
+  //var contador = "Obteniendo..."
   const manejarEnvio = (e) => {
     props.setElegido(e.target.value);
     props.setIdElegido(idPregunta);
   };
 
   useEffect(() => {
-    obtenerCuestionario();
     if (props.respuestas && listItems == null)
       setListItems(
         props.respuestas.map((respuesta) => (
@@ -44,6 +47,16 @@ export default function PicPreguntaComponente(props) {
           </Colxx>
         ))
       );
+  });
+
+  useEffect(() => {
+
+  }, [contador]);
+
+  useEffect(() => {
+    props.setElegido("");
+    props.setIdElegido("");
+    obtenerCuestionario();
   }, []);
 
   const obtenerCuestionario = () => {
@@ -64,9 +77,10 @@ export default function PicPreguntaComponente(props) {
         (response) => {
           //  setContador(response.data);
           contadorReloj = response.data;
-          if(contadorReloj == 0)
-          setContador("00:00");
-
+          componenteActivado = true;
+          if (contadorReloj == 0) {
+            setContador("00:00");
+          }
           //  setModal(false);
         },
         () => {
@@ -78,41 +92,41 @@ export default function PicPreguntaComponente(props) {
     }
   };
 
-  const tiempoAcabado = (getTimerState) => {
-    if (getTimerState() == "STOPPED") {
-      setEstadoOpciones(true);
-      props.setIdElegido(idPregunta);
-      props.setElegido("Tiempo Vencido");
-      return "";
-    }
-    return "";
-  };
-
   const tick = () => {
-    var minutes = Math.floor((contadorReloj % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((contadorReloj % (1000 * 60)) / 1000);
-    if (minutes < 10) minutes = "0" + minutes;
-    if (seconds < 10) seconds = "0" + seconds;
-    contadorReloj -= 1000;
 
-    if (contadorReloj > -1000) {
-      setContador(minutes + ":" + seconds);
-    }
-    if (contador == "00:00") {
-      setEstadoOpciones(true);
-      props.setIdElegido(idPregunta);
-      switch (props.seccion) {
-        case "1":
-          props.setElegido("1");
-          break;
-        default:
-          props.setElegido("Tiempo Vencido");
-          break;
+    if (componenteActivado) {
+      var minutes = Math.floor(
+        (contadorReloj % (1000 * 60 * 60)) / (1000 * 60)
+      );
+      var seconds = Math.floor((contadorReloj % (1000 * 60)) / 1000);
+      if (minutes < 10) minutes = "0" + minutes;
+      if (seconds < 10) seconds = "0" + seconds;
+      contadorReloj -= 1000;
+
+      if (contadorReloj > -1000) {
+        setContador(minutes + ":" + seconds);
+      }else{
+        setContador("00:00");
+      }
+
+      if (contadorReloj <= 0) {
+        setEstadoOpciones(true);
+        props.setIdElegido(idPregunta);
+        switch (props.seccion) {
+          case "1":
+            props.setElegido("1");
+            break;
+          default:
+            props.setElegido("Tiempo Vencido");
+            break;
+        }
+        clearInterval(refreshIntervalId);
+
       }
     }
   };
 
-  setInterval(tick, 1000);
+  var refreshIntervalId = setInterval(tick, 1000);
   return (
     <Fragment>
       <div className="wizard-basic-step">

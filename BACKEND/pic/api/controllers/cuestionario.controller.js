@@ -365,7 +365,7 @@ function actualizarPregunta(req, res) {
                     element.competencia = pregunta.competencia;
                     if (
                       tools.obtenerDiferenciaFechas(element.hora_inicio) >
-                      119999
+                      210000
                     ) {
                       element.valor_respuesta = "Tiempo Vencido";
                     } else {
@@ -374,8 +374,6 @@ function actualizarPregunta(req, res) {
                       }
                     }
                   }
-                } else {
-                  element.hora_inicio = tools.getFechaActualPreguntas();
                 }
               });
 

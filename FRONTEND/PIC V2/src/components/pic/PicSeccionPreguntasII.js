@@ -129,6 +129,7 @@ export default function PicSeccionPreguntasII(props) {
           url,
           filtros,
           (response) => {
+
             setRespuestaElegida("");
             setPreguntaElegida("");
             onClickNext(goToNext, steps, step);
