@@ -59,14 +59,12 @@ function obtenerTemporizadorPreguntas(req, res) {
                     pregunta.hora_inicio = tools.getFechaActualPreguntas();
                 }
               });
-
               break;
             case "3":
               cuestionarioBuscado.listado_preguntas_seccion_iii.forEach(
                 (pregunta) => {
                   if (dec.codigo_pregunta == pregunta.id_pregunta) {
                     preguntaActiva = pregunta.hora_inicio;
-
                     if (pregunta.hora_inicio == "")
                       pregunta.hora_inicio = tools.getFechaActualPreguntas();
                   }

@@ -22,10 +22,15 @@ const data = [
     subs: [
       {
         icon: "iconsminds-upload",
+        label: "Mesa de ayuda",
+        to: "/app/pic/util-mesa",
+      },
+      {
+        icon: "iconsminds-upload",
         label: "menu.carga-archivos",
         to: "/app/pic/util",
       },
-      {
+     {
         icon: "simple-icon-cloud-download",
         label: "menu.reportes",
         to: "/app/pic/reportes",
@@ -55,6 +60,42 @@ const data = [
         label: "menu.consultar-cuestionario",
         to: "/app/pic/consultar-cuestionario",
       },
+     /* 
+      {
+        icon: "iconsminds-upload",
+        label: "menu.carga-archivos",
+        to: "/app/pic/util",
+      },
+     {
+        icon: "simple-icon-cloud-download",
+        label: "menu.reportes",
+        to: "/app/pic/reportes",
+      },
+      {
+        icon: "iconsminds-arrow-outside-gap-45",
+        label: "menu.modificar-ruta",
+        to: "/app/pic/modificacion-rutas",
+      },
+      {
+        icon: "simple-icon-question",
+        label: "menu.cargue-preguntas",
+        to: "/app/pic/carguePreguntas",
+      },
+      {
+        icon: "simple-icon-question",
+        label: "menu.busqueda-preguntas",
+        to: "/app/pic/busquedaPregunta",
+      },
+      {
+        icon: "iconsminds-handshake",
+        label: "menu.crear-empleado",
+        to: "/app/pic/crear-empleado",
+      },
+      {
+        icon: "iconsminds-handshake",
+        label: "menu.consultar-cuestionario",
+        to: "/app/pic/consultar-cuestionario",
+      },*/
     ],
   } /*,
         icon: 'iconsminds-handshake',

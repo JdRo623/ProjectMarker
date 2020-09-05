@@ -17,7 +17,52 @@ module.exports = {
   listaNiveles: listaNiveles,
   cambioPassword: cambioPassword,
   crearNuevoUsuario: crearNuevoUsuario,
+  obtenerClaveMaestra: obtenerClaveMaestra,
 };
+
+function obtenerClaveMaestra(req, res) {
+  try {
+    var crear = async (req, res) => {
+      var dec = tools.decryptJson(req.body.data);
+      var respuesta = "";
+      user_jModel.findOne(
+        { identificacion: dec.identificacion },
+        (err, UsuarioBuscado) => {
+          if (err) {
+            return res.status(640).send({
+              estado: "error",
+              message: "error",
+              data: Object.assign(err),
+            });
+          }
+          if (!UsuarioBuscado) {
+            return res.status(200).send({
+              estado: "Error",
+              message: "El usuario no existe",
+              data: Object.assign("El usuario no existe"),
+            });
+          }
+          if (!UsuarioBuscado.contrasena_maestra) {
+            return res.status(200).send({
+              estado: "Error",
+              message: "El usuario no tiene clave maestra",
+              data: Object.assign("El usuario no tiene clave maestra"),
+            });
+          } else {
+            return res.status(200).send({
+              estado: "El usuario ya existe",
+              message: "Clave maestra encontrada",
+              data: Object.assign(UsuarioBuscado.contrasena_maestra),
+            });
+          }
+        }
+      );
+    };
+    crear(req, res);
+  } catch (error) {
+    throw boom.boomify(error);
+  }
+}
 
 function crearNuevoUsuario(req, res) {
   try {
@@ -38,7 +83,7 @@ function crearNuevoUsuario(req, res) {
             nombres_jefe: tools.encrypt(dec.nombres_jefe),
             apellidos_jefe: tools.encrypt(dec.apellidos_jefe),
             email: dec.email,
-            identificacion: (dec.identificacion),
+            identificacion: dec.identificacion,
             ciudad: tools.encrypt(dec.ciudad),
           };
           user_jModel.create(usuarioNuevo);
@@ -85,8 +130,9 @@ function cambioPassword(req, res) {
             });
           }
 
+
           if (
-            usuarioBuscado.contrasena_maestra ==
+            usuarioBuscado.identificacion ==
             tools.decrypt(dec.contrasena_maestra)
           ) {
             usuarioBuscado.password = dec.password;
@@ -111,7 +157,7 @@ function cambioPassword(req, res) {
           } else {
             return res.status(602).send({
               estado: "Error",
-              message: util.format("La Contraseña Maestra es incorrecta"),
+              message: util.format("El documento de identidad no coincide"),
               data: Object.assign({}),
             });
           }

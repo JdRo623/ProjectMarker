@@ -7,6 +7,9 @@ const Cuestionario = React.lazy(() =>
 const Util = React.lazy(() =>
   import(/* webpackChunkName: "cuestionario" */ "./util")
 );
+const UtilMesa = React.lazy(() =>
+  import(/* webpackChunkName: "cuestionario" */ "./util_mesa")
+);
 const RutaAprendizaje = React.lazy(() =>
   import(/* webpackChunkName: "cuestionario" */ "./ruta_aprendizaje")
 );
@@ -62,6 +65,10 @@ const PagesPic = ({ match }) => (
       <Route
         path={`${match.url}/util`}
         render={(props) => <Util {...props} />}
+      />
+      <Route
+        path={`${match.url}/util-mesa`}
+        render={(props) => <UtilMesa {...props} />}
       />
       <Route
         path={`${match.url}/carguePreguntas`}

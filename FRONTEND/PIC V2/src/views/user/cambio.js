@@ -27,7 +27,7 @@ class Cambio extends Component {
     this.state = {
       loading: false,
       form: {
-        email: localStorage.getItem("email"),
+        email: "",
         password: "",
         confirmPassword: "",
       },
@@ -54,11 +54,12 @@ class Cambio extends Component {
   };
   handleChangePassword = async () => {
     this.setState({ loading: true });
-    const { password, confirmPassword, secretPassword } = this.state.form;
+    const { email, password, confirmPassword, secretPassword } = this.state.form;
 
     if (
       !this.validatePassword(password) ||
       !this.validatePassword(confirmPassword) ||
+      !this.validatePassword(email) ||
       !this.validatePassword(secretPassword)
     ) {
       if (this.state.form.password === this.state.form.confirmPassword) {
@@ -163,10 +164,28 @@ class Cambio extends Component {
               <Formik onSubmit={this.handleChangePassword}>
                 {({ errors, touched }) => (
                   <Form className="av-tooltip tooltip-label-bottom">
-                    <Label>{this.state.form.email}</Label>
+                    <h3>!Ya no es necesario utilizar tu contraseña maestra!</h3>
+                    <h3> Ingresa solo con tu documento de identidad</h3>
                     <FormGroup className="form-group">
                       <Label>
-                        <IntlMessages id="user.secret-password" />
+                        <IntlMessages id="user.email" />
+                      </Label>
+                      <Field
+                        className="form-control"
+                        type="text"
+                        name="email"
+                        onChange={this.handleChange}
+                        value={this.state.form.email}
+                      />
+                      {errors.password && touched.password && (
+                        <div className="invalid-feedback d-block">
+                          {errors.password}
+                        </div>
+                      )}
+                    </FormGroup>
+                    <FormGroup className="form-group">
+                      <Label>
+                        <IntlMessages id="user.id-password" />
                       </Label>
                       <Field
                         className="form-control"

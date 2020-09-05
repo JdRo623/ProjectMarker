@@ -64,7 +64,7 @@ class Login extends Component {
             }
             if (cambio_pass) {
               localStorage.setItem("cambio", cambio_pass);
-              this.props.history.push('/user/forgot-password');
+              this.props.history.push('/user/reset');
             }else{
               cookies.set("token", token, { path: "/" });
               this.props.loginUser(
@@ -209,7 +209,7 @@ class Login extends Component {
                               )}
                             </FormGroup>
                             <div className="d-flex justify-content-between align-items-center">
-                              <NavLink to={`/user/forgot-password`}>
+                              <NavLink to={`/user/reset`}>
                                 <IntlMessages
                                   id="user.forgot-password-question"
                                   className="text-muted"
