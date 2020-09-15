@@ -20,14 +20,14 @@ var CryptoJS = require("crypto-js");
 var http = require('http');
 var https = require('https');
 var fs = require('fs');
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/www.mirutadian.com/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/www.mirutadian.com/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/www.mirutadian.com/chain.pem', 'utf8');
+//const privateKey = fs.readFileSync('/etc/letsencrypt/live/www.mirutadian.com/privkey.pem', 'utf8');
+//const certificate = fs.readFileSync('/etc/letsencrypt/live/www.mirutadian.com/cert.pem', 'utf8');
+//const ca = fs.readFileSync('/etc/letsencrypt/live/www.mirutadian.com/chain.pem', 'utf8');
 
 const credentials = {
-	key: privateKey,
-	cert: certificate,
-	ca: ca
+///	key: privateKey,
+//	cert: certificate,
+//	ca: ca
 };
 
 app.use(interceptor(function (req, res) {
@@ -62,15 +62,15 @@ SwaggerExpress.create(config, function (err, swaggerExpress) {
   //app.listen(port);
 
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
+//const httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(8080, () => {
+httpServer.listen(5000, () => {
 	console.log('HTTP Server running on port 80');
 });
 
-httpsServer.listen(8443, () => {
+/*httpsServer.listen(8443, () => {
 	console.log('HTTPS Server running on port 443');
-});
+});*/
 
   if (swaggerExpress.runner.swagger.paths['/hello']) {
     console.log('try this:\ncurl http://127.0.0.1:' + port + '/hello?name=Scott');

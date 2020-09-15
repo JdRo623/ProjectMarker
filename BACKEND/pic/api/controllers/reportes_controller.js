@@ -14,6 +14,7 @@ const preguntasiiihandler = require("../utils/preguntasSeccionIII");
 var Excel = require("exceljs");
 var base64 = require("file-base64");
 var preguntas_seccionIII = require("../utils/preguntasSeccionIII.js");
+const createCsvWriter = require("csv-writer").createObjectCsvWriter;
 
 module.exports = {
   estado_Cuestionario: estado_Cuestionario,
@@ -127,7 +128,7 @@ function estado_Cuestionario(req, res) {
                 Nivel_3_del_cargo: registro.nivel2,
                 Nivel_4_del_cargo: registro.nivel3,
                 Correo_Electrónico: registro.correo,
-                Fecha_de_Inicio:registro.fecha_inicio,
+                Fecha_de_Inicio: registro.fecha_inicio,
                 Fecha_de_Terminación: registro.fecha_terminacion,
                 Avance: registro.avance,
                 Estado: registro.estado,
@@ -574,7 +575,7 @@ function estado_RutaAprendizaje(req, res) {
                   if (usuario.email == element.email) {
                     for (let competencias of element.listado_competencias) {
                       aprobado = true;
-                      listadoReporteCompetencia = []
+                      listadoReporteCompetencia = [];
                       for (let basicos of competencias.listado_cursos_basicos) {
                         let registro = {
                           codigo_cuestionario: basicos.idCurso,
@@ -597,8 +598,8 @@ function estado_RutaAprendizaje(req, res) {
                           estado: basicos.estado,
                         };
                         listadoReporteCompetencia.push(registro);
-                        if(basicos.estado != "Aprobado"){
-                          aprobado = false
+                        if (basicos.estado != "Aprobado") {
+                          aprobado = false;
                         }
                       }
                       for (let medios of competencias.listado_cursos_medios) {
@@ -623,8 +624,8 @@ function estado_RutaAprendizaje(req, res) {
                           estado: medios.estado,
                         };
                         listadoReporteCompetencia.push(registro);
-                        if(medios.estado != "Aprobado"){
-                          aprobado = false
+                        if (medios.estado != "Aprobado") {
+                          aprobado = false;
                         }
                       }
                       for (let altos of competencias.listado_cursos_altos) {
@@ -649,8 +650,8 @@ function estado_RutaAprendizaje(req, res) {
                           estado: altos.estado,
                         };
                         listadoReporteCompetencia.push(registro);
-                        if(altos.estado != "Aprobado"){
-                          aprobado = false
+                        if (altos.estado != "Aprobado") {
+                          aprobado = false;
                         }
                       }
                       for (let superiores of competencias.listado_cursos_superiores) {
@@ -675,18 +676,18 @@ function estado_RutaAprendizaje(req, res) {
                           estado: superiores.estado,
                         };
                         listadoReporteCompetencia.push(registro);
-                        if(superiores.estado != "Aprobado"){
-                          aprobado = false
+                        if (superiores.estado != "Aprobado") {
+                          aprobado = false;
                         }
                       }
-                      if(aprobado){
-                        for(let cursosCompetencia of listadoReporteCompetencia){
-                          cursosCompetencia.certificado = "SI"
-                          listadoReporte.push(cursosCompetencia)
+                      if (aprobado) {
+                        for (let cursosCompetencia of listadoReporteCompetencia) {
+                          cursosCompetencia.certificado = "SI";
+                          listadoReporte.push(cursosCompetencia);
                         }
-                      }else{
-                        for(let cursosCompetencia of listadoReporteCompetencia){
-                          listadoReporte.push(cursosCompetencia)
+                      } else {
+                        for (let cursosCompetencia of listadoReporteCompetencia) {
+                          listadoReporte.push(cursosCompetencia);
                         }
                       }
                     }
@@ -695,7 +696,72 @@ function estado_RutaAprendizaje(req, res) {
               }
             }
 
-            const workbookOut = new Excel.Workbook();
+            const csvWriter = createCsvWriter({
+              path: "reporte_rutas.csv",
+              header: [
+                { title: "Código del Curso", id: "codigo_ruta" },
+                { title: "Nombre del Curso", id: "nombre_curso" },
+                { title: "Nombre de la Ruta", id: "nombre_ruta" },
+                { title: "Nivel de Competencia", id: "nivel_competencia" },
+                { title: "Proceso", id: "proceso" },
+                {
+                  title: "Identificación",
+                  id: "identificacion",
+                },
+                {
+                  title: "Apellidos del Funcionario",
+                  id: "Apellidos_del_Funcionario",
+                },
+                {
+                  title: "Nombres del Funcionario",
+                  id: "Nombres_del_Funcionario",
+                },
+                { title: "Cargo", id: "Cargo" },
+                { title: "Nivel 1 del cargo", id: "Nivel_1_del_cargo" },
+                { title: "Nivel 2 del cargo", id: "Nivel_2_del_cargo" },
+                { title: "Nivel 3 del cargo", id: "Nivel_3_del_cargo" },
+                { title: "Nivel 4 del cargo", id: "Nivel_4_del_cargo" },
+                { title: "Correo_Electrónico", id: "Correo_Electrónico" },
+                { title: "Estado", id: "Estado" },
+                { title: "Certificado", id: "certificado" },
+              ],
+            });
+            var records = [];
+            listadoReporte.forEach((registro) => {
+              records.push({
+                codigo_ruta: registro.codigo_cuestionario,
+                nombre_curso: registro.nombre_curso,
+                nombre_ruta: registro.nombre_ruta,
+                nivel_competencia: registro.nivel_competencia,
+                Nombres_del_Funcionario: registro.nombre_funcionario,
+                Apellidos_del_Funcionario: registro.apellido_funcionario,
+                Cargo: registro.cargo,
+                Nivel_1_del_cargo: registro.nivel4,
+                Nivel_2_del_cargo: registro.nivel1,
+                Nivel_3_del_cargo: registro.nivel2,
+                Nivel_4_del_cargo: registro.nivel3,
+                Correo_Electrónico: registro.correo,
+                Estado: registro.estado,
+                identificacion: registro.identificacion,
+                proceso: registro.proceso,
+                certificado: registro.certificado,
+              });
+            });
+
+            csvWriter
+              .writeRecords(records) // returns a promise
+              .then(() => {
+                console.log("...Done");
+                return res.status(200).send({
+                  estado: "Descargado",
+                  message: util.format(
+                    "Archivo de ruta de aprendizaje generado exitosamente"
+                  ),
+                  data: Object.assign({}),
+                });
+              });
+
+            /* const workbookOut = new Excel.Workbook();
             const worksheetOut = workbookOut.addWorksheet(
               "reporte usuario cuestionario"
             );
@@ -761,7 +827,7 @@ function estado_RutaAprendizaje(req, res) {
                   data: Object.assign(respuesta),
                 });
               });
-            });
+            });*/
           }
         );
       });
