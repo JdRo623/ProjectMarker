@@ -14,7 +14,7 @@
     "formik": "^1.5.1",
     "moment": "2.22.2",
     "mousetrap": "^1.6.3",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "rc-slider": "^8.6.1",
     "rc-switch": "^1.6.0",
     "react": "^16.9.0",
@@ -74,6 +74,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "node-sass": "^4.13.0"
+    "node-sass": "^7.0.0"
   }
 }
