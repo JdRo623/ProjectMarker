@@ -17,7 +17,7 @@
     "crypto-js": "^4.0.0",
     "csv-writer": "^1.6.0",
     "exceljs": "^3.5.0",
-    "express": "^4.12.3",
+    "express": "^4.17.3",
     "express-interceptor": "^1.2.0",
     "file-base64": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
